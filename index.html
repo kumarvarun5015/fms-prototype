@@ -42,19 +42,23 @@ button{font-family:inherit;cursor:pointer}
 .land-body .ey{color:var(--brand);font-weight:800;font-size:12.5px;letter-spacing:1.4px}
 .land-body h1{font-size:34px;font-weight:800;letter-spacing:-.7px;margin:10px 0 6px;text-align:center}
 .land-body .lead{color:var(--muted);font-size:15px;text-align:center;max-width:520px;margin:0 0 36px}
-.roles{display:grid;grid-template-columns:repeat(3,minmax(240px,300px));gap:20px}
-.role{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 22px;text-align:left;transition:.18s;box-shadow:0 4px 18px rgba(16,20,28,.05);display:flex;flex-direction:column;min-height:240px}
+/* ===== Landing: 8-column bento grid ===== */
+.roles{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:20px;width:100%;max-width:960px}
+.role{grid-column:span 4;background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;text-align:left;cursor:pointer;transition:.18s;box-shadow:0 4px 18px rgba(16,20,28,.05);display:flex;flex-direction:column;min-height:230px}
 .role:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(227,83,15,.15);border-color:#f6c9a9}
-.role .ricon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:16px}
-.role h3{font-size:18px;font-weight:800;margin:0 0 6px}
-.role p{color:var(--muted);font-size:13px;margin:0 0 auto;line-height:1.55}
-.role .cta{margin-top:20px;display:flex;align-items:center;justify-content:space-between}
-.role .go{font-weight:800;font-size:13.5px}
-.badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px}
-.badge.live{background:var(--green-bg);color:#067a44} .badge.soon{background:#f1f2f5;color:#8b93a0}
-.role.agent{border-color:#f7cdaf}.role.agent .ricon{background:var(--soft);color:var(--brand)}.role.agent .go{color:var(--brand)}
-.role.uw .ricon{background:var(--bhead);color:var(--inavy)}.role.uw .go{color:#9aa1ac}
-.role.rm .ricon{background:#eafaf0;color:var(--green)}.role.rm .go{color:#9aa1ac}
+.role .ricon{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;margin-bottom:20px;background:var(--soft);color:var(--brand);flex:0 0 auto}
+.role .ricon .msym{font-size:26px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+.role h3{font-size:19px;font-weight:800;margin:0 0 6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.role p{color:var(--muted);font-size:13.5px;margin:0 0 auto;line-height:1.55}
+.role .cta{margin-top:24px}
+.role .go{font-weight:800;font-size:13.5px;color:var(--brand);display:inline-flex;align-items:center;gap:6px}
+.role .go .msym{font-size:18px}
+.role{position:relative}
+.role .ptag{position:absolute;top:20px;right:24px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--soft);color:var(--brand);border:1px solid #f7cdaf;letter-spacing:.2px;line-height:1.4}
+/* Agent: spans all 8 columns; only difference = primary (filled) CTA + the Primary tag */
+.role.agent{grid-column:1 / -1}
+.role.agent .go{background:var(--brand);color:#fff;padding:11px 20px;border-radius:10px;font-size:14px}
+@media(max-width:720px){.roles{grid-template-columns:1fr}.role,.role.agent{grid-column:1 / -1}}
 .land-foot{color:#9aa1ac;font-size:12px;padding:22px;text-align:center}
 
 /* ===================== APP CHROME ===================== */
@@ -411,13 +415,11 @@ table{width:100%;border-collapse:collapse}
 .nav-uw{display:none}
 .umore{color:var(--brand);font-size:11px;font-weight:600;margin-left:6px;white-space:nowrap;cursor:pointer}
 .et.wide{min-width:1240px}
-#uw-pending .evhead,#uw-approved .evhead,#uw-rejected .evhead{margin-bottom:0}
-#uw-pending .evtools,#uw-approved .evtools,#uw-rejected .evtools{margin:0}
 
 /* ===== Evaluated Cases ===== */
-.evhead{margin-bottom:12px}
+.evhead{margin-bottom:20px}
 .qn.pk{background:#FFF0E8;color:#E3530F}
-.evtools{display:flex;align-items:center;gap:12px;margin:0 0 20px}
+.evtools{display:flex;align-items:center;gap:12px;margin:0 0 24px}
 .ebtn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border:1px solid var(--e0);border-radius:100px;background:#fff;font-size:14px;color:#424242;cursor:pointer;white-space:nowrap}
 .ebtn .msym{font-size:18px;color:#616161}
 .evsearch{margin-left:auto;flex:0 1 430px;display:flex;align-items:center;gap:8px;height:44px;padding:0 16px;border:1px solid var(--e0);border-radius:100px;background:#fff;color:#9E9E9E;font-size:14px}
@@ -604,7 +606,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 .screen{display:none}.screen.on{display:flex;flex-direction:column;flex:1;animation:fade .2s ease}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.screen.on,.role:hover{animation:none;transform:none}}
-@media(max-width:1000px){.body{flex-direction:column}.sidebar{width:100%;position:static}.navcard{flex-direction:row;flex-wrap:wrap}.kpis,.sgrid{grid-template-columns:repeat(2,1fr)}.fgrid{grid-template-columns:1fr 1fr}.pol-wrap,.d-grid{grid-template-columns:1fr}.roles{grid-template-columns:1fr}}
+@media(max-width:1000px){.body{flex-direction:column}.sidebar{width:100%;position:static}.navcard{flex-direction:row;flex-wrap:wrap}.kpis,.sgrid{grid-template-columns:repeat(2,1fr)}.fgrid{grid-template-columns:1fr 1fr}.pol-wrap,.d-grid{grid-template-columns:1fr}}
 
 
 /* ===== UW case detail (scoped) ===== */
@@ -1296,11 +1298,136 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 /* ===== 6/7) Quote table: first column spacing + search in the tab row ===== */
 #quote .qtbl th:first-child,#quote .qtbl td:first-child{padding-left:24px}
 #quote .qtabs{gap:12px}
-#quote .qsrch{width:300px;min-width:0;margin:0 0 4px auto;flex:0 1 300px}
 .srch input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;color:#212121;padding:0}
 .srch input::placeholder{color:#9E9E9E}
 .qsrch:focus-within{border-color:var(--brand)}
 .qempty{text-align:center;color:var(--muted);height:96px!important}
+/* ===== spacing system: header->controls 20 | control row->table 24 | table->pager 20 ===== */
+#evtabs{margin-bottom:20px}
+#quote .qtabs,.dsec .qtabs{margin-bottom:24px;gap:12px}
+#quote .qpager,.dsec .qpager{padding-top:20px}
+.qtabs .qsrch{width:300px;min-width:0;margin:0 0 4px auto;flex:0 1 300px}
+#calendar .calhead{margin-bottom:4px}
+/* first-column inset: 24px on every table */
+#details .dt th:first-child,#details .dt td:first-child,.dsec .qtbl th:first-child,.dsec .qtbl td:first-child{padding-left:24px}
+/* ===================== Review Recommendations (host-skinned) ===================== */
+#recommend .rec-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+#recommend .rec-attempt{display:inline-flex;align-items:center;gap:7px;background:var(--soft);color:var(--brand);border:1px solid #f7cdaf;border-radius:100px;padding:7px 14px;font-size:13px;font-weight:700;white-space:nowrap}
+#recommend .rec-attempt .msym{font-size:16px;font-variation-settings:'FILL' 0}
+#recommend .rec-banner{display:none;align-items:center;gap:10px;background:#FFF3E3;border:1px solid #F4D9A6;color:#835900;border-radius:12px;padding:12px 14px;font-size:13px;font-weight:600;margin-bottom:20px}
+#recommend .rec-banner.on{display:flex}
+#recommend .rec-banner .msym{font-size:18px;font-variation-settings:'FILL' 0;color:#B8860B;flex:0 0 auto}
+#recommend .rec-banner-x{margin-left:auto;background:none;border:0;cursor:pointer;color:#835900;display:grid;place-items:center}
+#recommend .rec-banner-x .msym{font-size:18px}
+#recommend #segments-container{display:flex;flex-direction:column;gap:16px}
+#recommend .zd-card,#recommend .segment{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:22px 24px}
+#recommend .zd-card.not-qualified,#recommend .segment.not-qualified{border-color:#F0C9C2}
+#recommend .zd-card.editing,#recommend .segment.editing{border-color:#f7cdaf;background:linear-gradient(180deg,#FFFaf6,#fff 60%)}
+#recommend .seg-topbar,#recommend .zd-card-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px}
+#recommend .seg-name-row,#recommend .zd-card-title-left{display:flex;align-items:center;gap:10px}
+#recommend .seg-name,#recommend .zd-card-title{font-size:16px;font-weight:800;color:#212121}
+#recommend .seg-count{font-size:11px;font-weight:700;color:var(--cp1);background:var(--cp1t);border-radius:100px;padding:2px 10px}
+#recommend .seg-subtitle{font-size:12.5px;color:var(--muted);margin:2px 0 16px;line-height:1.5}
+#recommend .seg-action-link{display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--brand);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;flex:0 0 auto;margin-left:auto;align-self:flex-start}
+#recommend .seg-action-link svg{width:15px;height:15px}
+#recommend .disc-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+#recommend .disc-chip{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#F2F2F2;min-width:160px}
+#recommend .disc-chip.rec{background:#EDF3FF;border-color:#C7DBFF}
+#recommend .disc-chip-label{font-size:10.5px;font-weight:700;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px}
+#recommend .disc-chip.rec .disc-chip-label{color:#2168F6}
+#recommend .disc-chip-val{font-size:16px;font-weight:800;color:#212121}
+#recommend .disc-chip.rec .disc-chip-val{color:#2168F6}
+#recommend .disc-chip-vpill{font-size:11px;font-weight:700;color:#2168F6;background:#DCE8FF;border-radius:100px;padding:2px 8px;margin-left:8px}
+#recommend .disc-arrow{color:#9E9E9E;font-size:16px;font-weight:700}
+#recommend .status-pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:100px;margin-left:auto}
+#recommend .status-pill svg{width:13px;height:13px}
+#recommend .status-pill{color:#fff}
+#recommend .status-pill.verified{background:#01A252}
+#recommend .status-pill.verified svg{stroke:#fff}
+#recommend .status-pill.not-qualified{background:#E8290B}
+#recommend .status-pill.not-qualified svg{stroke:#fff}
+#recommend .status-pill.edited{background:#8A8078}
+#recommend .status-pill.edited svg{stroke:#fff}
+#recommend .zd-mini-stat{font-size:12px;color:var(--muted);margin-top:12px}
+#recommend .zd-mini-stat strong{color:#212121}
+#recommend .rec-action-box{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--soft);border:1px solid #f7cdaf;border-radius:12px;padding:14px 16px;margin-top:16px;position:relative;overflow:hidden}
+#recommend .rec-action-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,rgba(227,83,15,0) 0%,rgba(227,83,15,.9) 22%,rgba(227,83,15,.9) 78%,rgba(227,83,15,0) 100%)}
+#recommend .rec-action-text{font-size:13px;color:#212121;flex:1;min-width:200px;line-height:1.5}
+#recommend .rec-action-text strong{color:var(--brand)}
+#recommend .btn-accept-rec{height:38px;padding:0 18px;border:0;border-radius:8px;background:var(--brand);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+#recommend .btn-reject-rec{height:38px;padding:0 16px;border:1px solid var(--brand);border-radius:8px;background:#fff;color:var(--brand);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+#recommend .zd-info-wrap{position:relative;display:inline-flex}
+#recommend .zd-info-icon{color:#9E9E9E;cursor:help}
+#recommend .zd-info-wrap:hover .zd-info-tooltip{opacity:1;visibility:visible;transform:translate(-50%,0)}
+#recommend .zd-info-tooltip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translate(-50%,4px);width:240px;background:#212121;color:#fff;font-size:11.5px;font-weight:500;line-height:1.5;padding:9px 12px;border-radius:8px;opacity:0;visibility:hidden;transition:.15s;z-index:20;text-align:left}
+#recommend .zd-onetime-warning{display:flex;align-items:flex-start;gap:10px;background:#FFF3E3;border:1px solid #F4D9A6;border-radius:10px;padding:11px 14px;margin-bottom:16px}
+#recommend .zd-onetime-warning svg{flex:0 0 auto;stroke:#B8860B}
+#recommend .zd-onetime-text{font-size:12.5px;color:#835900;font-weight:600;line-height:1.5}
+#recommend .zd-input-block,#recommend .custom-disc-block{background:#FAFAFA;border:1px solid var(--line);border-radius:12px;padding:16px}
+#recommend .zd-input-top,#recommend .custom-disc-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+#recommend .zd-input-title,#recommend .custom-disc-title{font-size:13px;font-weight:700;color:#212121}
+#recommend .zd-input-range,#recommend .custom-disc-range{font-size:12px;color:var(--muted);font-weight:600}
+#recommend .zd-input-row{display:flex;align-items:center;gap:8px;width:100%}
+#recommend .zd-input{width:100%;max-width:460px;height:44px;border:1px solid var(--e0);border-radius:8px;padding:0 14px;font-size:15px;font-weight:700;font-family:inherit;color:#212121}
+#recommend .custom-disc-input{width:100%;max-width:240px;height:44px;border:1px solid var(--e0);border-radius:8px;padding:0 14px;font-size:15px;font-weight:700;font-family:inherit;color:#212121}
+#recommend .zd-input:focus,#recommend .custom-disc-input:focus{outline:none;border-color:var(--brand)}
+#recommend .zd-pct-sign{font-size:15px;font-weight:700;color:#616161}
+#recommend .zd-rec-line,#recommend .custom-disc-rec{font-size:12px;color:var(--muted);margin-top:10px}
+#recommend .zd-rec-line strong,#recommend .custom-disc-rec strong{color:var(--brand)}
+#recommend .zd-summary-card{background:#F5F5F5;border:1px solid var(--line);border-radius:12px;padding:14px 20px}
+#recommend .zd-summary-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#recommend .zd-summary-title{font-size:14px;font-weight:700;color:#424242}
+#recommend .zd-summary-val{font-size:14px;font-weight:800;color:#212121;display:inline-flex;align-items:center}
+#recommend .zd-locked-tag{font-size:10.5px;font-weight:700;color:#616161;background:#E0E0E0;border-radius:100px;padding:2px 10px;display:inline-flex;align-items:center;gap:4px}
+#recommend .addon-attention{display:flex;align-items:flex-start;gap:10px;background:#FFF3E3;border:1px solid #F4D9A6;border-radius:10px;padding:12px 14px;margin-top:14px}
+#recommend .addon-attention svg{flex:0 0 auto;stroke:#B8860B}
+#recommend .addon-attn-title{font-size:13px;font-weight:700;color:#835900}
+#recommend .addon-attn-sub{font-size:12px;color:#835900;line-height:1.5;margin-top:2px}
+#recommend .addons-section-label{font-size:12px;font-weight:700;color:#616161;margin:16px 0 10px}
+#recommend .age-groups{display:flex;flex-direction:column;gap:10px}
+#recommend .age-block{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+#recommend .age-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+#recommend .age-label{font-size:13px;font-weight:700;color:#212121}
+#recommend .age-count{font-size:11px;font-weight:700;color:var(--cp1);background:var(--cp1t);border-radius:100px;padding:2px 8px}
+#recommend .age-addons-row{display:flex;flex-wrap:wrap;gap:8px}
+#recommend .addon-check-item{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--e0);border-radius:8px;padding:8px 12px;font-size:12.5px;font-weight:600;color:#424242;cursor:pointer;transition:.12s}
+#recommend .addon-check-item:hover{border-color:var(--brand)}
+#recommend .addon-check-item.checked{border-color:var(--brand);background:var(--soft);color:var(--brand)}
+#recommend .addon-checkbox{width:16px;height:16px;border:1.5px solid #9E9E9E;border-radius:4px;display:grid;place-items:center;background:#fff}
+#recommend .addon-check-item.checked .addon-checkbox{background:var(--brand);border-color:var(--brand)}
+#recommend .addon-checkbox svg{opacity:0}
+#recommend .addon-check-item.checked .addon-checkbox svg{opacity:1}
+#recommend .addons-display{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+#recommend .addons-display-label{font-size:11px;font-weight:700;color:#616161;margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px}
+#recommend .addons-display-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+#recommend .addons-display-age{font-size:12px;font-weight:700;color:#424242}
+#recommend .addons-display-tag{font-size:11.5px;font-weight:700;color:#2168F6;background:#EDF3FF;border:1px solid #C7DBFF;border-radius:100px;padding:3px 10px}
+.rec-foot{justify-content:space-between}
+.rc-mask{position:fixed;inset:0;background:rgba(26,14,4,.55);display:none;place-items:center;z-index:320;padding:20px}
+.rc-mask.on{display:grid}
+.rc-dialog{background:#fff;border-radius:20px;max-width:440px;width:100%;padding:30px 30px 26px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.rc-ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin:0 auto 18px;background:var(--soft);color:var(--brand)}
+.rc-ic .msym{font-size:28px;font-variation-settings:'FILL' 0}
+.rc-ic.warn{background:#FFF3E3;color:#B8860B}
+.rc-ic.success{background:#DFFFE6;color:#01A252}
+.rc-modal-title{font-family:Inter,Mulish,sans-serif;font-size:19px;font-weight:800;color:#212121;margin-bottom:8px}
+.rc-modal-body{font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:22px}
+.rc-modal-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.rc-modal-actions .btn{min-width:140px;justify-content:center}
+
+/* ZD editing footer row (match Image 5) */
+#recommend .zd-input-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;flex-wrap:wrap}
+#recommend .zd-required{font-size:12px;color:var(--muted)}
+#recommend .zd-required strong{color:#2168F6}
+/* full-width one-time warning banner (match Image 5) */
+#recommend .rec-warnbar{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #f7cdaf;border-radius:14px;padding:14px 18px;margin-bottom:16px;color:var(--brand);font-size:14px;font-weight:600;box-shadow:var(--shadow)}
+#recommend .rec-warnbar svg{flex:0 0 auto;stroke:var(--brand)}
+#recommend .rec-warnbar-x{margin-left:auto;background:none;border:0;cursor:pointer;color:var(--brand);display:grid;place-items:center}
+#recommend .rec-warnbar-x .msym{font-size:18px}
+/* generic modal close button */
+.rc-dialog{position:relative}
+.rc-x{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;border:0;background:#F2F2F2;color:#616161;display:grid;place-items:center;cursor:pointer}
+.rc-x .msym{font-size:18px}
 </style>
 </head>
 <body>
@@ -1314,19 +1441,20 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
     <p class="lead">Select a flow to continue. Each role has a tailored journey — start with the Agent workspace to generate quotes and book policies.</p>
     <div class="roles">
       <button class="role agent" onclick="enterAgent()">
-        <div class="ricon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13A4 4 0 0 1 16 11"/></svg></div>
+        <span class="ptag">Primary</span>
+        <div class="ricon"><span class="msym">group</span></div>
         <h3>Agent Flow</h3><p>Generate bulk fleet quotes, validate vehicle data, configure plans and book policies.</p>
-        <div class="cta"><span class="go">Enter workspace →</span><span class="badge live">Available</span></div>
+        <div class="cta"><span class="go">Enter workspace <span class="msym">arrow_forward</span></span></div>
       </button>
       <button class="role uw" onclick="enterUnderwriter()">
-        <div class="ricon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="ricon"><span class="msym">verified_user</span></div>
         <h3>Underwrite Flow</h3><p>Risk assessment, referrals and quote approvals for submitted fleet evaluations.</p>
-        <div class="cta"><span class="go">Enter workspace →</span><span class="badge" style="background:#DFFFE6;color:#03602E">Available</span></div>
+        <div class="cta"><span class="go">Enter workspace <span class="msym">arrow_forward</span></span></div>
       </button>
       <button class="role rm" onclick="enterRM()">
-        <div class="ricon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="ricon"><span class="msym">handshake</span></div>
         <h3>Relationship Manager Flow</h3><p>Enter commission values for pending fleet cases and submit for approval.</p>
-        <div class="cta"><span class="go">Preview →</span><span class="badge soon">Coming soon</span></div>
+        <div class="cta"><span class="go">Enter workspace <span class="msym">arrow_forward</span></span></div>
       </button>
     </div>
   </div>
@@ -1413,13 +1541,14 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
   <div class="odbox"><div class="odrow"><div class="top"><span>Total Claims</span><b>400</b></div><div class="odtrack"><div class="odfill" style="width:100%;background:#2168F6"></div></div></div><div class="odrow"><div class="top"><span>Settled Claims</span><b>200</b></div><div class="odtrack"><div class="odfill" style="width:50%;background:#01A252"></div></div></div><div class="odrow"><div class="top"><span>Pending Claims</span><b>150</b></div><div class="odtrack"><div class="odfill" style="width:37%;background:#E49F04"></div></div></div><div class="odrow"><div class="top"><span>Rejected Claims</span><b>50</b></div><div class="odtrack"><div class="odfill" style="width:12%;background:#E00903"></div></div></div></div>
 </div>
         </div>
-        <div class="dsec" style="padding:16px;margin-top:20px">
+        <div class="dsec" style="margin-top:20px">
   <div class="dsechd"><span class="sic"><span class="msym">hotel_class</span></span><span class="stt">Strategic Customer List</span></div>
   <div class="qtabs">
     <button class="qtab on" onclick="qtab(this)">Total <span class="qn o">100</span></button>
     <button class="qtab" onclick="qtab(this)">Approved <span class="qn g">35</span></button>
     <button class="qtab" onclick="qtab(this)">Pending <span class="qn a">45</span></button>
     <button class="qtab" onclick="qtab(this)">Rejected <span class="qn r">18</span></button>
+    <div class="srch qsrch"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BDBDBD" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" id="stratsearch" placeholder="Search &ldquo;Business name, Fleet ID&rdquo;" oninput="stratSearch(this.value)" autocomplete="off"></div>
   </div>
   <div class="tbl-wrap"><table class="qtbl">
     <colgroup><col style="width:64px"><col style="width:20%"><col style="width:11%"><col style="width:11%"><col style="width:11%"><col style="width:12%"><col style="width:14%"><col style="width:11%"></colgroup>
@@ -1430,8 +1559,50 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
     </tr></thead>
     <tbody id="strat"></tbody></table>
   </div>
+  <div class="qpager">
+    <button class="qarrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button class="qpg">Back</button>
+    <button class="qpg on">1</button>
+    <button class="qpg">2</button>
+    <button class="qpg">3</button>
+    <button class="qpg">4</button>
+    <button class="qpg">5</button>
+    <button class="qpg">Next</button>
+    <button class="qarrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+  </div>
 </div>
       </section>
+
+      <!-- REVIEW RECOMMENDATIONS (recommendation engine) -->
+      <section class="screen" id="recommend">
+        <div class="flowcard" style="border-radius:20px">
+          <div class="flowbody" id="rec-body" style="gap:0">
+            <div class="rec-head">
+              <div><div class="dtitle">Review Recommendations</div><div class="dsub" id="rec-sub">We&rsquo;ve calculated a ZD recommendation to help this fleet qualify for real-time approval.</div></div>
+              <div class="rec-attempt"><span class="msym">info</span><span id="rec-attempt-text">5 Attempts Remaining</span></div>
+            </div>
+            <div class="rec-banner" id="rec-banner">
+              <span class="msym">warning</span>
+              <span id="rec-banner-text">The fleet did not qualify. Accept the updated recommendations for the best chance of qualifying.</span>
+              <button class="rec-banner-x" onclick="document.getElementById('rec-banner').classList.remove('on')"><span class="msym">close</span></button>
+            </div>
+            <div id="segments-container"></div>
+          </div>
+        </div>
+        <div class="premfoot rec-foot">
+          <button class="btn ghost" onclick="discardAndProceed()">Discard Changes &amp; Proceed</button>
+          <button class="btn primary" id="main-cta">Accept &amp; Proceed</button>
+        </div>
+      </section>
+
+      <div class="rc-mask" id="rc-modal">
+        <div class="rc-dialog">
+          <div class="rc-ic" id="rc-modal-ic"><span class="msym">verified</span></div>
+          <div class="rc-modal-title" id="rc-modal-title"></div>
+          <div class="rc-modal-body" id="rc-modal-body"></div>
+          <div class="rc-modal-actions" id="rc-modal-actions"></div>
+        </div>
+      </div>
 
       <!-- UPLOAD (flow card) -->
       <section class="screen on" id="upload">
@@ -1551,7 +1722,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
             </div>
             <div style="display:flex;gap:12px">
               <button class="btn ghost" onclick="go('upload')">Save and exit</button>
-              <button class="btn primary" id="plan-cta" disabled onclick="analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){go('quote');},4000)">Get Quote →</button>
+              <button class="btn primary" id="plan-cta" disabled onclick="analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){openInterception();},4000)">Get Quote →</button>
             </div>
           </div>
         </div>
@@ -1662,7 +1833,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
             <!-- EVALUATED CASES -->
       <section class="screen" id="evaluated">
         <div class="flowcard" style="border-radius:20px">
-          <div class="flowbody" style="gap:16px">
+          <div class="flowbody" style="gap:0">
             <div class="evhead"><div class="dtitle">Evaluated Cases</div><div class="dsub">All fleet evaluations and quotes that have been generated or sent for evaluation in the past are listed here.</div></div>
             <div class="qtabs" id="evtabs">
               <button class="qtab" onclick="evTab(this,'pre')">Pre-Evaluation <span class="qn pk">10</span></button>
@@ -1745,7 +1916,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
       </section>
 
       <section class="screen" id="uw-pending">
-        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:10px">
+        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Pending cases</div><div class="dsub">Discover pending fleet cases that require underwriter evaluation.</div></div>
           <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
@@ -1755,7 +1926,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
         </div></div>
       </section>
       <section class="screen" id="uw-approved">
-        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:10px">
+        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Approved cases</div><div class="dsub">Discover fleet cases approved by underwriters.</div></div>
           <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
@@ -1765,7 +1936,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
         </div></div>
       </section>
       <section class="screen" id="uw-rejected">
-        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:10px">
+        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Rejected cases</div><div class="dsub">Discover fleet cases rejected for policy booking.</div></div>
           <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
@@ -2388,7 +2559,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 
 <div class="toast" id="toast"></div></div></section>
       <section class="screen" id="rm-pending">
-        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:16px">
+        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Pending cases</div><div class="dsub">Review the pending cases of fleets received from agents that need further action for approval.</div></div>
           <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rmp-rows"></tbody></table></div></div>
@@ -2396,7 +2567,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
         </div></div>
       </section>
       <section class="screen" id="rm-approved">
-        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:16px">
+        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Approved cases</div><div class="dsub">Fleet cases where commission has been submitted and approved.</div></div>
           <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rma-rows"></tbody></table></div></div>
@@ -2404,7 +2575,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
         </div></div>
       </section>
       <section class="screen" id="rm-rejected">
-        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:16px">
+        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Rejected cases</div><div class="dsub">Fleet cases rejected for policy booking.</div></div>
           <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rmr-rows"></tbody></table></div></div>
@@ -2462,7 +2633,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 
 <script>
 const strat=[[1,'Apex Shield Insurance','FMS1001',100,50,20,40],[2,'BlueStar Risk Partners','FMS1002',200,100,60,60],[3,'Crestline Assurance Co.','FMS1003',300,150,100,67],[4,'Vantage Protect Agency','FMS1004',400,200,140,70],[5,'Meridian Cover Group','FMS1005',500,250,180,72],[6,'Pinnacle Trust Insurers','FMS1006',600,300,220,73],[7,'Safehold Advisory Pvt. Ltd','FMS1007',700,350,260,74],[8,'Nexus Guard Insurance','FMS1008',800,400,300,75],[9,'Clearpath Risk Solutions','FMS1009',900,450,340,76],[10,'Harborview Assurance Ltd','FMS1010',1000,500,380,76]];
-document.getElementById('strat').innerHTML=strat.map(r=>`<tr>
+function renderStrat(list){document.getElementById('strat').innerHTML=list.length?list.map(r=>`<tr>
  <td class="dim">${r[0]}</td>
  <td class="dim">${r[1]}</td>
  <td class="dim">${r[2]}</td>
@@ -2471,7 +2642,9 @@ document.getElementById('strat').innerHTML=strat.map(r=>`<tr>
  <td class="dim">${r[5]}</td>
  <td><div class="wallet"><b>${r[6]}%</b></div></td>
  <td><button class="viewlink" data-go="policy">View <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button></td>
-</tr>`).join('');
+</tr>`).join(''):'<tr><td colspan="8" class="qempty">No customers found</td></tr>';}
+renderStrat(strat);
+function stratSearch(v){v=(v||'').trim().toLowerCase();renderStrat(strat.filter(r=>(r[1]+' '+r[2]).toLowerCase().indexOf(v)>-1));}
 
 const vehicles=Array.from({length:10}).map(()=>({reg:'MH23ABB765',usage:'Mining',make:'Tata Motors',sub:'Truck',body:'Closed',build:'Partial',model:'Prima XL 300',rto:'Gandhinagar'}));
 document.getElementById('veh').innerHTML=vehicles.map(v=>`<tr>
@@ -2538,7 +2711,7 @@ function enterSoon(name,role){document.getElementById('landing').hidden=true;doc
 function backToLanding(){document.getElementById('app').hidden=true;document.getElementById('landing').hidden=false;window.scrollTo(0,0);}
 function enableNav(on){document.querySelectorAll('#nav button:not(.collapse)').forEach(b=>{b.style.opacity=on?'1':'.4';b.style.pointerEvents=on?'auto':'none';});}
 
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));const map={dashboard:'dashboard',upload:'upload',details:'upload',plan:'upload',quote:'upload',policy:'upload',evaluated:'evaluated',calendar:'calendar','uw-pending':'uw-pending','uw-approved':'uw-approved','uw-rejected':'uw-rejected','uw-detail':'uw-pending','rm-pending':'rm-pending','rm-approved':'rm-approved','rm-rejected':'rm-rejected','rm-detail':'rm-pending'};document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===map[id]));if(id==='uw-detail'){setTimeout(function(){try{syncH();}catch(e){}},40);}if(id==='rm-detail'){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===rmFrom));}window.scrollTo({top:0,behavior:'smooth'});}
+function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));const map={dashboard:'dashboard',upload:'upload',details:'upload',plan:'upload',quote:'upload',policy:'upload',recommend:'upload',evaluated:'evaluated',calendar:'calendar','uw-pending':'uw-pending','uw-approved':'uw-approved','uw-rejected':'uw-rejected','uw-detail':'uw-pending','rm-pending':'rm-pending','rm-approved':'rm-approved','rm-rejected':'rm-rejected','rm-detail':'rm-pending'};document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===map[id]));if(id==='uw-detail'){setTimeout(function(){try{syncH();}catch(e){}},40);}if(id==='rm-detail'){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===rmFrom));}window.scrollTo({top:0,behavior:'smooth'});}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(t){go(t.dataset.go);}});
 function pick(el){el.parentNode.querySelectorAll('.choice').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
 function pick2(el){el.parentNode.querySelectorAll('.evalbtn').forEach(c=>c.classList.remove('on'));el.classList.add('on');nqGate();}
@@ -3297,6 +3470,743 @@ function planGate(){
   b.title=ok?'':'Tick the ZD declaration confirmation and the declaration below to continue';
 }
 planGate();
+
+</script>
+<script>
+const BASE_SEGMENTS = [
+  { id:1, name:'Truck',   count:30, prevDisc:30, recDisc:20,
+    ageGroups:[
+      {label:'New Vehicle',count:10, preSelected:['Consumables']},
+      {label:'0-3 Years',count:10, preSelected:[]},
+      {label:'3-5 Years',count:10, preSelected:[]}
+    ] },
+  { id:2, name:'Trailer', count:30, prevDisc:28, recDisc:18,
+    ageGroups:[
+      {label:'New Vehicle',count:10, preSelected:['Battery Protect']},
+      {label:'0-3 Years',count:10, preSelected:[]},
+      {label:'3-5 Years',count:10, preSelected:['Consumables','RTI']}
+    ] },
+  { id:3, name:'Tanker',  count:30, prevDisc:35, recDisc:15,
+    ageGroups:[
+      {label:'New Vehicle',count:10, preSelected:[]},
+      {label:'0-3 Years',count:10, preSelected:[]},
+      {label:'3-5 Years',count:10, preSelected:[]}
+    ] }
+];
+const ADDONS = ['Consumables','Battery Protect','RTI'];
+
+let segments = JSON.parse(JSON.stringify(BASE_SEGMENTS));
+let addonState = {};      // { [segId]: { [ai]: Set } }
+let customMode = {};      // { [segId]: bool } — true while editing above recommended
+let segResult = {};       // { [segId]: undefined | 'qualified' | 'not-qualified' | 'accepted' | 'rec-updated' }
+let recUpdatedFrom = {};  // { [segId]: name of the segment whose modification caused this shift }
+let editingSegId = null;  // segment currently showing inline editor
+let agentConfig = {};     // { [segId]: { disc, isCustom, addons } }
+let attempts = 5;
+let hasReEvaluated = false;
+
+// ── Zero Depreciation gate state (Attempt 1) ──
+let zdPhase = true;           // true = ZD-only gate is active, segments are hidden
+let zdEditing = false;        // whether the ZD input editor is currently open
+let zdEligibleCount = 92;     // vehicles in the fleet eligible for ZD cover
+let zdTotalCount = 100;       // total vehicles in the fleet
+let zdCurrent = 70;           // value the agent set on the Plan Page
+let zdRecommended = 90;       // system's suggested value to clear SLR
+let zdFinal = null;           // value locked in once the ZD attempt is used
+
+function initState() {
+  segments.forEach(seg => {
+    if (!addonState[seg.id]) addonState[seg.id] = {};
+    if (customMode[seg.id] === undefined) customMode[seg.id] = false;
+  });
+}
+
+function buildSegments() {
+  initState();
+  const container = document.getElementById('segments-container');
+  if (zdPhase) {
+    container.innerHTML = buildZdCard();
+  } else {
+    container.innerHTML = buildZdSummaryCard() + segments.map(seg => buildCard(seg)).join('');
+  }
+  wireFooter();
+}
+
+function buildAgeGroupsHTML(seg) {
+  return seg.ageGroups.map((ag, ai) => {
+    const preSelected = ag.preSelected || [];
+    const available = ADDONS
+      .map((addon, bi) => ({ addon, bi }))
+      .filter(o => !preSelected.includes(o.addon));
+
+    const rowHTML = available.length > 0
+      ? available.map(({ addon, bi }) => `
+          <div class="addon-check-item" id="chip-${seg.id}-${ai}-${bi}" onclick="toggleAddon(${seg.id},${ai},${bi})">
+            <div class="addon-checkbox"><svg width="11" height="11" viewBox="0 0 11 11"><polyline points="1,5.5 4,8.5 10,2" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            ${addon}
+          </div>`).join('')
+      : `<span style="font-size:13px;color:#aaa;">All available add-ons for this age group are already included.</span>`;
+
+    return `
+    <div class="age-block">
+      <div class="age-header">
+        <span class="age-label">${ag.label}</span>
+        <span class="age-count">${ag.count}</span>
+      </div>
+      <div class="age-addons-row">${rowHTML}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildEditorHTML(seg, prefill) {
+  return `
+    <div class="custom-disc-block">
+      <div class="custom-disc-top">
+        <span class="custom-disc-title">Set your discount (%)</span>
+        <span class="custom-disc-range">Range: ${seg.recDisc}%- ${seg.prevDisc}%</span>
+      </div>
+      <input class="custom-disc-input" id="disc-input-${seg.id}" type="number"
+        value="${prefill}" min="${seg.recDisc}" max="${seg.prevDisc}"
+        oninput="onDiscountInput(${seg.id})" onclick="event.stopPropagation()"/>
+      <div class="custom-disc-rec">Recommended: <strong>${seg.recDisc}%</strong></div>
+    </div>
+    <div class="addon-attention" id="addon-attn-${seg.id}" style="display:none;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div>
+        <div class="addon-attn-title">Select an add-on</div>
+        <div class="addon-attn-sub">You haven't chosen the recommended discount. Select addons and re-evaluate the fleet to increase chances of approval.</div>
+      </div>
+    </div>
+    <div id="age-groups-wrap-${seg.id}" style="display:none;">
+      <div class="addons-section-label">Add-ons</div>
+      <div class="age-groups">${buildAgeGroupsHTML(seg)}</div>
+    </div>`;
+}
+
+// ── Zero Depreciation gate card (Attempt 1 only) ──
+function buildZdCard() {
+  return zdEditing ? buildZdEditingCard() : buildZdFreshCard();
+}
+
+const zdInfoIconHTML = `
+  <span class="zd-info-wrap">
+    <svg class="zd-info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <span class="zd-info-tooltip">A higher ZD declaration increases this fleet's chances of qualifying for real-time approval.</span>
+  </span>`;
+
+// ── ZD fresh state — chips + Modify, matches the segment "never touched" card ──
+function buildZdFreshCard() {
+  return `
+    <div class="zd-card not-qualified" id="zd-card">
+      <div class="zd-card-title-row">
+        <div class="zd-card-title-left">
+          <span class="zd-card-title">Zero Depreciation Cover</span>
+          ${zdInfoIconHTML}
+        </div>
+      </div>
+      <div class="seg-subtitle">This ZD declaration didn't qualify. Your last value is shown below.</div>
+      <div class="disc-row">
+        <div class="disc-chip prev">
+          <div class="disc-chip-label">Requested ZD Penetration</div>
+          <div style="display:flex;align-items:center;">
+            <span class="disc-chip-val">${zdCurrent}%</span>
+            <span class="disc-chip-vpill">${Math.ceil(zdEligibleCount * (zdCurrent/100))} Vehicles</span>
+          </div>
+        </div>
+        <span class="disc-arrow">→</span>
+        <div class="disc-chip rec">
+          <div class="disc-chip-label">Recommended ZD Penetration</div>
+          <div style="display:flex;align-items:center;">
+            <span class="disc-chip-val">${zdRecommended}%</span>
+            <span class="disc-chip-vpill">${Math.ceil(zdEligibleCount * (zdRecommended/100))} Vehicles</span>
+          </div>
+        </div>
+        <span class="status-pill not-qualified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Not Qualified</span>
+      </div>
+      <div class="zd-mini-stat">Total Vehicles: <strong>${zdTotalCount}</strong> · ZD Eligible: <strong>${zdEligibleCount}</strong></div>
+      <div class="rec-action-box" style="margin-top:14px;">
+        <div class="rec-action-text">To help this segment qualify, we recommend a ZD value of <strong>${zdRecommended}%</strong></div>
+        <button class="btn-accept-rec" onclick="acceptZdRecommendation()">Accept Recommendation</button>
+        <button class="btn-reject-rec" onclick="openZdEditor()">Modify</button>
+      </div>
+    </div>`;
+}
+
+// ── ZD editing state — input block + Reset, matches the segment "editing" card ──
+function buildZdEditingCard() {
+  const required = Math.ceil(zdEligibleCount * (zdCurrent / 100));
+  const recVeh = Math.ceil(zdEligibleCount * (zdRecommended / 100));
+  return `
+    <div class="rec-warnbar" id="zd-warnbar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>This is your only attempt to adjust ZD- if it doesn't qualify, you'll move to discount and add-on options and won't be able to return here.</span>
+      <button class="rec-warnbar-x" onclick="document.getElementById('zd-warnbar').style.display='none'"><span class="msym">close</span></button>
+    </div>
+    <div class="zd-card editing" id="zd-card">
+      <div class="zd-card-title-row">
+        <div class="zd-card-title-left">
+          <span class="zd-card-title">Zero Depreciation Cover</span>
+          ${zdInfoIconHTML}
+        </div>
+        <button class="seg-action-link" onclick="closeZdEditor()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+          Reset
+        </button>
+      </div>
+      <div class="seg-subtitle">Increase the ZD declaration to improve the chances of real-time fleet approval.</div>
+      <div class="zd-input-block">
+        <div class="zd-input-top">
+          <span class="zd-input-title">ZD Declaration (%)</span>
+          <span class="zd-input-range">Range: ${zdCurrent}%- 100%</span>
+        </div>
+        <div class="zd-input-row">
+          <input class="zd-input" id="zd-input" type="number" min="${zdCurrent}" max="100"
+            value="${zdCurrent}" oninput="onZdInput()"/>
+        </div>
+        <div class="zd-input-foot">
+          <span class="zd-required">ZD Required: <strong id="zd-min-vehicles">${required}</strong> Vehicles</span>
+          <span class="zd-rec-line">Recommended: <strong>${zdRecommended}%</strong> (${recVeh} Vehicles)</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function openZdEditor() {
+  zdEditing = true;
+  buildSegments();
+  setTimeout(() => { const el = document.getElementById('zd-input'); if (el) el.focus(); }, 50);
+}
+
+function closeZdEditor() {
+  zdEditing = false;
+  buildSegments();
+}
+
+// ── ZD locked reference card — shown above segments once attempt 1 is used ──
+function buildZdSummaryCard() {
+  return `
+    <div class="zd-summary-card">
+      <div class="zd-summary-top">
+        <span class="zd-summary-title">Zero Depreciation Cover</span>
+        <span class="zd-summary-val">${zdFinal}% <span class="zd-locked-tag" style="margin-left:8px;">Locked</span></span>
+      </div>
+    </div>`;
+}
+
+function onZdInput() {
+  const input = document.getElementById('zd-input');
+  const val = parseFloat(input.value);
+  const clean = isNaN(val) ? zdCurrent : Math.max(0, Math.min(100, val));
+  const declared = Math.ceil(zdEligibleCount * (clean / 100));
+  document.getElementById('zd-min-vehicles').textContent = declared;
+}
+
+function buildCard(seg) {
+  const ac = agentConfig[seg.id];
+  const res = segResult[seg.id];
+
+  // ── State: currently editing this segment ──
+  if (editingSegId === seg.id) {
+    const prefill = ac && ac.isCustom ? ac.disc : seg.recDisc;
+    return `
+      <div class="segment editing" id="seg-${seg.id}">
+        <div class="seg-topbar">
+          <div class="seg-name-row">
+            <span class="seg-name">${seg.name}</span>
+            <span class="seg-count">${seg.count}</span>
+          </div>
+          <button class="seg-action-link" onclick="closeEditor(${seg.id})">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            Reset
+          </button>
+        </div>
+        <div class="seg-subtitle">Discounts beyond the recommended value require add-on selection for this segment to qualify.</div>
+        ${buildEditorHTML(seg, prefill)}
+      </div>`;
+  }
+
+  // ── State: edited and saved, but not yet evaluated ──
+  // Happens when the agent customised this segment, then moved on to another
+  // segment or closed the editor without hitting the global Re-evaluate.
+  if (ac && res === undefined) {
+    let addonsHTML = '';
+    if (ac.addons && ac.addons.some(a => a.addonNames.length > 0)) {
+      const rows = ac.addons.filter(a => a.addonNames.length > 0).map(a => `
+        <div class="addons-display-row">
+          <span class="addons-display-age">${a.ageLabel}:</span>
+          ${a.addonNames.map(n => `<span class="addons-display-tag">${n}</span>`).join('')}
+        </div>`).join('');
+      addonsHTML = `<div class="addons-display"><div class="addons-display-label">Selected Add-ons</div>${rows}</div>`;
+    }
+    return `
+      <div class="segment" id="seg-${seg.id}">
+        <div class="seg-topbar">
+          <div class="seg-name-row">
+            <span class="seg-name">${seg.name}</span>
+            <span class="seg-count">${seg.count}</span>
+          </div>
+          <button class="seg-action-link" onclick="openEditor(${seg.id})">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Modify
+          </button>
+        </div>
+        <div class="seg-subtitle">You've customised this segment - re-evaluate the fleet to check if it qualifies.</div>
+        <div class="disc-row">
+          <div class="disc-chip prev"><div class="disc-chip-label">Requested Discount</div><div class="disc-chip-val">${ac.disc}%</div></div>
+          <span class="status-pill edited"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Modified</span>
+        </div>
+        ${addonsHTML}
+      </div>`;
+  }
+
+  // ── State: fresh, never touched ──
+  if (!ac && res === undefined) {
+    return `
+      <div class="segment" id="seg-${seg.id}">
+        <div class="seg-topbar">
+          <div class="seg-name-row">
+            <span class="seg-name">${seg.name}</span>
+            <span class="seg-count">${seg.count}</span>
+          </div>
+          <button class="seg-action-link" onclick="openEditor(${seg.id})">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Modify
+          </button>
+        </div>
+        <div class="seg-subtitle">The recommended discount applies to every vehicle in the segment.</div>
+        <div class="disc-row">
+          <div class="disc-chip prev"><div class="disc-chip-label">Previous Discount</div><div class="disc-chip-val">${seg.prevDisc}%</div></div>
+          <span class="disc-arrow">→</span>
+          <div class="disc-chip rec"><div class="disc-chip-label">Recommended Discount</div><div class="disc-chip-val">${seg.recDisc}%</div></div>
+          <span class="status-pill verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8,12 11,15 16,9"/></svg> Qualified</span>
+        </div>
+      </div>`;
+  }
+
+  // ── State: actioned — qualified / accepted / not-qualified ──
+  const isQ = res === 'qualified' || res === 'accepted';
+  const cardClass = res === 'not-qualified' ? 'not-qualified' : '';
+  const discLabel = 'Recommended Discount';
+  const discVal = ac.disc;
+  const rightVal = res === 'not-qualified' ? seg.recDisc : discVal;
+  let subtitle;
+  if (res === 'not-qualified') {
+    subtitle = "This configuration didn't qualify. Your last selections are shown below.";
+  } else if (res === 'accepted') {
+    subtitle = "You accepted the system's recommended discount for this segment.";
+  } else {
+    subtitle = 'The recommended discount applies to every vehicle in the segment.';
+  }
+
+  let addonsHTML = '';
+  if (ac.addons && ac.addons.some(a => a.addonNames.length > 0)) {
+    const rows = ac.addons.filter(a => a.addonNames.length > 0).map(a => `
+      <div class="addons-display-row">
+        <span class="addons-display-age">${a.ageLabel}:</span>
+        ${a.addonNames.map(n => `<span class="addons-display-tag">${n}</span>`).join('')}
+      </div>`).join('');
+    addonsHTML = `<div class="addons-display"><div class="addons-display-label">Selected Add-ons</div>${rows}</div>`;
+  }
+
+  let bottomHTML = '';
+  if (res === 'not-qualified') {
+    const rippleNote = recUpdatedFrom[seg.id];
+    const newRec = (ac.isSeeded || rippleNote) ? seg.recDisc : Math.round((seg.recDisc + discVal) / 2);
+    const valueWord = rippleNote ? 'revised discount value' : 'discount value';
+    const rippleSentence = rippleNote ? `<br>The revision is due to modifications made to another segment.` : '';
+    bottomHTML = `
+      <div class="rec-action-box">
+        <div class="rec-action-text">To help this segment qualify, we recommend a ${valueWord} of <strong>${newRec}%</strong>${rippleSentence}</div>
+        <button class="btn-accept-rec" onclick="acceptRec(${seg.id})">Accept Recommendation</button>
+        <button class="btn-reject-rec" onclick="openEditor(${seg.id})">Modify</button>
+      </div>`;
+  }
+
+  const statusPillHTML = res === 'not-qualified'
+    ? `<span class="status-pill not-qualified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Not Qualified</span>`
+    : `<span class="status-pill verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8,12 11,15 16,9"/></svg> Qualified</span>`;
+
+  return `
+    <div class="segment ${cardClass}" id="seg-${seg.id}">
+      <div class="seg-topbar">
+        <div class="seg-name-row">
+          <span class="seg-name">${seg.name}</span>
+          <span class="seg-count">${seg.count}</span>
+        </div>
+        ${res === 'not-qualified' ? '' : `
+        <button class="seg-action-link" onclick="openEditor(${seg.id})">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Modify
+        </button>`}
+      </div>
+      <div class="seg-subtitle">${subtitle}</div>
+      <div class="disc-row">
+        <div class="disc-chip prev"><div class="disc-chip-label">${res === 'not-qualified' ? 'Requested Discount' : 'Previous Discount'}</div><div class="disc-chip-val">${res === 'not-qualified' ? discVal : seg.prevDisc}%</div></div>
+        <span class="disc-arrow">→</span>
+        <div class="disc-chip rec"><div class="disc-chip-label">${discLabel}</div><div class="disc-chip-val">${rightVal}%</div></div>
+        ${statusPillHTML}
+      </div>
+      ${addonsHTML}
+      ${bottomHTML}
+    </div>`;
+}
+
+// ── Editor open/close ──
+// Save whatever is currently in the editor for a segment into agentConfig,
+// without marking it as evaluated — used when the agent switches to another
+// segment before hitting the global Re-evaluate.
+function commitSegmentEdit(segId) {
+  const seg = segments.find(s => s.id === segId);
+  const input = document.getElementById('disc-input-' + segId);
+  if (!seg || !input) return;
+  const val = parseFloat(input.value);
+  const isCustom = customMode[segId] && !isNaN(val) && val > seg.recDisc;
+  if (isCustom) {
+    const disc = val;
+    const addons = [];
+    seg.ageGroups.forEach((ag, ai) => {
+      const sel = addonState[segId][ai];
+      if (sel && sel.size > 0) addons.push({ ageLabel: ag.label, addonNames: [...sel].map(bi => ADDONS[bi]) });
+    });
+    agentConfig[segId] = { disc, isCustom: true, addons };
+  } else {
+    // Nothing meaningful to remember — clear any stale commit
+    delete agentConfig[segId];
+  }
+  customMode[segId] = isCustom;
+}
+
+function openEditor(segId) {
+  if (editingSegId !== null && editingSegId !== segId) {
+    commitSegmentEdit(editingSegId);
+  }
+  editingSegId = segId;
+  const seg = segments.find(s => s.id === segId);
+  const ac = agentConfig[segId];
+  // Restore addon state from last submitted config
+  addonState[segId] = {};
+  if (ac && ac.addons) {
+    ac.addons.forEach(a => {
+      const ai = seg.ageGroups.findIndex(ag => ag.label === a.ageLabel);
+      if (ai === -1) return;
+      a.addonNames.forEach(name => {
+        const bi = ADDONS.indexOf(name);
+        if (bi !== -1) { if (!addonState[segId][ai]) addonState[segId][ai] = new Set(); addonState[segId][ai].add(bi); }
+      });
+    });
+  }
+  customMode[segId] = !!(ac && ac.isCustom);
+  buildSegments();
+  setTimeout(() => {
+    const input = document.getElementById('disc-input-' + segId);
+    if (!input) return;
+    input.focus();
+    if (customMode[segId]) {
+      document.getElementById('addon-attn-' + segId).style.display = 'flex';
+      document.getElementById('age-groups-wrap-' + segId).style.display = 'block';
+      seg.ageGroups.forEach((ag, ai) => {
+        ADDONS.forEach((_, bi) => {
+          const chip = document.getElementById(`chip-${segId}-${ai}-${bi}`);
+          if (chip) chip.classList.toggle('checked', !!(addonState[segId][ai] && addonState[segId][ai].has(bi)));
+        });
+      });
+    }
+  }, 50);
+}
+
+function closeEditor(segId) {
+  editingSegId = null;
+  // Discard this session's in-progress changes — fall back to whatever was already
+  // committed for this segment (or nothing, if it was never edited before)
+  const ac = agentConfig[segId];
+  customMode[segId] = !!(ac && ac.isCustom);
+  buildSegments();
+}
+
+function onDiscountInput(segId) {
+  const seg = segments.find(s => s.id === segId);
+  const input = document.getElementById('disc-input-' + segId);
+  const val = parseFloat(input.value);
+  const isCustom = !isNaN(val) && val > seg.recDisc && val <= seg.prevDisc;
+  const attn = document.getElementById('addon-attn-' + segId);
+  const wrap = document.getElementById('age-groups-wrap-' + segId);
+  if (isCustom) {
+    attn.style.display = 'flex';
+    wrap.style.display = 'block';
+    customMode[segId] = true;
+  } else {
+    attn.style.display = 'none';
+    wrap.style.display = 'none';
+    customMode[segId] = false;
+  }
+  wireFooter();
+}
+
+function toggleAddon(segId, ai, bi) {
+  if (!addonState[segId][ai]) addonState[segId][ai] = new Set();
+  const s = addonState[segId][ai];
+  if (s.has(bi)) s.delete(bi); else s.add(bi);
+  document.getElementById(`chip-${segId}-${ai}-${bi}`).classList.toggle('checked', s.has(bi));
+}
+
+// ── Accept the system's counter-recommendation ──
+function acceptRec(segId) {
+  const seg = segments.find(s => s.id === segId);
+  const ac = agentConfig[segId];
+  const newRec = (ac.isSeeded || recUpdatedFrom[segId]) ? seg.recDisc : Math.round((seg.recDisc + ac.disc) / 2);
+  agentConfig[segId] = { disc: newRec, isCustom: false, addons: ac.addons };
+  segResult[segId] = 'accepted';
+  customMode[segId] = false;
+  delete recUpdatedFrom[segId];
+  buildSegments();
+}
+
+// ── Footer logic ──
+function wireFooter() {
+  const btn = document.getElementById('main-cta');
+
+  if (zdPhase) {
+    // Landing state shows the Not-Qualified pattern with its own Accept/Modify
+    // actions — footer mirrors the segment flow: disabled until resolved.
+    if (zdEditing) {
+      btn.textContent = 'Re-evaluate';
+      btn.disabled = false;
+      btn.onclick = doZdReEvaluate;
+    } else {
+      btn.textContent = 'Accept & Proceed';
+      btn.disabled = true;
+      btn.onclick = null;
+    }
+    return;
+  }
+
+  const anyEditingCustom = Object.values(customMode).some(Boolean) || editingSegId !== null;
+  const anyNotQualified = Object.values(segResult).includes('not-qualified');
+
+  if (anyEditingCustom) {
+    btn.textContent = 'Re-evaluate';
+    btn.disabled = false;
+    btn.onclick = doReEvaluate;
+  } else if (anyNotQualified) {
+    btn.textContent = 'Accept & Proceed';
+    btn.disabled = true;
+    btn.onclick = null;
+  } else {
+    btn.textContent = 'Accept & Proceed';
+    btn.disabled = false;
+    btn.onclick = hasReEvaluated ? approveFleet : acceptAllAndProceed;
+  }
+}
+
+// ── Attempt 1 — ZD-only evaluation ──
+// ── Accept the system's ZD recommendation directly ──
+function acceptZdRecommendation() {
+  if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
+
+  recLoad(() => {
+    attempts--;
+    updateAttempts();
+    zdFinal = zdRecommended;
+    zdPhase = false;
+    zdEditing = false;
+    approveFleet();
+  });
+}
+
+function doZdReEvaluate() {
+  if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
+
+  recLoad(() => {
+    attempts--;
+    updateAttempts();
+
+    const input = document.getElementById('zd-input');
+    const val = parseFloat(input.value);
+    const enteredZd = isNaN(val) ? zdCurrent : Math.max(0, Math.min(100, val));
+    zdFinal = enteredZd;
+    zdPhase = false;
+    zdEditing = false;
+
+    if (enteredZd >= zdRecommended) {
+      // Raising ZD alone was enough to clear SLR
+      approveFleet();
+    } else {
+      // ZD alone wasn't enough — lock it in and reveal the segment-level flow
+      hasReEvaluated = true;
+
+      // Seed each segment against the agent's actual Plan Page discount, not
+      // a blank slate. Landing on this page at all means that discount already
+      // failed fleet evaluation — a segment whose prior discount exceeds the
+      // recommendation should show Not Qualified from the first render, not
+      // a fresh Qualified state that silently discards what they already set.
+      segments.forEach(seg => {
+        if (seg.prevDisc > seg.recDisc) {
+          agentConfig[seg.id] = { disc: seg.prevDisc, isCustom: true, addons: [], isSeeded: true };
+          segResult[seg.id] = 'not-qualified';
+        } else {
+          agentConfig[seg.id] = { disc: seg.recDisc, isCustom: false, addons: [] };
+          segResult[seg.id] = 'qualified';
+        }
+      });
+
+      document.getElementById('rec-sub').textContent =
+        "We’ve calculated a recommendation for each segment. Accept as is, or customise any segment before proceeding.";
+      document.getElementById('rec-banner-text').textContent =
+        `The fleet did not qualify. Accept the updated recommendations for the best chance of qualifying. You have ${attempts} attempts remaining.`;
+      document.getElementById('rec-banner').classList.add('on');
+      buildSegments();
+    }
+  });
+}
+
+function acceptAllAndProceed() {
+  if (attempts <= 0) return;
+  attempts--;
+  updateAttempts();
+  approveFleet();
+}
+
+function approveFleet() {
+  rcModal({ic:'success',icon:'verified',title:'Fleet approved',
+    body:'Fleet approved. Proceeding to real-time evaluation.',
+    primary:{label:'View quotes',onClick:function(){rcCloseModal();go('quote');}}});
+}
+
+function routeToUnderwriter(msg) {
+  rcModal({ic:'warn',icon:'engineering',title:'Routed to underwriter evaluation',
+    body:msg||'Fleet routed to underwriter evaluation.',
+    primary:{label:'Go to Evaluated Cases',onClick:function(){rcCloseModal();go('evaluated');}}});
+}
+
+function doReEvaluate() {
+  if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
+
+  const prevSegResult = { ...segResult };
+
+  recLoad(() => {
+    attempts--;
+    updateAttempts();
+
+    // Track which segments the agent actually had open and submitted THIS
+    // round — this is the real signal of "the agent just took action here",
+    // distinct from isCustom, which can already be true from initial seeding
+    const activelyEditedIds = [];
+
+    segments.forEach(seg => {
+      const input = document.getElementById('disc-input-' + seg.id);
+      if (input) {
+        activelyEditedIds.push(seg.id);
+        const val = parseFloat(input.value);
+        const isCustom = customMode[seg.id] && !isNaN(val) && val > seg.recDisc;
+        const disc = isCustom ? val : seg.recDisc;
+        const addons = [];
+        if (isCustom) {
+          seg.ageGroups.forEach((ag, ai) => {
+            const sel = addonState[seg.id][ai];
+            if (sel && sel.size > 0) addons.push({ ageLabel: ag.label, addonNames: [...sel].map(bi => ADDONS[bi]) });
+          });
+        }
+        agentConfig[seg.id] = { disc, isCustom, addons };
+        customMode[seg.id] = isCustom;
+        segResult[seg.id] = isCustom ? 'not-qualified' : 'qualified';
+        delete recUpdatedFrom[seg.id];
+      } else if (agentConfig[seg.id]) {
+        // Already committed from an earlier edit session (agent switched away
+        // to another segment without hitting Re-evaluate) — evaluate that saved config
+        const savedAc = agentConfig[seg.id];
+        segResult[seg.id] = savedAc.isCustom ? 'not-qualified' : 'qualified';
+      } else if (segResult[seg.id] === undefined) {
+        agentConfig[seg.id] = { disc: seg.recDisc, isCustom: false, addons: [] };
+        segResult[seg.id] = 'qualified';
+      }
+    });
+
+    // ── Fleet-level ripple ──
+    // A segment the agent actively edited THIS round and submitted as custom
+    // changes the fleet's overall risk mix. Any OTHER segment that was already
+    // settled (qualified/accepted) before this round may need its
+    // recommendation re-looked at as a result.
+    const triggerSegs = segments.filter(seg =>
+      activelyEditedIds.includes(seg.id) && agentConfig[seg.id] && agentConfig[seg.id].isCustom
+    );
+    if (triggerSegs.length > 0) {
+      const causeNames = triggerSegs.map(t => t.name).join(' and ');
+      segments.forEach(otherSeg => {
+        const wasSettled = prevSegResult[otherSeg.id] === 'qualified' || prevSegResult[otherSeg.id] === 'accepted';
+        const isTrigger = triggerSegs.some(t => t.id === otherSeg.id);
+        if (wasSettled && !isTrigger) {
+          otherSeg.recDisc = Math.max(5, otherSeg.recDisc - 3);
+          segResult[otherSeg.id] = 'not-qualified';
+          recUpdatedFrom[otherSeg.id] = causeNames;
+        }
+      });
+    }
+
+    editingSegId = null;
+    hasReEvaluated = true;
+    document.getElementById('rec-banner-text').textContent =
+      `The fleet did not qualify. Accept the updated recommendations for the best chance of qualifying. You have ${attempts} attempts remaining.`;
+    document.getElementById('rec-banner').classList.add('on');
+    buildSegments();
+  });
+}
+
+function updateAttempts() {
+  document.getElementById('rec-attempt-text').textContent =
+    attempts === 0 ? 'No Attempts Remaining' :
+    attempts + ' Attempt' + (attempts !== 1 ? 's' : '') + ' Remaining';
+}
+
+function discardAndProceed() {
+  rcModal({ic:'warn',icon:'report',title:'Discard all changes?',
+    body:'Discard all changes? Fleet will be routed to underwriter evaluation.',
+    secondary:{label:'Cancel',onClick:rcCloseModal},
+    primary:{label:'Discard & proceed',onClick:function(){rcCloseModal();routeToUnderwriter('Changes discarded. Fleet routed to underwriter evaluation.');}}});
+}
+
+/* host loader (reuses the analysing overlay) */
+function recLoad(cb){
+  var mask=document.getElementById('ov-mask');
+  var t=document.getElementById('ov-title'), sb=document.getElementById('ov-sub');
+  if(t) t.textContent='Re-evaluating Eligibility';
+  if(sb) sb.textContent='Checking your updated fleet configuration and recalculating recommendations.';
+  mask.classList.add('on');
+  setTimeout(function(){ mask.classList.remove('on'); cb(); }, 1400);
+}
+/* generic host modal */
+function rcModal(o){
+  var ic=document.getElementById('rc-modal-ic');
+  ic.className='rc-ic'+(o.ic?(' '+o.ic):'');
+  ic.innerHTML='<span class="msym">'+(o.icon||'help')+'</span>';
+  document.getElementById('rc-modal-title').textContent=o.title||'';
+  document.getElementById('rc-modal-body').innerHTML=o.body||'';
+  var act=document.getElementById('rc-modal-actions'); act.innerHTML='';
+  var dlg=document.querySelector('#rc-modal .rc-dialog'); var ox=dlg.querySelector('.rc-x'); if(ox) ox.remove();
+  if(o.dismiss){var x=document.createElement('button');x.className='rc-x';x.innerHTML='<span class="msym">close</span>';x.onclick=rcCloseModal;dlg.appendChild(x);}
+  if(o.secondary){var b=document.createElement('button');b.className='btn ghost';b.textContent=o.secondary.label;b.onclick=o.secondary.onClick;act.appendChild(b);}
+  if(o.primary){var p=document.createElement('button');p.className='btn primary';p.textContent=o.primary.label;p.onclick=o.primary.onClick;act.appendChild(p);}
+  document.getElementById('rc-modal').classList.add('on');
+}
+function rcCloseModal(){document.getElementById('rc-modal').classList.remove('on');}
+/* interception popups (host-owned entry) */
+function openInterception(){
+  rcModal({ic:'',icon:'auto_awesome',dismiss:true,title:'Choose How to Proceed',
+    body:'Review the system recommendations to help this fleet qualify for real-time approval, or continue with your current configuration for underwriter evaluation.',
+    secondary:{label:'Continue as Is',onClick:function(){rcCloseModal();routeToUnderwriter('Fleet routed to underwriter evaluation.');}},
+    primary:{label:'Review Recommendations',onClick:function(){rcCloseModal();enterRecommend();}}});
+}
+/* entry: reset engine state, then show the screen */
+function enterRecommend(){
+  segments = JSON.parse(JSON.stringify(BASE_SEGMENTS));
+  addonState={}; customMode={}; segResult={}; recUpdatedFrom={};
+  editingSegId=null; agentConfig={}; attempts=5; hasReEvaluated=false;
+  zdPhase=true; zdEditing=false; zdFinal=null;
+  updateAttempts();
+  document.getElementById('rec-sub').innerHTML="We&rsquo;ve calculated a ZD recommendation to help this fleet qualify for real-time approval.";
+  document.getElementById('rec-banner').classList.remove('on');
+  buildSegments();
+  go('recommend');
+}
 
 </script>
 </body>
