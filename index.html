@@ -1416,7 +1416,8 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .rc-modal-actions .btn{min-width:140px;justify-content:center}
 
 /* ZD editing footer row (match Image 5) */
-#recommend .zd-input-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;flex-wrap:wrap}
+#recommend .zd-input-foot{display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:10px;flex-wrap:wrap}
+#recommend .zd-foot-sep{color:var(--muted)}
 #recommend .zd-required{font-size:12px;color:var(--muted)}
 #recommend .zd-required strong{color:#2168F6}
 /* full-width one-time warning banner (match Image 5) */
@@ -1428,6 +1429,23 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .rc-dialog{position:relative}
 .rc-x{position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;border:0;background:#F2F2F2;color:#616161;display:grid;place-items:center;cursor:pointer}
 .rc-x .msym{font-size:18px}
+/* Unify ZD Declaration slider with the Fleet Discount segment slider (.sl) */
+#ag-addon .ao-slider,#uwdetail .ao-slider{-webkit-appearance:none;appearance:none;flex:1;height:10px;border-radius:100px;background:#EEEEEE;outline:none;cursor:pointer;border:0;padding:0;background-repeat:no-repeat}
+#ag-addon .ao-slider::-webkit-slider-thumb,#uwdetail .ao-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);border:0;cursor:pointer}
+#ag-addon .ao-slider::-moz-range-thumb,#uwdetail .ao-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);border:0;cursor:pointer}
+#ag-addon .ao-slider::-moz-range-track,#uwdetail .ao-slider::-moz-range-track{background:transparent;border:0}
+#ag-addon .ao-slider:disabled,#uwdetail .ao-slider:disabled{opacity:.6;cursor:not-allowed}
+/* ===== toast ===== */
+.fms-toast{position:fixed;top:78px;right:24px;z-index:400;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:12px;box-shadow:0 14px 34px rgba(16,20,28,.16);padding:14px 18px;font-size:14px;font-weight:600;color:#212121;max-width:400px;transform:translateX(130%);opacity:0;transition:transform .34s cubic-bezier(.2,.8,.2,1),opacity .34s;pointer-events:none}
+.fms-toast.show{transform:translateX(0);opacity:1}
+.fms-toast .toast-ic{font-size:20px;font-variation-settings:'FILL' 1;flex:0 0 auto}
+.fms-toast.success{border-left-color:#01A252}
+.fms-toast.success .toast-ic{color:#01A252}
+.fms-toast.info{border-left-color:var(--brand)}
+.fms-toast.info .toast-ic{color:var(--brand)}
+.fms-toast.warn{border-left-color:#B8860B}
+.fms-toast.warn .toast-ic{color:#B8860B}
+@media(max-width:600px){.fms-toast{left:16px;right:16px;max-width:none}}
 </style>
 </head>
 <body>
@@ -1689,7 +1707,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
             <!-- Add-on Covers (ported from UW design) -->
             <div class="card pad" style="box-shadow:none">
               <div class="steprow"><div class="stepic"><span class="msym">extension</span></div><div><div class="aotitle">Add-on Covers</div><div class="sub" style="margin:4px 0 16px">Select add-on covers and declare coverage for your fleet segments</div></div></div>
-              <div id="ag-addon"><div class="ao-wrap"><div class="ao-lay"><div class="ao-nav" id="agaon"><div class="ao-it act" onclick="agAoSel('zd',this)"><span class="ao-it-name">Zero Depreciation</span><span class="ao-frac" id="agao-zd-frac">67/90</span></div><div class="ao-it" onclick="agAoSel('ep',this)"><span class="ao-it-name">Engine Protect</span><span class="ao-frac">60/100</span></div><div class="ao-it" onclick="agAoSel('ra',this)"><span class="ao-it-name">Roadside Assist</span><span class="ao-frac">40/100</span></div><div class="ao-it" onclick="agAoSel('co',this)"><span class="ao-it-name">Consumables</span><span class="ao-frac">20/100</span></div><div class="ao-it" onclick="agAoSel('ac',this)"><span class="ao-it-name">Accessories</span><span class="ao-frac">15/100</span></div></div><div class="ao-divider"></div><div class="ao-panel"><div id="agao-panel-zd"><div class="ao-panel-title">Declare Zero Depreciation Cover <span class="msym" style="font-size:16px;color:var(--t3)">info</span></div><div class="ao-panel-sub">Declare the percentage of ZD-eligible vehicles on which you will opt for ZD cover at policy booking.</div><div class="ao-slider-box"><div class="ao-slider-lbl">ZD Declaration (%)</div><div class="ao-slider-row"><span class="ao-slider-min">0</span><input type="range" class="ao-slider" id="agao-zd-slider" min="0" max="100" value="75" style="background:linear-gradient(to right,#2168F6 75%,#E0E0E0 75%)" oninput="agZDSlide(this.value)"><span class="ao-slider-min">75</span><input type="text" class="ao-slider-val" id="agao-zd-input" value="75" oninput="agZDInput(this.value)"></div><div class="ao-slider-stats">Total Vehicles: <b>100</b> <span class="stat-sep">·</span> ZD Eligible: <b>90</b> <span class="stat-sep">·</span> ZD Required: <span class="stat-val" id="agao-zd-req">67</span></div></div><div class="ao-confirm-row"><input type="checkbox" class="cbk" id="agao-zd-confirm" onchange="planGate()"><label for="agao-zd-confirm">I confirm that I will adhere to this ZD declaration at policy booking.</label></div></div><div id="agao-panel-ep" class="hidden"><div class="ao-panel-title">Engine Protect</div><div class="ao-panel-sub">Select vehicle age groups and types eligible for Engine Protection cover.</div><div class="ao-grps"><div class="ao-grp"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">New Vehicle</span><span class="ao-ab">30 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 0–3 yrs</span><span class="ao-ab">40 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 3–5 yrs</span><span class="ao-ab">20 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 5+ years</span><span class="ao-ab">10 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div></div></div><div id="agao-panel-ra" class="hidden"><div class="ao-panel-title">Roadside Assistance</div><div class="ao-panel-sub">Select vehicle age groups and types eligible for Roadside Assistance cover.</div><div class="ao-grps"><div class="ao-grp"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">New Vehicle</span><span class="ao-ab">30 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 0–3 yrs</span><span class="ao-ab">40 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 3–5 yrs</span><span class="ao-ab">20 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 5+ years</span><span class="ao-ab">10 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div></div></div><div id="agao-panel-co" class="hidden"><div class="ao-panel-title">Consumables Cover</div><div class="ao-panel-sub">Select vehicle age groups eligible for Consumables cover.</div><div class="ao-grps"><div class="ao-grp"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">New Vehicle</span><span class="ao-ab">30 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 0–3 yrs</span><span class="ao-ab">40 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 3–5 yrs</span><span class="ao-ab">20 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 5+ years</span><span class="ao-ab">10 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div></div></div><div id="agao-panel-ac" class="hidden"><div class="ao-panel-title">Accessories Cover</div><div class="ao-panel-sub">Select vehicle age groups and types eligible for Accessories cover.</div><div class="ao-grps"><div class="ao-grp"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">New Vehicle</span><span class="ao-ab">30 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 0–3 yrs</span><span class="ao-ab">40 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 3–5 yrs</span><span class="ao-ab">20 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 5+ years</span><span class="ao-ab">10 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div></div></div></div></div></div></div>
+              <div id="ag-addon"><div class="ao-wrap"><div class="ao-lay"><div class="ao-nav" id="agaon"><div class="ao-it act" onclick="agAoSel('zd',this)"><span class="ao-it-name">Zero Depreciation</span><span class="ao-frac" id="agao-zd-frac">67/90</span></div><div class="ao-it" onclick="agAoSel('ep',this)"><span class="ao-it-name">Engine Protect</span><span class="ao-frac">60/100</span></div><div class="ao-it" onclick="agAoSel('ra',this)"><span class="ao-it-name">Roadside Assist</span><span class="ao-frac">40/100</span></div><div class="ao-it" onclick="agAoSel('co',this)"><span class="ao-it-name">Consumables</span><span class="ao-frac">20/100</span></div><div class="ao-it" onclick="agAoSel('ac',this)"><span class="ao-it-name">Accessories</span><span class="ao-frac">15/100</span></div></div><div class="ao-divider"></div><div class="ao-panel"><div id="agao-panel-zd"><div class="ao-panel-title">Declare Zero Depreciation Cover <span class="msym" style="font-size:16px;color:var(--t3)">info</span></div><div class="ao-panel-sub">Declare the percentage of ZD-eligible vehicles on which you will opt for ZD cover at policy booking.</div><div class="ao-slider-box"><div class="ao-slider-lbl">ZD Declaration (%)</div><div class="ao-slider-row"><span class="ao-slider-min">0</span><input type="range" class="ao-slider" id="agao-zd-slider" min="0" max="100" value="75" style="background:linear-gradient(to right,#2168F6 75%,#EEEEEE 75%)" oninput="agZDSlide(this.value)"><span class="ao-slider-min">75</span><input type="text" class="ao-slider-val" id="agao-zd-input" value="75" oninput="agZDInput(this.value)"></div><div class="ao-slider-stats">Total Vehicles: <b>100</b> <span class="stat-sep">·</span> ZD Eligible: <b>90</b> <span class="stat-sep">·</span> ZD Required: <span class="stat-val" id="agao-zd-req">67</span></div></div><div class="ao-confirm-row"><input type="checkbox" class="cbk" id="agao-zd-confirm" onchange="planGate()"><label for="agao-zd-confirm">I confirm that I will adhere to this ZD declaration at policy booking.</label></div></div><div id="agao-panel-ep" class="hidden"><div class="ao-panel-title">Engine Protect</div><div class="ao-panel-sub">Select vehicle age groups and types eligible for Engine Protection cover.</div><div class="ao-grps"><div class="ao-grp"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">New Vehicle</span><span class="ao-ab">30 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 0–3 yrs</span><span class="ao-ab">40 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 3–5 yrs</span><span class="ao-ab">20 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 5+ years</span><span class="ao-ab">10 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div></div></div><div id="agao-panel-ra" class="hidden"><div class="ao-panel-title">Roadside Assistance</div><div class="ao-panel-sub">Select vehicle age groups and types eligible for Roadside Assistance cover.</div><div class="ao-grps"><div class="ao-grp"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">New Vehicle</span><span class="ao-ab">30 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 0–3 yrs</span><span class="ao-ab">40 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 3–5 yrs</span><span class="ao-ab">20 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 5+ years</span><span class="ao-ab">10 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div></div></div><div id="agao-panel-co" class="hidden"><div class="ao-panel-title">Consumables Cover</div><div class="ao-panel-sub">Select vehicle age groups eligible for Consumables cover.</div><div class="ao-grps"><div class="ao-grp"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">New Vehicle</span><span class="ao-ab">30 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 0–3 yrs</span><span class="ao-ab">40 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 3–5 yrs</span><span class="ao-ab">20 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 5+ years</span><span class="ao-ab">10 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div></div></div><div id="agao-panel-ac" class="hidden"><div class="ao-panel-title">Accessories Cover</div><div class="ao-panel-sub">Select vehicle age groups and types eligible for Accessories cover.</div><div class="ao-grps"><div class="ao-grp"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">New Vehicle</span><span class="ao-ab">30 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 0–3 yrs</span><span class="ao-ab">40 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 3–5 yrs</span><span class="ao-ab">20 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div><div class="ao-grp cls"><div class="ao-gh" onclick="togAG(this)"><input type="checkbox" checked onclick="event.stopPropagation()"><span class="ao-gl">Vehicle Age: 5+ years</span><span class="ao-ab">10 Applied</span><span class="msym ao-chv">expand_more</span></div><div class="ao-sub"><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Bus</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Truck</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Trailer</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Tanker</span><span class="ao-cnt">10</span></label><label class="ao-ck"><input type="checkbox" checked><span class="ao-ck-name">Taxi</span><span class="ao-cnt">10</span></label></div></div></div></div></div></div></div></div>
             </div>
 
             <!-- Ownership Information -->
@@ -1722,7 +1740,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
             </div>
             <div style="display:flex;gap:12px">
               <button class="btn ghost" onclick="go('upload')">Save and exit</button>
-              <button class="btn primary" id="plan-cta" disabled onclick="analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){openInterception();},4000)">Get Quote →</button>
+              <button class="btn primary" id="plan-cta" onclick="analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){openInterception();},4000)">Get Quote →</button>
             </div>
           </div>
         </div>
@@ -2232,7 +2250,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
                   <div class="ao-slider-lbl">ZD Declaration (%)</div>
                   <div class="ao-slider-row">
                     <span class="ao-slider-min">0</span>
-                    <input type="range" class="ao-slider" id="ao1-zd-slider" min="0" max="100" value="75" oninput="aoZDSlide(1,this.value)">
+                    <input type="range" class="ao-slider" id="ao1-zd-slider" min="0" max="100" value="75" style="background:linear-gradient(to right,#2168F6 75%,#EEEEEE 75%)" oninput="aoZDSlide(1,this.value)">
                     <span class="ao-slider-min">75</span>
                     <input type="text" class="ao-slider-val" id="ao1-zd-input" value="75" oninput="aoZDInput(1,this.value)">
                   </div>
@@ -2295,7 +2313,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
                   <div class="ao-slider-lbl">ZD Declaration (%)</div>
                   <div class="ao-slider-row">
                     <span class="ao-slider-min">0</span>
-                    <input type="range" class="ao-slider" id="ao2-zd-slider" min="0" max="100" value="67" oninput="aoZDSlide(2,this.value)">
+                    <input type="range" class="ao-slider" id="ao2-zd-slider" min="0" max="100" value="67" style="background:linear-gradient(to right,#2168F6 67%,#EEEEEE 67%)" oninput="aoZDSlide(2,this.value)">
                     <span class="ao-slider-min">67</span>
                     <input type="text" class="ao-slider-val" id="ao2-zd-input" value="67" oninput="aoZDInput(2,this.value)">
                   </div>
@@ -3068,6 +3086,7 @@ function togAG(hdr){
 
 /* ─── ADD-ONS STATE ─── */
 var aoEditMode = false;
+var resolved = {};
 var aoCurrentCP = 1;
 var aoCurrentAddon = {1:'zd', 2:'zd'};
 var aoSavedState = {};  /* snapshots for cancel */
@@ -3134,7 +3153,7 @@ function aoZDSlide(cp, val){
   if(req) req.textContent = Math.round(eligible * val / 100);
   /* update slider gradient */
   var slider = document.getElementById('ao'+cp+'-zd-slider');
-  if(slider) slider.style.background = 'linear-gradient(to right,var(--cp1) '+val+'%,#D1D5DB '+val+'%)';
+  if(slider) slider.style.background = 'linear-gradient(to right,#2168F6 '+val+'%,#EEEEEE '+val+'%)';
   /* update nav frac */
   var frac = document.getElementById('ao'+cp+'-zd-frac');
   if(frac) frac.textContent = Math.round(eligible * val / 100)+'/'+eligible;
@@ -3430,7 +3449,7 @@ function agAoSel(key,el){
 function agZDSlide(val){
   val=parseInt(val); var inp=document.getElementById('agao-zd-input'); var req=document.getElementById('agao-zd-req'); var eligible=90;
   if(inp) inp.value=val; if(req) req.textContent=Math.round(eligible*val/100);
-  var s=document.getElementById('agao-zd-slider'); if(s) s.style.background='linear-gradient(to right,#2168F6 '+val+'%,#E0E0E0 '+val+'%)';
+  var s=document.getElementById('agao-zd-slider'); if(s) s.style.background='linear-gradient(to right,#2168F6 '+val+'%,#EEEEEE '+val+'%)';
   var f=document.getElementById('agao-zd-frac'); if(f) f.textContent=Math.round(eligible*val/100)+'/'+eligible;
 }
 function agZDInput(val){val=parseInt(val);if(isNaN(val)||val<0)val=0;if(val>100)val=100;var s=document.getElementById('agao-zd-slider');if(s){s.value=val;agZDSlide(val);}}
@@ -3463,11 +3482,9 @@ function analyse(stages, sub, done, dur){
 })();
 /* ===== Plan page: Get Quote only active when ZD confirmation + declaration are both ticked ===== */
 function planGate(){
-  var z=document.getElementById('agao-zd-confirm'), d=document.getElementById('plan-decl'), b=document.getElementById('plan-cta');
+  var b=document.getElementById('plan-cta');
   if(!b) return;
-  var ok=!!(z&&z.checked&&d&&d.checked);
-  b.disabled=!ok;
-  b.title=ok?'':'Tick the ZD declaration confirmation and the declaration below to continue';
+  b.disabled=false; b.title='';
 }
 planGate();
 
@@ -3527,7 +3544,7 @@ function buildSegments() {
   if (zdPhase) {
     container.innerHTML = buildZdCard();
   } else {
-    container.innerHTML = buildZdSummaryCard() + segments.map(seg => buildCard(seg)).join('');
+    container.innerHTML = buildZdSummaryCard() + segments.filter(seg => !resolved[seg.id]).map(seg => buildCard(seg)).join('');
   }
   wireFooter();
 }
@@ -3665,6 +3682,7 @@ function buildZdEditingCard() {
         </div>
         <div class="zd-input-foot">
           <span class="zd-required">ZD Required: <strong id="zd-min-vehicles">${required}</strong> Vehicles</span>
+          <span class="zd-foot-sep">&middot;</span>
           <span class="zd-rec-line">Recommended: <strong>${zdRecommended}%</strong> (${recVeh} Vehicles)</span>
         </div>
       </div>
@@ -3709,7 +3727,7 @@ function buildCard(seg) {
   if (editingSegId === seg.id) {
     const prefill = ac && ac.isCustom ? ac.disc : seg.recDisc;
     return `
-      <div class="segment editing" id="seg-${seg.id}">
+      <div class="segment editing" id="rseg-${seg.id}">
         <div class="seg-topbar">
           <div class="seg-name-row">
             <span class="seg-name">${seg.name}</span>
@@ -3739,7 +3757,7 @@ function buildCard(seg) {
       addonsHTML = `<div class="addons-display"><div class="addons-display-label">Selected Add-ons</div>${rows}</div>`;
     }
     return `
-      <div class="segment" id="seg-${seg.id}">
+      <div class="segment" id="rseg-${seg.id}">
         <div class="seg-topbar">
           <div class="seg-name-row">
             <span class="seg-name">${seg.name}</span>
@@ -3762,7 +3780,7 @@ function buildCard(seg) {
   // ── State: fresh, never touched ──
   if (!ac && res === undefined) {
     return `
-      <div class="segment" id="seg-${seg.id}">
+      <div class="segment" id="rseg-${seg.id}">
         <div class="seg-topbar">
           <div class="seg-name-row">
             <span class="seg-name">${seg.name}</span>
@@ -3827,7 +3845,7 @@ function buildCard(seg) {
     : `<span class="status-pill verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8,12 11,15 16,9"/></svg> Qualified</span>`;
 
   return `
-    <div class="segment ${cardClass}" id="seg-${seg.id}">
+    <div class="segment ${cardClass}" id="rseg-${seg.id}">
       <div class="seg-topbar">
         <div class="seg-name-row">
           <span class="seg-name">${seg.name}</span>
@@ -3952,12 +3970,15 @@ function toggleAddon(segId, ai, bi) {
 // ── Accept the system's counter-recommendation ──
 function acceptRec(segId) {
   const seg = segments.find(s => s.id === segId);
-  const ac = agentConfig[segId];
-  const newRec = (ac.isSeeded || recUpdatedFrom[segId]) ? seg.recDisc : Math.round((seg.recDisc + ac.disc) / 2);
-  agentConfig[segId] = { disc: newRec, isCustom: false, addons: ac.addons };
+  const ac = agentConfig[segId] || {};
+  agentConfig[segId] = { disc: seg.recDisc, isCustom: false, addons: ac.addons || [] };
   segResult[segId] = 'accepted';
   customMode[segId] = false;
+  resolved[segId] = true;                 /* accepted -> evaluated, won't appear again */
   delete recUpdatedFrom[segId];
+  if (editingSegId === segId) editingSegId = null;
+  const remaining = segments.filter(x => !resolved[x.id]);
+  if (remaining.length === 0) { approveFleet(); return; }
   buildSegments();
 }
 
@@ -4000,61 +4021,52 @@ function wireFooter() {
 
 // ── Attempt 1 — ZD-only evaluation ──
 // ── Accept the system's ZD recommendation directly ──
+
+function enterSegmentPhase(){
+  hasReEvaluated = true;
+  zdPhase = false; zdEditing = false;
+  segments.forEach(seg => {
+    if (seg.prevDisc > seg.recDisc) {
+      agentConfig[seg.id] = { disc: seg.prevDisc, isCustom: true, addons: [], isSeeded: true };
+      segResult[seg.id] = 'not-qualified';
+    } else {
+      agentConfig[seg.id] = { disc: seg.recDisc, isCustom: false, addons: [] };
+      segResult[seg.id] = 'qualified';
+      resolved[seg.id] = true; /* already within recommendation -> auto-evaluated */
+    }
+  });
+  document.getElementById('rec-sub').innerHTML =
+    "We\u2019ve calculated a recommendation for each segment. Accept as is, or customise any segment before proceeding.";
+  document.getElementById('rec-banner-text').textContent =
+    "The fleet did not qualify. Accept the updated recommendations for the best chance of qualifying. You have " + attempts + " attempts remaining.";
+  document.getElementById('rec-banner').classList.add('on');
+  var remaining = segments.filter(x => !resolved[x.id]);
+  if (remaining.length === 0) { approveFleet(); return; }
+  buildSegments();
+}
+
 function acceptZdRecommendation() {
   if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
-
   recLoad(() => {
     attempts--;
     updateAttempts();
     zdFinal = zdRecommended;
-    zdPhase = false;
-    zdEditing = false;
-    approveFleet();
+    enterSegmentPhase();
   });
 }
 
 function doZdReEvaluate() {
   if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
-
+  const input = document.getElementById('zd-input');
+  const val = parseFloat(input ? input.value : zdCurrent);
+  const enteredZd = isNaN(val) ? zdCurrent : Math.max(0, Math.min(100, val));
   recLoad(() => {
     attempts--;
     updateAttempts();
-
-    const input = document.getElementById('zd-input');
-    const val = parseFloat(input.value);
-    const enteredZd = isNaN(val) ? zdCurrent : Math.max(0, Math.min(100, val));
     zdFinal = enteredZd;
-    zdPhase = false;
-    zdEditing = false;
-
-    if (enteredZd >= zdRecommended) {
-      // Raising ZD alone was enough to clear SLR
-      approveFleet();
-    } else {
+    {
       // ZD alone wasn't enough — lock it in and reveal the segment-level flow
-      hasReEvaluated = true;
-
-      // Seed each segment against the agent's actual Plan Page discount, not
-      // a blank slate. Landing on this page at all means that discount already
-      // failed fleet evaluation — a segment whose prior discount exceeds the
-      // recommendation should show Not Qualified from the first render, not
-      // a fresh Qualified state that silently discards what they already set.
-      segments.forEach(seg => {
-        if (seg.prevDisc > seg.recDisc) {
-          agentConfig[seg.id] = { disc: seg.prevDisc, isCustom: true, addons: [], isSeeded: true };
-          segResult[seg.id] = 'not-qualified';
-        } else {
-          agentConfig[seg.id] = { disc: seg.recDisc, isCustom: false, addons: [] };
-          segResult[seg.id] = 'qualified';
-        }
-      });
-
-      document.getElementById('rec-sub').textContent =
-        "We’ve calculated a recommendation for each segment. Accept as is, or customise any segment before proceeding.";
-      document.getElementById('rec-banner-text').textContent =
-        `The fleet did not qualify. Accept the updated recommendations for the best chance of qualifying. You have ${attempts} attempts remaining.`;
-      document.getElementById('rec-banner').classList.add('on');
-      buildSegments();
+      enterSegmentPhase();
     }
   });
 }
@@ -4067,85 +4079,57 @@ function acceptAllAndProceed() {
 }
 
 function approveFleet() {
-  rcModal({ic:'success',icon:'verified',title:'Fleet approved',
-    body:'Fleet approved. Proceeding to real-time evaluation.',
-    primary:{label:'View quotes',onClick:function(){rcCloseModal();go('quote');}}});
+  go('quote');
+  fmsToast('Fleet approved. Proceeding to real-time evaluation.', 'success');
 }
 
 function routeToUnderwriter(msg) {
-  rcModal({ic:'warn',icon:'engineering',title:'Routed to underwriter evaluation',
-    body:msg||'Fleet routed to underwriter evaluation.',
-    primary:{label:'Go to Evaluated Cases',onClick:function(){rcCloseModal();go('evaluated');}}});
+  go('evaluated');
+  fmsToast(msg || 'Fleet routed to underwriter evaluation.', 'info');
 }
 
 function doReEvaluate() {
   if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
 
-  const prevSegResult = { ...segResult };
+  // Snapshot the open editors' values before the loader re-renders the DOM.
+  const edits = {};
+  segments.forEach(seg => {
+    if (resolved[seg.id]) return;
+    const input = document.getElementById('disc-input-' + seg.id);
+    if (!input) return;
+    const val = parseFloat(input.value);
+    const custom = customMode[seg.id] && !isNaN(val) && val > seg.recDisc;
+    const addons = [];
+    if (custom) {
+      seg.ageGroups.forEach((ag, ai) => {
+        const sel = addonState[seg.id] && addonState[seg.id][ai];
+        if (sel && sel.size > 0) addons.push({ ageLabel: ag.label, addonNames: [...sel].map(bi => ADDONS[bi]) });
+      });
+    }
+    // A custom (above-recommended) discount qualifies only when add-ons are
+    // selected for every age group; otherwise it stays Not Qualified. A value
+    // at or below the recommendation qualifies outright.
+    const qualifies = !custom || seg.ageGroups.every((ag, ai) => addonState[seg.id] && addonState[seg.id][ai] && addonState[seg.id][ai].size > 0);
+    edits[seg.id] = { disc: custom ? val : seg.recDisc, custom, addons, qualifies };
+  });
 
   recLoad(() => {
     attempts--;
     updateAttempts();
-
-    // Track which segments the agent actually had open and submitted THIS
-    // round — this is the real signal of "the agent just took action here",
-    // distinct from isCustom, which can already be true from initial seeding
-    const activelyEditedIds = [];
-
     segments.forEach(seg => {
-      const input = document.getElementById('disc-input-' + seg.id);
-      if (input) {
-        activelyEditedIds.push(seg.id);
-        const val = parseFloat(input.value);
-        const isCustom = customMode[seg.id] && !isNaN(val) && val > seg.recDisc;
-        const disc = isCustom ? val : seg.recDisc;
-        const addons = [];
-        if (isCustom) {
-          seg.ageGroups.forEach((ag, ai) => {
-            const sel = addonState[seg.id][ai];
-            if (sel && sel.size > 0) addons.push({ ageLabel: ag.label, addonNames: [...sel].map(bi => ADDONS[bi]) });
-          });
-        }
-        agentConfig[seg.id] = { disc, isCustom, addons };
-        customMode[seg.id] = isCustom;
-        segResult[seg.id] = isCustom ? 'not-qualified' : 'qualified';
-        delete recUpdatedFrom[seg.id];
-      } else if (agentConfig[seg.id]) {
-        // Already committed from an earlier edit session (agent switched away
-        // to another segment without hitting Re-evaluate) — evaluate that saved config
-        const savedAc = agentConfig[seg.id];
-        segResult[seg.id] = savedAc.isCustom ? 'not-qualified' : 'qualified';
-      } else if (segResult[seg.id] === undefined) {
-        agentConfig[seg.id] = { disc: seg.recDisc, isCustom: false, addons: [] };
-        segResult[seg.id] = 'qualified';
-      }
+      if (resolved[seg.id]) return;
+      const e = edits[seg.id];
+      if (!e) return;                         // not edited this round -> leave as-is
+      agentConfig[seg.id] = { disc: e.disc, isCustom: e.custom, addons: e.addons };
+      customMode[seg.id] = false;
+      if (e.qualifies) { resolved[seg.id] = true; segResult[seg.id] = 'qualified'; }  // evaluated -> removed
+      else { segResult[seg.id] = 'not-qualified'; }                                   // repeat same process
     });
-
-    // ── Fleet-level ripple ──
-    // A segment the agent actively edited THIS round and submitted as custom
-    // changes the fleet's overall risk mix. Any OTHER segment that was already
-    // settled (qualified/accepted) before this round may need its
-    // recommendation re-looked at as a result.
-    const triggerSegs = segments.filter(seg =>
-      activelyEditedIds.includes(seg.id) && agentConfig[seg.id] && agentConfig[seg.id].isCustom
-    );
-    if (triggerSegs.length > 0) {
-      const causeNames = triggerSegs.map(t => t.name).join(' and ');
-      segments.forEach(otherSeg => {
-        const wasSettled = prevSegResult[otherSeg.id] === 'qualified' || prevSegResult[otherSeg.id] === 'accepted';
-        const isTrigger = triggerSegs.some(t => t.id === otherSeg.id);
-        if (wasSettled && !isTrigger) {
-          otherSeg.recDisc = Math.max(5, otherSeg.recDisc - 3);
-          segResult[otherSeg.id] = 'not-qualified';
-          recUpdatedFrom[otherSeg.id] = causeNames;
-        }
-      });
-    }
-
     editingSegId = null;
-    hasReEvaluated = true;
+    const remaining = segments.filter(x => !resolved[x.id]);
+    if (remaining.length === 0) { approveFleet(); return; }
     document.getElementById('rec-banner-text').textContent =
-      `The fleet did not qualify. Accept the updated recommendations for the best chance of qualifying. You have ${attempts} attempts remaining.`;
+      "The fleet did not qualify. Accept the updated recommendations for the best chance of qualifying. You have " + attempts + " attempts remaining.";
     document.getElementById('rec-banner').classList.add('on');
     buildSegments();
   });
@@ -4198,7 +4182,7 @@ function openInterception(){
 /* entry: reset engine state, then show the screen */
 function enterRecommend(){
   segments = JSON.parse(JSON.stringify(BASE_SEGMENTS));
-  addonState={}; customMode={}; segResult={}; recUpdatedFrom={};
+  addonState={}; customMode={}; segResult={}; recUpdatedFrom={}; resolved={};
   editingSegId=null; agentConfig={}; attempts=5; hasReEvaluated=false;
   zdPhase=true; zdEditing=false; zdFinal=null;
   updateAttempts();
@@ -4206,6 +4190,19 @@ function enterRecommend(){
   document.getElementById('rec-banner').classList.remove('on');
   buildSegments();
   go('recommend');
+}
+
+
+/* ===== lightweight toast notification (host-styled) ===== */
+function fmsToast(msg, type){
+  var t=document.getElementById('fms-toast');
+  if(!t){ t=document.createElement('div'); t.id='fms-toast'; document.body.appendChild(t); }
+  var icon = type==='success' ? 'check_circle' : (type==='warn' ? 'error' : 'info');
+  t.innerHTML = '<span class="msym toast-ic">'+icon+'</span><span class="toast-msg">'+msg+'</span>';
+  t.className = 'fms-toast '+(type||'info');
+  /* restart the enter animation */
+  void t.offsetWidth; t.classList.add('show');
+  clearTimeout(t._tmo); t._tmo = setTimeout(function(){ t.classList.remove('show'); }, 3600);
 }
 
 </script>
