@@ -1338,6 +1338,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #recommend .disc-chip-val{font-size:16px;font-weight:800;color:#212121}
 #recommend .disc-chip.rec .disc-chip-val{color:#2168F6}
 #recommend .disc-chip-vpill{font-size:11px;font-weight:700;color:#2168F6;background:#DCE8FF;border-radius:100px;padding:2px 8px;margin-left:8px}
+#recommend .disc-chip.prev .disc-chip-vpill{color:#616161;background:#E8E8E8}
 #recommend .disc-arrow{color:#9E9E9E;font-size:16px;font-weight:700}
 #recommend .status-pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:100px;margin-left:auto}
 #recommend .status-pill svg{width:13px;height:13px}
@@ -1446,6 +1447,9 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .fms-toast.warn{border-left-color:#B8860B}
 .fms-toast.warn .toast-ic{color:#B8860B}
 @media(max-width:600px){.fms-toast{left:16px;right:16px;max-width:none}}
+.land-hint{display:inline-flex;align-items:center;gap:9px;margin:4px auto 26px;padding:9px 16px;border-radius:100px;background:var(--soft);border:1px solid #f7cdaf;color:var(--brand);font-size:13px;font-weight:700}
+.land-hint .msym{font-size:18px;font-variation-settings:'FILL' 0}
+@media(max-width:720px){.land-hint{font-weight:600}}
 </style>
 </head>
 <body>
@@ -1457,6 +1461,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
     <div class="ey">FLEET MANAGEMENT SYSTEM</div>
     <h1>Choose your workspace</h1>
     <p class="lead">Select a flow to continue. Each role has a tailored journey — start with the Agent workspace to generate quotes and book policies.</p>
+    <div class="land-hint"><span class="msym">laptop_mac</span><span>Best experienced on a laptop &mdash; this journey is designed for a larger screen.</span></div>
     <div class="roles">
       <button class="role agent" onclick="enterAgent()">
         <span class="ptag">Primary</span>
@@ -3544,7 +3549,7 @@ function buildSegments() {
   if (zdPhase) {
     container.innerHTML = buildZdCard();
   } else {
-    container.innerHTML = buildZdSummaryCard() + segments.filter(seg => !resolved[seg.id]).map(seg => buildCard(seg)).join('');
+    container.innerHTML = segments.filter(seg => !resolved[seg.id]).map(seg => buildCard(seg)).join('');
   }
   wireFooter();
 }
@@ -3859,7 +3864,7 @@ function buildCard(seg) {
       </div>
       <div class="seg-subtitle">${subtitle}</div>
       <div class="disc-row">
-        <div class="disc-chip prev"><div class="disc-chip-label">${res === 'not-qualified' ? 'Requested Discount' : 'Previous Discount'}</div><div class="disc-chip-val">${res === 'not-qualified' ? discVal : seg.prevDisc}%</div></div>
+        <div class="disc-chip prev"><div class="disc-chip-label">Requested Discount</div><div class="disc-chip-val">${res === 'not-qualified' ? discVal : seg.prevDisc}%</div></div>
         <span class="disc-arrow">→</span>
         <div class="disc-chip rec"><div class="disc-chip-label">${discLabel}</div><div class="disc-chip-val">${rightVal}%</div></div>
         ${statusPillHTML}
@@ -3876,21 +3881,19 @@ function buildCard(seg) {
 function commitSegmentEdit(segId) {
   const seg = segments.find(s => s.id === segId);
   const input = document.getElementById('disc-input-' + segId);
-  if (!seg || !input) return;
+  if (!seg || !input) { if (editingSegId === segId) editingSegId = null; return; }
   const val = parseFloat(input.value);
   const isCustom = customMode[segId] && !isNaN(val) && val > seg.recDisc;
   if (isCustom) {
-    const disc = val;
     const addons = [];
     seg.ageGroups.forEach((ag, ai) => {
-      const sel = addonState[segId][ai];
+      const sel = addonState[segId] && addonState[segId][ai];
       if (sel && sel.size > 0) addons.push({ ageLabel: ag.label, addonNames: [...sel].map(bi => ADDONS[bi]) });
     });
-    agentConfig[segId] = { disc, isCustom: true, addons };
-  } else {
-    // Nothing meaningful to remember — clear any stale commit
-    delete agentConfig[segId];
+    agentConfig[segId] = { disc: val, isCustom: true, addons };
+    delete segResult[segId];               // -> Modified badge (res === undefined)
   }
+  // non-custom edits leave the segment in its prior state (seeded / accepted / returned)
   customMode[segId] = isCustom;
 }
 
@@ -3969,53 +3972,33 @@ function toggleAddon(segId, ai, bi) {
 
 // ── Accept the system's counter-recommendation ──
 function acceptRec(segId) {
+  if (editingSegId !== null && editingSegId !== segId) { commitSegmentEdit(editingSegId); editingSegId = null; }
   const seg = segments.find(s => s.id === segId);
   const ac = agentConfig[segId] || {};
-  agentConfig[segId] = { disc: seg.recDisc, isCustom: false, addons: ac.addons || [] };
-  segResult[segId] = 'accepted';
+  const rippleNote = recUpdatedFrom[segId];
+  const newRec = (ac.isSeeded || rippleNote) ? seg.recDisc : Math.round((seg.recDisc + (ac.disc || seg.prevDisc)) / 2);
+  agentConfig[segId] = { disc: newRec, isCustom: false, addons: ac.addons || [] };
+  segResult[segId] = 'accepted';          // -> Qualified tag; card stays until Re-evaluate settles it
   customMode[segId] = false;
-  resolved[segId] = true;                 /* accepted -> evaluated, won't appear again */
-  delete recUpdatedFrom[segId];
   if (editingSegId === segId) editingSegId = null;
-  const remaining = segments.filter(x => !resolved[x.id]);
-  if (remaining.length === 0) { approveFleet(); return; }
   buildSegments();
 }
 
 // ── Footer logic ──
 function wireFooter() {
   const btn = document.getElementById('main-cta');
-
   if (zdPhase) {
-    // Landing state shows the Not-Qualified pattern with its own Accept/Modify
-    // actions — footer mirrors the segment flow: disabled until resolved.
-    if (zdEditing) {
-      btn.textContent = 'Re-evaluate';
-      btn.disabled = false;
-      btn.onclick = doZdReEvaluate;
-    } else {
-      btn.textContent = 'Accept & Proceed';
-      btn.disabled = true;
-      btn.onclick = null;
-    }
+    if (zdEditing) { btn.textContent = 'Re-evaluate'; btn.disabled = false; btn.onclick = doZdReEvaluate; }
+    else { btn.textContent = 'Accept & Proceed'; btn.disabled = true; btn.onclick = null; }
     return;
   }
-
-  const anyEditingCustom = Object.values(customMode).some(Boolean) || editingSegId !== null;
-  const anyNotQualified = Object.values(segResult).includes('not-qualified');
-
-  if (anyEditingCustom) {
-    btn.textContent = 'Re-evaluate';
-    btn.disabled = false;
-    btn.onclick = doReEvaluate;
-  } else if (anyNotQualified) {
-    btn.textContent = 'Accept & Proceed';
-    btn.disabled = true;
-    btn.onclick = null;
+  const unsettled = segments.filter(s => !resolved[s.id]);
+  const actionable = editingSegId !== null ||
+    unsettled.some(s => segResult[s.id] === 'accepted' || (agentConfig[s.id] && segResult[s.id] === undefined));
+  if (actionable) {
+    btn.textContent = 'Re-evaluate'; btn.disabled = false; btn.onclick = doReEvaluate;
   } else {
-    btn.textContent = 'Accept & Proceed';
-    btn.disabled = false;
-    btn.onclick = hasReEvaluated ? approveFleet : acceptAllAndProceed;
+    btn.textContent = 'Accept & Proceed'; btn.disabled = true; btn.onclick = null;   // all still Not Qualified -> act first
   }
 }
 
@@ -4090,43 +4073,26 @@ function routeToUnderwriter(msg) {
 
 function doReEvaluate() {
   if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
-
-  // Snapshot the open editors' values before the loader re-renders the DOM.
-  const edits = {};
-  segments.forEach(seg => {
-    if (resolved[seg.id]) return;
-    const input = document.getElementById('disc-input-' + seg.id);
-    if (!input) return;
-    const val = parseFloat(input.value);
-    const custom = customMode[seg.id] && !isNaN(val) && val > seg.recDisc;
-    const addons = [];
-    if (custom) {
-      seg.ageGroups.forEach((ag, ai) => {
-        const sel = addonState[seg.id] && addonState[seg.id][ai];
-        if (sel && sel.size > 0) addons.push({ ageLabel: ag.label, addonNames: [...sel].map(bi => ADDONS[bi]) });
-      });
-    }
-    // A custom (above-recommended) discount qualifies only when add-ons are
-    // selected for every age group; otherwise it stays Not Qualified. A value
-    // at or below the recommendation qualifies outright.
-    const qualifies = !custom || seg.ageGroups.every((ag, ai) => addonState[seg.id] && addonState[seg.id][ai] && addonState[seg.id][ai].size > 0);
-    edits[seg.id] = { disc: custom ? val : seg.recDisc, custom, addons, qualifies };
-  });
-
+  if (editingSegId !== null) commitSegmentEdit(editingSegId);
   recLoad(() => {
     attempts--;
     updateAttempts();
     segments.forEach(seg => {
       if (resolved[seg.id]) return;
-      const e = edits[seg.id];
-      if (!e) return;                         // not edited this round -> leave as-is
-      agentConfig[seg.id] = { disc: e.disc, isCustom: e.custom, addons: e.addons };
-      customMode[seg.id] = false;
-      if (e.qualifies) { resolved[seg.id] = true; segResult[seg.id] = 'qualified'; }  // evaluated -> removed
-      else { segResult[seg.id] = 'not-qualified'; }                                   // repeat same process
+      const res = segResult[seg.id];
+      const ac = agentConfig[seg.id];
+      if (res === 'accepted') {
+        resolved[seg.id] = true;             // Qualified earlier -> now settled, drops off
+      } else if (res === undefined && ac) {
+        // Modified -> re-evaluated: returns with a fresh recommendation; add-ons preserved
+        recUpdatedFrom[seg.id] = true;
+        segResult[seg.id] = 'not-qualified';
+        customMode[seg.id] = false;
+      }
+      // untouched not-qualified segments stay as-is
     });
     editingSegId = null;
-    const remaining = segments.filter(x => !resolved[x.id]);
+    const remaining = segments.filter(s => !resolved[s.id]);
     if (remaining.length === 0) { approveFleet(); return; }
     document.getElementById('rec-banner-text').textContent =
       "The fleet did not qualify. Accept the updated recommendations for the best chance of qualifying. You have " + attempts + " attempts remaining.";
