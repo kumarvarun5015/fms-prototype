@@ -190,7 +190,7 @@ p.sc{color:var(--muted);margin:0;font-size:14px}
 /* toolbar (details) */
 .toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .ddl{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:145px;height:36px;padding:0 12px;border:1px solid var(--fbd);border-radius:8px;font-size:14px;color:var(--ink2);background:#fff}
-.ddl svg{color:var(--muted2)}
+.ddl .msym{color:var(--muted2)}
 .srch{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;border:1px solid var(--fbd);border-radius:8px;min-width:235px;color:#9E9E9E;font-size:14px}
 
 /* validation banner */
@@ -243,7 +243,7 @@ table{width:100%;border-collapse:collapse}
 .viewbtn{box-sizing:border-box;height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 12px;font-size:12px;font-weight:700;color:var(--brand);cursor:pointer}
 .morebtn{width:40px;height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--brand);display:grid;place-items:center;cursor:pointer;font-size:16px;line-height:1}
 .qthch{display:inline-flex;align-items:center;gap:4px}
-.qthch svg{color:#020202}
+.qthch .msym{color:#020202}
 .qpager{display:flex;justify-content:center;align-items:center;gap:6px;padding-top:16px}
 .qarrow{width:28px;height:28px;background:var(--soft);border:0;border-radius:8px;display:grid;place-items:center;color:var(--brand-ink);cursor:pointer}
 .qpg{min-width:28px;height:28px;border:0;background:transparent;border-radius:4px;font-size:12px;color:var(--ink);opacity:.8;padding:0 8px;cursor:pointer}
@@ -548,13 +548,13 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .field2 label{font-size:12px;font-weight:600;color:var(--ink2)}.field2 label span{color:#424242;font-size:10px;font-weight:400}
 .field2 .inp2{border:1px solid var(--e0);border-radius:8px;padding:9px 12px;font-size:14px;color:var(--ink2);height:36px;display:flex;align-items:center;justify-content:space-between;background:#fff}
 .field2 .inp2.ro{background:#FAFAFA}
-.field2 .inp2.sel::after{content:"▾";color:#616161;font-size:11px}
+.field2 .inp2.sel::after{content:"keyboard_arrow_down";color:#616161;font-size:20px;font-family:'Material Symbols Rounded';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;-webkit-font-feature-settings:'liga';font-feature-settings:'liga'}
 .decl{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
 .decl .cb{width:16px;height:16px;border:1.5px solid #757575;border-radius:2px;flex:0 0 auto}
 /* premium footer */
 .premfoot{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-top:1px solid #E5E7EB;background:#fff;box-shadow:0 -10px 15px -3px rgba(0,0,0,.06)}
-.premfoot .stat .k{font-size:14px;color:var(--muted)}
-.premfoot .stat .v{font-size:24px;font-weight:800}
+.premfoot .stat .k{font-size:13px;font-weight:600;color:var(--muted)}
+.premfoot .stat .v{font-size:16px;font-weight:800;margin-top:2px}
 .premfoot .stats{display:flex;gap:40px}
 /* proper range slider (grey track, blue fill, white thumb) */
 input[type=range].sl{-webkit-appearance:none;appearance:none;width:100%;height:10px;border-radius:100px;background:#EEEEEE;background-image:linear-gradient(#2168F6,#2168F6);background-repeat:no-repeat;background-size:var(--p,0%) 100%;outline:none;cursor:pointer}
@@ -576,7 +576,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .field label{display:block;font-size:11.5px;font-weight:600;color:#54607a;margin-bottom:5px}
 .field .inp{border:1px solid var(--fbd);border-radius:8px;padding:9px 11px;font-size:13px;background:#fff;color:var(--ink);height:36px;display:flex;align-items:center;justify-content:space-between}
-.field .inp.sel::after{content:"▾";color:#9aa1ac;font-size:11px}
+.field .inp.sel::after{content:"keyboard_arrow_down";color:#9aa1ac;font-size:20px;font-family:'Material Symbols Rounded';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;-webkit-font-feature-settings:'liga';font-feature-settings:'liga'}
 .sectitle{font-size:13px;font-weight:800;margin:16px 0 12px;display:flex;align-items:center;gap:9px}
 .sectitle::before{content:"";width:4px;height:14px;border-radius:3px;background:var(--brand)}
 .pol-wrap{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
@@ -1258,7 +1258,7 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 .ov-sub{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5}
 /* sticky bottom action bars: Vehicle data + Plan */
 #details .flowcard,#plan .flowcard{overflow:visible}
-#details .flowfoot,#plan .premfoot{position:sticky;bottom:0;z-index:30}
+#details .flowfoot,#upload .flowfoot,#plan .premfoot{position:sticky;bottom:0;z-index:30}
 /* section-heading icon tiles (shared .stepic) */
 .stepic{color:var(--brand)}
 .stepic .msym{font-size:20px}
@@ -1285,8 +1285,8 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 #uwdetail .fic .ms,#uwdetail .fic .msym,.rm-file .fic .msym,.rm-file .fic .ms{
   font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20!important}
 /* ===== 1) CTA bars slide away while scrolling down ===== */
-#details .flowfoot,#plan .premfoot{transition:bottom .25s ease}
-body.cta-away #details .flowfoot,body.cta-away #plan .premfoot{bottom:-160px}
+#details .flowfoot,#upload .flowfoot,#plan .premfoot{transition:bottom .25s ease}
+body.cta-away #details .flowfoot,body.cta-away #upload .flowfoot,body.cta-away #plan .premfoot{bottom:-160px}
 .sfoot,.rmfoot{transition:transform .25s ease}
 body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 
@@ -1422,6 +1422,9 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .rc-modal-body{font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:22px}
 .rc-modal-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .rc-modal-actions .btn{min-width:140px;justify-content:center}
+.rc-modal-actions.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.rc-modal-actions.two .btn{min-width:0;white-space:nowrap}
+#rc-modal .rc-dialog{max-width:520px}
 
 /* ZD editing footer row (match Image 5) */
 #recommend .zd-input-foot{display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:10px;flex-wrap:wrap}
@@ -1458,7 +1461,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .land-hint .msym{font-size:18px;font-variation-settings:'FILL' 0}
 @media(max-width:720px){.land-hint{font-weight:600}}
 /* ===== Fleet-approved success modal ===== */
-.appr-dialog{max-width:460px}
+.appr-dialog{max-width:520px}
 .appr-tick{width:88px;height:88px;margin:4px auto 20px}
 .appr-tick svg{width:88px;height:88px;display:block}
 .appr-circle{fill:var(--brand);transform-origin:50% 50%;animation:apprPop .42s cubic-bezier(.22,1,.36,1) both}
@@ -1471,91 +1474,14 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .brk-total-v{font-size:22px;font-weight:800;color:#4F000C}
 #policy .pol-foot{position:sticky;bottom:0;z-index:30;transition:bottom .25s ease}
 body.cta-away #policy .pol-foot{bottom:-160px}
-
-/* ===================== PLATFORM JOURNEY ===================== */
-.role.journey{grid-column:1 / -1;min-height:0}
-#journey{min-height:100vh;display:flex;flex-direction:column;background:radial-gradient(1100px 460px at 50% -160px,#ffe9d8 0%,transparent 62%),#fafafa}
-#journey .land-top .illogo{cursor:pointer}
-#journey .msym{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
-.jr-wrap{width:100%;max-width:1360px;margin:0 auto;padding:20px 24px 32px;display:flex;flex-direction:column}
-.jr-crumb{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.jr-crumb .back{width:15px;height:15px;color:var(--muted);cursor:pointer}
-.jr-crumb .back:hover{color:var(--brand)}
-.jr-crumb .crumb{font-size:12px;font-weight:500;color:var(--muted2);cursor:pointer}
-.jr-crumb .cur{font-size:12px;font-weight:700;color:#212121}
-#journey .kcards{margin-bottom:20px}
-#journey .kcard .knum{font-size:28px;line-height:34px;letter-spacing:-1px}
-#journey .kcard .ksub{font-size:12.5px;color:var(--muted)}
-.jr-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
-@media(max-width:1599px){.jr-grid{grid-template-columns:1fr}}
-#journey .dsec{padding:20px}
-#journey .dsechd{margin-bottom:16px}
-#journey .tabs{margin-bottom:0}
-#journey .tab .msym{font-size:16px;vertical-align:-3px;margin-right:6px}
-.jr-scroll{overflow-x:auto;margin:0 -20px;padding:0 20px}
-.jr-map{position:relative;display:grid;grid-template-columns:128px repeat(6,minmax(132px,1fr));min-width:920px}
-.jr-stage{padding:16px 8px 12px;font-size:12px;color:var(--muted2);border-bottom:1px solid var(--line)}
-.jr-stage b{display:block;font-size:13.5px;font-weight:800;color:var(--ink2)}
-.jr-lane{display:flex;align-items:center;gap:10px;padding:14px 8px 14px 0;border-top:1px solid var(--line);font-weight:800;font-size:13.5px;color:var(--ink2);line-height:1.25}
-.jr-lane small{display:block;font-weight:500;font-size:11.5px;color:var(--muted);margin-top:2px}
-.jr-cell{border-top:1px solid var(--line);border-left:1px dashed var(--e0);padding:14px 8px;display:flex;flex-direction:column;justify-content:center;gap:22px;min-height:140px}
-.jr-step{position:relative;z-index:2;text-align:left;background:#fff;border:1px solid var(--e0);border-radius:12px;padding:10px;display:flex;gap:8px;align-items:flex-start;font-size:12.5px;font-weight:700;color:var(--ink2);line-height:1.3;transition:border-color .15s,box-shadow .15s,opacity .2s,background .15s}
-.jr-step .kic{width:24px;height:24px}
-.jr-step .kic .msym{font-size:16px;width:16px;height:16px}
-.jr-step>span:not(.kic):not(.jr-loop){min-width:0;overflow-wrap:break-word}
-.jr-step small{display:block;font-weight:500;color:var(--muted);font-size:11px;margin-top:2px}
-.jr-step.popup{border-style:dashed;border-color:var(--fbd)}
-.jr-step.outcome{background:var(--green-bg);border-color:#A9DDBF}
-.jr-step.outcome .kic{background:#DFFFE6;color:var(--green)}
-.jr-step:hover{border-color:#F0A57F}
-.jr-step.on{border-color:var(--brand);background:var(--soft2);box-shadow:0 0 0 3px rgba(227,83,15,.12)}
-.jr-step.dim{opacity:.3}
-.jr-loop{position:absolute;top:-10px;right:-6px;display:inline-flex;align-items:center;gap:3px;background:var(--blue);color:#fff;font-size:10px;font-weight:700;border-radius:100px;padding:2px 8px}
-.jr-loop .msym{font-size:12px}
-svg.jr-links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
-svg.jr-links path{fill:none;stroke:var(--e0);stroke-width:1.6;transition:stroke .2s,opacity .2s}
-svg.jr-links path.hand{stroke-dasharray:5 4}
-svg.jr-links path.path{stroke:var(--fbd)}
-svg.jr-links path.lit{stroke:var(--brand);stroke-width:2.2}
-svg.jr-links path.dim{opacity:.3}
-.jr-key{display:flex;flex-wrap:wrap;gap:20px;padding-top:14px;margin-top:4px;border-top:1px solid var(--line);font-size:12px;color:var(--muted2)}
-.jr-key span{display:inline-flex;align-items:center;gap:8px}
-.jr-key i{display:inline-block}
-.jr-key .l1{width:22px;border-top:2px solid var(--fbd)}
-.jr-key .l2{width:22px;border-top:2px dashed var(--fbd)}
-.jr-key .b1{width:16px;height:12px;border:1.5px dashed var(--fbd);border-radius:3px}
-.jr-key .b2{width:16px;height:12px;background:var(--green-bg);border:1.5px solid #A9DDBF;border-radius:3px}
-.jr-detail{position:sticky;top:20px}
-.jr-detail .opill{margin-bottom:12px}
-.jr-detail .jd-title{font-size:18px;font-weight:800;color:#020202;line-height:1.3;margin:0 0 6px}
-.jr-detail p{font-size:13.5px;color:var(--muted2);line-height:1.55;margin:0}
-.jr-detail .jd-scr{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:12px;font-weight:600;color:var(--blue);background:var(--bhead);border-radius:6px;padding:4px 10px}
-.jr-detail .jd-scr .msym{font-size:15px}
-.jr-detail h4{font-size:13px;font-weight:700;color:var(--ink2);margin:18px 0 6px}
-.jr-detail ul{margin:0;padding-left:18px;font-size:13px;color:var(--cell)}
-.jr-detail li{margin:4px 0}
-.jr-detail .jd-next{margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--soft2);border:1px solid #f7cdaf;font-size:12.5px;color:var(--cell)}
-.jr-detail .jd-next b{color:var(--brand);font-weight:700}
-.jr-detail .jd-act{display:flex;flex-direction:column;gap:10px;margin-top:20px}
-.jr-detail .jd-act .btn{justify-content:center}
-.jr-detail .jd-act .row{display:flex;gap:10px}
-.jr-detail .jd-act .row .btn{flex:1;padding:10px 12px}
-.jr-detail .btn.ghost:disabled{opacity:.45;cursor:not-allowed}
-.jr-detail .jd-empty .sic{width:40px;height:40px;border-radius:10px;margin-bottom:14px}
-.jr-detail .jd-empty .sic .msym{font-size:22px;width:22px;height:22px}
-#journey .land-foot{margin-top:auto}
-@media(max-width:900px){#journey .kcards{flex-wrap:wrap}#journey .kcard{flex:1 1 40%}}
-@media(max-width:1599px){.jr-detail{position:static}.jr-detail p,.jr-detail ul{max-width:80ch}.jr-detail .jd-act{flex-direction:row;flex-wrap:wrap}.jr-detail .jd-act .row{display:contents}.jr-detail .jd-act .btn,.jr-detail .jd-act .row .btn{flex:0 0 auto;padding:10px 24px}}
-@media(prefers-reduced-motion:reduce){.jr-step,svg.jr-links path{transition:none}}
-
 /* ===== New Quotes: inline upload progress, then the evaluating popup opens automatically ===== */
 .nq-status{align-self:flex-start;box-sizing:border-box;width:calc((100% - 44px) * 4 / 12);margin-left:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:16px}
 .nq-file{display:flex;align-items:center;gap:12px}
 .nq-file .stepic{background:var(--bhead);color:var(--blue)}
 .nq-file .stepic .msym{font-variation-settings:'FILL' 0}
 .nq-fmeta{flex:1;min-width:0}
-.nq-frow{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.nq-fname{font-size:14px;font-weight:700;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nq-frow{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.nq-fname{font-size:14px;font-weight:700;color:var(--ink2);line-height:1.3;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow-wrap:anywhere}
 .nq-fstate{font-size:12.5px;font-weight:600;color:var(--muted2);display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
 .nq-fstate .msym{font-size:16px;font-variation-settings:'FILL' 1}
 .nq-fstate.done{color:var(--green)}
@@ -1563,6 +1489,27 @@ svg.jr-links path.dim{opacity:.3}
 .nq-bar{height:6px;border-radius:100px;background:var(--line);margin-top:8px;overflow:hidden}
 .nq-bar i{display:block;height:100%;width:0;background:var(--blue);border-radius:100px;transition:width .12s linear,background .2s}
 .nq-bar.done i{background:var(--green)}
+#upload .flowfoot{justify-content:space-between}
+.nq-hint{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.nq-hint[hidden]{display:none}
+.nq-hint .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
+#nq-fetch{margin-left:auto}
+.nq-bar.err i{background:#E8290B}
+.nq-x{flex:0 0 auto;align-self:flex-start;width:28px;height:28px;margin:-4px -6px 0 0;border:0;border-radius:50%;background:transparent;color:#616161;display:grid;place-items:center;cursor:pointer;transition:background .15s,color .15s}
+.nq-x[hidden]{display:none}
+.nq-x:hover{background:#F9E3E0;color:#A30100}
+.nq-x:focus-visible{outline:2px solid rgba(232,41,11,.4);outline-offset:1px}
+.nq-x .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
+.nq-status.err{border-color:#D98A88;background:#FFF9F8}
+.nq-status.err .nq-file .stepic{background:#FFF2EE;color:#E8290B}
+.nq-fstate.err{color:#A30100}
+.nq-fstate.err .msym{color:#E8290B}
+.nq-err{display:flex;align-items:flex-start;gap:8px;border-top:1px solid #F2D0CC;padding-top:12px}
+.nq-err[hidden]{display:none}
+.nq-err>.msym{flex:0 0 auto;font-size:18px;color:#E8290B;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;margin-top:1px}
+.nq-err>div{flex:1 1 0;min-width:0}
+.nq-err .nq-et{font-size:13px;font-weight:700;color:#A30100}
+.nq-err .nq-eb{font-size:12.5px;line-height:1.5;color:#616161;margin-top:2px}
 .samplebtn:disabled{opacity:.45;cursor:not-allowed}
 @media(max-width:720px){.nq-status{width:auto;align-self:stretch}}
 
@@ -1588,7 +1535,7 @@ svg.jr-links path.dim{opacity:.3}
 .vd-f .lb{white-space:nowrap}
 .vd-f[aria-expanded="true"]{border-color:var(--brand)}
 .vd-f.active{border-color:var(--brand);background:var(--soft2);color:var(--brand);font-weight:700}
-.vd-f.active svg{color:var(--brand)}
+.vd-f.active .msym{color:var(--brand)}
 .vd-menu{position:absolute;top:calc(100% + 6px);left:0;z-index:60;min-width:100%;width:max-content;max-width:280px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 34px rgba(16,20,28,.16);padding:6px;display:flex;flex-direction:column}
 .vd-menu[hidden]{display:none!important}
 .vd-opt{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:8px;font-size:13.5px;color:var(--ink2);font-family:inherit}
@@ -1606,6 +1553,39 @@ svg.jr-links path.dim{opacity:.3}
 #details .srch input::-webkit-search-cancel-button{cursor:pointer}
 #details .pager .pg:disabled,#details .pager .pgnav:disabled{opacity:.35;cursor:not-allowed}
 #details .qempty .btn.link{font-size:13px;display:inline}
+
+/* ===== Breadcrumbs: ancestors are links ===== */
+.subhead .bc{display:flex;align-items:center;gap:6px;font-size:12px}
+.subhead .bc-lk{border:0;background:transparent;padding:2px 0;font:inherit;font-weight:500;color:var(--muted2);cursor:pointer;border-radius:4px;text-underline-offset:3px}
+.subhead .bc-lk:hover{color:var(--brand);text-decoration:underline}
+.subhead .bc-lk:focus-visible{outline:2px solid rgba(236,102,37,.35);outline-offset:2px}
+.subhead .bc-sep{color:var(--muted2)}
+.subhead .bc .cur{margin-left:0}
+/* ===== Plan: Fleet Discount hidden for Third Party ===== */
+.is-off{display:none!important}
+/* ===== Vehicle data: field dropdown ===== */
+.vfm{position:fixed;z-index:250;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 34px rgba(16,20,28,.16);padding:6px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.vfm[hidden]{display:none}
+.vfm-hd{position:sticky;top:-6px;background:#fff;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:6px 10px 4px;z-index:1}
+.vfm-opt{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:8px;font:inherit;font-size:13.5px;color:var(--ink2);cursor:pointer}
+.vfm-opt:hover,.vfm-opt.act{background:var(--soft2)}
+.vfm-opt .vt b{font-weight:800;color:var(--brand)}
+.vfm-opt .vm{margin-left:auto;font-size:11px;font-weight:700;color:#5b6472;background:#eef0f3;border-radius:6px;padding:1px 7px}
+.vfm-opt .ck{margin-left:auto;font-size:18px;color:var(--brand);visibility:hidden;font-variation-settings:'FILL' 0}
+.vfm-opt .vm+.ck{margin-left:0}
+.vfm-opt.on{color:var(--brand);font-weight:700}
+.vfm-opt.on .ck{visibility:visible}
+.vfm-none{padding:12px 10px;font-size:13px;color:var(--muted)}
+.vf[aria-expanded="true"]{border-color:var(--brand);background:var(--soft2)}
+/* ===== Fleet approved: fleet details ===== */
+.appr-det{text-align:left;border:1px solid var(--line);border-radius:12px;background:#FAFAFA;padding:4px 16px;margin:0 0 22px}
+.appr-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid var(--line)}
+.appr-row:first-child{border-top:0}
+.appr-row .l{font-size:13px;font-weight:500;color:var(--muted)}
+.appr-row .r{font-size:14px;font-weight:700;color:#212121;text-align:right;white-space:nowrap}
+.appr-seg{display:flex;flex-wrap:wrap;gap:6px;padding:0 0 11px;margin-top:-4px}
+.appr-seg span{font-size:11.5px;font-weight:600;color:var(--muted2);background:#fff;border:1px solid var(--line);border-radius:100px;padding:2px 9px}
+.appr-seg b{font-weight:800;color:#212121}
 </style>
 </head>
 <body>
@@ -1635,46 +1615,9 @@ svg.jr-links path.dim{opacity:.3}
         <h3>Relationship Manager Flow</h3><p>Enter commission values for pending fleet cases and submit for approval.</p>
         <div class="cta"><span class="go">Enter workspace <span class="msym">arrow_forward</span></span></div>
       </button>
-      <button class="role journey" onclick="enterJourney()">
-        <span class="ptag">Overview</span>
-        <div class="ricon"><span class="msym">route</span></div>
-        <h3>Platform Journey</h3><p>See how a fleet moves across all three roles, from vehicle upload to a booked policy, and open any screen along the way.</p>
-        <div class="cta"><span class="go">View journey <span class="msym">arrow_forward</span></span></div>
-      </button>
     </div>
   </div>
   <div class="land-foot">ICICI Lombard · Fleet Management System — interactive prototype</div>
-</div>
-
-<!-- ===== PLATFORM JOURNEY ===== -->
-<div id="journey" hidden>
-  <div class="land-top"><div class="illogo" onclick="jrBack()" title="Company Logo"><span class="i1">Company Logo</span></div></div>
-  <div class="jr-wrap">
-    <div class="jr-crumb"><svg class="back" onclick="jrBack()" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><span class="crumb" onclick="jrBack()">Workspaces&nbsp;/&nbsp;</span><span class="cur">Platform Journey</span></div>
-    <div class="dhead">
-      <div><div class="dtitle">Platform Journey</div><div class="dsub">How a fleet moves from an agent's vehicle file to a booked policy, through real-time recommendations or underwriter evaluation.</div></div>
-    </div>
-    <div class="kcards">
-      <div class="kcard"><div class="kh"><span class="kic"><span class="msym">group</span></span><span class="klab">Roles</span></div><div class="kv"><span class="knum">3</span><span class="ksub">Agent, UW, RM</span></div></div>
-      <div class="kcard"><div class="kh"><span class="kic"><span class="msym">route</span></span><span class="klab">Journey steps</span></div><div class="kv"><span class="knum" id="jr-k-steps">15</span><span class="ksub">Across 6 stages</span></div></div>
-      <div class="kcard"><div class="kh"><span class="kic"><span class="msym">alt_route</span></span><span class="klab">Approval paths</span></div><div class="kv"><span class="knum">2</span><span class="ksub">Real-time or UW</span></div></div>
-      <div class="kcard"><div class="kh"><span class="kic"><span class="msym">sync</span></span><span class="klab">Re-evaluation attempts</span></div><div class="kv"><span class="knum">5</span><span class="ksub">Per fleet</span></div></div>
-    </div>
-    <div class="jr-grid">
-      <div class="dsec">
-        <div class="dsechd"><span class="sic"><span class="msym">account_tree</span></span><span class="stt">Journey Map</span><div class="rt"><button class="btn primary" id="jr-play" onclick="jrPlay()"><span class="msym" style="font-size:18px">play_arrow</span><span id="jr-play-l">Play path</span></button></div></div>
-        <div class="tabs" id="jr-tabs">
-          <button class="tab on" data-p="all" onclick="jrSetPath('all')"><span class="msym">apps</span>All Steps<span class="n">15</span></button>
-          <button class="tab" data-p="rt" onclick="jrSetPath('rt')"><span class="msym">auto_awesome</span>Real-time Approval<span class="n">12</span></button>
-          <button class="tab" data-p="uw" onclick="jrSetPath('uw')"><span class="msym">verified_user</span>Underwriter Evaluation<span class="n">12</span></button>
-        </div>
-        <div class="jr-scroll"><div class="jr-map" id="jr-map"><svg class="jr-links" id="jr-links"></svg></div></div>
-        <div class="jr-key"><span><i class="l1"></i>Next screen</span><span><i class="l2"></i>Handoff or branch</span><span><i class="b1"></i>Popup</span><span><i class="b2"></i>Outcome</span></div>
-      </div>
-      <div class="dsec jr-detail" id="jr-detail" aria-live="polite"></div>
-    </div>
-  </div>
-  <div class="land-foot">Fleet Management System — interactive prototype</div>
 </div>
 
 <!-- ===== APP ===== -->
@@ -1770,7 +1713,7 @@ svg.jr-links path.dim{opacity:.3}
     <colgroup><col style="width:64px"><col style="width:20%"><col style="width:11%"><col style="width:11%"><col style="width:11%"><col style="width:12%"><col style="width:14%"><col style="width:11%"></colgroup>
     <thead><tr>
       <th>S.No.</th>
-      <th><span class="qthch">Business Name <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></th>
+      <th><span class="qthch">Business Name <span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></span></th>
       <th>Fleet ID</th><th>Fleet Size</th><th>Policy Due</th><th>Policy Booked</th><th>Wallet Share</th><th>Actions</th>
     </tr></thead>
     <tbody id="strat"></tbody></table>
@@ -1827,6 +1770,13 @@ svg.jr-links path.dim{opacity:.3}
           <div class="appr-tick" id="appr-tick"></div>
           <div class="rc-modal-title">Fleet Approved and Sent for Commission Finalization</div>
           <div class="rc-modal-body">Congratulations! The fleet has been approved. The Regional Manager will soon contact you to finalize the commission.</div>
+          <div class="appr-det" id="appr-det">
+            <div class="appr-row"><span class="l">Fleet ID</span><span class="r" id="appr-fid">FMS_1111</span></div>
+            <div class="appr-row"><span class="l">Total vehicles</span><span class="r" id="appr-veh">100</span></div>
+            <div class="appr-row"><span class="l">Cumulative final discount requested</span><span class="r" id="appr-disc">—</span></div>
+            <div class="appr-seg" id="appr-seg"></div>
+            <div class="appr-row"><span class="l">ZD declaration</span><span class="r" id="appr-zd">—</span></div>
+          </div>
           <div class="rc-modal-actions">
             <button class="btn primary" onclick="approveAnother()">Evaluate another fleet</button>
           </div>
@@ -1858,10 +1808,19 @@ svg.jr-links path.dim{opacity:.3}
                       <div class="nq-fsize" id="nq-fsize"></div>
                       <div class="nq-bar" id="nq-bar"><i id="nq-barfill"></i></div>
                     </div>
+                    <button class="nq-x" id="nq-x" type="button" aria-label="Remove file" title="Remove file" hidden onclick="nqRemove()"><span class="msym">close</span></button>
+                  </div>
+                  <div class="nq-err" id="nq-err" role="alert" hidden>
+                    <span class="msym">error</span>
+                    <div><div class="nq-et">Unable to read this file</div><div class="nq-eb">This file may be corrupted or isn&rsquo;t in the expected template format. Remove it and upload the vehicle file again using the sample template.</div></div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="flowfoot" id="nq-foot">
+            <span class="nq-hint" id="nq-hint"><span class="msym">info</span>Upload a vehicle file to continue</span>
+            <button class="btn primary" id="nq-fetch" type="button" disabled onclick="nqFetch()">Fetch vehicle details</button>
           </div>
         </div>
       </section>
@@ -1869,7 +1828,7 @@ svg.jr-links path.dim{opacity:.3}
       <!-- VEHICLE DETAILS (flow card — matched to spec) -->
       <section class="screen" id="details">
         <div class="flowcard">
-          <div class="subhead"><svg class="back" onclick="go('upload')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><span class="crumb">New Quotes&nbsp;/&nbsp;</span><span class="cur">Vehicle Details</span></div>
+          <div class="subhead"><svg class="back" onclick="go('upload')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><nav class="bc" aria-label="Breadcrumb"><button class="bc-lk" onclick="go('upload')">New Quotes</button><span class="bc-sep">/</span><span class="cur">Vehicle Details</span></nav></div>
           <div class="flowbody">
             <div class="istep" id="istep-details"></div>
             <div class="steprow"><div class="stepic"><span class="msym">local_shipping</span></div><div>
@@ -1877,9 +1836,9 @@ svg.jr-links path.dim{opacity:.3}
               <div class="sub" style="margin-top:4px">The vehicle details below are sourced from VAHAN. Please review and correct any discrepancies to ensure the information is accurate.</div>
             </div></div>
             <div class="toolbar">
-              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-usage" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('usage',event)"><span class="lb">Usage</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="vd-menu" id="vd-m-usage" role="listbox" hidden></div></div>
-              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-make" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('make',event)"><span class="lb">Make</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="vd-menu" id="vd-m-make" role="listbox" hidden></div></div>
-              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-rto" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('rto',event)"><span class="lb">RTO</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="vd-menu" id="vd-m-rto" role="listbox" hidden></div></div>
+              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-usage" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('usage',event)"><span class="lb">Usage</span><span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></button><div class="vd-menu" id="vd-m-usage" role="listbox" hidden></div></div>
+              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-make" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('make',event)"><span class="lb">Make</span><span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></button><div class="vd-menu" id="vd-m-make" role="listbox" hidden></div></div>
+              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-rto" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('rto',event)"><span class="lb">RTO</span><span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></button><div class="vd-menu" id="vd-m-rto" role="listbox" hidden></div></div>
               <button class="btn link vd-clear" id="vd-clear" hidden onclick="vdClear()">Clear filters</button>
               <label class="srch" style="margin-left:auto"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BDBDBD" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="search" id="vd-q" placeholder="Search vehicles" aria-label="Search vehicles" oninput="vdSearch(this.value)" autocomplete="off"></label>
             </div>
@@ -1897,7 +1856,7 @@ svg.jr-links path.dim{opacity:.3}
       <!-- PLAN (flow card) -->
       <section class="screen" id="plan">
         <div class="flowcard">
-          <div class="subhead"><svg class="back" onclick="go('details')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><span class="crumb">New Quotes&nbsp;/&nbsp;Vehicle Details&nbsp;/&nbsp;</span><span class="cur">Plan Selection</span></div>
+          <div class="subhead"><svg class="back" onclick="go('details')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><nav class="bc" aria-label="Breadcrumb"><button class="bc-lk" onclick="go('upload')">New Quotes</button><span class="bc-sep">/</span><button class="bc-lk" onclick="go('details')">Vehicle Details</button><span class="bc-sep">/</span><span class="cur">Plan Selection</span></nav></div>
           <div class="flowbody">
             <div class="istep" id="istep-plan"></div>
 
@@ -1911,8 +1870,8 @@ svg.jr-links path.dim{opacity:.3}
               </div>
             </div>
 
-            <!-- Fleet Discount -->
-            <div class="card pad" style="box-shadow:none">
+            <!-- Fleet Discount (hidden for Third Party) -->
+            <div class="card pad" id="fd-card" style="box-shadow:none">
               <div class="fd-head">
                 <div class="steprow"><div class="stepic"><span class="msym">percent</span></div><div><div class="aotitle">Fleet Discount</div><div class="sub" style="margin-top:4px">Adjust discounts for each vehicle segment based on your fleet profile</div></div></div>
                 <div class="totdisc"><div class="k">Total Discount</div><div class="v"><b id="overall">21</b><i>%</i></div></div>
@@ -1930,7 +1889,7 @@ svg.jr-links path.dim{opacity:.3}
             <div class="card pad" style="box-shadow:none">
               <div class="steprow"><div class="stepic"><span class="msym">person</span></div><div><div class="aotitle">Ownership Information</div><div class="sub" style="margin:4px 0 16px">Verify and update owner details fetched from VAHAN</div></div></div>
               <div class="ownacc open">
-                <button class="own-hd" onclick="tacc(this)"><span class="oav">BE</span><span class="aname" style="font-weight:700;font-size:14px">Bhavani Enterprises Pvt. Ltd.</span><span class="verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9"/></svg>Verified</span><svg class="ch" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <button class="own-hd" onclick="tacc(this)"><span class="oav">BE</span><span class="aname" style="font-weight:700;font-size:14px">Bhavani Enterprises Pvt. Ltd.</span><span class="verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9"/></svg>Verified</span><span class="msym ch" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></button>
                 <div class="own-body">
                   <div class="ownrow">
                     <div class="field2"><label>Owner Name <span>(required)</span></label><div class="inp2 ro">Reema priyadarshini</div></div>
@@ -1994,9 +1953,9 @@ svg.jr-links path.dim{opacity:.3}
                 <colgroup><col style="width:22%"><col style="width:18%"><col style="width:18%"><col style="width:20%"><col style="width:22%"></colgroup>
                 <thead><tr>
                   <th style="white-space:nowrap">Reg Number</th>
-                  <th><span class="qthch">Policy Expiry <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></th>
+                  <th><span class="qthch">Policy Expiry <span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></span></th>
                   <th>Premium Amount</th>
-                  <th><span class="qthch">Policy Status <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span></th>
+                  <th><span class="qthch">Policy Status <span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></span></th>
                   <th>Actions</th>
                 </tr></thead>
                 <tbody id="quotes"></tbody></table>
@@ -2022,7 +1981,7 @@ svg.jr-links path.dim{opacity:.3}
       <!-- POLICY (flow card) -->
       <section class="screen" id="policy">
         <div class="flowcard">
-          <div class="subhead"><svg class="back" onclick="go('quote')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><span class="crumb">Quote List&nbsp;/&nbsp;</span><span class="cur">Create Policy</span></div>
+          <div class="subhead"><svg class="back" onclick="go('quote')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><nav class="bc" aria-label="Breadcrumb"><button class="bc-lk" onclick="go('quote')">Quote List</button><span class="bc-sep">/</span><span class="cur">Create Policy</span></nav></div>
           <div class="flowbody" id="pol-body">
 
             <!-- Header card -->
@@ -2042,13 +2001,13 @@ svg.jr-links path.dim{opacity:.3}
             <div class="card pad" style="box-shadow:none">
               <div class="polcols">
                 <div>
-                  <div class="fsec"><div class="fsectitle sic-t"><div class="stepic"><span class="msym">app_registration</span></div><span>Registration Details</span></div><div class="fcard"><div class="frow"><div class="ff"><label>RTO</label><div class="box"><span class="tx">Mumbai</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>First Registration Date</label><div class="box"><span class="tx">11/02/2022</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div><div class="ff"><label>Policy Start Date</label><div class="box"><span class="tx">10/10/2023</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div></div><div class="frow"><div class="ff"><label>Policy Type</label><div class="box"><span class="tx">Short Period</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>Policy End Date</label><div class="box"><span class="tx">09/10/2024</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div><div class="ff"><label>Current Registration Type</label><div class="box"><span class="tx">Individual</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div></div></div></div>
-                  <div class="fsec"><div class="fsectitle sic-t"><div class="stepic"><span class="msym">directions_car</span></div><span>Vehicle detail</span></div><div class="fcard"><div class="frow"><div class="ff"><label>Manufacturer</label><div class="box"><span class="tx">Tata Motors</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>Vehicle Sub class</label><div class="box"><span class="tx">Heavy Goods Vehicle</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>Model</label><div class="box"><span class="tx">Tata Prima 4028.S</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div></div><div class="frow"><div class="ff"><label>Cubic Capacity</label><div class="box"><span class="tx">5,883 cc</span></div></div><div class="ff"><label>Engine Number</label><div class="box"><span class="tx">4C2E12345A</span></div></div><div class="ff"><label>Chassis Number</label><div class="box"><span class="tx">MAT123456789</span></div></div></div><div class="frow"><div class="ff"><label>Fuel Type</label><div class="box"><span class="tx">Diesel</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>Body Type</label><div class="box"><span class="tx">Truck / Flatbed</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>Model Build</label><div class="box"><span class="tx">2022</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div></div><div class="frow"><div class="ff"><label>Gross Vehicle Weight</label><div class="box"><span class="tx">16,000 kg</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>Seating Capacity</label><div class="box"><span class="tx">2</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>Carrying capacity</label><div class="box"><span class="tx">10,000 kg</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div></div><div class="frow"><div class="ff"><label>Chasis Ex-Showroom Price</label><div class="box"><span class="tx">₹14,00,000</span></div></div><div class="ff"><label>Total Ex-Showroom Price</label><div class="box"><span class="tx">₹32,50,000</span></div></div><div class="ff"><label>Discount</label><div class="box dis"><span class="tx">25%</span></div></div></div><div class="idvbox">
+                  <div class="fsec"><div class="fsectitle sic-t"><div class="stepic"><span class="msym">app_registration</span></div><span>Registration Details</span></div><div class="fcard"><div class="frow"><div class="ff"><label>RTO</label><div class="box"><span class="tx">Mumbai</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>First Registration Date</label><div class="box"><span class="tx">11/02/2022</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div><div class="ff"><label>Policy Start Date</label><div class="box"><span class="tx">10/10/2023</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div></div><div class="frow"><div class="ff"><label>Policy Type</label><div class="box"><span class="tx">Short Period</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>Policy End Date</label><div class="box"><span class="tx">09/10/2024</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div><div class="ff"><label>Current Registration Type</label><div class="box"><span class="tx">Individual</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div></div></div></div>
+                  <div class="fsec"><div class="fsectitle sic-t"><div class="stepic"><span class="msym">directions_car</span></div><span>Vehicle detail</span></div><div class="fcard"><div class="frow"><div class="ff"><label>Manufacturer</label><div class="box"><span class="tx">Tata Motors</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>Vehicle Sub class</label><div class="box"><span class="tx">Heavy Goods Vehicle</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>Model</label><div class="box"><span class="tx">Tata Prima 4028.S</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div></div><div class="frow"><div class="ff"><label>Cubic Capacity</label><div class="box"><span class="tx">5,883 cc</span></div></div><div class="ff"><label>Engine Number</label><div class="box"><span class="tx">4C2E12345A</span></div></div><div class="ff"><label>Chassis Number</label><div class="box"><span class="tx">MAT123456789</span></div></div></div><div class="frow"><div class="ff"><label>Fuel Type</label><div class="box"><span class="tx">Diesel</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>Body Type</label><div class="box"><span class="tx">Truck / Flatbed</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>Model Build</label><div class="box"><span class="tx">2022</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div></div><div class="frow"><div class="ff"><label>Gross Vehicle Weight</label><div class="box"><span class="tx">16,000 kg</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>Seating Capacity</label><div class="box"><span class="tx">2</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>Carrying capacity</label><div class="box"><span class="tx">10,000 kg</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div></div><div class="frow"><div class="ff"><label>Chasis Ex-Showroom Price</label><div class="box"><span class="tx">₹14,00,000</span></div></div><div class="ff"><label>Total Ex-Showroom Price</label><div class="box"><span class="tx">₹32,50,000</span></div></div><div class="ff"><label>Discount</label><div class="box dis"><span class="tx">25%</span></div></div></div><div class="idvbox">
   <div class="idvhead"><span class="lbl">Insured Declared Value</span><span class="val">₹ <b id="idvval">11,00,000</b></span></div>
   <input type="range" class="sl" min="1000000" max="1200000" value="1100000" step="1000" style="--p:50%" oninput="idv(this.value)">
   <div class="idvmm"><span class="mm">Min <b>₹10,00,000</b></span><span class="mm">Max <b>₹12,00,000</b></span></div>
 </div></div></div>
-                  <div class="fsec"><div class="fsectitle sic-t"><div class="stepic"><span class="msym">history</span></div><span>Previous year policy details</span></div><div class="fcard"><div class="frow"><div class="ff"><label>Previous Policy Start Date</label><div class="box"><span class="tx">01/01/2023</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div><div class="ff"><label>Previous Policy End Date</label><div class="box"><span class="tx">31/12/2023</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div><div class="ff"><label>No. of claims made last year</label><div class="box"><span class="tx">0</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div></div><div class="frow"><div class="ff"><label>NCB on Previous Policy</label><div class="box"><span class="tx">20%</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div class="ff"><label>Previous Policy type</label><div class="box"><span class="tx">Comprehensive</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div><div></div></div></div></div>
+                  <div class="fsec"><div class="fsectitle sic-t"><div class="stepic"><span class="msym">history</span></div><span>Previous year policy details</span></div><div class="fcard"><div class="frow"><div class="ff"><label>Previous Policy Start Date</label><div class="box"><span class="tx">01/01/2023</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div><div class="ff"><label>Previous Policy End Date</label><div class="box"><span class="tx">31/12/2023</span><svg class="fi" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></svg></div></div><div class="ff"><label>No. of claims made last year</label><div class="box"><span class="tx">0</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div></div><div class="frow"><div class="ff"><label>NCB on Previous Policy</label><div class="box"><span class="tx">20%</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div class="ff"><label>Previous Policy type</label><div class="box"><span class="tx">Comprehensive</span><span class="msym fi" style="font-size:20px" aria-hidden="true">keyboard_arrow_down</span></div></div><div></div></div></div></div>
                 </div>
                 <div>
                   <div class="brkcard" style="margin-top:0">
@@ -2903,10 +2862,69 @@ function vfEsc(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').
 function vdList(skip){var q=vdState.q.toLowerCase();return vehicles.filter(function(v){
   for(var k in vdState.f){if(k!==skip&&vdState.f[k]&&v[k]!==vdState.f[k])return false;}
   if(!q)return true;return [v.reg].concat(VF_COLS.map(function(c){return v[c[0]];})).join(' ').toLowerCase().indexOf(q)>-1;});}
-function vfField(k,label,v,i){var ed=v[k]!==v.orig[k];return `<td class="vc"><input class="vf${ed?' edited':''}" type="text" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" value="${vfEsc(v[k])}" data-k="${k}" data-i="${i}" aria-label="${label}, ${v.reg}" oninput="vfInput(this)" onblur="vfBlur(this)" onkeydown="vfKey(event,this)"></td>`;}
-function vfInput(el){var v=vehicles[+el.dataset.i],k=el.dataset.k,val=el.value.trim();v[k]=val||v[k];el.classList.toggle('edited',val!==''&&val!==v.orig[k]);}
-function vfBlur(el){var v=vehicles[+el.dataset.i];if(!el.value.trim()){el.value=v[el.dataset.k];}el.classList.toggle('edited',el.value.trim()!==v.orig[el.dataset.k]);vdRefreshMenus();}
-function vfKey(e,el){if(e.key==='Enter')el.blur();if(e.key==='Escape'){var v=vehicles[+el.dataset.i];v[el.dataset.k]=v.orig[el.dataset.k];el.value=v.orig[el.dataset.k];el.classList.remove('edited');el.blur();}}
+const VF_MASTER={
+ usage:{hd:'Usage type',noun:'usage type',items:['Mining','Transport','Construction','Logistics','Agriculture','Municipal']},
+ make:{hd:'Vehicle make',noun:'make',items:['Tata Motors','Ashok Leyland','Eicher Motors','BharatBenz','Mahindra','Hindustan Motors','SML Isuzu']},
+ sub:{hd:'Vehicle subclass',noun:'subclass',items:['Truck','Trailer','Tanker','Tipper','Tractor']},
+ body:{hd:'Body type',noun:'body type',items:['Open','Closed','Flatbed','Container']},
+ build:{hd:'Build type',noun:'build type',items:['Chassis Only','Partial','Full']},
+ rto:{hd:'RTO office',noun:'RTO',items:[['Gandhinagar','GJ18'],['Ahmedabad','GJ01'],['Bhuj','GJ12'],['Surat','GJ05'],['Vadodara','GJ06'],['Rajkot','GJ03'],['Mumbai','MH01'],['Pune','MH12'],['Nagpur','MH31'],['Jaipur','RJ14'],['Indore','MP09']]}};
+const VF_MODEL_MASTER={'Tata Motors':['Prima XL 300','Prima XL 500','Signa 4825','Ultra T.16','LPT 1412'],'Ashok Leyland':['AVTR 3520','Boss 1415','Ecomet 1615','Captain 4019'],'Eicher Motors':['Pro 6048','Pro 3015','Pro 2095'],'BharatBenz':['3523R','2823C','1415R'],'Mahindra':['Blazo X 35','Furio 14','Furio 7'],'Hindustan Motors':['HM 1612','HM 1210'],'SML Isuzu':['Samrat GS','Sartaj GS']};
+var vfCur=null,vfAct=0,vfList=[],vfTouch=false,vfTimer=null;
+function vfField(k,label,v,i){var ed=v[k]!==v.orig[k];return `<td class="vc"><input class="vf${ed?' edited':''}" type="text" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="${vfEsc(v[k])}" data-k="${k}" data-i="${i}" aria-label="${label}, ${v.reg}" onfocus="vfOpen(this)" oninput="vfType(this)" onkeydown="vfKey(event,this)" onblur="vfBlur(this)"></td>`;}
+function vfOptions(el){var k=el.dataset.k,v=vehicles[+el.dataset.i];
+  if(k==='model')return {hd:'Models · '+v.make,noun:'model',items:(VF_MODEL_MASTER[v.make]||[]).map(function(x){return [x,''];})};
+  var m=VF_MASTER[k];return {hd:m.hd,noun:m.noun,items:m.items.map(function(x){return Array.isArray(x)?x:[x,''];})};}
+function vfHi(t,q){var i=q?t.toLowerCase().indexOf(q):-1;if(i<0)return vfEsc(t);return vfEsc(t.slice(0,i))+'<b>'+vfEsc(t.slice(i,i+q.length))+'</b>'+vfEsc(t.slice(i+q.length));}
+function vfMenu(){return document.getElementById('vf-menu');}
+function vfRender(el,q,first){
+  var o=vfOptions(el),cur=vehicles[+el.dataset.i][el.dataset.k],ql=(q||'').trim().toLowerCase();
+  var items=o.items.filter(function(it){return !ql||it[0].toLowerCase().indexOf(ql)>-1||(it[1]&&it[1].toLowerCase().indexOf(ql)>-1);});
+  if(ql)items.sort(function(a,b){return (b[0].toLowerCase().indexOf(ql)===0)-(a[0].toLowerCase().indexOf(ql)===0);});
+  vfList=items.map(function(it){return it[0];});vfAct=first?Math.max(0,vfList.indexOf(cur)):0;
+  var m=vfMenu();
+  m.innerHTML='<div class="vfm-hd">'+vfEsc(o.hd)+'</div>'+(items.length?items.map(function(it,ix){
+    return '<button type="button" class="vfm-opt'+(ix===vfAct?' act':'')+(it[0]===cur?' on':'')+'" role="option" data-v="'+vfEsc(it[0])+'"><span class="vt">'+vfHi(it[0],ql)+'</span>'+(it[1]?'<span class="vm">'+vfEsc(it[1])+'</span>':'')+'<span class="msym ck">check</span></button>';}).join('')
+    :'<div class="vfm-none">No matching '+vfEsc(o.noun)+' for &ldquo;'+vfEsc((q||'').trim())+'&rdquo;</div>');
+  m.hidden=false;vfPos(el);vfScroll();}
+function vfPos(el){var m=vfMenu();if(!m||m.hidden)return;var r=el.getBoundingClientRect(),vw=window.innerWidth,vh=window.innerHeight;
+  m.style.minWidth=Math.max(r.width,200)+'px';m.style.maxHeight='268px';
+  var w=m.offsetWidth,hh=m.offsetHeight,left=Math.min(Math.max(8,r.left),vw-w-8),top=r.bottom+4;
+  if(top+hh>vh-8&&r.top-hh-4>8)top=r.top-hh-4;
+  m.style.left=left+'px';m.style.top=top+'px';}
+function vfScroll(){var m=vfMenu(),a=m.querySelector('.vfm-opt.act');if(!a)return;var t=a.offsetTop,b=t+a.offsetHeight;if(t<m.scrollTop+28)m.scrollTop=Math.max(0,t-30);else if(b>m.scrollTop+m.clientHeight)m.scrollTop=b-m.clientHeight+8;}
+function vfMark(){var os=vfMenu().querySelectorAll('.vfm-opt');os.forEach(function(o,ix){o.classList.toggle('act',ix===vfAct);});vfScroll();}
+function vfClose(){var m=vfMenu();if(m)m.hidden=true;if(vfCur){vfCur.setAttribute('aria-expanded','false');}vfCur=null;}
+function vfOpen(el){if(vfCur&&vfCur!==el){vfFinish(vfCur);}vfCur=el;el.setAttribute('aria-expanded','true');vfRender(el,'',true);
+  try{el.select();}catch(e){}setTimeout(function(){try{el.setSelectionRange(0,el.value.length);}catch(e){}},0);}
+function vfType(el){vfRender(el,el.value,false);}
+function vfCommit(el,val){var i=+el.dataset.i,k=el.dataset.k,v=vehicles[i],prev=v[k];v[k]=val;el.value=val;el.classList.toggle('edited',val!==v.orig[k]);
+  if(k==='make'&&val!==prev){var ms=VF_MODEL_MASTER[val]||[];
+    if(ms.length&&ms.indexOf(v.model)<0){v.model=ms[0];var row=el.closest('tr'),mi=row&&row.querySelector('.vf[data-k="model"]');
+      if(mi){mi.value=v.model;mi.classList.toggle('edited',v.model!==v.orig.model);}
+      fmsToast('Model changed to '+v.model+' to match '+val+'.','info');}}
+  vdRefreshMenus();}
+function vfPick(el,val){vfCommit(el,val);vfClose();el.blur();}
+function vfFinish(el){var i=+el.dataset.i,k=el.dataset.k,v=vehicles[i],t=el.value.trim(),hit=null;
+  vfOptions(el).items.forEach(function(it){if(it[0].toLowerCase()===t.toLowerCase())hit=it[0];});
+  if(hit){if(hit!==v[k])vfCommit(el,hit);else el.value=hit;}
+  else{if(t&&t!==v[k])fmsToast('\u201c'+t+'\u201d is not a valid '+vfOptions(el).noun+'. Pick one from the list.','warn');el.value=v[k];}
+  el.classList.toggle('edited',v[k]!==v.orig[k]);
+  if(vfCur===el)vfClose();}
+function vfBlur(el){clearTimeout(vfTimer);vfTimer=setTimeout(function chk(){if(document.activeElement===el)return;if(vfTouch){vfTimer=setTimeout(chk,140);return;}vfFinish(el);},140);}
+function vfKey(e,el){var m=vfMenu();
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();if(m.hidden){vfRender(el,'',true);return;}if(!vfList.length)return;vfAct=(vfAct+(e.key==='ArrowDown'?1:-1)+vfList.length)%vfList.length;vfMark();return;}
+  if(e.key==='Enter'){e.preventDefault();if(!m.hidden&&vfList.length)vfPick(el,vfList[vfAct]);else el.blur();return;}
+  if(e.key==='Escape'){e.preventDefault();el.value=vehicles[+el.dataset.i][el.dataset.k];vfClose();el.blur();}}
+function vfInit(){
+  document.body.insertAdjacentHTML('beforeend','<div class="vfm" id="vf-menu" role="listbox" hidden></div>');
+  var m=vfMenu(),rel;
+  m.addEventListener('mousedown',function(e){e.preventDefault();});
+  m.addEventListener('pointerdown',function(){vfTouch=true;clearTimeout(rel);});
+  ['pointerup','pointercancel'].forEach(function(t){m.addEventListener(t,function(){clearTimeout(rel);rel=setTimeout(function(){vfTouch=false;},700);});});
+  m.addEventListener('click',function(e){var b=e.target.closest('.vfm-opt');if(!b||!vfCur)return;vfTouch=false;vfPick(vfCur,b.dataset.v);});
+  window.addEventListener('scroll',function(){if(vfCur)vfPos(vfCur);},true);
+  window.addEventListener('resize',function(){if(vfCur)vfPos(vfCur);});}
 function vdRender(){
   var list=vdList(),pages=Math.max(1,Math.ceil(list.length/vdState.per));if(vdState.page>pages)vdState.page=pages;
   var st=(vdState.page-1)*vdState.per,rows=list.slice(st,st+vdState.per);
@@ -2939,7 +2957,7 @@ function vdToggle(k,e){e.stopPropagation();var m=document.getElementById('vd-m-'
 function vdClose(){document.querySelectorAll('.vd-menu').forEach(function(m){m.hidden=true;});document.querySelectorAll('.vd-f').forEach(function(b){b.setAttribute('aria-expanded','false');});}
 document.addEventListener('pointerdown',function(e){if(!e.target.closest('.vd-dd'))vdClose();});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')vdClose();});
-vdRefreshMenus();vdRender();
+vdRefreshMenus();vdRender();vfInit();
 
 const SEGICON=['local_shipping','fire_truck','auto_towing','agriculture'].map(function(n){return '<span class="msym">'+n+'</span>';});
 const LVLS=[['Low','#01A252'],['Moderate','#E49F04'],['Moderate','#E49F04'],['High','#F5503F']];
@@ -3000,40 +3018,63 @@ function pick2(el){el.parentNode.querySelectorAll('.evalbtn').forEach(c=>c.class
 function nqGate(){}
 function nqUpload(e){document.getElementById('nq-file').click();}
 function nqFile(input){if(!input.files||!input.files.length)return;var f=input.files[0];window.__nqFile=f.name;input.value='';nqRun(f.name,f.size);}
-/* inline upload on New Quotes, then the evaluating popup opens automatically -> Vehicle details (no CTA) */
+/* inline upload on New Quotes; the sticky footer CTA then runs the evaluating popup -> Vehicle details */
 var nqTimers=[];
 function nqT(fn,ms){nqTimers.push(setTimeout(fn,ms));}
+function nqNameHtml(n){return String(n).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/([_\-.])/g,'$1<wbr>');}
 function nqSize(b){if(!b)return '';return b<1048576?Math.max(1,Math.round(b/1024))+' KB':(b/1048576).toFixed(1)+' MB';}
 function nqIcon(n){var e=(n.split('.').pop()||'').toLowerCase();return /xls|csv/.test(e)?'table_chart':/jpe?g|png/.test(e)?'image':e==='pdf'?'picture_as_pdf':'description';}
 function nqReset(){
   nqTimers.forEach(clearTimeout);nqTimers=[];
   var st=document.getElementById('nq-status');if(!st)return;
-  st.hidden=true;
-  document.getElementById('nq-bar').classList.remove('done');document.getElementById('nq-barfill').style.width='0';
+  st.hidden=true;st.classList.remove('err');
+  document.getElementById('nq-bar').classList.remove('done','err');document.getElementById('nq-barfill').style.width='0';
+  document.getElementById('nq-x').hidden=true;document.getElementById('nq-err').hidden=true;
   document.getElementById('nq-cta').disabled=false;document.getElementById('nq-sample').disabled=false;
+  nqOk=false;nqSync();
 }
+/* the uploaded file stays on this page (even after leaving and coming back); the footer CTA is enabled only while a valid file is present */
+var nqOk=false;
+function nqSync(){var b=document.getElementById('nq-fetch'),t=document.getElementById('nq-hint');if(b)b.disabled=!nqOk;if(t)t.hidden=nqOk;}
+function nqFetch(){
+  if(!nqOk)return;
+  analyse(['Analysing vehicle details','Fetching details from VAHAN','Fetching details from IIB'],'Please refrain from refreshing or closing this page while the details are being verified.',function(){
+    if(document.getElementById('upload').classList.contains('on')){go('details');window.scrollTo(0,0);}
+  },4000);
+}
+function nqRemove(){nqReset();window.__nqFile=null;var c=document.getElementById('nq-cta');if(c)c.focus();}
 function nqRun(name,size){
   nqReset();
   document.getElementById('nq-cta').disabled=true;document.getElementById('nq-sample').disabled=true;
-  document.getElementById('nq-fname').textContent=name;document.getElementById('nq-fname').title=name;
+  document.getElementById('nq-fname').innerHTML=nqNameHtml(name);document.getElementById('nq-fname').title=name;
   document.getElementById('nq-ficon').textContent=nqIcon(name);
   document.getElementById('nq-fsize').textContent=nqSize(size);
   var fs=document.getElementById('nq-fstate');fs.className='nq-fstate';fs.textContent='Uploading 0%';
   document.getElementById('nq-status').hidden=false;
   var UP=1600,steps=20;
   for(var k=1;k<=steps;k++)(function(k){nqT(function(){var p=Math.round(k/steps*100);document.getElementById('nq-barfill').style.width=p+'%';if(p<100)fs.textContent='Uploading '+p+'%';},UP*k/steps);})(k);
+  /* prototype rule: any Word file is treated as a corrupt / unreadable file */
+  var bad=/\.(docx?|dotx?)$/i.test(name);
+  if(bad){
+    nqT(function(){
+      document.getElementById('nq-status').classList.add('err');document.getElementById('nq-bar').classList.add('err');
+      fs.className='nq-fstate err';fs.innerHTML='<span class="msym">error</span>Upload failed';
+      document.getElementById('nq-x').hidden=false;document.getElementById('nq-err').hidden=false;
+      document.getElementById('nq-cta').disabled=false;document.getElementById('nq-sample').disabled=false;
+    },UP+50);
+    return;
+  }
   nqT(function(){
     document.getElementById('nq-bar').classList.add('done');
     fs.className='nq-fstate done';fs.innerHTML='<span class="msym">check_circle</span>Uploaded';
+    document.getElementById('nq-x').hidden=false;
+    document.getElementById('nq-cta').disabled=false;document.getElementById('nq-sample').disabled=false;
+    nqOk=true;nqSync();
   },UP+50);
-  nqT(function(){
-    analyse(['Analysing vehicle details','Fetching details from VAHAN','Fetching details from IIB'],'Please refrain from refreshing or closing this page while the details are being verified.',function(){
-      if(document.getElementById('upload').classList.contains('on')){go('details');window.scrollTo(0,0);}
-      nqReset();
-    },4000);
-  },UP+600);
 }
-function itype(el){el.parentNode.querySelectorAll('.itbtn').forEach(c=>{c.classList.remove('on');c.querySelector('.rr').innerHTML='';});el.classList.add('on');el.querySelector('.rr').innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9" stroke="#fff" stroke-width="2" fill="none"/></svg>';}
+function itype(el){el.parentNode.querySelectorAll('.itbtn').forEach(c=>{c.classList.remove('on');c.querySelector('.rr').innerHTML='';});el.classList.add('on');el.querySelector('.rr').innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9" stroke="#fff" stroke-width="2" fill="none"/></svg>';
+  /* Fleet Discount applies to Comprehensive and Mixed Coverage only */
+  var t=el.querySelector('.nm').textContent.trim(),fd=document.getElementById('fd-card');if(fd)fd.classList.toggle('is-off',t==='Third Party');window.__insType=t;}
 function tacc(h){var c=h.closest('.aoc,.subacc,.ownacc');if(c)c.classList.toggle('open');}
 function chk(el){el.classList.toggle('on');var b=el.querySelector('.cb');if(el.classList.contains('on')){b.classList.remove('off');b.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg>';}else{b.classList.add('off');b.innerHTML='';}}
 function tabSwitch(el){el.parentNode.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));el.classList.add('on');}
@@ -4356,9 +4397,27 @@ function acceptAllAndProceed() {
   approveFleet();
 }
 
+var FLEET_ID = 'FMS_1111';
+function approvalSummary() {
+  var tot = 0, w = 0, parts = [];
+  segments.forEach(function (s) {
+    var ac = agentConfig[s.id], d = (ac && !isNaN(Number(ac.disc))) ? Number(ac.disc) : s.recDisc;
+    tot += d * s.count; w += s.count; parts.push([s.name, d]);
+  });
+  var avg = w ? Math.round(tot / w * 10) / 10 : 0;
+  var zd = (zdFinal !== null && zdFinal !== undefined) ? Number(zdFinal) : Number(zdRecommended);
+  return { id: FLEET_ID, vehicles: zdTotalCount, avg: avg, parts: parts, zd: zd, zdVeh: Math.ceil(zdEligibleCount * zd / 100) };
+}
 function approveFleet() {
   var tick = document.getElementById('appr-tick');
   if (tick) tick.innerHTML = '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><circle class="appr-circle" cx="26" cy="26" r="24"/><path class="appr-check" d="M15 27l7 7 15-16"/></svg>';
+  var s = approvalSummary();
+  document.getElementById('appr-fid').textContent = s.id;
+  document.getElementById('appr-veh').textContent = s.vehicles;
+  document.getElementById('appr-disc').textContent = s.avg + '%';
+  document.getElementById('appr-seg').innerHTML = s.parts.map(function (p) { return '<span>' + p[0] + ' <b>' + p[1] + '%</b></span>'; }).join('');
+  document.getElementById('appr-zd').textContent = s.zd + '% (' + s.zdVeh + ' vehicles)';
+  var ev = document.getElementById('q-evid'); if (ev) ev.textContent = s.id;
   document.getElementById('appr-modal').classList.add('on');
 }
 function approveViewQuotes() {
@@ -4367,6 +4426,7 @@ function approveViewQuotes() {
 }
 function approveAnother() {
   document.getElementById('appr-modal').classList.remove('on');
+  if (window.nqReset) nqReset();
   go('upload');
 }
 
@@ -4439,6 +4499,7 @@ function rcModal(o){
   if(o.dismiss){var x=document.createElement('button');x.className='rc-x';x.innerHTML='<span class="msym">close</span>';x.onclick=rcCloseModal;dlg.appendChild(x);}
   if(o.secondary){var b=document.createElement('button');b.className='btn ghost';b.textContent=o.secondary.label;b.onclick=o.secondary.onClick;act.appendChild(b);}
   if(o.primary){var p=document.createElement('button');p.className='btn primary';p.textContent=o.primary.label;p.onclick=o.primary.onClick;act.appendChild(p);}
+  act.classList.toggle('two',act.children.length>1);
   document.getElementById('rc-modal').classList.add('on');
 }
 function rcCloseModal(){document.getElementById('rc-modal').classList.remove('on');}
@@ -4475,121 +4536,6 @@ function fmsToast(msg, type){
   clearTimeout(t._tmo); t._tmo = setTimeout(function(){ t.classList.remove('show'); }, 3600);
 }
 
-</script>
-<script>
-/* ===================== PLATFORM JOURNEY ===================== */
-var JR_LANES=[
-  {id:'ag',name:'Agent',role:'Builds the quote',icon:'group'},
-  {id:'uw',name:'Underwriter',role:'Evaluates referred fleets',icon:'verified_user'},
-  {id:'rm',name:'Relationship Manager',role:'Enters commission',icon:'handshake'}];
-var JR_STAGES=[['1. Upload','Vehicle file and details'],['2. Plan','Cover and discounts'],['3. Recommendations','Real-time qualification'],['4. Evaluation','Underwriter review'],['5. Commission','RM sign-off'],['6. Booking','Quotes to policy']];
-var JR_S={
- a1:{l:'ag',s:0,t:'Upload vehicle file',m:'New Quotes',i:'upload_file',d:'The agent uploads the fleet file in Word, Excel, PDF, JPEG or PNG. The platform analyses it against VAHAN and IIB before listing the vehicles.',u:['Upload progress shown on the same card','Evaluating popup opens automatically with VAHAN and IIB stages','Vehicle details opens once evaluation finishes'],go:function(){enterAgent();}},
- a2:{l:'ag',s:0,t:'Vehicle details',m:'Step 1',i:'local_shipping',d:'Extracted vehicles appear in a searchable, filterable table so the agent can check the fleet before choosing a plan.',u:['Every field except Registration Number is editable','Field highlights while editing; edited values turn violet','Save and exit, or Proceed to Plan selection'],go:function(){enterAgent();go('details');}},
- a3:{l:'ag',s:1,t:'Plan selection',m:'Step 2',i:'tune',d:'The agent picks the insurance type, sets fleet discounts, the Zero Depreciation add-on and ownership, then requests a quote.',u:['Three insurance types','Fleet Discount and ZD sliders','Get Quote opens the generating quotes loader'],go:function(){enterAgent();go('plan');}},
- a4:{l:'ag',s:1,t:'Choose How to Proceed',m:'Popup',i:'auto_awesome',pop:1,d:'The agent decides whether to review system recommendations for real-time approval, or continue as is for underwriter evaluation.',u:['Review Recommendations leads to the ZD check','Continue as Is routes the fleet to the underwriter'],go:function(){enterAgent();go('plan');openInterception();}},
- a5:{l:'ag',s:2,t:'Zero Depreciation check',m:'Review Recommendations',i:'shield',d:'When the requested ZD penetration does not qualify, the platform recommends a higher value and shows how many vehicles it covers.',u:['Requested 70% to recommended 90%','Accept Recommendation, or Modify once within 70% to 100%','Both lead to the segment review'],go:function(){enterAgent();enterRecommend();}},
- a6:{l:'ag',s:2,t:'Segment recommendations',m:'Review Recommendations',i:'view_agenda',loop:1,d:'Truck, trailer and tanker segments each get a recommended discount. The agent accepts or customises each, then re-evaluates. Qualified segments settle and modified ones return with a fresh recommendation.',u:['Qualified, Not Qualified and Modified status','Re-evaluate runs a short eligibility check','5 attempts, one per evaluation'],go:function(){enterAgent();enterRecommend();enterSegmentPhase();}},
- a7:{l:'ag',s:2,t:'Fleet approved',m:'Success popup',i:'task_alt',out:1,d:'Once every segment qualifies, the fleet is approved in real time and sent on for commission finalisation.',u:['Animated approval tick','Evaluate another fleet'],go:function(){enterAgent();approveFleet();}},
- a8:{l:'ag',s:3,t:'Evaluated Cases',m:'Agent tracking',i:'fact_check',d:'A fleet routed for underwriter evaluation appears here, so the agent can follow its status.',u:['Reached through Continue as Is, Discard Changes, or running out of attempts','A toast confirms the routing'],go:function(){enterAgent();go('evaluated');}},
- u1:{l:'uw',s:3,t:'Pending cases',m:'Underwriter list',i:'pending_actions',d:'Referred fleets wait in the underwriter queue, alongside approved and rejected lists.',u:['Pending, Approved and Rejected lists','Shared pool cases are tagged'],go:function(){enterUnderwriter();}},
- u2:{l:'uw',s:3,t:'Case review',m:'Underwriter case',i:'rule',d:'The underwriter compares cover plans, checks insured details, approves fleet segments, verifies documents and adjusts add-ons before submitting.',u:['CP1 and CP2 tabs with Compare','Review and approve fleet segments','Verify documents and update add-ons','Remarks emailed to the agent and RM'],go:function(){enterUnderwriter();openUWCase(1111);}},
- r1:{l:'rm',s:4,t:'Pending cases',m:'RM list',i:'inbox',d:'Approved fleets arrive in the RM queue with commission awaited.',u:['Pending, Approved and Rejected lists'],go:function(){enterRM();}},
- r2:{l:'rm',s:4,t:'Commission entry',m:'RM case',i:'payments',d:'The RM reviews insured details and evaluation history, enters commission values and submits them for approval.',u:['Insured details and evaluation history','Commission table','Submit unlocks once every value is valid'],go:function(){enterRM();openRMCase(1111,'edit','rm-pending');}},
- a9:{l:'ag',s:5,t:'Quote list',m:'Step 3',i:'request_quote',d:'Each vehicle is listed with its policy expiry, premium and status, ready to book.',u:['All, Pending and Booked tabs with search','Book Policy on each row'],go:function(){enterAgent();go('quote');}},
- a10:{l:'ag',s:5,t:'Create policy',m:'Quote List / Create Policy',i:'description',d:'The agent checks the business summary and premium breakdown, then books the policy.',u:['Premium breakdown ending in Total Premium','Sticky bar with total and Book Policy'],go:function(){enterAgent();go('policy');}},
- a11:{l:'ag',s:5,t:'Policy booked',m:'Outcome',i:'verified',out:1,d:'The policy is booked and the quote moves to the Booked tab.',u:['Booked confirmation on Create Policy'],go:function(){enterAgent();go('policy');}}
-};
-var JR_E=[['a1','a2'],['a2','a3'],['a3','a4'],['a4','a5',1,'Review Recommendations'],['a4','a8',1,'Continue as Is'],['a5','a6'],['a6','a7',0,'All segments qualify'],['a6','a8',1,'Discard or out of attempts'],['a8','u1',1,'Routed to underwriter'],['u1','u2'],['a7','r1',1,'Sent for commission'],['u2','r1',1,'Fleet approved'],['r1','r2'],['r2','a9',1,'Commission submitted'],['a9','a10'],['a10','a11']];
-var JR_P={rt:['a1','a2','a3','a4','a5','a6','a7','r1','r2','a9','a10','a11'],uw:['a1','a2','a3','a4','a8','u1','u2','r1','r2','a9','a10','a11'],all:Object.keys(JR_S)};
-var jrPath='all',jrCur=null,jrTimer=null,jrBuilt=false;
-
-function jrBuild(){
-  var m=document.getElementById('jr-map');
-  var html='<div class="jr-stage"></div>'+JR_STAGES.map(function(s){return '<div class="jr-stage"><b>'+s[0]+'</b>'+s[1]+'</div>';}).join('');
-  JR_LANES.forEach(function(l){
-    html+='<div class="jr-lane"><span class="kic"><span class="msym">'+l.icon+'</span></span><div>'+l.name+'<small>'+l.role+'</small></div></div>';
-    JR_STAGES.forEach(function(_,i){html+='<div class="jr-cell" data-c="'+l.id+'-'+i+'"></div>';});
-  });
-  m.insertAdjacentHTML('beforeend',html);
-  Object.keys(JR_S).forEach(function(id){
-    var s=JR_S[id],b=document.createElement('button');
-    b.className='jr-step'+(s.pop?' popup':'')+(s.out?' outcome':'');b.dataset.id=id;
-    b.innerHTML='<span class="kic"><span class="msym">'+s.i+'</span></span><span>'+s.t+'<small>'+s.m+'</small></span>'+(s.loop?'<span class="jr-loop"><span class="msym">sync</span>5 attempts</span>':'');
-    b.onclick=function(){jrStop();jrSelect(id,true);};
-    m.querySelector('[data-c="'+s.l+'-'+s.s+'"]').appendChild(b);
-  });
-  jrBuilt=true;
-}
-function jrDraw(){
-  var m=document.getElementById('jr-map'),svg=document.getElementById('jr-links');
-  if(!m||document.getElementById('journey').hidden)return;
-  var B=m.getBoundingClientRect();
-  svg.setAttribute('viewBox','0 0 '+B.width+' '+B.height);
-  svg.innerHTML=JR_E.map(function(e,i){
-    var a=m.querySelector('[data-id="'+e[0]+'"]').getBoundingClientRect(),b=m.querySelector('[data-id="'+e[1]+'"]').getBoundingClientRect(),d;
-    if(Math.abs(a.left-b.left)<6){var x=a.left+a.width/2-B.left,dn=b.top>a.top;d='M'+x+' '+((dn?a.bottom:a.top)-B.top)+' L'+x+' '+((dn?b.top:b.bottom)-B.top);}
-    else{var x1=a.right-B.left,y1=a.top+a.height/2-B.top,x2=b.left-B.left,y2=b.top+b.height/2-B.top,mx=(x1+x2)/2;d='M'+x1+' '+y1+' C'+mx+' '+y1+', '+mx+' '+y2+', '+x2+' '+y2;}
-    return '<path data-e="'+i+'" class="'+(e[2]?'hand':'')+'" d="'+d+'"/>';
-  }).join('');
-  jrPaint();
-}
-function jrPaint(){
-  var seq=JR_P[jrPath],set={};seq.forEach(function(x){set[x]=1;});
-  document.querySelectorAll('#jr-map .jr-step').forEach(function(el){el.classList.toggle('dim',!set[el.dataset.id]);el.classList.toggle('on',el.dataset.id===jrCur);});
-  document.querySelectorAll('#jr-links path').forEach(function(p){
-    var e=JR_E[+p.dataset.e],inP=jrPath==='all'||(seq.indexOf(e[0])>-1&&seq.indexOf(e[1])===seq.indexOf(e[0])+1);
-    p.classList.toggle('dim',!inP);p.classList.toggle('path',inP&&jrPath!=='all');
-    p.classList.toggle('lit',!!jrCur&&inP&&(e[0]===jrCur||e[1]===jrCur));
-  });
-}
-function jrLane(id){for(var i=0;i<JR_LANES.length;i++)if(JR_LANES[i].id===id)return JR_LANES[i];}
-function jrSelect(id,fromClick){
-  jrCur=id;jrPaint();
-  var s=JR_S[id],l=jrLane(s.l),seq=JR_P[jrPath],i=seq.indexOf(id);
-  var nx=JR_E.filter(function(e){return e[0]===id&&(jrPath==='all'||seq[i+1]===e[1]);});
-  var el=document.getElementById('jr-detail');
-  el.innerHTML='<span class="opill orange">'+l.name+'</span>'+
-   '<div class="jd-title">'+s.t+'</div><p>'+s.d+'</p>'+
-   '<span class="jd-scr"><span class="msym">'+s.i+'</span>'+s.m+'</span>'+
-   '<h4>On this screen</h4><ul>'+s.u.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>'+
-   (nx.length?'<div class="jd-next">'+nx.map(function(e){return '<div><b>'+(e[3]||'Next')+':</b> '+JR_S[e[1]].t+' ('+jrLane(JR_S[e[1]].l).name+')</div>';}).join('')+'</div>':'')+
-   '<div class="jd-act"><button class="btn primary" onclick="jrOpen(\''+id+'\')">Open this screen<span class="msym" style="font-size:18px">arrow_forward</span></button>'+
-   (jrPath!=='all'?'<div class="row"><button class="btn ghost" '+(i<1?'disabled':'')+' onclick="jrStep(-1)">Previous step</button><button class="btn ghost" '+(i>=seq.length-1?'disabled':'')+' onclick="jrStep(1)">Next step</button></div>':'')+'</div>';
-  if(fromClick&&window.innerWidth<1600){var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;el.scrollIntoView({behavior:rm?'auto':'smooth',block:'nearest'});}
-}
-function jrEmpty(){
-  document.getElementById('jr-detail').innerHTML='<div class="jd-empty"><span class="sic"><span class="msym">touch_app</span></span><div class="jd-title">Select a step</div><p>Each step shows the screen it lives on, what happens there, and where the fleet goes next. Choose a path to follow one route end to end, then open any screen in the prototype.</p></div>';
-}
-function jrStep(d){jrStop();var s=JR_P[jrPath],i=s.indexOf(jrCur);if(s[i+d])jrSelect(s[i+d]);}
-function jrSetPath(p){
-  jrPath=p;document.querySelectorAll('#jr-tabs .tab').forEach(function(t){t.classList.toggle('on',t.dataset.p===p);});
-  if(jrCur&&JR_P[p].indexOf(jrCur)<0){jrCur=null;jrEmpty();}
-  if(jrCur)jrSelect(jrCur);else jrPaint();
-}
-function jrStop(){if(jrTimer){clearInterval(jrTimer);jrTimer=null;document.getElementById('jr-play-l').textContent='Play path';document.querySelector('#jr-play .msym').textContent='play_arrow';}}
-function jrPlay(){
-  if(jrTimer){jrStop();return;}
-  if(jrPath==='all')jrSetPath('rt');
-  var s=JR_P[jrPath],i=s.indexOf(jrCur);if(i<0||i>=s.length-1)i=-1;
-  jrSelect(s[i+1]);
-  document.getElementById('jr-play-l').textContent='Pause';document.querySelector('#jr-play .msym').textContent='pause';
-  jrTimer=setInterval(function(){var q=JR_P[jrPath],j=q.indexOf(jrCur);if(j>=q.length-1){jrStop();return;}jrSelect(q[j+1]);},2200);
-}
-function enterJourney(){
-  document.getElementById('landing').hidden=true;document.getElementById('app').hidden=true;document.getElementById('journey').hidden=false;
-  if(!jrBuilt)jrBuild();
-  if(!jrCur)jrEmpty();
-  window.scrollTo(0,0);requestAnimationFrame(jrDraw);
-  if(document.fonts)document.fonts.ready.then(jrDraw);
-}
-function jrBack(){jrStop();document.getElementById('journey').hidden=true;backToLanding();}
-function jrOpen(id){jrStop();document.getElementById('journey').hidden=true;JR_S[id].go();}
-window.addEventListener('resize',jrDraw);
-document.addEventListener('keydown',function(e){
-  if(document.getElementById('journey').hidden||!jrCur||jrPath==='all')return;
-  if(e.key==='ArrowRight')jrStep(1);if(e.key==='ArrowLeft')jrStep(-1);
-});
 </script>
 </body>
 </html>
