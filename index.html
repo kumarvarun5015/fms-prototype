@@ -548,6 +548,12 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .field2 label{font-size:12px;font-weight:600;color:var(--ink2)}.field2 label span{color:#424242;font-size:10px;font-weight:400}
 .field2 .inp2{border:1px solid var(--e0);border-radius:8px;padding:9px 12px;font-size:14px;color:var(--ink2);height:36px;display:flex;align-items:center;justify-content:space-between;background:#fff}
 .field2 .inp2.ro{background:#FAFAFA}
+.field2 .inp2.sel{cursor:pointer;transition:border-color .15s,box-shadow .15s,background .15s}
+.field2 .inp2.sel .val{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.field2 .inp2.sel::after{transition:transform .15s}
+.field2 .inp2.sel:hover{border-color:var(--fbd)}
+.field2 .inp2.sel:focus-visible,.field2 .inp2.sel[aria-expanded="true"]{outline:none;border-color:var(--brand);background:var(--soft2);box-shadow:0 0 0 3px rgba(227,83,15,.12)}
+.field2 .inp2.sel[aria-expanded="true"]::after{transform:rotate(180deg)}
 .field2 .inp2.sel::after{content:"keyboard_arrow_down";color:#616161;font-size:20px;font-family:'Material Symbols Rounded';font-weight:400;font-style:normal;line-height:1;letter-spacing:normal;text-transform:none;white-space:nowrap;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;-webkit-font-feature-settings:'liga';font-feature-settings:'liga'}
 .decl{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
 .decl .cb{width:16px;height:16px;border:1.5px solid #757575;border-radius:2px;flex:0 0 auto}
@@ -1896,12 +1902,12 @@ body.cta-away #policy .pol-foot{bottom:-160px}
                 <div class="own-body">
                   <div class="ownrow">
                     <div class="field2"><label>Owner Name <span>(required)</span></label><div class="inp2 ro">Reema priyadarshini</div></div>
-                    <div class="field2"><label>Relationship</label><div class="inp2 sel">Spouse</div></div>
+                    <div class="field2"><label id="rel-l-spouse">Relationship</label><div class="inp2 sel" role="combobox" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="rel-l-spouse" data-rel="1"><span class="val">Spouse</span></div></div>
                     <div class="field2"><label>PAN Number</label><div class="inp2 mono">AREPV6084C</div></div>
                   </div>
                   <div class="ownrow">
                     <div class="field2"><label>Owner Name <span>(required)</span></label><div class="inp2 ro">Raviraj singh rathod</div></div>
-                    <div class="field2"><label>Relationship</label><div class="inp2 sel">Brother</div></div>
+                    <div class="field2"><label id="rel-l-brother">Relationship</label><div class="inp2 sel" role="combobox" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="rel-l-brother" data-rel="1"><span class="val">Brother</span></div></div>
                     <div class="field2"><label>PAN Number</label><div class="inp2 mono">AREPV6087G</div></div>
                   </div>
                 </div>
@@ -3055,7 +3061,7 @@ function nqSync(){
   var can=ok>=1&&!up;
   if($('nq-fetch'))$('nq-fetch').disabled=!can;
   if($('nq-hint')){$('nq-hint').hidden=can;$('nq-hint-t').textContent=up?'Uploading your file\u2026':'Upload a vehicle file to continue';}
-  if($('nq-limit')){$('nq-limit').hidden=n===0;$('nq-limit').textContent=n>=NQ_MAX?'Maximum of '+NQ_MAX+' files reached':n+' of '+NQ_MAX+' files added';}
+  if($('nq-limit')){var full=n>=NQ_MAX;$('nq-limit').hidden=!full;$('nq-limit').textContent=full?'Maximum of '+NQ_MAX+' files reached':'';}
 }
 function nqReset(){nqTimers.forEach(clearTimeout);nqTimers=[];nqFiles=[];nqRender();nqSync();}
 function nqRemove(id){
@@ -4674,6 +4680,59 @@ function planCta(){if(planBusy)return;if(planDirty())planUpdate();else planGetQu
   planBase=planRaw(planState());planSnap=JSON.stringify(planState());
   ['input','change','click'].forEach(function(t){pl.addEventListener(t,function(){setTimeout(planSync,0);});});
   planSync();
+})();
+</script>
+<script>
+/* ===== Plan > Ownership: Relationship dropdown (same menu look as the vehicle-field dropdown) ===== */
+var REL_OPTS=['Self','Spouse','Father','Mother','Son','Daughter','Brother','Sister','Partner','Director','Other'];
+var relCur=null,relAct=0;
+function relMenu(){return document.getElementById('rel-menu');}
+function relVal(el){return el.querySelector('.val').textContent.trim();}
+function relRender(){
+  var cur=relVal(relCur);
+  relMenu().innerHTML='<div class="vfm-hd">Relationship</div>'+REL_OPTS.map(function(o,i){
+    return '<button type="button" class="vfm-opt'+(i===relAct?' act':'')+(o===cur?' on':'')+'" role="option" aria-selected="'+(o===cur)+'" data-v="'+o+'"><span class="vt">'+o+'</span><span class="msym ck">check</span></button>';}).join('');
+}
+function relPos(){
+  var m=relMenu();if(!relCur||m.hidden)return;
+  var r=relCur.getBoundingClientRect(),vh=window.innerHeight,vw=window.innerWidth;
+  m.style.minWidth=r.width+'px';m.style.maxHeight='268px';
+  var w=m.offsetWidth,hh=m.offsetHeight,left=Math.min(Math.max(8,r.left),vw-w-8),top=r.bottom+4;
+  if(top+hh>vh-8&&r.top-hh-4>8)top=r.top-hh-4;
+  m.style.left=left+'px';m.style.top=top+'px';
+}
+function relScroll(){var m=relMenu(),a=m.querySelector('.vfm-opt.act');if(!a)return;var t=a.offsetTop,b=t+a.offsetHeight;if(t<m.scrollTop+28)m.scrollTop=Math.max(0,t-30);else if(b>m.scrollTop+m.clientHeight)m.scrollTop=b-m.clientHeight+8;}
+function relClose(focusBack){
+  var m=relMenu();if(m)m.hidden=true;
+  if(relCur){relCur.setAttribute('aria-expanded','false');if(focusBack)relCur.focus();}
+  relCur=null;
+}
+function relOpen(el){
+  if(relCur)relClose();
+  relCur=el;el.setAttribute('aria-expanded','true');
+  var cur=relVal(el);relAct=Math.max(0,REL_OPTS.indexOf(cur));
+  relRender();relMenu().hidden=false;relPos();relScroll();
+}
+function relPick(v){if(!relCur)return;relCur.querySelector('.val').textContent=v;relClose(true);}
+(function relInit(){
+  document.body.insertAdjacentHTML('beforeend','<div class="vfm" id="rel-menu" role="listbox" aria-label="Relationship" hidden></div>');
+  var m=relMenu();
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('.inp2.sel[data-rel]');
+    if(t){if(relCur===t)relClose();else relOpen(t);return;}
+    var o=e.target.closest('#rel-menu .vfm-opt');if(o){relPick(o.dataset.v);}
+  });
+  document.addEventListener('pointerdown',function(e){if(relCur&&!e.target.closest('#rel-menu')&&!e.target.closest('.inp2.sel[data-rel]'))relClose();});
+  document.addEventListener('keydown',function(e){
+    var t=e.target.closest&&e.target.closest('.inp2.sel[data-rel]');
+    if(t&&!relCur&&(e.key==='Enter'||e.key===' '||e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();relOpen(t);return;}
+    if(!relCur)return;
+    if(e.key==='Escape'){e.preventDefault();relClose(true);}
+    else if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();relAct=(relAct+(e.key==='ArrowDown'?1:-1)+REL_OPTS.length)%REL_OPTS.length;[].forEach.call(m.querySelectorAll('.vfm-opt'),function(o,i){o.classList.toggle('act',i===relAct);});relScroll();}
+    else if(e.key==='Enter'||e.key===' '){e.preventDefault();relPick(REL_OPTS[relAct]);}
+    else if(e.key==='Tab'){relClose();}
+  });
+  window.addEventListener('scroll',relPos,true);window.addEventListener('resize',relPos);
 })();
 </script>
 </body>
