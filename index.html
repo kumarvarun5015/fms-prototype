@@ -1257,8 +1257,8 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 .ov-title{font-family:Inter,Mulish,sans-serif;font-size:19px;font-weight:800;color:#212121}
 .ov-sub{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5}
 /* sticky bottom action bars: Vehicle data + Plan */
-#details .flowcard,#plan .flowcard{overflow:visible}
-#details .flowfoot,#upload .flowfoot,#plan .premfoot{position:sticky;bottom:0;z-index:30}
+#details .flowcard,#plan .flowcard,#recommend .flowcard{overflow:visible}
+#details .flowfoot,#upload .flowfoot,#recommend .flowfoot,#plan .premfoot{position:sticky;bottom:0;z-index:30}
 /* section-heading icon tiles (shared .stepic) */
 .stepic{color:var(--brand)}
 .stepic .msym{font-size:20px}
@@ -1285,8 +1285,8 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 #uwdetail .fic .ms,#uwdetail .fic .msym,.rm-file .fic .msym,.rm-file .fic .ms{
   font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20!important}
 /* ===== 1) CTA bars slide away while scrolling down ===== */
-#details .flowfoot,#upload .flowfoot,#plan .premfoot{transition:bottom .25s ease}
-body.cta-away #details .flowfoot,body.cta-away #upload .flowfoot,body.cta-away #plan .premfoot{bottom:-160px}
+#details .flowfoot,#upload .flowfoot,#recommend .flowfoot,#plan .premfoot{transition:bottom .25s ease}
+body.cta-away #details .flowfoot,body.cta-away #upload .flowfoot,body.cta-away #recommend .flowfoot,body.cta-away #plan .premfoot{bottom:-160px}
 .sfoot,.rmfoot{transition:transform .25s ease}
 body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 
@@ -1410,7 +1410,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #recommend .addons-display-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 #recommend .addons-display-age{font-size:12px;font-weight:700;color:#424242}
 #recommend .addons-display-tag{font-size:11.5px;font-weight:700;color:#2168F6;background:#EDF3FF;border:1px solid #C7DBFF;border-radius:100px;padding:3px 10px}
-.rec-foot{justify-content:space-between}
+.rec-foot{justify-content:flex-end}
 .rc-mask{position:fixed;inset:0;background:rgba(26,14,4,.55);display:none;place-items:center;z-index:320;padding:20px}
 .rc-mask.on{display:grid}
 .rc-dialog{background:#fff;border-radius:20px;max-width:440px;width:100%;padding:30px 30px 26px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.28)}
@@ -1475,24 +1475,27 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #policy .pol-foot{position:sticky;bottom:0;z-index:30;transition:bottom .25s ease}
 body.cta-away #policy .pol-foot{bottom:-160px}
 /* ===== New Quotes: inline upload progress, then the evaluating popup opens automatically ===== */
-.nq-status{align-self:flex-start;box-sizing:border-box;width:calc((100% - 44px) * 4 / 12);margin-left:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:16px}
+.nq-status{align-self:flex-start;box-sizing:border-box;width:calc(100% / 3);min-width:240px;margin-left:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:16px}
 .nq-file{display:flex;align-items:center;gap:12px}
 .nq-file .stepic{background:var(--bhead);color:var(--blue)}
 .nq-file .stepic .msym{font-variation-settings:'FILL' 0}
 .nq-fmeta{flex:1;min-width:0}
-.nq-frow{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
-.nq-fname{font-size:14px;font-weight:700;color:var(--ink2);line-height:1.3;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow-wrap:anywhere}
-.nq-fstate{font-size:12.5px;font-weight:600;color:var(--muted2);display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.nq-fname{display:block;font-size:14px;font-weight:700;color:var(--ink2);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nq-fstate{min-width:0;font-size:12.5px;font-weight:600;color:var(--muted2);display:inline-flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nq-fstate .msym{font-size:16px;font-variation-settings:'FILL' 1}
 .nq-fstate.done{color:var(--green)}
-.nq-fsize{font-size:12px;color:var(--muted);margin-top:2px}
+.nq-fsub{display:flex;align-items:center;gap:6px;margin-top:2px;font-size:12.5px;line-height:1.4;white-space:nowrap;overflow:hidden}
+.nq-fsize{flex:0 0 auto;font-size:12.5px;color:var(--muted)}
+.nq-dot{flex:0 0 auto;color:var(--muted)}
+.nq-dot[hidden]{display:none}
 .nq-bar{height:6px;border-radius:100px;background:var(--line);margin-top:8px;overflow:hidden}
 .nq-bar i{display:block;height:100%;width:0;background:var(--blue);border-radius:100px;transition:width .12s linear,background .2s}
 .nq-bar.done i{background:var(--green)}
 #upload .flowfoot{justify-content:space-between}
-.nq-hint{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
-.nq-hint[hidden]{display:none}
-.nq-hint .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
+.nq-hint,.foot-hint{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.nq-hint[hidden],.foot-hint[hidden]{display:none}
+.nq-hint .msym,.foot-hint .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
+.rec-foot .foot-hint{margin-right:auto}
 #nq-fetch{margin-left:auto}
 .nq-bar.err i{background:#E8290B}
 .nq-x{flex:0 0 auto;align-self:flex-start;width:28px;height:28px;margin:-4px -6px 0 0;border:0;border-radius:50%;background:transparent;color:#616161;display:grid;place-items:center;cursor:pointer;transition:background .15s,color .15s}
@@ -1583,9 +1586,6 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 .appr-row:first-child{border-top:0}
 .appr-row .l{font-size:13px;font-weight:500;color:var(--muted)}
 .appr-row .r{font-size:14px;font-weight:700;color:#212121;text-align:right;white-space:nowrap}
-.appr-seg{display:flex;flex-wrap:wrap;gap:6px;padding:0 0 11px;margin-top:-4px}
-.appr-seg span{font-size:11.5px;font-weight:600;color:var(--muted2);background:#fff;border:1px solid var(--line);border-radius:100px;padding:2px 9px}
-.appr-seg b{font-weight:800;color:#212121}
 </style>
 </head>
 <body>
@@ -1734,7 +1734,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 
       <!-- REVIEW RECOMMENDATIONS (recommendation engine) -->
       <section class="screen" id="recommend">
-        <div class="flowcard" style="border-radius:20px">
+        <div class="flowcard">
           <div class="flowbody" id="rec-body" style="gap:0">
             <div class="rec-head">
               <div><div class="dtitle">Review Recommendations</div><div class="dsub" id="rec-sub">We&rsquo;ve calculated a ZD recommendation to help this fleet qualify for real-time approval.</div></div>
@@ -1747,10 +1747,11 @@ body.cta-away #policy .pol-foot{bottom:-160px}
             </div>
             <div id="segments-container"></div>
           </div>
-        </div>
-        <div class="premfoot rec-foot">
-          <button class="btn ghost" onclick="discardAndProceed()">Discard Changes &amp; Proceed</button>
-          <button class="btn primary" id="main-cta">Accept &amp; Proceed</button>
+          <div class="flowfoot rec-foot">
+            <span class="foot-hint" id="rec-hint"><span class="msym">info</span><span id="rec-hint-text"></span></span>
+            <button class="btn ghost" onclick="discardAndProceed()">Discard Changes &amp; Proceed</button>
+            <button class="btn primary" id="main-cta" disabled>Accept &amp; Proceed</button>
+          </div>
         </div>
       </section>
 
@@ -1768,13 +1769,12 @@ body.cta-away #policy .pol-foot{bottom:-160px}
         <div class="rc-dialog appr-dialog">
           <button class="rc-x" aria-label="Close" onclick="approveAnother()"><span class="msym">close</span></button>
           <div class="appr-tick" id="appr-tick"></div>
-          <div class="rc-modal-title">Fleet Approved and Sent for Commission Finalization</div>
-          <div class="rc-modal-body">Congratulations! The fleet has been approved. The Regional Manager will soon contact you to finalize the commission.</div>
+          <div class="rc-modal-title">Fleet Evaluated and Sent for Commission Finalization</div>
+          <div class="rc-modal-body">Congratulations! The fleet has been evaluated. The Regional Manager will soon contact you to finalize the commission.</div>
           <div class="appr-det" id="appr-det">
             <div class="appr-row"><span class="l">Fleet ID</span><span class="r" id="appr-fid">FMS_1111</span></div>
             <div class="appr-row"><span class="l">Total vehicles</span><span class="r" id="appr-veh">100</span></div>
-            <div class="appr-row"><span class="l">Cumulative final discount requested</span><span class="r" id="appr-disc">—</span></div>
-            <div class="appr-seg" id="appr-seg"></div>
+            <div class="appr-row"><span class="l">Requested discount</span><span class="r" id="appr-disc">—</span></div>
             <div class="appr-row"><span class="l">ZD declaration</span><span class="r" id="appr-zd">—</span></div>
           </div>
           <div class="rc-modal-actions">
@@ -1804,8 +1804,8 @@ body.cta-away #policy .pol-foot{bottom:-160px}
                   <div class="nq-file">
                     <div class="stepic"><span class="msym" id="nq-ficon">description</span></div>
                     <div class="nq-fmeta">
-                      <div class="nq-frow"><span class="nq-fname" id="nq-fname">vehicle_file.xlsx</span><span class="nq-fstate" id="nq-fstate">Uploading 0%</span></div>
-                      <div class="nq-fsize" id="nq-fsize"></div>
+                      <span class="nq-fname" id="nq-fname">vehicle_file.xlsx</span>
+                      <div class="nq-fsub"><span class="nq-fsize" id="nq-fsize"></span><span class="nq-dot" id="nq-dot" aria-hidden="true">&middot;</span><span class="nq-fstate" id="nq-fstate">Uploading 0%</span></div>
                       <div class="nq-bar" id="nq-bar"><i id="nq-barfill"></i></div>
                     </div>
                     <button class="nq-x" id="nq-x" type="button" aria-label="Remove file" title="Remove file" hidden onclick="nqRemove()"><span class="msym">close</span></button>
@@ -3021,7 +3021,6 @@ function nqFile(input){if(!input.files||!input.files.length)return;var f=input.f
 /* inline upload on New Quotes; the sticky footer CTA then runs the evaluating popup -> Vehicle details */
 var nqTimers=[];
 function nqT(fn,ms){nqTimers.push(setTimeout(fn,ms));}
-function nqNameHtml(n){return String(n).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/([_\-.])/g,'$1<wbr>');}
 function nqSize(b){if(!b)return '';return b<1048576?Math.max(1,Math.round(b/1024))+' KB':(b/1048576).toFixed(1)+' MB';}
 function nqIcon(n){var e=(n.split('.').pop()||'').toLowerCase();return /xls|csv/.test(e)?'table_chart':/jpe?g|png/.test(e)?'image':e==='pdf'?'picture_as_pdf':'description';}
 function nqReset(){
@@ -3046,9 +3045,9 @@ function nqRemove(){nqReset();window.__nqFile=null;var c=document.getElementById
 function nqRun(name,size){
   nqReset();
   document.getElementById('nq-cta').disabled=true;document.getElementById('nq-sample').disabled=true;
-  document.getElementById('nq-fname').innerHTML=nqNameHtml(name);document.getElementById('nq-fname').title=name;
+  document.getElementById('nq-fname').textContent=name;document.getElementById('nq-fname').title=name;
   document.getElementById('nq-ficon').textContent=nqIcon(name);
-  document.getElementById('nq-fsize').textContent=nqSize(size);
+  var sz=nqSize(size);document.getElementById('nq-fsize').textContent=sz;document.getElementById('nq-dot').hidden=!sz;
   var fs=document.getElementById('nq-fstate');fs.className='nq-fstate';fs.textContent='Uploading 0%';
   document.getElementById('nq-status').hidden=false;
   var UP=1600,steps=20;
@@ -3871,6 +3870,7 @@ let zdTotalCount = 100;       // total vehicles in the fleet
 let zdCurrent = 70;           // value the agent set on the Plan Page
 let zdRecommended = 90;       // system's suggested value to clear SLR
 let zdFinal = null;           // value locked in once the ZD attempt is used
+let zdAccepted = false;       // ZD recommendation accepted, waiting for the footer CTA to move to the next phase
 
 function initState() {
   segments.forEach(seg => {
@@ -3943,7 +3943,7 @@ function buildEditorHTML(seg, prefill) {
 
 // ── Zero Depreciation gate card (Attempt 1 only) ──
 function buildZdCard() {
-  return zdEditing ? buildZdEditingCard() : buildZdFreshCard();
+  return zdEditing ? buildZdEditingCard() : (zdAccepted ? buildZdAcceptedCard() : buildZdFreshCard());
 }
 
 const zdInfoIconHTML = `
@@ -3990,6 +3990,43 @@ function buildZdFreshCard() {
     </div>`;
 }
 
+// ── ZD accepted state — mirrors the segment "accepted" card: green Qualified + Modify link ──
+function buildZdAcceptedCard() {
+  return `
+    <div class="zd-card" id="zd-card">
+      <div class="zd-card-title-row">
+        <div class="zd-card-title-left">
+          <span class="zd-card-title">Zero Depreciation Cover</span>
+          ${zdInfoIconHTML}
+        </div>
+        <button class="seg-action-link" onclick="openZdEditor()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Modify
+        </button>
+      </div>
+      <div class="seg-subtitle">You accepted the system's recommended ZD declaration. Continue to move to the next step.</div>
+      <div class="disc-row">
+        <div class="disc-chip prev">
+          <div class="disc-chip-label">Requested ZD Penetration</div>
+          <div style="display:flex;align-items:center;">
+            <span class="disc-chip-val">${zdCurrent}%</span>
+            <span class="disc-chip-vpill">${Math.ceil(zdEligibleCount * (zdCurrent/100))} Vehicles</span>
+          </div>
+        </div>
+        <span class="disc-arrow">→</span>
+        <div class="disc-chip rec">
+          <div class="disc-chip-label">Recommended ZD Penetration</div>
+          <div style="display:flex;align-items:center;">
+            <span class="disc-chip-val">${zdRecommended}%</span>
+            <span class="disc-chip-vpill">${Math.ceil(zdEligibleCount * (zdRecommended/100))} Vehicles</span>
+          </div>
+        </div>
+        <span class="status-pill verified"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8,12 11,15 16,9"/></svg> Qualified</span>
+      </div>
+      <div class="zd-mini-stat">Total Vehicles: <strong>${zdTotalCount}</strong> · ZD Eligible: <strong>${zdEligibleCount}</strong></div>
+    </div>`;
+}
+
 // ── ZD editing state — input block + Reset, matches the segment "editing" card ──
 function buildZdEditingCard() {
   const required = Math.ceil(zdEligibleCount * (zdCurrent / 100));
@@ -4031,7 +4068,7 @@ function buildZdEditingCard() {
 }
 
 function openZdEditor() {
-  zdEditing = true;
+  zdEditing = true; zdAccepted = false;
   buildSegments();
   setTimeout(() => { const el = document.getElementById('zd-input'); if (el) el.focus(); }, 50);
 }
@@ -4058,6 +4095,7 @@ function onZdInput() {
   const clean = isNaN(val) ? zdCurrent : Math.max(0, Math.min(100, val));
   const declared = Math.ceil(zdEligibleCount * (clean / 100));
   document.getElementById('zd-min-vehicles').textContent = declared;
+  wireFooter();
 }
 
 function buildCard(seg) {
@@ -4321,21 +4359,38 @@ function acceptRec(segId) {
 }
 
 // ── Footer logic ──
+/* The primary CTA only enables once the user has acted: ZD accepted / modified, and in the discount & add-on
+   phase once EVERY remaining segment is accepted or modified. */
+function zdEditValid() {
+  const i = document.getElementById('zd-input'); if (!i) return false;
+  const v = parseFloat(i.value);
+  return !isNaN(v) && v > zdCurrent && v <= 100;
+}
+function segEditModified(s) {
+  const i = document.getElementById('disc-input-' + s.id); if (!i) return false;
+  const v = parseFloat(i.value), ac = agentConfig[s.id];
+  return !isNaN(v) && v > s.recDisc && v <= s.prevDisc && (!ac || v !== ac.disc);
+}
 function wireFooter() {
   const btn = document.getElementById('main-cta');
+  const hint = document.getElementById('rec-hint'), ht = document.getElementById('rec-hint-text');
+  const set = (label, enabled, fn, msg) => {
+    btn.textContent = label; btn.disabled = !enabled; btn.onclick = enabled ? fn : null;
+    if (hint) { hint.hidden = enabled; if (ht) ht.textContent = msg || ''; }
+  };
   if (zdPhase) {
-    if (zdEditing) { btn.textContent = 'Re-evaluate'; btn.disabled = false; btn.onclick = doZdReEvaluate; }
-    else { btn.textContent = 'Accept & Proceed'; btn.disabled = true; btn.onclick = null; }
+    if (zdEditing) { set('Re-evaluate', zdEditValid(), doZdReEvaluate, 'Enter a higher ZD value to continue'); return; }
+    if (zdAccepted) { set('Accept & Proceed', true, proceedZdAccepted); return; }
+    set('Accept & Proceed', false, null, 'Accept or modify the recommendation to continue');
     return;
   }
   const unsettled = segments.filter(s => !resolved[s.id]);
-  const actionable = editingSegId !== null ||
-    unsettled.some(s => segResult[s.id] === 'accepted' || (agentConfig[s.id] && segResult[s.id] === undefined));
-  if (actionable) {
-    btn.textContent = 'Re-evaluate'; btn.disabled = false; btn.onclick = doReEvaluate;
-  } else {
-    btn.textContent = 'Accept & Proceed'; btn.disabled = true; btn.onclick = null;   // all still Not Qualified -> act first
-  }
+  const prior = s => segResult[s.id] === 'accepted' || (agentConfig[s.id] && segResult[s.id] === undefined);
+  const handled = s => prior(s) || (editingSegId === s.id && segEditModified(s));
+  const done = unsettled.filter(handled).length;
+  if (unsettled.length > 0 && done === unsettled.length) { set('Re-evaluate', true, doReEvaluate); return; }
+  set('Accept & Proceed', false, null,
+      unsettled.length > 1 ? 'Accept or modify all segments to continue \u00b7 ' + done + ' of ' + unsettled.length + ' done' : 'Accept or modify the segment to continue');
 }
 
 // ── Attempt 1 — ZD-only evaluation ──
@@ -4364,7 +4419,12 @@ function enterSegmentPhase(){
   buildSegments();
 }
 
+/* Accept only marks the recommendation as accepted; the footer CTA then moves to the next phase */
 function acceptZdRecommendation() {
+  zdAccepted = true; zdEditing = false;
+  buildSegments();
+}
+function proceedZdAccepted() {
   if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
   recLoad(() => {
     attempts--;
@@ -4399,14 +4459,14 @@ function acceptAllAndProceed() {
 
 var FLEET_ID = 'FMS_1111';
 function approvalSummary() {
-  var tot = 0, w = 0, parts = [];
+  var tot = 0, w = 0;
   segments.forEach(function (s) {
     var ac = agentConfig[s.id], d = (ac && !isNaN(Number(ac.disc))) ? Number(ac.disc) : s.recDisc;
-    tot += d * s.count; w += s.count; parts.push([s.name, d]);
+    tot += d * s.count; w += s.count;
   });
   var avg = w ? Math.round(tot / w * 10) / 10 : 0;
   var zd = (zdFinal !== null && zdFinal !== undefined) ? Number(zdFinal) : Number(zdRecommended);
-  return { id: FLEET_ID, vehicles: zdTotalCount, avg: avg, parts: parts, zd: zd, zdVeh: Math.ceil(zdEligibleCount * zd / 100) };
+  return { id: FLEET_ID, vehicles: zdTotalCount, avg: avg, zd: zd, zdVeh: Math.ceil(zdEligibleCount * zd / 100) };
 }
 function approveFleet() {
   var tick = document.getElementById('appr-tick');
@@ -4415,7 +4475,6 @@ function approveFleet() {
   document.getElementById('appr-fid').textContent = s.id;
   document.getElementById('appr-veh').textContent = s.vehicles;
   document.getElementById('appr-disc').textContent = s.avg + '%';
-  document.getElementById('appr-seg').innerHTML = s.parts.map(function (p) { return '<span>' + p[0] + ' <b>' + p[1] + '%</b></span>'; }).join('');
   document.getElementById('appr-zd').textContent = s.zd + '% (' + s.zdVeh + ' vehicles)';
   var ev = document.getElementById('q-evid'); if (ev) ev.textContent = s.id;
   document.getElementById('appr-modal').classList.add('on');
@@ -4515,7 +4574,7 @@ function enterRecommend(){
   segments = JSON.parse(JSON.stringify(BASE_SEGMENTS));
   addonState={}; customMode={}; segResult={}; recUpdatedFrom={}; resolved={};
   editingSegId=null; agentConfig={}; attempts=5; hasReEvaluated=false;
-  zdPhase=true; zdEditing=false; zdFinal=null;
+  zdPhase=true; zdEditing=false; zdFinal=null; zdAccepted=false;
   updateAttempts();
   document.getElementById('rec-sub').innerHTML="We&rsquo;ve calculated a ZD recommendation to help this fleet qualify for real-time approval.";
   document.getElementById('rec-banner').classList.remove('on');
