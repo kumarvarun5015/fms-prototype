@@ -1255,7 +1255,7 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 .ov-dots .ov-d3{background:#EC6625;animation-delay:.36s}
 @keyframes ovpulse{0%,80%,100%{opacity:.35}40%{opacity:1}}
 .ov-title{font-family:Inter,Mulish,sans-serif;font-size:19px;font-weight:800;color:#212121}
-.ov-sub{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.5}
+.ov-sub{font-size:13px;font-weight:500;color:var(--muted);margin-top:10px;line-height:1.5}
 /* sticky bottom action bars: Vehicle data + Plan */
 #details .flowcard,#plan .flowcard,#recommend .flowcard{overflow:visible}
 #details .flowfoot,#upload .flowfoot,#recommend .flowfoot,#plan .premfoot{position:sticky;bottom:0;z-index:30}
@@ -1419,7 +1419,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .rc-ic.warn{background:#FFF3E3;color:#B8860B}
 .rc-ic.success{background:#DFFFE6;color:#01A252}
 .rc-modal-title{font-family:Inter,Mulish,sans-serif;font-size:19px;font-weight:800;color:#212121;margin-bottom:8px}
-.rc-modal-body{font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:22px}
+.rc-modal-body{font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.55;margin-bottom:22px}
 .rc-modal-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .rc-modal-actions .btn{min-width:140px;justify-content:center}
 .rc-modal-actions.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -1475,7 +1475,13 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #policy .pol-foot{position:sticky;bottom:0;z-index:30;transition:bottom .25s ease}
 body.cta-away #policy .pol-foot{bottom:-160px}
 /* ===== New Quotes: inline upload progress, then the evaluating popup opens automatically ===== */
-.nq-status{align-self:flex-start;box-sizing:border-box;width:calc(100% / 3);min-width:240px;margin-left:44px;border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:16px}
+.nq-files{margin-left:44px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.nq-files:empty{display:none}
+.nq-item{min-width:0}
+.nq-limit{display:inline-flex;align-items:center;gap:6px;margin-left:4px;font-size:13px;color:var(--muted)}
+.nq-limit[hidden]{display:none}
+.nq-card{position:relative;border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px}
+.nq-item.has-x .nq-fname{padding-right:26px}
 .nq-file{display:flex;align-items:center;gap:12px}
 .nq-file .stepic{background:var(--bhead);color:var(--blue)}
 .nq-file .stepic .msym{font-variation-settings:'FILL' 0}
@@ -1496,25 +1502,35 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 .nq-hint[hidden],.foot-hint[hidden]{display:none}
 .nq-hint .msym,.foot-hint .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
 .rec-foot .foot-hint{margin-right:auto}
+/* Plan: figures go "stale" until Update is run */
+#plan .premfoot .foot-hint{white-space:nowrap}
+#plan .premfoot .stat .k,#plan .premfoot .btn{white-space:nowrap}
+@media(max-width:1100px){#plan .premfoot .foot-hint{display:none}}
+#plan .stats .stat{padding:4px 8px;margin:-4px -8px;border-radius:8px}
+#plan .stat .v{transition:opacity .2s}
+#plan .premfoot.dirty .stat .v{opacity:.4}
+@keyframes planFresh{0%{background:#E7F7EE}100%{background:transparent}}
+#plan .stats.fresh .stat{animation:planFresh 1.2s ease-out}
+@media(prefers-reduced-motion:reduce){#plan .stats.fresh .stat{animation:none}}
 #nq-fetch{margin-left:auto}
 .nq-bar.err i{background:#E8290B}
-.nq-x{flex:0 0 auto;align-self:flex-start;width:28px;height:28px;margin:-4px -6px 0 0;border:0;border-radius:50%;background:transparent;color:#616161;display:grid;place-items:center;cursor:pointer;transition:background .15s,color .15s}
+.nq-x{position:absolute;top:8px;right:8px;width:28px;height:28px;margin:0;border:0;border-radius:50%;background:transparent;color:#616161;display:grid;place-items:center;cursor:pointer;transition:background .15s,color .15s}
 .nq-x[hidden]{display:none}
 .nq-x:hover{background:#F9E3E0;color:#A30100}
 .nq-x:focus-visible{outline:2px solid rgba(232,41,11,.4);outline-offset:1px}
 .nq-x .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
-.nq-status.err{border-color:#D98A88;background:#FFF9F8}
-.nq-status.err .nq-file .stepic{background:#FFF2EE;color:#E8290B}
+.nq-item.err .nq-card{border-color:#D98A88;background:#FFF9F8}
+.nq-item.err .nq-file .stepic{background:#FFF2EE;color:#E8290B}
 .nq-fstate.err{color:#A30100}
 .nq-fstate.err .msym{color:#E8290B}
-.nq-err{display:flex;align-items:flex-start;gap:8px;border-top:1px solid #F2D0CC;padding-top:12px}
-.nq-err[hidden]{display:none}
-.nq-err>.msym{flex:0 0 auto;font-size:18px;color:#E8290B;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;margin-top:1px}
-.nq-err>div{flex:1 1 0;min-width:0}
-.nq-err .nq-et{font-size:13px;font-weight:700;color:#A30100}
-.nq-err .nq-eb{font-size:12.5px;line-height:1.5;color:#616161;margin-top:2px}
+/* helper text: sits directly under the file card, like field helper / error text (the card's size never changes) */
+.nq-help{display:flex;align-items:flex-start;gap:6px;margin-top:6px;font-size:12px;line-height:1.4;color:#A30100}
+.nq-help[hidden]{display:none}
+.nq-help .msym{flex:0 0 auto;font-size:16px;line-height:1.4;color:#E8290B;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20}
+.nq-help .nq-ht{min-width:0}
 .samplebtn:disabled{opacity:.45;cursor:not-allowed}
-@media(max-width:720px){.nq-status{width:auto;align-self:stretch}}
+@media(max-width:1000px){.nq-files{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.nq-files{grid-template-columns:1fr}}
 
 /* ===== Vehicle details: editable fields (rest / editing / edited) ===== */
 #details .tbl-wrap{overflow-x:auto}
@@ -1750,7 +1766,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
           <div class="flowfoot rec-foot">
             <span class="foot-hint" id="rec-hint"><span class="msym">info</span><span id="rec-hint-text"></span></span>
             <button class="btn ghost" onclick="discardAndProceed()">Discard Changes &amp; Proceed</button>
-            <button class="btn primary" id="main-cta" disabled>Accept &amp; Proceed</button>
+            <button class="btn primary" id="main-cta" disabled>Proceed</button>
           </div>
         </div>
       </section>
@@ -1796,30 +1812,17 @@ body.cta-away #policy .pol-foot{bottom:-160px}
                   <div><h3 class="steptitle">Upload Vehicle File for Quote Generation</h3><p class="stepsub">Download the sample template for bulk vehicle details, fill it as per the format, and upload the file to receive a quote.</p></div>
                 </div>
                 <div class="stepact">
-                  <input type="file" id="nq-file" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf,image/jpeg,image/png" hidden onchange="nqFile(this)">
+                  <input type="file" id="nq-file" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf,image/jpeg,image/png" multiple hidden onchange="nqFile(this)">
                   <button class="uploadbtn" id="nq-cta" onclick="nqUpload(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg>Upload vehicle details</button>
                   <button class="samplebtn" id="nq-sample"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>Download sample</button>
+                  <span class="nq-limit" id="nq-limit" hidden></span>
                 </div>
-                <div class="nq-status" id="nq-status" hidden aria-live="polite">
-                  <div class="nq-file">
-                    <div class="stepic"><span class="msym" id="nq-ficon">description</span></div>
-                    <div class="nq-fmeta">
-                      <span class="nq-fname" id="nq-fname">vehicle_file.xlsx</span>
-                      <div class="nq-fsub"><span class="nq-fsize" id="nq-fsize"></span><span class="nq-dot" id="nq-dot" aria-hidden="true">&middot;</span><span class="nq-fstate" id="nq-fstate">Uploading 0%</span></div>
-                      <div class="nq-bar" id="nq-bar"><i id="nq-barfill"></i></div>
-                    </div>
-                    <button class="nq-x" id="nq-x" type="button" aria-label="Remove file" title="Remove file" hidden onclick="nqRemove()"><span class="msym">close</span></button>
-                  </div>
-                  <div class="nq-err" id="nq-err" role="alert" hidden>
-                    <span class="msym">error</span>
-                    <div><div class="nq-et">Unable to read this file</div><div class="nq-eb">This file may be corrupted or isn&rsquo;t in the expected template format. Remove it and upload the vehicle file again using the sample template.</div></div>
-                  </div>
-                </div>
+                <div class="nq-files" id="nq-files" aria-live="polite"></div>
               </div>
             </div>
           </div>
           <div class="flowfoot" id="nq-foot">
-            <span class="nq-hint" id="nq-hint"><span class="msym">info</span>Upload a vehicle file to continue</span>
+            <span class="nq-hint" id="nq-hint"><span class="msym">info</span><span id="nq-hint-t">Upload a vehicle file to continue</span></span>
             <button class="btn primary" id="nq-fetch" type="button" disabled onclick="nqFetch()">Fetch vehicle details</button>
           </div>
         </div>
@@ -1910,12 +1913,13 @@ body.cta-away #policy .pol-foot{bottom:-160px}
           </div>
           <div class="premfoot">
             <div class="stats">
-              <div class="stat"><div class="k">Estimated Annual Premium</div><div class="v mono">₹28,47,500</div></div>
-              <div class="stat"><div class="k" style="display:flex;align-items:center;gap:4px">Estimated Savings <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00A63E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l6 6 4-4 6 6"/><path d="M16 16h4v-4"/></svg></div><div class="v mono" style="color:var(--green)">₹1,42,375</div></div>
+              <div class="stat"><div class="k">Estimated Annual Premium</div><div class="v mono" id="plan-prem">₹28,47,500</div></div>
+              <div class="stat"><div class="k" style="display:flex;align-items:center;gap:4px">Estimated Savings <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00A63E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l6 6 4-4 6 6"/><path d="M16 16h4v-4"/></svg></div><div class="v mono" id="plan-sav" style="color:var(--green)">₹1,42,375</div></div>
             </div>
+            <span class="foot-hint" id="plan-hint" hidden><span class="msym">info</span>Changes not applied yet</span>
             <div style="display:flex;gap:12px">
               <button class="btn ghost" onclick="go('upload')">Save and exit</button>
-              <button class="btn primary" id="plan-cta" onclick="analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){openInterception();},4000)">Get Quote →</button>
+              <button class="btn primary" id="plan-cta" data-mode="quote" onclick="planCta()">Get Quote →</button>
             </div>
           </div>
         </div>
@@ -3017,59 +3021,72 @@ function pick(el){el.parentNode.querySelectorAll('.choice').forEach(c=>c.classLi
 function pick2(el){el.parentNode.querySelectorAll('.evalbtn').forEach(c=>c.classList.remove('on'));el.classList.add('on');nqGate();}
 function nqGate(){}
 function nqUpload(e){document.getElementById('nq-file').click();}
-function nqFile(input){if(!input.files||!input.files.length)return;var f=input.files[0];window.__nqFile=f.name;input.value='';nqRun(f.name,f.size);}
-/* inline upload on New Quotes; the sticky footer CTA then runs the evaluating popup -> Vehicle details */
-var nqTimers=[];
+function nqFile(input){
+  var files=input.files?Array.prototype.slice.call(input.files):[];input.value='';
+  if(!files.length)return;
+  window.__nqFile=files[files.length-1].name;
+  nqAdd(files);
+}
+/* Up to 3 vehicle fleet files, each in its own 4-column card (3 x 4 = the 12-column row).
+   The files stay on this page (even after leaving and coming back). The footer CTA enables once the FIRST file has uploaded;
+   the Upload button disables at 3 files. */
+var NQ_MAX=3, nqFiles=[], nqSeq=0, nqTimers=[];
 function nqT(fn,ms){nqTimers.push(setTimeout(fn,ms));}
 function nqSize(b){if(!b)return '';return b<1048576?Math.max(1,Math.round(b/1024))+' KB':(b/1048576).toFixed(1)+' MB';}
 function nqIcon(n){var e=(n.split('.').pop()||'').toLowerCase();return /xls|csv/.test(e)?'table_chart':/jpe?g|png/.test(e)?'image':e==='pdf'?'picture_as_pdf':'description';}
-function nqReset(){
-  nqTimers.forEach(clearTimeout);nqTimers=[];
-  var st=document.getElementById('nq-status');if(!st)return;
-  st.hidden=true;st.classList.remove('err');
-  document.getElementById('nq-bar').classList.remove('done','err');document.getElementById('nq-barfill').style.width='0';
-  document.getElementById('nq-x').hidden=true;document.getElementById('nq-err').hidden=true;
-  document.getElementById('nq-cta').disabled=false;document.getElementById('nq-sample').disabled=false;
-  nqOk=false;nqSync();
+function nqEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
+function nqCard(f){
+  var sz=nqSize(f.size),st=f.status,cls=st==='ok'?' done':(st==='err'?' err':'');
+  var state=st==='up'?'Uploading '+f.pct+'%':(st==='ok'?'<span class="msym">check_circle</span>Uploaded':'<span class="msym">error</span>Upload failed');
+  var x=st==='up'?'':'<button class="nq-x" type="button" aria-label="Remove '+nqEsc(f.name)+'" title="Remove file" onclick="nqRemove('+f.id+')"><span class="msym">close</span></button>';
+  var help=st==='err'?'<div class="nq-help" role="alert"><span class="msym">error</span><span class="nq-ht">Unable to read this file. It may be corrupted or not in the expected template format. Remove it and upload again.</span></div>':'';
+  return '<div class="nq-item'+(st==='err'?' err':'')+(st==='up'?'':' has-x')+'" data-id="'+f.id+'" data-status="'+st+'">'
+    +'<div class="nq-card"><div class="nq-file"><div class="stepic"><span class="msym">'+nqIcon(f.name)+'</span></div>'
+    +'<div class="nq-fmeta"><span class="nq-fname" title="'+nqEsc(f.name)+'">'+nqEsc(f.name)+'</span>'
+    +'<div class="nq-fsub"><span class="nq-fsize">'+sz+'</span><span class="nq-dot" aria-hidden="true"'+(sz?'':' hidden')+'>&middot;</span><span class="nq-fstate'+cls+'">'+state+'</span></div>'
+    +'<div class="nq-bar'+cls+'"><i style="width:'+f.pct+'%"></i></div></div></div>'+x+'</div>'+help+'</div>';
 }
-/* the uploaded file stays on this page (even after leaving and coming back); the footer CTA is enabled only while a valid file is present */
-var nqOk=false;
-function nqSync(){var b=document.getElementById('nq-fetch'),t=document.getElementById('nq-hint');if(b)b.disabled=!nqOk;if(t)t.hidden=nqOk;}
+function nqRender(){var c=document.getElementById('nq-files');if(c)c.innerHTML=nqFiles.map(nqCard).join('');}
+function nqSync(){
+  var n=nqFiles.length,up=nqFiles.some(function(f){return f.status==='up';}),ok=nqFiles.filter(function(f){return f.status==='ok';}).length;
+  var $=function(i){return document.getElementById(i);};
+  if($('nq-cta'))$('nq-cta').disabled=up||n>=NQ_MAX;
+  if($('nq-sample'))$('nq-sample').disabled=up;
+  var can=ok>=1&&!up;
+  if($('nq-fetch'))$('nq-fetch').disabled=!can;
+  if($('nq-hint')){$('nq-hint').hidden=can;$('nq-hint-t').textContent=up?'Uploading your file\u2026':'Upload a vehicle file to continue';}
+  if($('nq-limit')){$('nq-limit').hidden=n===0;$('nq-limit').textContent=n>=NQ_MAX?'Maximum of '+NQ_MAX+' files reached':n+' of '+NQ_MAX+' files added';}
+}
+function nqReset(){nqTimers.forEach(clearTimeout);nqTimers=[];nqFiles=[];nqRender();nqSync();}
+function nqRemove(id){
+  nqFiles=nqFiles.filter(function(f){return f.id!==id;});nqRender();nqSync();
+  var c=document.getElementById('nq-cta');if(c&&!c.disabled)c.focus();
+}
+function nqTick(f){
+  var c=document.querySelector('.nq-item[data-id="'+f.id+'"]');if(!c)return;
+  c.querySelector('.nq-bar i').style.width=f.pct+'%';
+  if(f.pct<100&&f.status==='up')c.querySelector('.nq-fstate').textContent='Uploading '+f.pct+'%';
+}
+function nqStart(f){
+  var UP=1600,steps=20;
+  for(var k=1;k<=steps;k++)(function(k){nqT(function(){f.pct=Math.round(k/steps*100);nqTick(f);},UP*k/steps);})(k);
+  /* prototype rule: any Word file is treated as a corrupt / unreadable file */
+  var bad=/\.(docx?|dotx?)$/i.test(f.name);
+  nqT(function(){if(nqFiles.indexOf(f)<0)return;f.pct=100;f.status=bad?'err':'ok';nqRender();nqSync();},UP+50);
+}
+function nqAdd(files){
+  var room=Math.max(0,NQ_MAX-nqFiles.length),take=files.slice(0,room);
+  if(files.length>take.length)fmsToast('You can upload up to '+NQ_MAX+' files. '+(take.length?'Only the first '+take.length+' '+(take.length===1?'was':'were')+' added.':'Remove a file to add another.'),'info');
+  if(!take.length)return;
+  var added=take.map(function(file){var f={id:++nqSeq,name:file.name,size:file.size,status:'up',pct:0};nqFiles.push(f);return f;});
+  nqRender();nqSync();added.forEach(nqStart);
+}
 function nqFetch(){
-  if(!nqOk)return;
+  var up=nqFiles.some(function(f){return f.status==='up';}),ok=nqFiles.some(function(f){return f.status==='ok';});
+  if(up||!ok)return;
   analyse(['Analysing vehicle details','Fetching details from VAHAN','Fetching details from IIB'],'Please refrain from refreshing or closing this page while the details are being verified.',function(){
     if(document.getElementById('upload').classList.contains('on')){go('details');window.scrollTo(0,0);}
   },4000);
-}
-function nqRemove(){nqReset();window.__nqFile=null;var c=document.getElementById('nq-cta');if(c)c.focus();}
-function nqRun(name,size){
-  nqReset();
-  document.getElementById('nq-cta').disabled=true;document.getElementById('nq-sample').disabled=true;
-  document.getElementById('nq-fname').textContent=name;document.getElementById('nq-fname').title=name;
-  document.getElementById('nq-ficon').textContent=nqIcon(name);
-  var sz=nqSize(size);document.getElementById('nq-fsize').textContent=sz;document.getElementById('nq-dot').hidden=!sz;
-  var fs=document.getElementById('nq-fstate');fs.className='nq-fstate';fs.textContent='Uploading 0%';
-  document.getElementById('nq-status').hidden=false;
-  var UP=1600,steps=20;
-  for(var k=1;k<=steps;k++)(function(k){nqT(function(){var p=Math.round(k/steps*100);document.getElementById('nq-barfill').style.width=p+'%';if(p<100)fs.textContent='Uploading '+p+'%';},UP*k/steps);})(k);
-  /* prototype rule: any Word file is treated as a corrupt / unreadable file */
-  var bad=/\.(docx?|dotx?)$/i.test(name);
-  if(bad){
-    nqT(function(){
-      document.getElementById('nq-status').classList.add('err');document.getElementById('nq-bar').classList.add('err');
-      fs.className='nq-fstate err';fs.innerHTML='<span class="msym">error</span>Upload failed';
-      document.getElementById('nq-x').hidden=false;document.getElementById('nq-err').hidden=false;
-      document.getElementById('nq-cta').disabled=false;document.getElementById('nq-sample').disabled=false;
-    },UP+50);
-    return;
-  }
-  nqT(function(){
-    document.getElementById('nq-bar').classList.add('done');
-    fs.className='nq-fstate done';fs.innerHTML='<span class="msym">check_circle</span>Uploaded';
-    document.getElementById('nq-x').hidden=false;
-    document.getElementById('nq-cta').disabled=false;document.getElementById('nq-sample').disabled=false;
-    nqOk=true;nqSync();
-  },UP+50);
 }
 function itype(el){el.parentNode.querySelectorAll('.itbtn').forEach(c=>{c.classList.remove('on');c.querySelector('.rr').innerHTML='';});el.classList.add('on');el.querySelector('.rr').innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9" stroke="#fff" stroke-width="2" fill="none"/></svg>';
   /* Fleet Discount applies to Comprehensive and Mixed Coverage only */
@@ -4380,16 +4397,19 @@ function wireFooter() {
   };
   if (zdPhase) {
     if (zdEditing) { set('Re-evaluate', zdEditValid(), doZdReEvaluate, 'Enter a higher ZD value to continue'); return; }
-    if (zdAccepted) { set('Accept & Proceed', true, proceedZdAccepted); return; }
-    set('Accept & Proceed', false, null, 'Accept or modify the recommendation to continue');
+    if (zdAccepted) { set('Proceed', true, proceedZdAccepted); return; }
+    set('Proceed', false, null, 'Accept or modify the recommendation to continue');
     return;
   }
   const unsettled = segments.filter(s => !resolved[s.id]);
   const prior = s => segResult[s.id] === 'accepted' || (agentConfig[s.id] && segResult[s.id] === undefined);
   const handled = s => prior(s) || (editingSegId === s.id && segEditModified(s));
   const done = unsettled.filter(handled).length;
-  if (unsettled.length > 0 && done === unsettled.length) { set('Re-evaluate', true, doReEvaluate); return; }
-  set('Accept & Proceed', false, null,
+  /* label follows what the user did: only accepted -> "Proceed"; any modification (committed, or editor open) -> "Re-evaluate" */
+  const modifying = unsettled.some(s => editingSegId === s.id || (agentConfig[s.id] && segResult[s.id] === undefined));
+  const label = modifying ? 'Re-evaluate' : 'Proceed';
+  if (unsettled.length > 0 && done === unsettled.length) { set(label, true, doReEvaluate); return; }
+  set(label, false, null,
       unsettled.length > 1 ? 'Accept or modify all segments to continue \u00b7 ' + done + ' of ' + unsettled.length + ' done' : 'Accept or modify the segment to continue');
 }
 
@@ -4595,6 +4615,66 @@ function fmsToast(msg, type){
   clearTimeout(t._tmo); t._tmo = setTimeout(function(){ t.classList.remove('show'); }, 3600);
 }
 
+</script>
+<script>
+/* ===== Plan: any change turns "Get Quote" into "Update"; Update re-prices the plan, then "Get Quote" is active again ===== */
+var PLAN_N=[30,20,20,30], PLAN_OD=[24000,30000,28000,12000], PLAN_TP=[8000,9000,9000,4500];
+var PLAN_BASE_PREM=2847500, PLAN_BASE_SAV=142375, PLAN_BASE_DISC=21;   // what the default plan shows
+var planSnap=null, planBase=null, planBusy=false;
+/* everything that can change the price: cover type, segment discounts, ZD declaration, add-on selections
+   (declaration / confirmation tick-boxes don't affect price, so they are not tracked) */
+function planState(){
+  var t=document.querySelector('#plan .itbtn.on .nm');
+  return {
+    t:t?t.textContent.trim():'Comprehensive',
+    d:[].map.call(document.querySelectorAll('#segments input.sl'),function(e){return +e.value;}),
+    z:+((document.getElementById('agao-zd-slider')||{}).value||0),
+    a:[].map.call(document.querySelectorAll('#ag-addon input[type=checkbox]:not(#agao-zd-confirm)'),function(e){return e.checked?1:0;})
+  };
+}
+/* hypothetical pricing: own-damage premium reduced by the segment discounts, loaded for ZD and add-ons, plus third-party premium.
+   Third Party carries no own-damage premium, so no discount, ZD or add-on pricing; Mixed Coverage applies to half the fleet. */
+function planRaw(st){
+  var od=0,dsc=0,tp=0,i;
+  for(i=0;i<4;i++){var g=PLAN_N[i]*PLAN_OD[i],d=(st.d[i]||0)/100;od+=g*(1-0.5*d);dsc+=g*0.5*d;tp+=PLAN_N[i]*PLAN_TP[i];}
+  var frac=st.a.length?st.a.reduce(function(s,x){return s+x;},0)/st.a.length:1;
+  var load=(1+0.12*(st.z/100))*(1+0.10*frac);
+  var share=st.t==='Third Party'?0:(st.t==='Mixed Coverage'?0.5:1);
+  return {prem:share*od*load+tp,sav:share*dsc*load};
+}
+function planFigures(st){
+  var r=planRaw(st);
+  return {prem:Math.round(PLAN_BASE_PREM*r.prem/planBase.prem/25)*25,sav:Math.round(PLAN_BASE_SAV*r.sav/planBase.sav/25)*25,disc:Math.round(PLAN_BASE_DISC*r.sav/planBase.sav*10)/10};
+}
+function planDirty(){return JSON.stringify(planState())!==planSnap;}
+function planSync(){
+  var b=document.getElementById('plan-cta'),f=document.querySelector('#plan .premfoot'),h=document.getElementById('plan-hint');if(!b||!f)return;
+  var d=planDirty();
+  b.textContent=d?'Update':'Get Quote \u2192';b.dataset.mode=d?'update':'quote';
+  f.classList.toggle('dirty',d);if(h)h.hidden=!d;
+}
+function planGetQuote(){
+  analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){openInterception();},4000);
+}
+function planUpdate(){
+  planBusy=true;
+  analyse(['Updating your plan','Recalculating premium and savings'],'Please wait while your changes are applied.',function(){
+    var st=planState(),fg=planFigures(st),money=function(n){return '\u20b9'+n.toLocaleString('en-IN');};
+    document.getElementById('plan-prem').textContent=money(fg.prem);
+    document.getElementById('plan-sav').textContent=money(fg.sav);
+    document.getElementById('overall').textContent=fg.disc;
+    planSnap=JSON.stringify(st);planBusy=false;planSync();
+    var s=document.querySelector('#plan .stats');if(s){s.classList.remove('fresh');void s.offsetWidth;s.classList.add('fresh');}
+    fmsToast('Plan updated. Premium and savings are refreshed.','success');
+  },1600);
+}
+function planCta(){if(planBusy)return;if(planDirty())planUpdate();else planGetQuote();}
+(function planInit(){
+  var pl=document.getElementById('plan');if(!pl)return;
+  planBase=planRaw(planState());planSnap=JSON.stringify(planState());
+  ['input','change','click'].forEach(function(t){pl.addEventListener(t,function(){setTimeout(planSync,0);});});
+  planSync();
+})();
 </script>
 </body>
 </html>
