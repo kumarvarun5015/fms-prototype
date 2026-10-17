@@ -512,7 +512,6 @@ input[type=range]{width:100%;accent-color:var(--brand)}
 .ci .cdot{width:6px;height:6px;border-radius:50%}
 .ci .lvl{font-size:12px;font-weight:500}
 .ci .lvlarr{font-size:13px;font-weight:700;line-height:1}
-.scard .amt{font-size:16px;color:var(--muted)}
 /* add-on covers */
 .aotitle{font-size:20px;font-weight:800;margin:0}
 .aosub{font-size:14px;color:var(--muted);margin:4px 0 16px}.aosub b{color:var(--green);font-weight:700}
@@ -1421,7 +1420,21 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #recommend .addons-display-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 #recommend .addons-display-age{font-size:12px;font-weight:700;color:#424242}
 #recommend .addons-display-tag{font-size:11.5px;font-weight:700;color:#2168F6;background:#EDF3FF;border:1px solid #C7DBFF;border-radius:100px;padding:3px 10px}
-.rec-foot{justify-content:flex-end}
+.rec-foot{justify-content:flex-start;padding:20px 24px;box-shadow:0 -10px 15px -3px rgba(0,0,0,.06)}
+.rec-foot .stats{display:flex;gap:40px;margin-right:8px}
+/* B2C price block: final premium · before-discount premium struck through · "Saved" chip */
+.pricev{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.pricev .was{font-size:13px;font-weight:600;color:var(--muted);text-decoration:line-through}
+.save-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px 3px 8px;border-radius:100px;background:#DFFFE6;color:#03602E;font-size:12px;font-weight:700;line-height:1.3}
+.save-chip .msym{font-size:14px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
+.pricev .was[hidden],.save-chip[hidden]{display:none}
+.rec-foot .stats .stat{padding:4px 8px;margin:-4px -8px;border-radius:8px}
+.rec-foot .stats.fresh .stat{animation:planFresh 1.2s ease-out}
+@media(prefers-reduced-motion:reduce){.rec-foot .stats.fresh .stat{animation:none}}
+.rec-foot .stat .k{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+.rec-foot .stat .v{font-size:16px;font-weight:800;margin-top:2px}
+.rec-foot .btn{white-space:nowrap}
+.rec-foot .btn.ghost{margin-left:auto}
 .rc-mask{position:fixed;inset:0;background:rgba(26,14,4,.55);display:none;place-items:center;z-index:320;padding:20px}
 .rc-mask.on{display:grid}
 .rc-dialog{background:#fff;border-radius:20px;max-width:440px;width:100%;padding:30px 30px 26px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.28)}
@@ -1489,8 +1502,6 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 .nq-files{margin-left:44px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
 .nq-files:empty{display:none}
 .nq-item{min-width:0}
-.nq-limit{display:inline-flex;align-items:center;gap:6px;margin-left:4px;font-size:13px;color:var(--muted)}
-.nq-limit[hidden]{display:none}
 .nq-card{position:relative;border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px}
 .nq-item.has-x .nq-fname{padding-right:26px}
 .nq-file{display:flex;align-items:center;gap:12px}
@@ -1509,14 +1520,8 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 .nq-bar i{display:block;height:100%;width:0;background:var(--blue);border-radius:100px;transition:width .12s linear,background .2s}
 .nq-bar.done i{background:var(--green)}
 #upload .flowfoot{justify-content:space-between}
-.nq-hint,.foot-hint{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
-.nq-hint[hidden],.foot-hint[hidden]{display:none}
-.nq-hint .msym,.foot-hint .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
-.rec-foot .foot-hint{margin-right:auto}
 /* Plan: figures go "stale" until Update is run */
-#plan .premfoot .foot-hint{white-space:nowrap}
 #plan .premfoot .stat .k,#plan .premfoot .btn{white-space:nowrap}
-@media(max-width:1100px){#plan .premfoot .foot-hint{display:none}}
 #plan .stats .stat{padding:4px 8px;margin:-4px -8px;border-radius:8px}
 #plan .stat .v{transition:opacity .2s}
 #plan .premfoot.dirty .stat .v{opacity:.4}
@@ -1775,7 +1780,9 @@ body.cta-away #policy .pol-foot{bottom:-160px}
             <div id="segments-container"></div>
           </div>
           <div class="flowfoot rec-foot">
-            <span class="foot-hint" id="rec-hint"><span class="msym">info</span><span id="rec-hint-text"></span></span>
+            <div class="stats">
+              <div class="stat"><div class="k">Estimated Annual Premium</div><div class="v pricev"><span class="mono" id="rec-prem">₹28,47,500</span><s class="was mono" id="rec-gross" title="Premium before discount">₹29,89,875</s><span class="save-chip" id="rec-save-chip"><span class="msym">sell</span>Saved <span class="mono" id="rec-sav">₹1,42,375</span></span></div></div>
+            </div>
             <button class="btn ghost" onclick="discardAndProceed()">Discard Changes &amp; Proceed</button>
             <button class="btn primary" id="main-cta" disabled>Proceed</button>
           </div>
@@ -1826,14 +1833,13 @@ body.cta-away #policy .pol-foot{bottom:-160px}
                   <input type="file" id="nq-file" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf,image/jpeg,image/png" multiple hidden onchange="nqFile(this)">
                   <button class="uploadbtn" id="nq-cta" onclick="nqUpload(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg>Upload vehicle details</button>
                   <button class="samplebtn" id="nq-sample"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>Download sample</button>
-                  <span class="nq-limit" id="nq-limit" hidden></span>
                 </div>
                 <div class="nq-files" id="nq-files" aria-live="polite"></div>
               </div>
             </div>
           </div>
           <div class="flowfoot" id="nq-foot">
-            <span class="nq-hint" id="nq-hint"><span class="msym">info</span><span id="nq-hint-t">Upload a vehicle file to continue</span></span>
+            
             <button class="btn primary" id="nq-fetch" type="button" disabled onclick="nqFetch()">Fetch vehicle details</button>
           </div>
         </div>
@@ -1924,10 +1930,8 @@ body.cta-away #policy .pol-foot{bottom:-160px}
           </div>
           <div class="premfoot">
             <div class="stats">
-              <div class="stat"><div class="k">Estimated Annual Premium</div><div class="v mono" id="plan-prem">₹28,47,500</div></div>
-              <div class="stat"><div class="k" style="display:flex;align-items:center;gap:4px">Estimated Savings <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00A63E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l6 6 4-4 6 6"/><path d="M16 16h4v-4"/></svg></div><div class="v mono" id="plan-sav" style="color:var(--green)">₹1,42,375</div></div>
+              <div class="stat"><div class="k">Estimated Annual Premium</div><div class="v pricev"><span class="mono" id="plan-prem">₹28,47,500</span><s class="was mono" id="plan-gross" title="Premium before discount">₹29,89,875</s><span class="save-chip" id="plan-save-chip"><span class="msym">sell</span>Saved <span class="mono" id="plan-sav">₹1,42,375</span></span></div></div>
             </div>
-            <span class="foot-hint" id="plan-hint" hidden><span class="msym">info</span>Changes not applied yet</span>
             <div style="display:flex;gap:12px">
               <button class="btn ghost" onclick="go('upload')">Save and exit</button>
               <button class="btn primary" id="plan-cta" data-mode="quote" onclick="planCta()">Get Quote →</button>
@@ -2981,7 +2985,7 @@ const segs=[['Trucks',30,100],['Fire Truck',20,20],['Tow Truck',20,15],['Tractor
 document.getElementById('segments').innerHTML=segs.map((s,i)=>`<div class="scard">
   <div class="hd"><span class="sic">${SEGICON[i]}</span><div class="info"><div class="snm">${s[0]}</div><div class="ssub">${s[1]} vehicles</div></div><div class="ni"><span id="pct${i}">${s[2]}</span><span>%</span></div></div>
   <input type="range" class="sl" min="0" max="100" value="${s[2]}" style="--p:${s[2]}%" oninput="disc(${i},this.value)">
-  <div class="ft"><span class="ci">SLR Impact: <span class="cdot" id="cd${i}" style="background:${LVLS[i][1]}"></span><span class="lvl" id="cl${i}" style="color:${LVLS[i][1]}">${LVLS[i][0]}</span><span class="lvlarr" id="ca${i}" style="color:${LVLS[i][1]}">${ARR[LVLS[i][0]]}</span></span><span class="amt">₹37,500</span></div>
+  <div class="ft"><span class="ci">SLR Impact: <span class="cdot" id="cd${i}" style="background:${LVLS[i][1]}"></span><span class="lvl" id="cl${i}" style="color:${LVLS[i][1]}">${LVLS[i][0]}</span><span class="lvlarr" id="ca${i}" style="color:${LVLS[i][1]}">${ARR[LVLS[i][0]]}</span></span></div>
 </div>`).join('');
 
 
@@ -3065,8 +3069,6 @@ function nqSync(){
   if($('nq-sample'))$('nq-sample').disabled=up;
   var can=ok>=1&&!up;
   if($('nq-fetch'))$('nq-fetch').disabled=!can;
-  if($('nq-hint')){$('nq-hint').hidden=can;$('nq-hint-t').textContent=up?'Uploading your file\u2026':'Upload a vehicle file to continue';}
-  if($('nq-limit')){var full=n>=NQ_MAX;$('nq-limit').hidden=!full;$('nq-limit').textContent=full?'Maximum of '+NQ_MAX+' files reached':'';}
 }
 function nqReset(){nqTimers.forEach(clearTimeout);nqTimers=[];nqFiles=[];nqRender();nqSync();}
 function nqRemove(id){
@@ -4399,12 +4401,41 @@ function segEditModified(s) {
   const v = parseFloat(i.value), ac = agentConfig[s.id];
   return !isNaN(v) && v > s.recDisc && v <= s.prevDisc && (!ac || v !== ac.disc);
 }
+/* B2C price block (shared by the Plan and Recommendation footers): final premium, before-discount premium struck through, "Saved" chip */
+function priceWrite(p, f) {
+  const g = i => document.getElementById(p + '-' + i), m = n => '\u20b9' + Number(n).toLocaleString('en-IN');
+  if (!g('prem')) return;
+  g('prem').textContent = m(f.net); g('gross').textContent = m(f.gross); g('sav').textContent = m(f.sav);
+  const has = f.sav > 0; g('gross').hidden = !has; g('save-chip').hidden = !has;
+}
+/* Recommendation footer price: starts from the plan's figures and moves LIVE with every action.
+   ZD up -> before-discount premium and saving both rise; accepting a lower recommended discount -> saving falls (premium before discount unchanged). */
+let recPriceLast = null;
+function recCurZd() {
+  if (zdPhase) { if (zdEditing) return zdEditValid() ? parseFloat(document.getElementById('zd-input').value) : zdCurrent; return zdAccepted ? zdRecommended : zdCurrent; }
+  return (zdFinal !== null && zdFinal !== undefined) ? Number(zdFinal) : zdCurrent;
+}
+function recCurDisc(s) {
+  if (zdPhase) return s.prevDisc;
+  if (editingSegId === s.id && segEditModified(s)) return parseFloat(document.getElementById('disc-input-' + s.id).value);
+  const ac = agentConfig[s.id]; return (ac && !isNaN(Number(ac.disc))) ? Number(ac.disc) : s.prevDisc;
+}
+function recPrice() {
+  const f0 = window.planLast; if (!f0 || !document.getElementById('rec-prem')) return;
+  const z0 = Number(zdCurrent), Lr = (1 + 0.12 * recCurZd() / 100) / (1 + 0.12 * z0 / 100);
+  let req = 0, cur = 0; segments.forEach(s => { req += s.count * s.prevDisc; cur += s.count * recCurDisc(s); });
+  const gross = Math.round(f0.gross * ((1 - f0.odShare) + f0.odShare * Lr) / 25) * 25;
+  const sav = req ? Math.round(f0.sav * (cur / req) * Lr / 25) * 25 : 0;
+  const f = { gross, sav, net: gross - sav };
+  priceWrite('rec', f);
+  if (recPriceLast && (recPriceLast.net !== f.net || recPriceLast.sav !== f.sav)) { const s = document.querySelector('#recommend .rec-foot .stats'); if (s) { s.classList.remove('fresh'); void s.offsetWidth; s.classList.add('fresh'); } }
+  recPriceLast = f;
+}
 function wireFooter() {
   const btn = document.getElementById('main-cta');
-  const hint = document.getElementById('rec-hint'), ht = document.getElementById('rec-hint-text');
   const set = (label, enabled, fn, msg) => {
     btn.textContent = label; btn.disabled = !enabled; btn.onclick = enabled ? fn : null;
-    if (hint) { hint.hidden = enabled; if (ht) ht.textContent = msg || ''; }
+    recPrice();
   };
   if (zdPhase) {
     if (zdEditing) { set('Re-evaluate', zdEditValid(), doZdReEvaluate, 'Enter a higher ZD value to continue'); return; }
@@ -4606,6 +4637,7 @@ function enterRecommend(){
   addonState={}; customMode={}; segResult={}; recUpdatedFrom={}; resolved={};
   editingSegId=null; agentConfig={}; attempts=5; hasReEvaluated=false;
   zdPhase=true; zdEditing=false; zdFinal=null; zdAccepted=false;
+  recPriceLast = null;
   updateAttempts();
   document.getElementById('rec-sub').innerHTML="We&rsquo;ve calculated a ZD recommendation to help this fleet qualify for real-time approval.";
   document.getElementById('rec-banner').classList.remove('on');
@@ -4630,7 +4662,8 @@ function fmsToast(msg, type){
 <script>
 /* ===== Plan: any change turns "Get Quote" into "Update"; Update re-prices the plan, then "Get Quote" is active again ===== */
 var PLAN_N=[30,20,20,30], PLAN_OD=[24000,30000,28000,12000], PLAN_TP=[8000,9000,9000,4500];
-var PLAN_BASE_PREM=2847500, PLAN_BASE_SAV=142375, PLAN_BASE_DISC=21;   // what the default plan shows
+var PLAN_BASE_NET=2847500, PLAN_BASE_SAV=142375, PLAN_BASE_GROSS=2847500+142375, PLAN_BASE_DISC=21;   // what the default plan shows
+var planLast=null;   // last applied figures {gross, sav, net, disc, odShare}
 var planSnap=null, planBase=null, planBusy=false;
 /* everything that can change the price: cover type, segment discounts, ZD declaration, add-on selections
    (declaration / confirmation tick-boxes don't affect price, so they are not tracked) */
@@ -4643,26 +4676,31 @@ function planState(){
     a:[].map.call(document.querySelectorAll('#ag-addon input[type=checkbox]:not(#agao-zd-confirm)'),function(e){return e.checked?1:0;})
   };
 }
-/* hypothetical pricing: own-damage premium reduced by the segment discounts, loaded for ZD and add-ons, plus third-party premium.
-   Third Party carries no own-damage premium, so no discount, ZD or add-on pricing; Mixed Coverage applies to half the fleet. */
+/* hypothetical pricing, shown B2C-style:
+   - premium BEFORE discount (struck through) = own-damage premium loaded for ZD and add-ons, plus third-party premium.
+     The fleet discount never changes it.
+   - SAVING (chip) = the fleet discount applied to the own-damage part, so more discount -> more saving,
+     and more ZD / add-ons -> a bigger premium AND a bigger saving.
+   - ESTIMATED PREMIUM (main figure) = before-discount premium - saving.
+   Third Party carries no own-damage premium (no discount, ZD or add-on pricing); Mixed Coverage applies to half the fleet. */
 function planRaw(st){
-  var od=0,dsc=0,tp=0,i;
-  for(i=0;i<4;i++){var g=PLAN_N[i]*PLAN_OD[i],d=(st.d[i]||0)/100;od+=g*(1-0.5*d);dsc+=g*0.5*d;tp+=PLAN_N[i]*PLAN_TP[i];}
+  var od=0,sav=0,tp=0,dw=0,w=0,i;
   var frac=st.a.length?st.a.reduce(function(s,x){return s+x;},0)/st.a.length:1;
   var load=(1+0.12*(st.z/100))*(1+0.10*frac);
   var share=st.t==='Third Party'?0:(st.t==='Mixed Coverage'?0.5:1);
-  return {prem:share*od*load+tp,sav:share*dsc*load};
+  for(i=0;i<4;i++){var g=PLAN_N[i]*PLAN_OD[i],d=(st.d[i]||0)/100;od+=g*load*share;sav+=g*load*share*0.5*d;dw+=g*d;w+=g;tp+=PLAN_N[i]*PLAN_TP[i];}
+  return {gross:od+tp,od:od,sav:sav,disc:share>0?dw/w:0};
 }
 function planFigures(st){
-  var r=planRaw(st);
-  return {prem:Math.round(PLAN_BASE_PREM*r.prem/planBase.prem/25)*25,sav:Math.round(PLAN_BASE_SAV*r.sav/planBase.sav/25)*25,disc:Math.round(PLAN_BASE_DISC*r.sav/planBase.sav*10)/10};
+  var r=planRaw(st),gross=Math.round(PLAN_BASE_GROSS*r.gross/planBase.gross/25)*25,sav=Math.round(PLAN_BASE_SAV*r.sav/planBase.sav/25)*25;
+  return {gross:gross,sav:sav,net:gross-sav,disc:Math.round(PLAN_BASE_DISC*r.disc/planBase.disc*10)/10,odShare:r.od/r.gross};
 }
 function planDirty(){return JSON.stringify(planState())!==planSnap;}
 function planSync(){
-  var b=document.getElementById('plan-cta'),f=document.querySelector('#plan .premfoot'),h=document.getElementById('plan-hint');if(!b||!f)return;
+  var b=document.getElementById('plan-cta'),f=document.querySelector('#plan .premfoot');if(!b||!f)return;
   var d=planDirty();
   b.textContent=d?'Update':'Get Quote \u2192';b.dataset.mode=d?'update':'quote';
-  f.classList.toggle('dirty',d);if(h)h.hidden=!d;
+  f.classList.toggle('dirty',d);
 }
 function planGetQuote(){
   analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){openInterception();},4000);
@@ -4670,9 +4708,8 @@ function planGetQuote(){
 function planUpdate(){
   planBusy=true;
   analyse(['Updating your plan','Recalculating premium and savings'],'Please wait while your changes are applied.',function(){
-    var st=planState(),fg=planFigures(st),money=function(n){return '\u20b9'+n.toLocaleString('en-IN');};
-    document.getElementById('plan-prem').textContent=money(fg.prem);
-    document.getElementById('plan-sav').textContent=money(fg.sav);
+    var st=planState(),fg=planFigures(st);
+    priceWrite('plan',fg);planLast=fg;
     document.getElementById('overall').textContent=fg.disc;
     planSnap=JSON.stringify(st);planBusy=false;planSync();
     var s=document.querySelector('#plan .stats');if(s){s.classList.remove('fresh');void s.offsetWidth;s.classList.add('fresh');}
@@ -4683,6 +4720,7 @@ function planCta(){if(planBusy)return;if(planDirty())planUpdate();else planGetQu
 (function planInit(){
   var pl=document.getElementById('plan');if(!pl)return;
   planBase=planRaw(planState());planSnap=JSON.stringify(planState());
+  planLast=planFigures(planState());priceWrite('plan',planLast);
   ['input','change','click'].forEach(function(t){pl.addEventListener(t,function(){setTimeout(planSync,0);});});
   planSync();
 })();
