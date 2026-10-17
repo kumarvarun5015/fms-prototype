@@ -383,6 +383,10 @@ table{width:100%;border-collapse:collapse}
 .caltbl .qtbl{min-width:960px}
 .caltbl .qtbl th,.caltbl .qtbl td{padding-left:28px;padding-right:28px}
 .caltbl .qtbl th:first-child,.caltbl .qtbl td:first-child{padding-left:24px}
+/* Calendar table: roomier rows (+33%) and header (+26%), more air around the content (scoped: other tables keep their size) */
+.caltbl .qtbl td{height:64px}
+.caltbl .qtbl th{height:72px;padding-top:0;padding-bottom:0}
+.caltbl .calact{gap:16px}
 .thsort{display:inline-flex;align-items:center;gap:4px}
 .thsort .msym{font-size:16px;color:#020202}
 .calact{display:flex;align-items:center;gap:8px}
@@ -1276,7 +1280,7 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 #calendar .calside{align-self:start}
 #calendar .caltbl{display:flex;flex-direction:column;overflow:visible}
 #calendar .caltbl-scroll{border-radius:16px 16px 0 0}
-#calendar .caltbl .qpager{margin-top:auto;position:sticky;bottom:0;z-index:5;background:#fff;border-top:1px solid var(--line);border-radius:0 0 16px 16px;padding:14px 0!important}
+#calendar .caltbl .qpager{margin-top:auto;position:sticky;bottom:0;z-index:5;background:#fff;border-top:1px solid var(--line);border-radius:0 0 16px 16px;padding:20px 0!important}
 /* ===== header icon tiles: unified 32px tile, 20px glyph ===== */
 .stepic,.sec-ic,.kic,.sic,.scard .sic,#uwdetail .sec-ic,#uwdetail .fh-icon{width:32px;height:32px;border-radius:8px}
 .stepic .msym,.sec-ic .msym,.sec-ic .ms,.kic .msym,.sic .msym,.scard .sic .msym,#uwdetail .sec-ic .ms,#uwdetail .sec-ic .msym,#uwdetail .fh-icon .ms{font-size:20px!important}
