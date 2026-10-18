@@ -1397,7 +1397,7 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #recommend .zd-input-range,#recommend .custom-disc-range{font-size:12px;color:var(--muted);font-weight:600}
 #recommend .zd-input-row{display:flex;align-items:center;gap:8px;width:100%}
 #recommend .zd-input{width:100%;max-width:460px;height:44px;border:1px solid var(--e0);border-radius:8px;padding:0 14px;font-size:15px;font-weight:700;font-family:inherit;color:#212121}
-#recommend .custom-disc-input{width:100%;max-width:240px;height:44px;border:1px solid var(--e0);border-radius:8px;padding:0 14px;font-size:15px;font-weight:700;font-family:inherit;color:#212121}
+#recommend .custom-disc-input{width:100%;max-width:none;height:44px;border:1px solid var(--e0);border-radius:8px;padding:0 14px;font-size:15px;font-weight:700;font-family:inherit;color:#212121}
 #recommend .zd-input:focus,#recommend .custom-disc-input:focus{outline:none;border-color:var(--brand)}
 #recommend .zd-pct-sign{font-size:15px;font-weight:700;color:#616161}
 #recommend .zd-rec-line,#recommend .custom-disc-rec{font-size:12px;color:var(--muted);margin-top:10px}
@@ -1434,6 +1434,15 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .rec-foot .stats{display:flex;gap:40px;margin-right:8px}
 /* B2C price block: final premium · before-discount premium struck through · "Saved" chip */
 .pricev{display:flex;align-items:center;gap:10px;white-space:nowrap}
+/* info button with tooltip (same dark bubble as the ZD heading tooltip); opens on hover, keyboard focus or tap */
+.info-tip{position:relative;display:inline-flex;align-items:center;vertical-align:-3px;margin-left:4px}
+.info-tip-btn{display:inline-grid;place-items:center;width:20px;height:20px;padding:0;border:0;border-radius:50%;background:transparent;color:#9E9E9E;cursor:pointer}
+.info-tip-btn:hover,.info-tip.open .info-tip-btn{color:var(--brand)}
+.info-tip-btn:focus-visible{outline:2px solid rgba(236,102,37,.35);outline-offset:1px}
+.info-tip-bubble{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translate(-50%,4px);width:250px;background:#212121;color:#fff;font-size:12px;font-weight:500;line-height:1.5;padding:10px 12px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);opacity:0;visibility:hidden;transition:opacity .15s,transform .15s;z-index:60;white-space:normal;text-align:left;pointer-events:none}
+.info-tip-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#212121}
+.info-tip:hover .info-tip-bubble,.info-tip.open .info-tip-bubble,.info-tip-btn:focus-visible + .info-tip-bubble{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.info-tip.dismissed .info-tip-bubble{opacity:0!important;visibility:hidden!important}
 .pricev .was{font-size:13px;font-weight:600;color:var(--muted);text-decoration:line-through}
 .save-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px 3px 8px;border-radius:100px;background:#DFFFE6;color:#03602E;font-size:12px;font-weight:700;line-height:1.3}
 .save-chip .msym{font-size:14px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
@@ -1461,7 +1470,11 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #rc-modal .rc-dialog{max-width:520px}
 
 /* ZD editing footer row (match Image 5) */
-#recommend .zd-input-foot{display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:10px;flex-wrap:wrap}
+#recommend .zd-input-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;flex-wrap:wrap}
+#recommend .zd-input-foot .zd-rec-line{margin-top:0;text-align:right}
+/* fields sized to their input so the labels frame the input (TL / TR / BL / BR) */
+#recommend .zd-field{display:flex;flex-direction:column;width:100%;max-width:460px}
+#recommend .disc-field{display:flex;flex-direction:column;width:100%;max-width:288px}
 #recommend .zd-foot-sep{color:var(--muted)}
 #recommend .zd-required{font-size:12px;color:var(--muted)}
 #recommend .zd-required strong{color:#2168F6}
@@ -1481,14 +1494,11 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #ag-addon .ao-slider::-moz-range-track,#uwdetail .ao-slider::-moz-range-track{background:transparent;border:0}
 #ag-addon .ao-slider:disabled,#uwdetail .ao-slider:disabled{opacity:.6;cursor:not-allowed}
 /* ===== toast ===== */
-.fms-toast{position:fixed;top:78px;right:24px;z-index:400;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:12px;box-shadow:0 14px 34px rgba(16,20,28,.16);padding:14px 18px;font-size:14px;font-weight:600;color:#212121;max-width:400px;transform:translateX(130%);opacity:0;transition:transform .34s cubic-bezier(.2,.8,.2,1),opacity .34s;pointer-events:none}
+.fms-toast{position:fixed;top:78px;right:24px;z-index:400;display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 16px 40px rgba(16,20,28,.16),0 3px 10px rgba(16,20,28,.08);padding:14px 18px;font-size:14px;font-weight:600;color:#212121;max-width:400px;transform:translateX(130%);opacity:0;transition:transform .34s cubic-bezier(.2,.8,.2,1),opacity .34s;pointer-events:none}
 .fms-toast.show{transform:translateX(0);opacity:1}
 .fms-toast .toast-ic{font-size:20px;font-variation-settings:'FILL' 1;flex:0 0 auto}
-.fms-toast.success{border-left-color:#01A252}
 .fms-toast.success .toast-ic{color:#01A252}
-.fms-toast.info{border-left-color:var(--brand)}
 .fms-toast.info .toast-ic{color:var(--brand)}
-.fms-toast.warn{border-left-color:#B8860B}
 .fms-toast.warn .toast-ic{color:#B8860B}
 @media(max-width:600px){.fms-toast{left:16px;right:16px;max-width:none}}
 .land-hint{display:inline-flex;align-items:center;gap:9px;margin:4px auto 26px;padding:9px 16px;border-radius:100px;background:var(--soft);border:1px solid #f7cdaf;color:var(--brand);font-size:13px;font-weight:700}
@@ -1628,6 +1638,10 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 .appr-row:first-child{border-top:0}
 .appr-row .l{font-size:13px;font-weight:500;color:var(--muted)}
 .appr-row .r{font-size:14px;font-weight:700;color:#212121;text-align:right;white-space:nowrap}
+.appr-row[hidden]{display:none}
+/* premium: before-discount amount struck through inline, then the payable amount — one line like every other row */
+.appr-prem .r{display:inline-flex;align-items:center;gap:8px}
+#appr-det .save-chip{padding:1px 9px;line-height:18px}
 </style>
 </head>
 <body>
@@ -1821,6 +1835,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
             <div class="appr-row"><span class="l">Total vehicles</span><span class="r" id="appr-veh">100</span></div>
             <div class="appr-row"><span class="l">Requested discount</span><span class="r" id="appr-disc">—</span></div>
             <div class="appr-row"><span class="l">ZD declaration</span><span class="r" id="appr-zd">—</span></div>
+            <div class="appr-row appr-prem"><span class="l">Estimated Annual Premium</span><span class="r"><span class="save-chip" id="appr-save-chip">Saved <span class="mono" id="appr-sav">—</span></span><span class="mono" id="appr-prem">—</span></span></div>
           </div>
           <div class="rc-modal-actions">
             <button class="btn primary" onclick="approveAnother()">Evaluate another fleet</button>
@@ -1941,7 +1956,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
           </div>
           <div class="premfoot">
             <div class="stats">
-              <div class="stat"><div class="k">Estimated Annual Premium</div><div class="v pricev"><span class="mono" id="plan-prem">₹28,47,500</span><s class="was mono" id="plan-gross" title="Premium before discount">₹29,89,875</s><span class="save-chip" id="plan-save-chip"><span class="msym">sell</span>Saved <span class="mono" id="plan-sav">₹1,42,375</span></span></div></div>
+              <div class="stat"><div class="k">Estimated Annual Premium<span class="info-tip"><button type="button" class="info-tip-btn" aria-label="About this estimate" aria-expanded="false" aria-describedby="tip-plan-prem"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><span class="info-tip-bubble" role="tooltip" id="tip-plan-prem">This is a tentative estimate. The final premium may change after commission is finalised.</span></span></div><div class="v pricev"><span class="mono" id="plan-prem">₹28,47,500</span><s class="was mono" id="plan-gross" title="Premium before discount">₹29,89,875</s><span class="save-chip" id="plan-save-chip"><span class="msym">sell</span>Saved <span class="mono" id="plan-sav">₹1,42,375</span></span></div></div>
             </div>
             <div style="display:flex;gap:12px">
               <button class="btn ghost" onclick="go('upload')">Save and exit</button>
@@ -3912,6 +3927,7 @@ let zdCurrent = 70;           // value the agent set on the Plan Page
 let zdRecommended = 90;       // system's suggested value to clear SLR
 let zdFinal = null;           // value locked in once the ZD attempt is used
 let zdAccepted = false;       // ZD recommendation accepted, waiting for the footer CTA to move to the next phase
+let zdModified = false, zdModVal = null;   // a modified ZD value committed with "Update", waiting for "Proceed"
 
 function initState() {
   segments.forEach(seg => {
@@ -3959,7 +3975,7 @@ function buildAgeGroupsHTML(seg) {
 
 function buildEditorHTML(seg, prefill) {
   return `
-    <div class="custom-disc-block">
+    <div class="custom-disc-block"><div class="disc-field">
       <div class="custom-disc-top">
         <span class="custom-disc-title">Set your discount (%)</span>
         <span class="custom-disc-range">Range: ${seg.recDisc}%- ${seg.prevDisc}%</span>
@@ -3968,12 +3984,12 @@ function buildEditorHTML(seg, prefill) {
         value="${prefill}" min="${seg.recDisc}" max="${seg.prevDisc}"
         oninput="onDiscountInput(${seg.id})" onclick="event.stopPropagation()"/>
       <div class="custom-disc-rec">Recommended: <strong>${seg.recDisc}%</strong></div>
-    </div>
+    </div></div>
     <div class="addon-attention" id="addon-attn-${seg.id}" style="display:none;">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       <div>
         <div class="addon-attn-title">Select an add-on</div>
-        <div class="addon-attn-sub">You haven't chosen the recommended discount. Select addons and re-evaluate the fleet to increase chances of approval.</div>
+        <div class="addon-attn-sub">You haven't chosen the recommended discount. Select add-ons to increase the chances of approval.</div>
       </div>
     </div>
     <div id="age-groups-wrap-${seg.id}" style="display:none;">
@@ -3984,7 +4000,7 @@ function buildEditorHTML(seg, prefill) {
 
 // ── Zero Depreciation gate card (Attempt 1 only) ──
 function buildZdCard() {
-  return zdEditing ? buildZdEditingCard() : (zdAccepted ? buildZdAcceptedCard() : buildZdFreshCard());
+  return zdEditing ? buildZdEditingCard() : (zdAccepted ? buildZdAcceptedCard() : (zdModified ? buildZdModifiedCard() : buildZdFreshCard()));
 }
 
 const zdInfoIconHTML = `
@@ -4068,6 +4084,43 @@ function buildZdAcceptedCard() {
     </div>`;
 }
 
+// ── ZD modified state — committed with Update, waiting for Proceed ──
+function buildZdModifiedCard() {
+  return `
+    <div class="zd-card" id="zd-card">
+      <div class="zd-card-title-row">
+        <div class="zd-card-title-left">
+          <span class="zd-card-title">Zero Depreciation Cover</span>
+          ${zdInfoIconHTML}
+        </div>
+        <button class="seg-action-link" onclick="openZdEditor()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Modify
+        </button>
+      </div>
+      <div class="seg-subtitle">You modified the ZD declaration to ${zdModVal}%. Proceed to check if the fleet qualifies.</div>
+      <div class="disc-row">
+        <div class="disc-chip prev">
+          <div class="disc-chip-label">Requested ZD Penetration</div>
+          <div style="display:flex;align-items:center;">
+            <span class="disc-chip-val">${zdCurrent}%</span>
+            <span class="disc-chip-vpill">${Math.ceil(zdEligibleCount * (zdCurrent/100))} Vehicles</span>
+          </div>
+        </div>
+        <span class="disc-arrow">→</span>
+        <div class="disc-chip rec">
+          <div class="disc-chip-label">Your ZD Penetration</div>
+          <div style="display:flex;align-items:center;">
+            <span class="disc-chip-val">${zdModVal}%</span>
+            <span class="disc-chip-vpill">${Math.ceil(zdEligibleCount * (zdModVal/100))} Vehicles</span>
+          </div>
+        </div>
+        <span class="status-pill edited"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Modified</span>
+      </div>
+      <div class="zd-mini-stat">Total Vehicles: <strong>${zdTotalCount}</strong> · ZD Eligible: <strong>${zdEligibleCount}</strong></div>
+    </div>`;
+}
+
 // ── ZD editing state — input block + Reset, matches the segment "editing" card ──
 function buildZdEditingCard() {
   const required = Math.ceil(zdEligibleCount * (zdCurrent / 100));
@@ -4090,21 +4143,20 @@ function buildZdEditingCard() {
         </button>
       </div>
       <div class="seg-subtitle">Increase the ZD declaration to improve the chances of real-time fleet approval.</div>
-      <div class="zd-input-block">
+      <div class="zd-input-block"><div class="zd-field">
         <div class="zd-input-top">
           <span class="zd-input-title">ZD Declaration (%)</span>
           <span class="zd-input-range">Range: ${zdCurrent}%- 100%</span>
         </div>
         <div class="zd-input-row">
           <input class="zd-input" id="zd-input" type="number" min="${zdCurrent}" max="100"
-            value="${zdCurrent}" oninput="onZdInput()"/>
+            value="${zdModified ? zdModVal : zdCurrent}" oninput="onZdInput()"/>
         </div>
         <div class="zd-input-foot">
           <span class="zd-required">ZD Required: <strong id="zd-min-vehicles">${required}</strong> Vehicles</span>
-          <span class="zd-foot-sep">&middot;</span>
           <span class="zd-rec-line">Recommended: <strong>${zdRecommended}%</strong> (${recVeh} Vehicles)</span>
         </div>
-      </div>
+      </div></div>
     </div>`;
 }
 
@@ -4188,7 +4240,7 @@ function buildCard(seg) {
             Modify
           </button>
         </div>
-        <div class="seg-subtitle">You've customised this segment - re-evaluate the fleet to check if it qualifies.</div>
+        <div class="seg-subtitle">You've customised this segment. Proceed to check if the fleet qualifies.</div>
         <div class="disc-row">
           <div class="disc-chip prev"><div class="disc-chip-label">Requested Discount</div><div class="disc-chip-val">${ac.disc}%</div></div>
           <span class="status-pill edited"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Modified</span>
@@ -4404,8 +4456,26 @@ function acceptRec(segId) {
    phase once EVERY remaining segment is accepted or modified. */
 function zdEditValid() {
   const i = document.getElementById('zd-input'); if (!i) return false;
-  const v = parseFloat(i.value);
-  return !isNaN(v) && v > zdCurrent && v <= 100;
+  const v = parseFloat(i.value), base = zdModified ? zdModVal : zdCurrent;
+  return !isNaN(v) && v > zdCurrent && v <= 100 && v !== base;
+}
+/* "Update" applies an in-progress modification (prices were frozen while editing), then the CTA becomes "Proceed" */
+function recUpdateRun(apply) {
+  analyse(['Updating your changes'], 'Please wait while your changes are applied.', function () { apply(); fmsToast('Changes updated successfully.', 'success'); }, 1200);
+}
+function zdUpdate() {
+  if (!zdEditValid()) return;
+  const v = parseFloat(document.getElementById('zd-input').value);
+  recUpdateRun(() => { zdModVal = v; zdModified = true; zdEditing = false; zdAccepted = false; buildSegments(); });
+}
+function proceedZdModified() {
+  if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
+  recLoad(() => { attempts--; updateAttempts(); zdFinal = zdModVal; enterSegmentPhase(); });
+}
+function segUpdate() {
+  const id = editingSegId, s = segments.find(x => x.id === id);
+  if (!s || !segEditModified(s)) return;
+  recUpdateRun(() => { commitSegmentEdit(id); editingSegId = null; buildSegments(); });
 }
 function segEditModified(s) {
   const i = document.getElementById('disc-input-' + s.id); if (!i) return false;
@@ -4416,23 +4486,24 @@ function segEditModified(s) {
 function priceWrite(p, f) {
   const g = i => document.getElementById(p + '-' + i), m = n => '\u20b9' + Number(n).toLocaleString('en-IN');
   if (!g('prem')) return;
-  g('prem').textContent = m(f.net); g('gross').textContent = m(f.gross); g('sav').textContent = m(f.sav);
-  const has = f.sav > 0; g('gross').hidden = !has; g('save-chip').hidden = !has;
+  const put = (i, v) => { const e = g(i); if (e) e.textContent = v; }, hide = (i, v) => { const e = g(i); if (e) e.hidden = v; };
+  put('prem', m(f.net)); put('gross', m(f.gross)); put('sav', m(f.sav));
+  const has = f.sav > 0; hide('gross', !has); hide('save-chip', !has);
 }
 /* Recommendation footer price: starts from the plan's figures and moves LIVE with every action.
    ZD up -> before-discount premium and saving both rise; accepting a lower recommended discount -> saving falls (premium before discount unchanged). */
 let recPriceLast = null;
 function recCurZd() {
-  if (zdPhase) { if (zdEditing) return zdEditValid() ? parseFloat(document.getElementById('zd-input').value) : zdCurrent; return zdAccepted ? zdRecommended : zdCurrent; }
+  if (zdPhase) return zdAccepted ? zdRecommended : (zdModified ? Number(zdModVal) : zdCurrent);
   return (zdFinal !== null && zdFinal !== undefined) ? Number(zdFinal) : zdCurrent;
 }
 function recCurDisc(s) {
   if (zdPhase) return s.prevDisc;
-  if (editingSegId === s.id && segEditModified(s)) return parseFloat(document.getElementById('disc-input-' + s.id).value);
   const ac = agentConfig[s.id]; return (ac && !isNaN(Number(ac.disc))) ? Number(ac.disc) : s.prevDisc;
 }
 function recPrice() {
   const f0 = window.planLast; if (!f0 || !document.getElementById('rec-prem')) return;
+  if (zdEditing || editingSegId !== null) return;   // frozen while a modification is in progress — changes only on Update
   const z0 = Number(zdCurrent), Lr = (1 + 0.12 * recCurZd() / 100) / (1 + 0.12 * z0 / 100);
   let req = 0, cur = 0; segments.forEach(s => { req += s.count * s.prevDisc; cur += s.count * recCurDisc(s); });
   const gross = Math.round(f0.gross * ((1 - f0.odShare) + f0.odShare * Lr) / 25) * 25;
@@ -4444,26 +4515,18 @@ function recPrice() {
 }
 function wireFooter() {
   const btn = document.getElementById('main-cta');
-  const set = (label, enabled, fn, msg) => {
-    btn.textContent = label; btn.disabled = !enabled; btn.onclick = enabled ? fn : null;
-    recPrice();
-  };
+  const set = (label, enabled, fn) => { btn.textContent = label; btn.disabled = !enabled; btn.onclick = enabled ? fn : null; recPrice(); };
+  /* any modification in progress -> "Update" (enabled once the value really changed); otherwise "Proceed" */
   if (zdPhase) {
-    if (zdEditing) { set('Re-evaluate', zdEditValid(), doZdReEvaluate, 'Enter a higher ZD value to continue'); return; }
+    if (zdEditing) { set('Update', zdEditValid(), zdUpdate); return; }
     if (zdAccepted) { set('Proceed', true, proceedZdAccepted); return; }
-    set('Proceed', false, null, 'Accept or modify the recommendation to continue');
-    return;
+    if (zdModified) { set('Proceed', true, proceedZdModified); return; }
+    set('Proceed', false, null); return;
   }
+  if (editingSegId !== null) { const s = segments.find(x => x.id === editingSegId); set('Update', !!s && segEditModified(s), segUpdate); return; }
   const unsettled = segments.filter(s => !resolved[s.id]);
-  const prior = s => segResult[s.id] === 'accepted' || (agentConfig[s.id] && segResult[s.id] === undefined);
-  const handled = s => prior(s) || (editingSegId === s.id && segEditModified(s));
-  const done = unsettled.filter(handled).length;
-  /* label follows what the user did: only accepted -> "Proceed"; any modification (committed, or editor open) -> "Re-evaluate" */
-  const modifying = unsettled.some(s => editingSegId === s.id || (agentConfig[s.id] && segResult[s.id] === undefined));
-  const label = modifying ? 'Re-evaluate' : 'Proceed';
-  if (unsettled.length > 0 && done === unsettled.length) { set(label, true, doReEvaluate); return; }
-  set(label, false, null,
-      unsettled.length > 1 ? 'Accept or modify all segments to continue \u00b7 ' + done + ' of ' + unsettled.length + ' done' : 'Accept or modify the segment to continue');
+  const handled = s => segResult[s.id] === 'accepted' || (agentConfig[s.id] && segResult[s.id] === undefined);
+  set('Proceed', unsettled.length > 0 && unsettled.every(handled), doReEvaluate);
 }
 
 // ── Attempt 1 — ZD-only evaluation ──
@@ -4511,7 +4574,7 @@ function doZdReEvaluate() {
   if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
   const input = document.getElementById('zd-input');
   const val = parseFloat(input ? input.value : zdCurrent);
-  const enteredZd = isNaN(val) ? zdCurrent : Math.max(0, Math.min(100, val));
+  const enteredZd = isNaN(val) ? zdCurrent : Math.max(0, Math.min(100, val)); // (legacy path, kept for reference)
   recLoad(() => {
     attempts--;
     updateAttempts();
@@ -4549,6 +4612,7 @@ function approveFleet() {
   document.getElementById('appr-veh').textContent = s.vehicles;
   document.getElementById('appr-disc').textContent = s.avg + '%';
   document.getElementById('appr-zd').textContent = s.zd + '% (' + s.zdVeh + ' vehicles)';
+  priceWrite('appr', recPriceLast || window.planLast);   // same B2C price block as the footers
   var ev = document.getElementById('q-evid'); if (ev) ev.textContent = s.id;
   document.getElementById('appr-modal').classList.add('on');
 }
@@ -4647,7 +4711,7 @@ function enterRecommend(){
   segments = JSON.parse(JSON.stringify(BASE_SEGMENTS));
   addonState={}; customMode={}; segResult={}; recUpdatedFrom={}; resolved={};
   editingSegId=null; agentConfig={}; attempts=5; hasReEvaluated=false;
-  zdPhase=true; zdEditing=false; zdFinal=null; zdAccepted=false;
+  zdPhase=true; zdEditing=false; zdFinal=null; zdAccepted=false; zdModified=false; zdModVal=null;
   recPriceLast = null;
   updateAttempts();
   document.getElementById('rec-sub').innerHTML="We&rsquo;ve calculated a ZD recommendation to help this fleet qualify for real-time approval.";
@@ -4658,6 +4722,15 @@ function enterRecommend(){
 
 
 /* ===== lightweight toast notification (host-styled) ===== */
+/* info tooltips: tap toggles (iPad), tap outside or Esc closes */
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.info-tip-btn');
+  document.querySelectorAll('.info-tip.open').forEach(function(t){if(!b||t!==b.parentElement){t.classList.remove('open');var x=t.querySelector('.info-tip-btn');if(x)x.setAttribute('aria-expanded','false');}});
+  if(b){b.parentElement.classList.remove('dismissed');var o=b.parentElement.classList.toggle('open');b.setAttribute('aria-expanded',String(o));}
+});
+/* Esc hides the tooltip even while its button keeps keyboard focus; it can show again after leaving or re-opening */
+document.addEventListener('keydown',function(e){if(e.key==='Escape')document.querySelectorAll('.info-tip').forEach(function(t){if(t.classList.contains('open')||t.contains(document.activeElement)||t.matches(':hover')){t.classList.remove('open');t.classList.add('dismissed');var x=t.querySelector('.info-tip-btn');if(x)x.setAttribute('aria-expanded','false');}});});
+['focusout','mouseleave'].forEach(function(ev){document.addEventListener(ev,function(e){var t=e.target.closest&&e.target.closest('.info-tip');if(t&&(ev==='mouseleave'?e.target===t:true))t.classList.remove('dismissed');},true);});
 function fmsToast(msg, type){
   var t=document.getElementById('fms-toast');
   if(!t){ t=document.createElement('div'); t.id='fms-toast'; document.body.appendChild(t); }
@@ -4724,7 +4797,7 @@ function planUpdate(){
     document.getElementById('overall').textContent=fg.disc;
     planSnap=JSON.stringify(st);planBusy=false;planSync();
     var s=document.querySelector('#plan .stats');if(s){s.classList.remove('fresh');void s.offsetWidth;s.classList.add('fresh');}
-    fmsToast('Plan updated. Premium and savings are refreshed.','success');
+    fmsToast('Changes updated successfully.','success');
   },1600);
 }
 function planCta(){if(planBusy)return;if(planDirty())planUpdate();else planGetQuote();}
