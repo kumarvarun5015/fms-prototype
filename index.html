@@ -334,15 +334,29 @@ table{width:100%;border-collapse:collapse}
 .legend i{width:16px;height:16px;border-radius:200px}
 /* funnel */
 .funnel{display:flex;gap:8px;height:325px}
-.yax{display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:#212121;width:36px;text-align:right;padding-right:4px;padding-bottom:27px}
+.yax{position:relative;font-size:10px;color:#212121;width:36px;flex:none}
+.yax span{position:absolute;right:4px;transform:translateY(-50%);line-height:1}
+.yax span:nth-child(1){top:0}.yax span:nth-child(2){top:calc((100% - 27px) / 3)}.yax span:nth-child(3){top:calc((100% - 27px) * 2 / 3)}.yax span:nth-child(4){top:calc(100% - 27px)}
 .fplot{flex:1;display:flex;align-items:flex-end;justify-content:space-around;position:relative}
 .fglines{position:absolute;left:0;right:0;top:0;bottom:27px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;z-index:0}
 .fglines i{display:block;height:0;border-top:1px solid #F0F0F0}
 .fgroup{display:flex;flex-direction:column;align-items:center;gap:0;flex:1;z-index:1;position:relative}
-.fpair{display:flex;align-items:flex-end;gap:20px;height:277px}
+.fpair{display:flex;align-items:flex-end;gap:20px;height:calc(325px - 27px)}
 .fbar{width:60px;border-radius:8px 8px 0 0}
 .fbar.a{background:#2168F6}.fbar.b{background:#C7DBFF}
+.fbar:focus-visible,.ccrow:focus-visible,.odrow:focus-visible{outline:2px solid rgba(33,104,246,.45);outline-offset:3px}
+.odrow,.ccrow{border-radius:8px}
 .fx{font-size:14px;color:#212121;text-align:center;height:27px;display:flex;align-items:center;justify-content:center}
+/* ===== Chart tooltip (dashboard) — label · value · context line, arrow pointing at the data point ===== */
+.ctip{position:fixed;z-index:400;left:0;top:0;min-width:150px;max-width:260px;background:#fff;border-radius:16px;padding:14px 18px;pointer-events:none;
+  filter:drop-shadow(0 10px 22px rgba(16,20,28,.12)) drop-shadow(0 1px 3px rgba(16,20,28,.06));opacity:0;transform:translateY(4px);transition:opacity .12s ease,transform .12s ease}
+.ctip.on{opacity:1;transform:none}
+.ctip::after{content:'';position:absolute;left:var(--ax,50%);top:100%;margin-left:-8px;border:8px solid transparent;border-top-color:#fff;border-bottom:0}
+.ctip.below::after{top:auto;bottom:100%;border-top:0;border-bottom:8px solid #fff}
+.ctip .l{font-size:13px;font-weight:600;color:#575757;white-space:nowrap}
+.ctip .v{font-size:var(--metric-fs);font-weight:var(--metric-fw);line-height:var(--metric-lh);color:#212121;margin-top:2px}
+.ctip .s{font-size:12.5px;font-weight:500;color:#9E9E9E;margin-top:2px;white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.ctip{transition:none}}
 .d3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:20px}
 /* leaderboard */
 .lbtop{display:flex;gap:8px;margin-bottom:16px}
@@ -441,6 +455,35 @@ table{width:100%;border-collapse:collapse}
 .evtools{display:flex;align-items:center;gap:12px;margin:0 0 24px}
 .ebtn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border:1px solid var(--e0);border-radius:100px;background:#fff;font-size:14px;color:#424242;cursor:pointer;white-space:nowrap}
 .ebtn .msym{font-size:18px;color:#616161}
+.ebtn.on{border-color:var(--brand);color:var(--brand)}.ebtn.on .msym{color:var(--brand)}
+.fbadge{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:100px;background:var(--brand);color:#fff;font-size:11.5px;font-weight:700;line-height:1}
+.fbadge[hidden]{display:none}
+/* ===== Select Filter modal — platform-wide. Width = 8 of 12 columns (24px margins + gutters); height between 40% and 80% of the screen ===== */
+#flt-modal.on{place-items:center}
+#flt-modal .flt-dialog{--fcol:calc((100vw - 48px - 11 * 24px) / 12);width:calc(var(--fcol) * 8 + 7 * 24px);max-width:none;max-height:80vh;max-height:80dvh;min-height:40vh;min-height:40dvh;padding:0;text-align:left;display:flex;flex-direction:column;overflow:hidden;animation:fltIn .18s ease-out}
+@keyframes fltIn{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#flt-modal .flt-dialog{animation:none}}
+#flt-modal .rc-x{top:26px;right:32px}
+.flt-head{flex:none;padding:28px 84px 20px 32px}
+.flt-title{font-size:19px;font-weight:800;color:#212121;margin:0;line-height:1.4}
+.flt-main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(150px,200px) 1fr;padding:0 32px}
+.flt-nav{border-right:1px solid var(--line);padding:2px 0;overflow-y:auto}
+.flt-tab{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:12px 16px 12px 20px;border:0;background:none;font-family:inherit;font-size:15px;font-weight:600;color:#757575;text-align:left;cursor:pointer;transition:color .15s}
+.flt-tab:hover{color:#212121}
+.flt-tab.on{color:#212121;font-weight:700}
+.flt-tab.on::before{content:'';position:absolute;left:4px;top:9px;bottom:9px;width:3px;border-radius:3px;background:var(--brand)}
+.flt-tab:focus-visible{outline:2px solid rgba(236,102,37,.4);outline-offset:-2px;border-radius:8px}
+.flt-tab .n{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:100px;background:var(--soft);color:var(--brand);font-size:11.5px;font-weight:700}
+.flt-pane{display:flex;flex-direction:column;min-height:0;padding-left:28px}
+.flt-opts{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2px 16px;align-content:start;padding:2px 4px 16px 0}
+.flt-opt{display:flex;align-items:center;gap:12px;min-width:0;padding:10px 4px;font-size:14px;font-weight:500;color:#424242;cursor:pointer;border-radius:8px}
+.flt-opt input{width:18px;height:18px;margin:0;flex:none;accent-color:var(--brand);cursor:pointer}
+.flt-opt .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.flt-opt .c{color:#9E9E9E;font-weight:500}
+.flt-opt.on{color:#212121;font-weight:600}
+.flt-foot{flex:none;display:flex;justify-content:center;gap:16px;padding:20px 32px 28px}
+.flt-foot .btn{flex:0 1 240px;justify-content:center;text-align:center}
+@media(max-width:900px){#flt-modal .flt-dialog{width:calc(100vw - 40px)}}
 .evsearch{margin-left:auto;flex:0 1 430px;display:flex;align-items:center;gap:8px;height:44px;padding:0 16px;border:1px solid var(--e0);border-radius:100px;background:#fff;color:#9E9E9E;font-size:14px}
 .evsearch .msym{font-size:18px;color:#9E9E9E}
 .et-wrap{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
@@ -469,6 +512,53 @@ table{width:100%;border-collapse:collapse}
 .eact .ic{color:var(--brand);cursor:pointer;display:inline-flex}
 .eact .ic .msym{font-size:20px}
 .eact .kb{color:var(--brand);cursor:pointer;display:inline-flex}
+.eact .hbtn{border:0;background:transparent;padding:4px;margin:-4px;border-radius:8px;font:inherit;cursor:pointer;transition:background .15s}
+/* hover / keyboard tooltips on row actions — same dark bubble as the platform's other tooltips */
+.eact .tip{position:relative}
+.eact .tip::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);right:-6px;background:#212121;color:#fff;font-family:Mulish,sans-serif;font-size:12px;font-weight:600;line-height:1.3;white-space:nowrap;padding:6px 10px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translateY(3px);transition:opacity .12s,transform .12s,visibility .12s;pointer-events:none;z-index:6}
+.eact .tip::before{content:'';position:absolute;bottom:calc(100% - 4px);right:8px;border:6px solid transparent;border-top-color:#212121;opacity:0;visibility:hidden;transition:opacity .12s,visibility .12s;pointer-events:none;z-index:6}
+.eact .tip:hover::after,.eact .tip:hover::before,.eact .tip:focus-visible::after,.eact .tip:focus-visible::before{opacity:1;visibility:visible;transform:none}
+@media(prefers-reduced-motion:reduce){.eact .tip::after,.eact .tip::before{transition:none}}
+.eact .hbtn:hover{background:var(--soft2)}
+.eact .hbtn:focus-visible{outline:2px solid rgba(236,102,37,.4);outline-offset:1px}
+.opill.grey{color:#616161;border-color:#BDBDBD}
+/* ===== Fleet Evaluation History (agent) — modal ===== */
+/* bottom sheet (reference): starts below the app header, runs to the bottom edge, top corners rounded, content scrolls inside */
+#hist-modal.on{place-items:end center;padding:104px 20px 0}
+#hist-modal .hist-dialog{max-width:1180px;width:min(1180px,82vw);height:100%;max-height:none;text-align:left;padding:0;display:flex;flex-direction:column;overflow:hidden;border-radius:20px 20px 0 0;animation:histIn .22s ease-out}
+@keyframes histIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#hist-modal .hist-dialog{animation:none}}
+#hist-modal .rc-x{top:30px;right:48px}
+.hist-head{flex:none;padding:32px 96px 24px 48px}
+.hist-title{font-size:19px;font-weight:800;color:#212121;margin:0;line-height:1.4}
+.hist-sub{font-size:13.5px;font-weight:500;color:var(--muted);margin:6px 0 0;line-height:1.55}
+.hist-body{flex:1;min-height:0;padding:0 48px 48px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.hist-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+.hist-band{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;background:var(--soft)}
+.hist-band .k{font-size:13px;font-weight:600;color:var(--muted)}
+.hist-band .v{font-size:15px;font-weight:600;color:#212121;margin-top:4px}
+.hist-inner{padding:24px 20px 8px}
+.hist-prog-h{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.hist-prog-h b{font-size:16px;font-weight:700;color:#212121}
+.hist-prog-h span{font-size:13px;font-weight:600;color:#424242}
+.hist-bar{display:flex;gap:4px;height:6px}
+.hist-bar i{display:block;height:100%;border-radius:100px;min-width:0}
+.hist-bar .s{background:#01A252}.hist-bar .o{background:#C62828}.hist-bar .r{background:#EEEEEE}
+.hist-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:10px;font-size:13px;color:var(--muted)}
+.hist-legend span{display:inline-flex;align-items:center;gap:6px}
+.hist-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.hist-legend b{color:#212121;font-weight:700}
+.hist-tl{margin-top:24px}
+.hist-entry{position:relative;padding:0 0 28px 32px}
+.hist-entry::before{content:'';position:absolute;left:9.5px;top:28px;bottom:10px;width:1px;background:var(--e0)}
+.hist-ico{position:absolute;left:0;top:0;font-size:20px;color:var(--muted);font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
+.hist-line{font-size:13px;color:var(--muted);line-height:20px;margin:0 0 14px}
+.hist-line em{font-style:italic}
+.hist-line b{color:#212121;font-weight:700}
+.hist-box{background:var(--bhead);border-radius:12px;padding:18px 16px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px 20px}
+.hist-box .k{font-size:13px;color:var(--muted);font-weight:600}
+.hist-box .v{font-size:15px;font-weight:600;color:#212121;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:900px){#hist-modal .hist-dialog{width:100%}.hist-box{grid-template-columns:repeat(3,minmax(0,1fr))}.hist-head{padding:24px 72px 16px 24px}.hist-body{padding:0 24px 28px}#hist-modal .rc-x{top:24px;right:24px}}
 .eact .kb .msym{font-size:20px}
 .epager{display:flex;justify-content:center;align-items:center;gap:10px;padding-top:20px}
 .epager .enav{display:inline-flex;align-items:center;gap:4px;color:#616161;font-size:14px;background:none;border:0;cursor:pointer}
@@ -1585,7 +1675,6 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 
 /* ===== Vehicle details: filter dropdowns + search ===== */
 #details .toolbar{position:relative;z-index:5}
-.vd-dd{position:relative}
 .vd-f{background:#fff;cursor:pointer;font-family:inherit}
 .vd-f .lb{white-space:nowrap}
 .vd-f[aria-expanded="true"]{border-color:var(--brand)}
@@ -1642,6 +1731,15 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 /* premium: before-discount amount struck through inline, then the payable amount — one line like every other row */
 .appr-prem .r{display:inline-flex;align-items:center;gap:8px}
 #appr-det .save-chip{padding:1px 9px;line-height:18px}
+
+/* ===== Corner-radius scale for controls — platform-wide (no two controls differ by more than 20%) =====
+   Standard controls (34px and taller): buttons, Filter & Date, search boxes, text / dropdown / number fields  -> 10px
+   Compact controls (32px and shorter): row icon buttons, table-cell fields, pagination, value boxes            -> 8px (one 20% step)
+   Not controls, so they keep their own shapes: round icon buttons (close, bell, page dots), status tags & chips,
+   and containers (cards, tiles, banners, popups). Kept last so it wins over the older per-component rules. */
+:root{--r-ctl:10px;--r-ctl-sm:8px}
+.btn,.ebtn,.evsearch,.srch,.calsearch,.dbtn,.uploadbtn,.inp2,.box,.ni,.rm-comm,.zd-input,.custom-disc-input,.btn-accept-rec,.btn-reject-rec,.rm-close,.rm-submit,.btn-close,.btn-sub,.ao-cta-edit,.itbtn,.cmp-btn{border-radius:var(--r-ctl)!important}
+.vf,.del,.viewbtn,.morebtn,.dlbtn,.flgbtn,.ao-slider-val,.btn-ol,.dnbtn,.pgnav,.qarrow,.pg,.qpg{border-radius:var(--r-ctl-sm)!important}
 </style>
 </head>
 <body>
@@ -1732,7 +1830,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
   <div class="dsechd"><span class="sic"><span class="msym">filter_alt</span></span><span class="stt">Vehicle Funnel</span><svg class="info" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><span class="rt legend"><span><i style="background:#2168F6"></i>Selected Period</span><span><i style="background:#C7DBFF"></i>Same Period Last Year</span></span></div>
   <div class="funnel">
     <div class="yax"><span>3000</span><span>2000</span><span>1000</span><span>0</span></div>
-    <div class="fplot"><div class="fglines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="fgroup"><div class="fpair"><div class="fbar a" style="height:277px"></div><div class="fbar b" style="height:235px"></div></div><div class="fx">Pre-Evaluation Request</div></div><div class="fgroup"><div class="fpair"><div class="fbar a" style="height:222px"></div><div class="fbar b" style="height:185px"></div></div><div class="fx">Evaluation Request</div></div><div class="fgroup"><div class="fpair"><div class="fbar a" style="height:185px"></div><div class="fbar b" style="height:157px"></div></div><div class="fx">Quote Generated</div></div><div class="fgroup"><div class="fpair"><div class="fbar a" style="height:143px"></div><div class="fbar b" style="height:120px"></div></div><div class="fx">Policy Booked</div></div></div>
+    <div class="fplot"><div class="fglines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="fgroup"><div class="fpair"><div class="fbar a" style="height:93.333%" tabindex="0" role="img" data-ct="funnel" data-ser="sel" data-v="2800" aria-label="Pre-Evaluation Request, Selected Period: 2,800 vehicles"></div><div class="fbar b" style="height:79.167%" tabindex="0" role="img" data-ct="funnel" data-ser="ly" data-v="2375" aria-label="Pre-Evaluation Request, Same Period Last Year: 2,375 vehicles"></div></div><div class="fx">Pre-Evaluation Request</div></div><div class="fgroup"><div class="fpair"><div class="fbar a" style="height:74.667%" tabindex="0" role="img" data-ct="funnel" data-ser="sel" data-v="2240" aria-label="Evaluation Request, Selected Period: 2,240 vehicles"></div><div class="fbar b" style="height:62.333%" tabindex="0" role="img" data-ct="funnel" data-ser="ly" data-v="1870" aria-label="Evaluation Request, Same Period Last Year: 1,870 vehicles"></div></div><div class="fx">Evaluation Request</div></div><div class="fgroup"><div class="fpair"><div class="fbar a" style="height:62.333%" tabindex="0" role="img" data-ct="funnel" data-ser="sel" data-v="1870" aria-label="Quote Generated, Selected Period: 1,870 vehicles"></div><div class="fbar b" style="height:52.833%" tabindex="0" role="img" data-ct="funnel" data-ser="ly" data-v="1585" aria-label="Quote Generated, Same Period Last Year: 1,585 vehicles"></div></div><div class="fx">Quote Generated</div></div><div class="fgroup"><div class="fpair"><div class="fbar a" style="height:48.167%" tabindex="0" role="img" data-ct="funnel" data-ser="sel" data-v="1445" aria-label="Policy Booked, Selected Period: 1,445 vehicles"></div><div class="fbar b" style="height:40.333%" tabindex="0" role="img" data-ct="funnel" data-ser="ly" data-v="1210" aria-label="Policy Booked, Same Period Last Year: 1,210 vehicles"></div></div><div class="fx">Policy Booked</div></div></div>
   </div>
 </div>
         <div class="d3">
@@ -1746,15 +1844,15 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 </div>
           <div class="dsec">
   <div class="dsechd"><span class="sic"><span class="msym">donut_large</span></span><span class="stt">Claims Count</span><svg class="info" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
-  <div class="cdonut"><div class="hole"><small>Total Claims</small><b>500</b></div></div>
+  <div class="cdonut" data-ct="donut" role="img" aria-label="Claims count: OD Claims 400 (80%), TP Claims 100 (20%), total 500"><div class="hole"><small>Total Claims</small><b>500</b></div></div>
   <div class="ccbox">
-    <div class="ccrow"><span class="l"><i style="background:#2168F6"></i>OD Claims</span><span class="r"><b>400</b><span class="kpill up"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>+5%</span></span></div>
-    <div class="ccrow"><span class="l"><i style="background:#C7DBFF"></i>TP Claims</span><span class="r"><b>100</b><span class="kpill down"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7l10 10M15 17H7V9"/></svg>-8%</span></span></div>
+    <div class="ccrow" tabindex="0" data-ct="donut" data-seg="0"><span class="l"><i style="background:#2168F6"></i>OD Claims</span><span class="r"><b>400</b><span class="kpill up"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>+5%</span></span></div>
+    <div class="ccrow" tabindex="0" data-ct="donut" data-seg="1"><span class="l"><i style="background:#C7DBFF"></i>TP Claims</span><span class="r"><b>100</b><span class="kpill down"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7l10 10M15 17H7V9"/></svg>-8%</span></span></div>
   </div>
 </div>
           <div class="dsec">
   <div class="dsechd"><span class="sic"><span class="msym">insert_chart</span></span><span class="stt">OD Claim Statistics</span><svg class="info" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
-  <div class="odbox"><div class="odrow"><div class="top"><span>Total Claims</span><b>400</b></div><div class="odtrack"><div class="odfill" style="width:100%;background:#2168F6"></div></div></div><div class="odrow"><div class="top"><span>Settled Claims</span><b>200</b></div><div class="odtrack"><div class="odfill" style="width:50%;background:#01A252"></div></div></div><div class="odrow"><div class="top"><span>Pending Claims</span><b>150</b></div><div class="odtrack"><div class="odfill" style="width:37%;background:#E49F04"></div></div></div><div class="odrow"><div class="top"><span>Rejected Claims</span><b>50</b></div><div class="odtrack"><div class="odfill" style="width:12%;background:#E00903"></div></div></div></div>
+  <div class="odbox"><div class="odrow" tabindex="0" data-ct="od" data-l="Total Claims" data-v="400" data-p="100"><div class="top"><span>Total Claims</span><b>400</b></div><div class="odtrack"><div class="odfill" style="width:100%;background:#2168F6"></div></div></div><div class="odrow" tabindex="0" data-ct="od" data-l="Settled Claims" data-v="200" data-p="50"><div class="top"><span>Settled Claims</span><b>200</b></div><div class="odtrack"><div class="odfill" style="width:50%;background:#01A252"></div></div></div><div class="odrow" tabindex="0" data-ct="od" data-l="Pending Claims" data-v="150" data-p="37.5"><div class="top"><span>Pending Claims</span><b>150</b></div><div class="odtrack"><div class="odfill" style="width:37.5%;background:#E49F04"></div></div></div><div class="odrow" tabindex="0" data-ct="od" data-l="Rejected Claims" data-v="50" data-p="12.5"><div class="top"><span>Rejected Claims</span><b>50</b></div><div class="odtrack"><div class="odfill" style="width:12.5%;background:#E00903"></div></div></div></div>
 </div>
         </div>
         <div class="dsec" style="margin-top:20px">
@@ -1823,6 +1921,32 @@ body.cta-away #policy .pol-foot{bottom:-160px}
         </div>
       </div>
 
+      <div class="ctip" id="ctip" role="tooltip" aria-hidden="true"><div class="l"></div><div class="v"></div><div class="s"></div></div>
+      <!-- Select Filter — one filter modal used platform-wide -->
+      <div class="rc-mask" id="flt-modal" onclick="if(event.target===this)fmClose()">
+        <div class="rc-dialog flt-dialog" role="dialog" aria-modal="true" aria-labelledby="flt-title">
+          <button class="rc-x" type="button" aria-label="Close" onclick="fmClose()"><span class="msym">close</span></button>
+          <div class="flt-head"><h2 class="flt-title" id="flt-title">Select Filter</h2></div>
+          <div class="flt-main">
+            <div class="flt-nav" id="flt-nav" role="tablist" aria-orientation="vertical" aria-label="Filter categories"></div>
+            <div class="flt-pane">
+              <div class="flt-opts" id="flt-opts" role="group"></div>
+            </div>
+          </div>
+          <div class="flt-foot"><button class="btn ghost" type="button" onclick="fmClear()">Clear Filter</button><button class="btn primary" type="button" id="flt-apply" onclick="fmApply()">Apply Filter</button></div>
+        </div>
+      </div>
+      <!-- Fleet Evaluation History (agent view) -->
+      <div class="rc-mask" id="hist-modal" onclick="if(event.target===this)closeEvHistory()">
+        <div class="rc-dialog hist-dialog" role="dialog" aria-modal="true" aria-labelledby="hist-title">
+          <button class="rc-x" type="button" aria-label="Close" onclick="closeEvHistory()"><span class="msym">close</span></button>
+          <div class="hist-head">
+            <h2 class="hist-title" id="hist-title">Fleet Evaluation History</h2>
+            <p class="hist-sub">View all past updates, vehicle additions, and changes made to the fleet.</p>
+          </div>
+          <div class="hist-body" id="hist-body"></div>
+        </div>
+      </div>
       <!-- Fleet-approved success modal (animated tick + 1 CTA) -->
       <div class="rc-mask" id="appr-modal">
         <div class="rc-dialog appr-dialog">
@@ -1882,9 +2006,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
               <div class="sub" style="margin-top:4px">The vehicle details below are sourced from VAHAN. Please review and correct any discrepancies to ensure the information is accurate.</div>
             </div></div>
             <div class="toolbar">
-              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-usage" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('usage',event)"><span class="lb">Usage</span><span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></button><div class="vd-menu" id="vd-m-usage" role="listbox" hidden></div></div>
-              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-make" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('make',event)"><span class="lb">Make</span><span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></button><div class="vd-menu" id="vd-m-make" role="listbox" hidden></div></div>
-              <div class="vd-dd"><button class="ddl vd-f" id="vd-f-rto" aria-haspopup="listbox" aria-expanded="false" onclick="vdToggle('rto',event)"><span class="lb">RTO</span><span class="msym" style="font-size:16px" aria-hidden="true">keyboard_arrow_down</span></button><div class="vd-menu" id="vd-m-rto" role="listbox" hidden></div></div>
+              <button class="ebtn vd-fbtn" type="button" id="vd-fbtn" onclick="vdOpenFilter()" aria-haspopup="dialog"><span class="msym">filter_alt</span>Apply Filter<span class="fbadge" id="vd-fbadge" hidden>0</span></button>
               <button class="btn link vd-clear" id="vd-clear" hidden onclick="vdClear()">Clear filters</button>
               <label class="srch" style="margin-left:auto"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#BDBDBD" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="search" id="vd-q" placeholder="Search vehicles" aria-label="Search vehicles" oninput="vdSearch(this.value)" autocomplete="off"></label>
             </div>
@@ -2066,7 +2188,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
           </div>
         </div>
         <div class="premfoot pol-foot">
-          <div class="stat"><div class="k">Total Premium</div><div class="v mono">₹12,450</div></div>
+          <div class="stat"><div class="k">Total Premium</div><div class="v pricev"><span class="mono" id="pol-prem">₹12,450</span><s class="was mono" id="pol-gross" title="Premium before discount">₹13,072</s><span class="save-chip" id="pol-save-chip"><span class="msym">sell</span>Saved <span class="mono" id="pol-sav">₹622</span></span></div></div>
           <button class="btn primary" onclick="book()">Book Policy</button>
         </div>
       </section>
@@ -2905,7 +3027,7 @@ const VF_FILTERS=[['usage','Usage'],['make','Make'],['rto','RTO']];
 var vdState={f:{},q:'',page:1,per:10};
 function vfEsc(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
 function vdList(skip){var q=vdState.q.toLowerCase();return vehicles.filter(function(v){
-  for(var k in vdState.f){if(k!==skip&&vdState.f[k]&&v[k]!==vdState.f[k])return false;}
+  for(var k in vdState.f){var s=vdState.f[k];if(k!==skip&&s&&s.length&&s.indexOf(v[k])<0)return false;}
   if(!q)return true;return [v.reg].concat(VF_COLS.map(function(c){return v[c[0]];})).join(' ').toLowerCase().indexOf(q)>-1;});}
 const VF_MASTER={
  usage:{hd:'Usage type',noun:'usage type',items:['Mining','Transport','Construction','Logistics','Agriculture','Municipal']},
@@ -2974,7 +3096,7 @@ function vdRender(){
   var list=vdList(),pages=Math.max(1,Math.ceil(list.length/vdState.per));if(vdState.page>pages)vdState.page=pages;
   var st=(vdState.page-1)*vdState.per,rows=list.slice(st,st+vdState.per);
   document.getElementById('vd-count').textContent=list.length;
-  var any=Object.keys(vdState.f).some(function(k){return vdState.f[k];})||vdState.q;
+  var any=fmCount(vdState.f)>0||vdState.q;
   document.getElementById('vd-clear').hidden=!any;
   document.getElementById('veh').innerHTML=rows.length?rows.map(function(v){var i=vehicles.indexOf(v);return `<tr>
   <td style="color:#161414;font-weight:600">${v.reg}</td>
@@ -2991,17 +3113,12 @@ function vdGo(n){vdState.page=n;vdRender();}
 function vdDelete(i){var reg=vehicles[i].reg;vehicles.splice(i,1);vdRender();fmsToast(reg+' removed from this fleet.','info');}
 function vdSearch(v){vdState.q=(v||'').trim();vdState.page=1;vdRefreshMenus();vdRender();}
 function vdClear(){vdState.f={};vdState.q='';vdState.page=1;var s=document.getElementById('vd-q');if(s)s.value='';vdRefreshMenus();vdRender();}
-function vdOptions(k){var c={};vdList(k).forEach(function(v){c[v[k]]=(c[v[k]]||0)+1;});var val=vdState.f[k];if(val&&!c[val])c[val]=0;return Object.keys(c).sort().map(function(o){return [o,c[o]];});}
-function vdRefreshMenus(){VF_FILTERS.forEach(function(f){
-  var k=f[0],btn=document.getElementById('vd-f-'+k),m=document.getElementById('vd-m-'+k),val=vdState.f[k];if(!btn)return;
-  btn.classList.toggle('active',!!val);btn.querySelector('.lb').textContent=val?f[1]+': '+val:f[1];
-  m.innerHTML=[['',vdList(k).length,'All']].concat(vdOptions(k)).map(function(o){var on=(o[0]===''&&!val)||o[0]===val;
-    return `<button class="vd-opt${on?' on':''}" role="option" aria-selected="${on}" onclick="vdPick('${k}','${vfEsc(o[0])}')"><span>${o[2]||o[0]}</span><span class="ct">${o[1]}</span><span class="msym ck">check</span></button>`;}).join('');});}
-function vdPick(k,v){vdState.f[k]=v||'';vdState.page=1;vdClose();vdRefreshMenus();vdRender();}
-function vdToggle(k,e){e.stopPropagation();var m=document.getElementById('vd-m-'+k),open=!m.hidden;vdClose();if(!open){m.hidden=false;document.getElementById('vd-f-'+k).setAttribute('aria-expanded','true');}}
-function vdClose(){document.querySelectorAll('.vd-menu').forEach(function(m){m.hidden=true;});document.querySelectorAll('.vd-f').forEach(function(b){b.setAttribute('aria-expanded','false');});}
-document.addEventListener('pointerdown',function(e){if(!e.target.closest('.vd-dd'))vdClose();});
-document.addEventListener('keydown',function(e){if(e.key==='Escape')vdClose();});
+/* Vehicle details filter: Usage, Make, Subclass, Body Type, Build, Model, RTO — multi-select (any within a category, all across categories) */
+const VD_FCATS=[['usage','Usage'],['make','Make'],['sub','Subclass'],['body','Body Type'],['build','Build'],['model','Model'],['rto','RTO']];
+function vdFacet(k){var c={};vehicles.forEach(function(v){c[v[k]]=(c[v[k]]||0)+1;});return Object.keys(c).sort().map(function(o){return [o,c[o]];});}
+function vdRefreshMenus(){fmBadge('vd-fbtn','vd-fbadge',vdState.f);}
+function vdOpenFilter(){fmOpen({cats:VD_FCATS.map(function(c){return {key:c[0],label:c[1],options:vdFacet(c[0])};}),selected:vdState.f,
+  onApply:function(sel){vdState.f=sel;vdState.page=1;vdRefreshMenus();vdRender();}});}
 vdRefreshMenus();vdRender();vfInit();
 
 const SEGICON=['local_shipping','fire_truck','auto_towing','agriculture'].map(function(n){return '<span class="msym">'+n+'</span>';});
@@ -3056,7 +3173,16 @@ function enterSoon(name,role){document.getElementById('landing').hidden=true;doc
 function backToLanding(){document.getElementById('app').hidden=true;document.getElementById('landing').hidden=false;window.scrollTo(0,0);}
 function enableNav(on){document.querySelectorAll('#nav button:not(.collapse)').forEach(b=>{b.style.opacity=on?'1':'.4';b.style.pointerEvents=on?'auto':'none';});}
 
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));const map={dashboard:'dashboard',upload:'upload',details:'upload',plan:'upload',quote:'upload',policy:'upload',recommend:'upload',evaluated:'evaluated',calendar:'calendar','uw-pending':'uw-pending','uw-approved':'uw-approved','uw-rejected':'uw-rejected','uw-detail':'uw-pending','rm-pending':'rm-pending','rm-approved':'rm-approved','rm-rejected':'rm-rejected','rm-detail':'rm-pending'};document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===map[id]));if(id==='uw-detail'){setTimeout(function(){try{syncH();}catch(e){}},40);}if(id==='rm-detail'){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===rmFrom));}window.scrollTo({top:0,behavior:'smooth'});}
+/* Create Policy: the vehicle's payable premium (₹12,450) with its before-discount amount and saving, using the fleet's
+   current discount rate (saving ÷ before-discount premium) from the Plan / Recommendation pricing */
+var POL_NET=12450;
+function polPrice(){
+  var f=null;try{f=(typeof recPriceLast!=='undefined'&&recPriceLast)||window.planLast;}catch(e){f=window.planLast;}
+  if(!f||!window.priceWrite)return;
+  var rate=f.gross?f.sav/f.gross:0,gross=rate>0?Math.round(POL_NET/(1-rate)):POL_NET;
+  priceWrite('pol',{net:POL_NET,gross:gross,sav:gross-POL_NET});
+}
+function go(id){if(window.ctHide)ctHide();if(id==='policy')polPrice();document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id===id));const map={dashboard:'dashboard',upload:'upload',details:'upload',plan:'upload',quote:'upload',policy:'upload',recommend:'upload',evaluated:'evaluated',calendar:'calendar','uw-pending':'uw-pending','uw-approved':'uw-approved','uw-rejected':'uw-rejected','uw-detail':'uw-pending','rm-pending':'rm-pending','rm-approved':'rm-approved','rm-rejected':'rm-rejected','rm-detail':'rm-pending'};document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===map[id]));if(id==='uw-detail'){setTimeout(function(){try{syncH();}catch(e){}},40);}if(id==='rm-detail'){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===rmFrom));}window.scrollTo({top:0,behavior:'smooth'});}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-go]');if(t){go(t.dataset.go);}});
 function pick(el){el.parentNode.querySelectorAll('.choice').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
 function pick2(el){el.parentNode.querySelectorAll('.evalbtn').forEach(c=>c.classList.remove('on'));el.classList.add('on');nqGate();}
@@ -3171,20 +3297,165 @@ const SP='<span class="spool">Shared Pool</span>';
 const BIZ='ABC Insurance Pvt. Ltd', DT='12/04/2024';
 function evPager(){return `<div class="epager"><button class="enav">${MS('chevron_left')}Back</button><button class="epg">1</button><button class="epg on">2</button><button class="epg">3</button><button class="epg">4</button><button class="epg">5</button><button class="enav">Next${MS('chevron_right')}</button></div>`;}
 function evTools(kind){
-  const f=`<button class="ebtn">${MS('filter_alt')}Apply Filter</button>`;
+  const n=fmCount(evFilt[kind]);
+  const f=`<button class="ebtn${n?' on':''}" type="button" onclick="evOpenFilter('${kind}')" aria-haspopup="dialog">${MS('filter_alt')}Apply Filter${n?'<span class="fbadge">'+n+'</span>':''}</button>`;
   const sd=`<button class="ebtn">${MS('calendar_today')}Select Date</button>`;
   const dr=`<button class="ebtn">${MS('calendar_today')}19 Jul 24 - 22 Sep 24</button>`;
   const se=`<div class="evsearch">${MS('search')}Search &ldquo;Business name, Evaluation ID&rdquo;</div>`;
+  /* platform rule: whenever a toolbar has both, the Filter CTA comes first, then the date filter */
   let left='';
   if(kind==='active')left=f+dr;
-  else if(kind==='pre')left=f+sd;
-  else if(kind==='pending'||kind==='rejected')left=sd+f;
+  else if(kind==='pre'||kind==='pending'||kind==='rejected')left=f+sd;
   else if(kind==='expired')left=sd;
   return `<div class="evtools">${left}${se}</div>`;
 }
 function idc(id,sp){return `<span class="evid">${id}</span>${sp?SP:''}`;}
 /* Active tab: Evaluation ID opens that fleet's Quote list */
 function idcLink(id,sp){return `<button class="evid evlink" onclick="openEvQuotes('${id}')" aria-label="Open quote list for ${id}">${id}</button>${sp?SP:''}`;}
+
+
+
+/* ===== Dashboard chart tooltips: Vehicle Funnel, Claims Count, OD Claim Statistics (hover, tap or keyboard focus) ===== */
+var CT_DONUT=[{l:'OD Claims',v:400},{l:'TP Claims',v:100}],CT_DONUT_TOTAL=500;
+function ctRange(ly){var t=((document.querySelector('#dashboard .dbtn:last-of-type')||{}).textContent||'15 Jul 24 - 25 Jul 24').trim();
+  return ly?t.replace(/(\d{2})(?=\s*$|\s*-)/g,function(y){return String(+y-1).padStart(2,'0');}):t;}
+function ctShow(x,y,l,v,s){
+  var t=document.getElementById('ctip');t.querySelector('.l').textContent=l;t.querySelector('.v').textContent=v;t.querySelector('.s').textContent=s;
+  t.classList.add('on');t.setAttribute('aria-hidden','false');
+  var w=t.offsetWidth,hh=t.offsetHeight,vw=innerWidth,left=Math.max(12,Math.min(vw-w-12,x-w/2)),below=y-hh-12<72;
+  t.classList.toggle('below',below);t.style.left=left+'px';t.style.top=(below?y+12:y-hh-12)+'px';t.style.setProperty('--ax',Math.max(18,Math.min(w-18,x-left))+'px');
+}
+function ctHide(){var t=document.getElementById('ctip');if(t){t.classList.remove('on');t.setAttribute('aria-hidden','true');}}
+function ctFunnel(b){var r=b.getBoundingClientRect(),ly=b.dataset.ser==='ly';ctShow(r.left+r.width/2,r.top,'Vehicle Quantity',(+b.dataset.v).toLocaleString('en-IN'),ctRange(ly));}
+function ctDonut(seg,dn){var d=CT_DONUT[seg],r=dn.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,ring=(r.width/2+60)/2;
+  /* anchor at the segment's point nearest the top of the ring, so the card floats above the donut and the centre total stays readable */
+  var start=0;for(var i=0;i<seg;i++)start+=CT_DONUT[i].v/CT_DONUT_TOTAL;var span=d.v/CT_DONUT_TOTAL,end=start+span,inset=Math.min(span/2,30/360);
+  var at=start===0?start+inset:(end>=0.9999?end-inset:start+span/2),ang=at*2*Math.PI;
+  ctShow(cx+ring*Math.sin(ang),cy-ring*Math.cos(ang),d.l,d.v.toLocaleString('en-IN'),Math.round(d.v/CT_DONUT_TOTAL*100)+'% of total claims');}
+function ctOd(row){var f=row.querySelector('.odfill').getBoundingClientRect(),tr=row.querySelector('.odtrack').getBoundingClientRect(),total=row.dataset.l==='Total Claims';
+  ctShow(f.right,tr.top,row.dataset.l,(+row.dataset.v).toLocaleString('en-IN'),total?ctRange(false):(row.dataset.p+'% of OD claims'));}
+function ctFrom(e){
+  var el=e.target.closest&&e.target.closest('#dashboard [data-ct]');if(!el){ctHide();return;}
+  if(el.dataset.ct==='funnel')return ctFunnel(el);
+  if(el.dataset.ct==='od')return ctOd(el);
+  if(el.dataset.ct==='donut'){var dn=document.querySelector('#dashboard .cdonut');
+    if(el.dataset.seg!=null)return ctDonut(+el.dataset.seg,dn);
+    if(e.clientX==null)return ctDonut(0,dn);
+    var r=dn.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),d=Math.hypot(dx,dy);
+    if(d<60||d>r.width/2){ctHide();return;}
+    var a=(Math.atan2(dx,-dy)/(2*Math.PI)+1)%1,acc=0;for(var i=0;i<CT_DONUT.length;i++){acc+=CT_DONUT[i].v/CT_DONUT_TOTAL;if(a<=acc)return ctDonut(i,dn);}}
+}
+document.addEventListener('pointermove',function(e){if(e.pointerType==='mouse')ctFrom(e);},{passive:true});
+document.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')ctFrom(e);},{passive:true});
+document.addEventListener('focusin',function(e){if(e.target.closest&&e.target.closest('#dashboard [data-ct]'))ctFrom(e);});
+document.addEventListener('focusout',function(e){if(e.target.closest&&e.target.closest('#dashboard [data-ct]'))ctHide();});
+document.addEventListener('mouseleave',ctHide);
+/* scrolling: follow a keyboard-focused data point (focus itself can scroll it into view); otherwise hide */
+function ctReflow(){var a=document.activeElement,t=document.getElementById('ctip');if(a&&a.closest&&a.closest('#dashboard [data-ct]')&&t&&t.classList.contains('on'))ctFrom({target:a});else ctHide();}
+window.addEventListener('scroll',ctReflow,{passive:true});window.addEventListener('resize',ctReflow);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')ctHide();});
+
+/* ===== Select Filter — one modal for every filter on the platform =====
+   fmOpen({cats:[{key,label,options:[[value,count]]}], selected:{key:[values]}, onApply:function(sel){}})
+   Choices are staged: Apply commits; ✕ / Esc / backdrop discard; Clear Filter empties every category (stays open). No search inside the modal. */
+var FM={cfg:null,stage:{},cat:0,trigger:null};
+function fmEsc(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+function fmSel(k){return FM.stage[k]||(FM.stage[k]=[]);}
+function fmCount(sel){return Object.keys(sel||{}).reduce(function(n,k){return n+((sel[k]&&sel[k].length)||0);},0);}
+function fmOpen(cfg){
+  FM.cfg=cfg;FM.stage={};Object.keys(cfg.selected||{}).forEach(function(k){FM.stage[k]=(cfg.selected[k]||[]).slice();});
+  FM.cat=0;FM.trigger=document.activeElement;fmRender();
+  document.getElementById('flt-modal').classList.add('on');document.body.style.overflow='hidden';
+  setTimeout(function(){var t=document.querySelector('#flt-nav .flt-tab.on');if(t)t.focus();},30);
+}
+function fmRender(){
+  var cats=FM.cfg.cats,c=cats[FM.cat],sel=fmSel(c.key);
+  document.getElementById('flt-nav').innerHTML=cats.map(function(x,i){var n=fmSel(x.key).length;
+    return '<button class="flt-tab'+(i===FM.cat?' on':'')+'" type="button" role="tab" aria-selected="'+(i===FM.cat)+'" tabindex="'+(i===FM.cat?0:-1)+'" onclick="fmCat('+i+')"><span>'+x.label+'</span>'+(n?'<span class="n" aria-label="'+n+' selected">'+n+'</span>':'')+'</button>';}).join('');
+  var opts=c.options;
+  var all=c.options.length&&c.options.every(function(o){return sel.indexOf(o[0])>-1;}),some=sel.length>0&&!all;
+  var html='<label class="flt-opt'+(all?' on':'')+'"><input type="checkbox" id="flt-all" '+(all?'checked':'')+' onchange="fmAll()"><span class="t">All</span></label>';
+  html+=opts.map(function(o){var on=sel.indexOf(o[0])>-1;
+    return '<label class="flt-opt'+(on?' on':'')+'"><input type="checkbox" '+(on?'checked':'')+' data-v="'+fmEsc(o[0])+'" onchange="fmToggle(this)"><span class="t">'+fmEsc(o[0])+'</span>'+(o[1]!=null?'<span class="c">('+o[1]+')</span>':'')+'</label>';}).join('');
+  var box=document.getElementById('flt-opts');box.innerHTML=html;box.setAttribute('aria-label',c.label+' options');
+  var a=document.getElementById('flt-all');if(a)a.indeterminate=some;
+}
+function fmCat(i){FM.cat=i;fmRender();var t=document.querySelector('#flt-nav .flt-tab.on');if(t)t.focus();document.getElementById('flt-opts').scrollTop=0;}
+function fmToggle(el){var k=FM.cfg.cats[FM.cat].key,s=fmSel(k),v=el.getAttribute('data-v').replace(/&quot;/g,'"').replace(/&lt;/g,'<').replace(/&amp;/g,'&'),i=s.indexOf(v);
+  if(el.checked&&i<0)s.push(v);if(!el.checked&&i>-1)s.splice(i,1);var y=document.getElementById('flt-opts').scrollTop;fmRender();document.getElementById('flt-opts').scrollTop=y;}
+function fmAll(){var c=FM.cfg.cats[FM.cat],s=fmSel(c.key),all=c.options.every(function(o){return s.indexOf(o[0])>-1;});FM.stage[c.key]=all?[]:c.options.map(function(o){return o[0];});fmRender();}
+function fmClear(){FM.stage={};fmRender();}
+function fmClose(){var m=document.getElementById('flt-modal');if(!m.classList.contains('on'))return;m.classList.remove('on');document.body.style.overflow='';
+  if(FM.trigger&&document.body.contains(FM.trigger))FM.trigger.focus();FM.trigger=null;}
+function fmApply(){var out={};Object.keys(FM.stage).forEach(function(k){if(FM.stage[k].length)out[k]=FM.stage[k].slice();});var cb=FM.cfg.onApply;fmClose();if(cb)cb(out);}
+function fmBadge(btnId,badgeId,sel){var n=fmCount(sel),b=document.getElementById(badgeId),t=document.getElementById(btnId);if(b){b.hidden=!n;b.textContent=n;}if(t)t.classList.toggle('on',n>0);}
+document.addEventListener('keydown',function(e){
+  var m=document.getElementById('flt-modal');if(!m||!m.classList.contains('on'))return;
+  if(e.key==='Escape'){e.preventDefault();fmClose();return;}
+  var t=e.target.closest&&e.target.closest('.flt-tab');
+  if(t&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();var n=FM.cfg.cats.length;fmCat((FM.cat+(e.key==='ArrowDown'?1:n-1))%n);return;}
+  if(e.key==='Tab'){var f=[].filter.call(m.querySelectorAll('button:not([tabindex="-1"]),input,[href]'),function(x){return x.offsetParent!==null&&!x.disabled;});if(!f.length)return;
+    var a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}
+});
+
+/* ===== Fleet Evaluation History (agent view) — opened from the clock icon on Active / Pending / Rejected / Expired ===== */
+function evHistData(kind,i){
+  var r=(kind==='active'?ACT:kind==='pending'?PEND:kind==='rejected'?REJ:EXP)[i],id='FMS_'+r[0],n=r[0]-1110;
+  if(id==='FMS_1111'&&kind==='active'){
+    return {id:id,kind:kind,total:150,self:60,others:15,entries:[
+      {date:'20 May 2025',actor:'Others',ver:'FMS_1111_002',added:100,total:150,self:60,others:15,disc:'20%',type:'Shared Pool',valid:'15 May 2026',status:'Approved'},
+      {date:'15 April 2025',actor:'Self',ver:'FMS_1111_001',added:50,total:50,self:20,others:0,disc:'20%',type:'Exclusive',valid:'15 May 2026',status:'Expired'}]};
+  }
+  var shared=!!r[1],ver=(kind==='active'||kind==='pending')?r[2]:'001',versions=ver==='002'?2:1;
+  var m=kind==='active'?/(\d+)\/(\d+)/.exec(r[4]):null;
+  var T=kind==='active'?(m?+m[2]:100+50*(n%3)):kind==='pending'?80+20*(n%4):60+20*(n%3);
+  var B=kind==='active'?(m?+m[1]:Math.round(T*0.5)):kind==='expired'?Math.round(T*0.3):0;
+  var self=shared&&B?Math.round(B*0.8):B,others=B-self;
+  var disc=[20,18,22,15,25][n%5]+'%',valid=kind==='expired'?'15 Jan 2025':kind==='rejected'?'\u2014':'15 May 2026';
+  var latest=kind==='active'?r[3]:kind==='pending'?'Pending':kind==='rejected'?'Rejected':'Expired';
+  var a1=versions===2?Math.round(T/3/10)*10:T,e=[];
+  if(versions===2) e.push({date:'20 May 2024',actor:'Others',ver:id+'_002',added:T-a1,total:T,self:self,others:others,disc:disc,type:'Shared Pool',valid:valid,status:latest});
+  e.push({date:'12 April 2024',actor:'Self',ver:id+'_001',added:a1,total:a1,self:versions===2?Math.round(a1*0.4):self,others:versions===2?0:others,disc:disc,type:versions===2?'Exclusive':(shared?'Shared Pool':'Exclusive'),valid:versions===2?'15 May 2025':valid,status:versions===2?'Expired':latest});
+  return {id:id,kind:kind,total:T,self:self,others:others,entries:e};
+}
+function evHistHTML(d){
+  var left=d.total-d.self-d.others,ps=Math.round(d.self/d.total*100),po=Math.round(d.others/d.total*100),pr=100-ps-po;
+  var right=d.kind==='active'?(left+' '+(left===1?'policy':'policies')+' left to book'):((d.self+d.others)+' of '+d.total+' booked');
+  var pill={pending:['Pending','orange'],rejected:['Rejected','red'],expired:['Expired','grey']}[d.kind];
+  var cta=d.kind==='active'&&left>0?'<button class="btn primary" type="button" onclick="closeEvHistory();openEvQuotes(\''+d.id+'\')">View Quote</button>':(pill?'<span class="opill '+pill[1]+'">'+pill[0]+'</span>':'');
+  var seg=function(c,p){return p>0?'<i class="'+c+'" style="flex:'+p+' 1 0"></i>':'';};
+  var cell=function(k,v){return '<div><div class="k">'+k+'</div><div class="v">'+v+'</div></div>';};
+  return '<div class="hist-card"><div class="hist-band"><div><div class="k">Fleet ID</div><div class="v" id="hist-fid">'+d.id+'</div></div>'+cta+'</div>'
+   +'<div class="hist-inner"><div class="hist-prog-h"><b>Policy Booked</b><span id="hist-left">'+right+'</span></div>'
+   +'<div class="hist-bar" role="img" aria-label="Self '+ps+'%, Others '+po+'%, Remaining '+pr+'%">'+seg('s',ps)+seg('o',po)+seg('r',pr)+'</div>'
+   +'<div class="hist-legend"><span><i style="background:#01A252"></i>Self <b>'+ps+'%</b></span><span><i style="background:#C62828"></i>Others <b>'+po+'%</b></span><span><i style="background:#E0E0E0"></i>Remaining <b>'+pr+'%</b></span></div>'
+   +'<div class="hist-tl">'+d.entries.map(function(e){
+      return '<div class="hist-entry"><span class="msym hist-ico" aria-hidden="true">schedule</span>'
+       +'<p class="hist-line"><em>'+e.date+'</em>, <b>'+e.actor+'</b> added <b>'+e.added+'</b> vehicles to <b>'+d.id+'</b> expanding the fleet count to <b>'+e.total+' vehicles</b></p>'
+       +'<div class="hist-box">'+cell('Fleet Version ID',e.ver)+cell('Vehicles Added',e.added)+cell('Total Vehicle Count',e.total)+cell('Booked by Self',e.self)+cell('Booked by Others',e.others)
+       +cell('Discount',e.disc)+cell('Fleet Type',e.type)+cell('Validity',e.valid)+cell('Evaluation Status',e.status)+'</div></div>';}).join('')+'</div></div></div>';
+}
+var histTrigger=null;
+function openEvHistory(btn){
+  histTrigger=btn;
+  var d=evHistData(btn.dataset.kind,+btn.dataset.i),m=document.getElementById('hist-modal');
+  document.getElementById('hist-body').innerHTML=evHistHTML(d);
+  document.getElementById('hist-body').scrollTop=0;
+  m.classList.add('on');document.body.style.overflow='hidden';
+  setTimeout(function(){var x=m.querySelector('.rc-x');if(x)x.focus();},30);
+}
+function closeEvHistory(){
+  var m=document.getElementById('hist-modal');if(!m.classList.contains('on'))return;
+  m.classList.remove('on');document.body.style.overflow='';
+  if(histTrigger&&document.body.contains(histTrigger))histTrigger.focus();histTrigger=null;
+}
+document.addEventListener('keydown',function(e){
+  var m=document.getElementById('hist-modal');if(!m||!m.classList.contains('on'))return;
+  if(e.key==='Escape'){e.preventDefault();closeEvHistory();return;}
+  if(e.key==='Tab'){var f=[].filter.call(m.querySelectorAll('button,[href],[tabindex]:not([tabindex="-1"])'),function(x){return x.offsetParent!==null;});if(!f.length)return;
+    var a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}
+});
+
 function openEvQuotes(id){var v=document.getElementById('q-evid');if(v)v.textContent=id;go('quote');window.scrollTo(0,0);}
 function op(txt,cls,plus){var p=plus?`<span class="plus">+${plus}</span>`:'';return `<span class="pillwrap"><span class="opill ${cls}">${txt}</span>${p}</span>`;}
 const ACT=[[1111,1,'002','Approved','Policy Booked'],[1112,0,'001','Partially Approved','50/200 Booked'],[1113,1,'002','Partially Approved','50/200 Booked'],[1114,0,'001','Partially Approved','Policy Booked'],[1115,0,'001','Approved','Policy Booked'],[1116,0,'001','Approved','50/200 Booked'],[1117,0,'001','Approved','50/200 Booked'],[1118,0,'001','Approved','Policy Booked'],[1119,0,'001','Approved','50/200 Booked'],[1120,0,'001','Approved','Policy Booked']];
@@ -3192,26 +3463,42 @@ const PRE=[[1111,'002','Processing','amber'],[1112,'001','Vehicle Processed','gr
 const PEND=[[1111,1,'002','High Insured Count',2,1],[1112,0,'001','SLR Breached',3,1],[1113,1,'002','Usage Mismatch',0,1],[1114,0,'001','Vehicle Modified',0,1],[1115,0,'001','Commission Awaited',2,0],[1116,0,'001','SLR Breached',0,0],[1117,0,'001','Vehicle Modified',0,0],[1118,0,'001','Usage Mismatch',0,0],[1119,0,'001','Commission Awaited',0,0],[1120,0,'001','Commission Awaited',0,0]];
 const REJ=[[1111,1],[1112,0],[1113,1],[1114,0],[1115,0],[1116,0],[1117,0],[1118,0],[1119,0],[1120,0]];
 const EXP=REJ;
+/* Evaluated Cases filters — interim categories from each tab's own columns (final lists to be confirmed) */
+var evFilt={};
+const EV_FCATS={active:[['type','Fleet Type'],['fstatus','Fleet Status'],['pstatus','Policy Status']],pre:[['status','Status']],pending:[['type','Fleet Type'],['status','Status']],rejected:[['type','Fleet Type']],expired:[['type','Fleet Type']]};
+function evVal(kind,r,k){
+  if(k==='type')return r[1]?'Shared Pool':'Exclusive';
+  if(k==='fstatus')return r[3];
+  if(k==='pstatus')return r[4]==='Policy Booked'?'Policy Booked':'Partially Booked';
+  if(k==='status')return kind==='pre'?r[2]:r[3];
+}
+function evRows(kind,arr){var f=evFilt[kind]||{};return arr.map(function(r,i){return [r,i];}).filter(function(p){return Object.keys(f).every(function(k){return !f[k].length||f[k].indexOf(evVal(kind,p[0],k))>-1;});});}
+function evOpenFilter(kind){
+  var src=kind==='active'?ACT:kind==='pre'?PRE:kind==='pending'?PEND:kind==='rejected'?REJ:EXP;
+  fmOpen({cats:EV_FCATS[kind].map(function(c){var m={};src.forEach(function(r){var v=evVal(kind,r,c[0]);m[v]=(m[v]||0)+1;});return {key:c[0],label:c[1],options:Object.keys(m).sort().map(function(v){return [v,m[v]];})};}),
+    selected:evFilt[kind]||{},onApply:function(sel){evFilt[kind]=sel;evTab(null,kind);var b=document.querySelector('#evpanel .ebtn[onclick*="evOpenFilter"]');if(b)b.focus();}});
+}
 function evTab(el,kind){
   if(el){el.parentNode.querySelectorAll('.qtab').forEach(t=>t.classList.remove('on'));el.classList.add('on');}
   const P=document.getElementById('evpanel'); if(!P)return;
   let head,rows;
   if(kind==='active'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Fleet Status</th><th>Policy Status</th><th>Action</th>`;
-    rows=ACT.map(r=>`<tr><td>${idcLink('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${r[3]}</td><td>${op(r[4],'green')}</td><td><div class="eact"><span class="ic">${MS('download')}</span><span class="ic">${MS('history')}</span><span class="kb">${MS('more_vert')}</span></div></td></tr>`).join('');
+    rows=evRows('active',ACT).map(([r,i])=>`<tr><td>${idcLink('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${r[3]}</td><td>${op(r[4],'green')}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="active" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'}<button class="kb hbtn tip" type="button" data-tip="More options" aria-label="More options for FMS_${r[0]}">${MS('more_vert')}</button></div></td></tr>`).join('');
   } else if(kind==='pre'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th><span class="thsort">Time ${MS('unfold_more')}</span></th><th>Status</th>`;
-    rows=PRE.map(r=>`<tr><td>${idc('FMS_'+r[0],0)}</td><td>FMS_${r[0]}_${r[1]}</td><td>${DT}</td><td>11:34 AM</td><td>${op(r[2],r[3])}</td></tr>`).join('');
+    rows=evRows('pre',PRE).map(([r])=>`<tr><td>${idc('FMS_'+r[0],0)}</td><td>FMS_${r[0]}_${r[1]}</td><td>${DT}</td><td>11:34 AM</td><td>${op(r[2],r[3])}</td></tr>`).join('');
   } else if(kind==='pending'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Status</th><th>Action</th>`;
-    rows=PEND.map(r=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${op(r[3],'orange',r[4])}</td><td><div class="eact"><span class="ic">${MS('download')}</span>${r[5]?'<span class="ic">'+MS('history')+'</span>':''}</div></td></tr>`).join('');
+    rows=evRows('pending',PEND).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${op(r[3],'orange',r[4])}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${r[5]?'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="pending" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>':''}</div></td></tr>`).join('');
   } else if(kind==='rejected'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Status</th><th>Action</th>`;
-    rows=REJ.map((r,i)=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${op('Rejected','red')}</td><td>${i<4?'<div class="eact"><span class="ic">'+MS('history')+'</span></div>':''}</td></tr>`).join('');
+    rows=evRows('rejected',REJ).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${op('Rejected','red')}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="rejected" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
   } else {
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Evaluation Date ${MS('unfold_more')}</span></th><th>Action</th>`;
-    rows=EXP.map((r,i)=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${i<4?'<div class="eact"><span class="ic">'+MS('history')+'</span></div>':''}</td></tr>`).join('');
+    rows=evRows('expired',EXP).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="expired" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
   }
+  if(!rows)rows=`<tr><td colspan="${(head.match(/<th/g)||[]).length}" class="qempty">No cases match the selected filters</td></tr>`;
   P.innerHTML=evTools(kind)+`<div class="et-wrap"><div class="et-scroll"><table class="et"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div></div>`+evPager();
 }
 evTab(null,'active');
