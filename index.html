@@ -1379,7 +1379,9 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 #calendar .calside{align-self:start}
 #calendar .caltbl{display:flex;flex-direction:column;overflow:visible}
 #calendar .caltbl-scroll{border-radius:16px 16px 0 0}
-#calendar .caltbl .qpager{margin-top:auto;position:sticky;bottom:0;z-index:5;background:#fff;border-top:1px solid var(--line);border-radius:0 0 16px 16px;padding:20px 0!important}
+#calendar .caltbl .qpager{margin-top:auto;position:sticky;bottom:0;z-index:5;background:#fff;border-radius:0 0 16px 16px;padding:20px 0!important}
+/* no divider above the pagination: rows scrolling under the sticky pager fade out instead of showing a hard line */
+#calendar .caltbl .qpager::before{content:'';position:absolute;left:0;right:0;bottom:100%;height:18px;background:linear-gradient(to top,#fff 25%,rgba(255,255,255,0));pointer-events:none}
 /* ===== header icon tiles: unified 32px tile, 20px glyph ===== */
 .stepic,.sec-ic,.kic,.sic,.scard .sic,#uwdetail .sec-ic,#uwdetail .fh-icon{width:32px;height:32px;border-radius:8px}
 .stepic .msym,.sec-ic .msym,.sec-ic .ms,.kic .msym,.sic .msym,.scard .sic .msym,#uwdetail .sec-ic .ms,#uwdetail .sec-ic .msym,#uwdetail .fh-icon .ms{font-size:20px!important}
@@ -1551,6 +1553,26 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 .rc-ic .msym{font-size:28px;font-variation-settings:'FILL' 0}
 .rc-ic.warn{background:#FFF3E3;color:#B8860B}
 .rc-ic.success{background:#DFFFE6;color:#01A252}
+.rc-ic.error{background:#FFE9E9;color:#A30100}
+.rc-ic.lg{width:64px;height:64px;border-radius:18px;margin-bottom:20px}.rc-ic.lg .msym{font-size:34px}
+/* ===== Case status popup (pending / rejected) ===== */
+#stat-modal .stat-dialog{max-width:520px;width:100%;padding:36px 32px 28px;text-align:center}
+#stat-modal .rc-x{top:20px;right:20px}
+#stat-modal .rc-modal-body:empty,#stat-modal .stat-list:empty{display:none}
+.stat-list{list-style:none;counter-reset:st;margin:18px 0 0;padding:6px 16px;text-align:left;background:#FAFAFA;border:1px solid var(--line);border-radius:12px}
+.stat-list li{counter-increment:st;display:flex;gap:12px;padding:12px 0;font-size:14px;font-weight:500;color:#424242;line-height:1.5}
+.stat-list li+li{border-top:1px solid var(--line)}
+.stat-list li::before{content:counter(st);flex:none;width:22px;height:22px;border-radius:50%;background:var(--soft);color:var(--brand);font-size:12px;font-weight:700;display:grid;place-items:center;margin-top:1px}
+.stat-list li b{color:#212121;font-weight:700}
+.stat-file{display:flex;align-items:center;gap:12px;margin-top:20px;padding:12px;border:1px solid var(--line);border-radius:12px;text-align:left}
+.stat-file[hidden]{display:none}
+.stat-fic{flex:none;width:40px;height:40px;border-radius:10px;background:var(--bhead);display:grid;place-items:center}
+.stat-fic .msym{font-size:22px;color:#2168F6;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+.stat-fn{flex:1;min-width:0;font-size:14px;font-weight:700;color:#212121;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat-dl{flex:none;width:40px;height:40px;border:0;border-radius:10px;background:transparent;display:grid;place-items:center;cursor:pointer;color:#2168F6;transition:background .15s}
+.stat-dl:hover{background:var(--bhead)}.stat-dl:focus-visible{outline:2px solid rgba(33,104,246,.45);outline-offset:1px}
+.stat-dl .msym{font-size:26px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+.stat-done{margin-top:24px;min-width:220px;justify-content:center}
 .rc-modal-title{font-family:Inter,Mulish,sans-serif;font-size:19px;font-weight:800;color:#212121;margin-bottom:8px}
 .rc-modal-body{font-size:13.5px;font-weight:500;color:var(--muted);line-height:1.55;margin-bottom:22px}
 .rc-modal-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
@@ -1922,6 +1944,18 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       </div>
 
       <div class="ctip" id="ctip" role="tooltip" aria-hidden="true"><div class="l"></div><div class="v"></div><div class="s"></div></div>
+      <!-- Case status popup: Fleet Under Evaluation / Evaluated Case Status / Fleet Rejected -->
+      <div class="rc-mask" id="stat-modal" onclick="if(event.target===this)closeStat()">
+        <div class="rc-dialog stat-dialog" role="dialog" aria-modal="true" aria-labelledby="stat-title" aria-describedby="stat-body">
+          <button class="rc-x" type="button" aria-label="Close" onclick="closeStat()"><span class="msym">close</span></button>
+          <div class="rc-ic lg" id="stat-ic"><span class="msym"></span></div>
+          <h2 class="rc-modal-title" id="stat-title"></h2>
+          <div class="rc-modal-body" id="stat-body"></div>
+          <ol class="stat-list" id="stat-list"></ol>
+          <div class="stat-file" id="stat-file"><span class="stat-fic"><span class="msym">description</span></span><span class="stat-fn" id="stat-fn"></span><button class="stat-dl" type="button" id="stat-dl" onclick="statDownload()"><span class="msym">download</span></button></div>
+          <button class="btn primary stat-done" type="button" onclick="closeStat()">Done</button>
+        </div>
+      </div>
       <!-- Select Filter — one filter modal used platform-wide -->
       <div class="rc-mask" id="flt-modal" onclick="if(event.target===this)fmClose()">
         <div class="rc-dialog flt-dialog" role="dialog" aria-modal="true" aria-labelledby="flt-title">
@@ -1980,7 +2014,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
                   <div><h3 class="steptitle">Upload Vehicle File for Quote Generation</h3><p class="stepsub">Download the sample template for bulk vehicle details, fill it as per the format, and upload the file to receive a quote.</p></div>
                 </div>
                 <div class="stepact">
-                  <input type="file" id="nq-file" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf,image/jpeg,image/png" multiple hidden onchange="nqFile(this)">
+                  <input type="file" id="nq-file" multiple hidden onchange="nqFile(this)">
                   <button class="uploadbtn" id="nq-cta" onclick="nqUpload(event)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg>Upload vehicle details</button>
                   <button class="samplebtn" id="nq-sample"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg>Download sample</button>
                 </div>
@@ -3236,8 +3270,7 @@ function nqStart(f){
   var UP=1600,steps=20;
   for(var k=1;k<=steps;k++)(function(k){nqT(function(){f.pct=Math.round(k/steps*100);nqTick(f);},UP*k/steps);})(k);
   /* prototype rule: any Word file is treated as a corrupt / unreadable file */
-  var bad=/\.(docx?|dotx?)$/i.test(f.name);
-  nqT(function(){if(nqFiles.indexOf(f)<0)return;f.pct=100;f.status=bad?'err':'ok';nqRender();nqSync();},UP+50);
+  nqT(function(){if(nqFiles.indexOf(f)<0)return;f.pct=100;f.status='ok';nqRender();nqSync();},UP+50);   // every file type is accepted
 }
 function nqAdd(files){
   var room=Math.max(0,NQ_MAX-nqFiles.length),take=files.slice(0,room);
@@ -3311,6 +3344,7 @@ function evTools(kind){
 }
 function idc(id,sp){return `<span class="evid">${id}</span>${sp?SP:''}`;}
 /* Active tab: Evaluation ID opens that fleet's Quote list */
+function idcBtn(id,sp,fn,label){return `<button class="evid evlink" type="button" onclick="${fn}" aria-label="${label}">${id}</button>${sp?SP:''}`;}
 function idcLink(id,sp){return `<button class="evid evlink" onclick="openEvQuotes('${id}')" aria-label="Open quote list for ${id}">${id}</button>${sp?SP:''}`;}
 
 
@@ -3463,6 +3497,59 @@ const PRE=[[1111,'002','Processing','amber'],[1112,'001','Vehicle Processed','gr
 const PEND=[[1111,1,'002','High Insured Count',2,1],[1112,0,'001','SLR Breached',3,1],[1113,1,'002','Usage Mismatch',0,1],[1114,0,'001','Vehicle Modified',0,1],[1115,0,'001','Commission Awaited',2,0],[1116,0,'001','SLR Breached',0,0],[1117,0,'001','Vehicle Modified',0,0],[1118,0,'001','Usage Mismatch',0,0],[1119,0,'001','Commission Awaited',0,0],[1120,0,'001','Commission Awaited',0,0]];
 const REJ=[[1111,1],[1112,0],[1113,1],[1114,0],[1115,0],[1116,0],[1117,0],[1118,0],[1119,0],[1120,0]];
 const EXP=REJ;
+
+/* Pre-Evaluation: an Evaluation ID continues the journey on the Vehicle details or the Plan page.
+   The destination is a fixed, mixed pick per case (stable, so a demo repeats the same way). */
+function preDest(id){return ((id*7919)%13)%2?'details':'plan';}
+function openPreCase(id){go(preDest(id));window.scrollTo(0,0);}
+
+/* Case status popups — Pending: one reason -> "Fleet Under Evaluation" (reason in the sentence) ; several -> "Evaluated Case Status" (numbered list).
+   Rejected -> "Fleet Rejected". Vehicle list downloads a real CSV of the fleet's vehicles. */
+const PEND_TXT={
+  'High Insured Count':{why:'a high insured count',item:function(n,r){return '<b>High insured count:</b> '+(r[1]?150:100)+' vehicles against a limit of 75';}},
+  'SLR Breached':{why:'an SLR breach',item:function(n){return '<b>SLR breached:</b> projected SLR '+(68+n%9)+'% against a 65% limit';}},
+  'Usage Mismatch':{why:'a usage mismatch',item:function(n){return '<b>Usage mismatch:</b> declared usage differs from VAHAN for '+(4+n%6)+' vehicles';}},
+  'Vehicle Modified':{why:'vehicle modifications',item:function(n){return '<b>Vehicle modified:</b> '+(2+n%4)+' vehicles need underwriter review';}},
+  'Commission Awaited':{why:null,item:function(){return '<b>Commission awaited:</b> pending finalisation by the Regional Manager';}}
+};
+function pendReasons(r){var all=Object.keys(PEND_TXT),rest=all.filter(function(x){return x!==r[3];}),n=r[0]-1110,out=[r[3]];
+  for(var k=0;k<(r[4]||0);k++)out.push(rest[(n+k)%rest.length]);return out;}
+var statTrigger=null,statFleet='';
+function statOpen(o,btn){
+  statTrigger=btn||document.activeElement;statFleet=o.fleet||'';
+  var ic=document.getElementById('stat-ic');ic.className='rc-ic lg'+(o.tone?' '+o.tone:'');ic.querySelector('.msym').textContent=o.icon;
+  document.getElementById('stat-title').textContent=o.title;document.getElementById('stat-body').textContent=o.body||'';
+  document.getElementById('stat-list').innerHTML=(o.list||[]).map(function(x){return '<li><span>'+x+'</span></li>';}).join('');
+  var f=document.getElementById('stat-file');f.hidden=!o.file;if(o.file){document.getElementById('stat-fn').textContent='Vehicle list – '+o.fleet+'.csv';document.getElementById('stat-dl').setAttribute('aria-label','Download vehicle list for '+o.fleet);}
+  var m=document.getElementById('stat-modal');m.classList.add('on');document.body.style.overflow='hidden';
+  setTimeout(function(){var d=m.querySelector('.stat-done');if(d)d.focus();},30);
+}
+function closeStat(){var m=document.getElementById('stat-modal');if(!m.classList.contains('on'))return;m.classList.remove('on');document.body.style.overflow='';
+  if(statTrigger&&document.body.contains(statTrigger))statTrigger.focus();statTrigger=null;}
+function statDownload(){
+  var head=['Registration Number','Usage','Make','Subclass','Body Type','Build','Model','RTO'],keys=['reg','usage','make','sub','body','build','model','rto'];
+  var q=function(v){v=String(v==null?'':v);return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+  var csv=[head.join(',')].concat(vehicles.map(function(v){return keys.map(function(k){return q(v[k]);}).join(',');})).join('\r\n');
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='Vehicle_list_'+statFleet+'.csv';
+  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+  if(window.fmsToast)fmsToast('Vehicle list downloaded.','success');
+}
+function openPendCase(i,btn){
+  var r=PEND[i],id='FMS_'+r[0],n=r[0]-1110,rs=pendReasons(r);
+  if(rs.length>1)return statOpen({fleet:id,tone:'',icon:'fact_check',title:'Evaluated Case Status',list:rs.map(function(x){return PEND_TXT[x].item(n,r);})},btn);
+  var why=PEND_TXT[r[3]].why;
+  statOpen({fleet:id,tone:'warn',icon:'hourglass_top',title:'Fleet Under Evaluation',file:true,
+    body:why?'Your fleet is currently on hold with our underwriters due to '+why+'. Please connect with your RM for resolution.':'Your fleet is awaiting commission finalisation by your Regional Manager. Please connect with your RM for resolution.'},btn);
+}
+function openRejCase(i,btn){
+  statOpen({fleet:'FMS_'+REJ[i][0],tone:'error',icon:'cancel',title:'Fleet Rejected',file:true,
+    body:'Your fleet has been rejected for not meeting our criteria. For details and assistance, please contact our Sales or Regional Managers. Thank you for your understanding.'},btn);
+}
+document.addEventListener('keydown',function(e){var m=document.getElementById('stat-modal');if(!m||!m.classList.contains('on'))return;
+  if(e.key==='Escape'){e.preventDefault();closeStat();return;}
+  if(e.key==='Tab'){var f=[].filter.call(m.querySelectorAll('button'),function(x){return x.offsetParent!==null;});var a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}});
+
 /* Evaluated Cases filters — interim categories from each tab's own columns (final lists to be confirmed) */
 var evFilt={};
 const EV_FCATS={active:[['type','Fleet Type'],['fstatus','Fleet Status'],['pstatus','Policy Status']],pre:[['status','Status']],pending:[['type','Fleet Type'],['status','Status']],rejected:[['type','Fleet Type']],expired:[['type','Fleet Type']]};
@@ -3487,13 +3574,13 @@ function evTab(el,kind){
     rows=evRows('active',ACT).map(([r,i])=>`<tr><td>${idcLink('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${r[3]}</td><td>${op(r[4],'green')}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="active" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'}<button class="kb hbtn tip" type="button" data-tip="More options" aria-label="More options for FMS_${r[0]}">${MS('more_vert')}</button></div></td></tr>`).join('');
   } else if(kind==='pre'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th><span class="thsort">Time ${MS('unfold_more')}</span></th><th>Status</th>`;
-    rows=evRows('pre',PRE).map(([r])=>`<tr><td>${idc('FMS_'+r[0],0)}</td><td>FMS_${r[0]}_${r[1]}</td><td>${DT}</td><td>11:34 AM</td><td>${op(r[2],r[3])}</td></tr>`).join('');
+    rows=evRows('pre',PRE).map(([r])=>`<tr><td>${idcBtn('FMS_'+r[0],0,'openPreCase('+r[0]+')','Open evaluation FMS_'+r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${DT}</td><td>11:34 AM</td><td>${op(r[2],r[3])}</td></tr>`).join('');
   } else if(kind==='pending'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Status</th><th>Action</th>`;
-    rows=evRows('pending',PEND).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${op(r[3],'orange',r[4])}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${r[5]?'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="pending" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>':''}</div></td></tr>`).join('');
+    rows=evRows('pending',PEND).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openPendCase('+i+',this)','View pending status for FMS_'+r[0])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${op(r[3],'orange',r[4])}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${r[5]?'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="pending" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>':''}</div></td></tr>`).join('');
   } else if(kind==='rejected'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Status</th><th>Action</th>`;
-    rows=evRows('rejected',REJ).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${op('Rejected','red')}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="rejected" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
+    rows=evRows('rejected',REJ).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openRejCase('+i+',this)','View rejection details for FMS_'+r[0])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${op('Rejected','red')}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="rejected" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
   } else {
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Evaluation Date ${MS('unfold_more')}</span></th><th>Action</th>`;
     rows=evRows('expired',EXP).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="expired" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
