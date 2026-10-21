@@ -95,7 +95,29 @@ button{font-family:inherit;cursor:pointer}
 .navcard button:hover{background:#fafafa}
 .navcard button.on{background:var(--soft);border-radius:12px;color:var(--brand);font-weight:700}
 .navcard .ic{width:16px;height:16px;flex:0 0 auto;color:currentColor}
+/* ===== Collapsible navigation =====
+   Expanded: icon + label (215px). Collapsed: icon only, selected or not (68px); the content area (flex:1) fills the freed space.
+   Collapsed items get a hover / keyboard label. Desktop & iPad only — below 1000px the nav is already a compact row. */
 .navcard .collapse{color:var(--muted2)}
+.sidebar{z-index:230;transition:width .22s ease}
+.sidebar.anim .navcard{overflow:hidden}
+.navcard button{position:relative;gap:0;transition:background .12s,color .12s,padding .22s ease}
+.navcard .nl{display:inline-block;max-width:170px;margin-left:8px;overflow:hidden;white-space:nowrap;transition:max-width .22s ease,opacity .15s ease,margin .22s ease}
+.navcard .ic{transition:width .22s ease,height .22s ease,transform .22s ease}
+.navcard button:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:-2px}
+@media(prefers-reduced-motion:reduce){.sidebar,.navcard button,.navcard .nl,.navcard .ic{transition:none}}
+@media(min-width:1001px){
+  #app.nav-min .sidebar{width:68px}
+  #app.nav-min .navcard button{padding:0;width:44px;height:44px;justify-content:center;border-radius:12px}
+  #app.nav-min .navcard .nl{max-width:0;margin-left:0;opacity:0}
+  #app.nav-min .navcard .ic{width:20px;height:20px}
+  #app.nav-min .navcard .collapse .ic{transform:rotate(180deg)}
+  #app.nav-min .navcard button[data-tip]::after{content:attr(data-tip);position:absolute;left:calc(100% + 22px);top:50%;transform:translate(-4px,-50%);background:#212121;color:#fff;font-family:Mulish,sans-serif;font-size:12px;font-weight:600;line-height:1.3;white-space:nowrap;padding:6px 10px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.18);opacity:0;visibility:hidden;transition:opacity .12s,transform .12s,visibility .12s;pointer-events:none}
+  #app.nav-min .navcard button[data-tip]::before{content:'';position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);border:6px solid transparent;border-left:0;border-right-color:#212121;opacity:0;visibility:hidden;transition:opacity .12s,visibility .12s;pointer-events:none}
+  #app.nav-min .navcard button[data-tip]:hover::after,#app.nav-min .navcard button[data-tip]:focus-visible::after{opacity:1;visibility:visible;transform:translate(0,-50%)}
+  #app.nav-min .navcard button[data-tip]:hover::before,#app.nav-min .navcard button[data-tip]:focus-visible::before{opacity:1;visibility:visible}
+}
+@media(max-width:1000px){.navcard .collapse{display:none}}
 .main{flex:1;min-width:0;display:flex;flex-direction:column}
 
 /* plain (dashboard) screens */
@@ -529,7 +551,9 @@ table{width:100%;border-collapse:collapse}
 @keyframes histIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){#hist-modal .hist-dialog{animation:none}}
 #hist-modal .rc-x{top:30px;right:48px}
-.hist-head{flex:none;padding:32px 96px 24px 48px}
+.hist-head{flex:none;display:flex;align-items:flex-start;gap:14px;padding:32px 96px 24px 48px}
+.hist-ic{margin-top:-3px}.hist-ic .msym{font-size:20px}
+.hist-hd-t{min-width:0}
 .hist-title{font-size:19px;font-weight:800;color:#212121;margin:0;line-height:1.4}
 .hist-sub{font-size:13.5px;font-weight:500;color:var(--muted);margin:6px 0 0;line-height:1.55}
 .hist-body{flex:1;min-height:0;padding:0 48px 48px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
@@ -1762,6 +1786,11 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 :root{--r-ctl:10px;--r-ctl-sm:8px}
 .btn,.ebtn,.evsearch,.srch,.calsearch,.dbtn,.uploadbtn,.inp2,.box,.ni,.rm-comm,.zd-input,.custom-disc-input,.btn-accept-rec,.btn-reject-rec,.rm-close,.rm-submit,.btn-close,.btn-sub,.ao-cta-edit,.itbtn,.cmp-btn{border-radius:var(--r-ctl)!important}
 .vf,.del,.viewbtn,.morebtn,.dlbtn,.flgbtn,.ao-slider-val,.btn-ol,.dnbtn,.pgnav,.qarrow,.pg,.qpg{border-radius:var(--r-ctl-sm)!important}
+/* ===== Toolbar control height — platform-wide =====
+   Filter, Date and Search controls share one height wherever they appear (Vehicle details, Quote list, Dashboard, Calendar,
+   Evaluated Cases, and the Underwriter / RM lists), so a Filter button and a Search box next to each other always line up. */
+:root{--h-tool:44px}
+.ebtn,.dbtn,.srch,.evsearch,.calsearch{height:var(--h-tool);min-height:var(--h-tool);box-sizing:border-box;align-items:center}
 </style>
 </head>
 <body>
@@ -1827,7 +1856,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
         <button class="nav-rm" data-go="rm-pending"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 11h6M9 15h4"/></svg>Pending Cases</button>
         <button class="nav-rm" data-go="rm-approved"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></svg>Approved Cases</button>
         <button class="nav-rm" data-go="rm-rejected"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M10 12l4 4M14 12l-4 4"/></svg>Rejected Cases</button>
-        <button class="collapse"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button class="collapse" id="nav-toggle" type="button" aria-expanded="true" aria-label="Collapse navigation" data-tip="Collapse" onclick="navToggle()"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
       </nav>
     </aside>
 
@@ -1975,8 +2004,11 @@ body.cta-away #policy .pol-foot{bottom:-160px}
         <div class="rc-dialog hist-dialog" role="dialog" aria-modal="true" aria-labelledby="hist-title">
           <button class="rc-x" type="button" aria-label="Close" onclick="closeEvHistory()"><span class="msym">close</span></button>
           <div class="hist-head">
-            <h2 class="hist-title" id="hist-title">Fleet Evaluation History</h2>
-            <p class="hist-sub">View all past updates, vehicle additions, and changes made to the fleet.</p>
+            <span class="stepic hist-ic" aria-hidden="true"><span class="msym">history</span></span>
+            <div class="hist-hd-t">
+              <h2 class="hist-title" id="hist-title">Fleet Evaluation History</h2>
+              <p class="hist-sub">View all past updates, vehicle additions, and changes made to the fleet.</p>
+            </div>
           </div>
           <div class="hist-body" id="hist-body"></div>
         </div>
@@ -3193,12 +3225,24 @@ const brk=[['Basic OD','₹ 10,233'],['Legal Liability','₹ 5,453'],['Zero Dep'
 document.getElementById('brk').innerHTML=brk.map(b=>`<div class="brkrow"><span class="bl">${b[0]}</span><span class="bv">${b[1]}</span></div>`).join('')+`<div class="brkrow brktotal"><span class="bl">Total Premium</span><span class="bv">\u20B9 12,450</span></div>`;
 
 /* icon stepper */
-const STEPS=[['Vehicle details','M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11M5 11h14v5H5zM7.5 13.5h.01M16.5 13.5h.01M6 16v1.5M18 16v1.5'],['Plan Selection','M11 6h9M11 12h9M11 18h9M4 5.5l1.3 1.3L7.5 4.5M4 11.5l1.3 1.3L7.5 10.5M4 17.5l1.3 1.3L7.5 16.5'],['Quote Details','M6 2h9l3 3v15a1 1 0 0 1-1.4.9L15 20l-2 1-2-1-2 1-2-1-1.6.9A1 1 0 0 1 6 20zM9 8h6M9 12h6M9 16h3']];
+const STEPS=[['Vehicle details','M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11M5 11h14v5H5zM7.5 13.5h.01M16.5 13.5h.01M6 16v1.5M18 16v1.5'],['Plan Selection','M11 6h9M11 12h9M11 18h9M4 5.5l1.3 1.3L7.5 4.5M4 11.5l1.3 1.3L7.5 10.5M4 17.5l1.3 1.3L7.5 16.5'],['Book Policy','M6 2h9l3 3v15a1 1 0 0 1-1.4.9L15 20l-2 1-2-1-2 1-2-1-1.6.9A1 1 0 0 1 6 20zM9 8h6M9 12h6M9 16h3']];
 function istep(active){return STEPS.map((s,i)=>{const n=i+1;const st=n<active?'done':n===active?'active':'todo';const dot=st==='done'?'<span class="msym">check</span>':n;const ln=i<2?`<span class="ln${n<active?' fill':''}"></span>`:'';return `<div class="s ${st}"><span class="dot ${st}">${dot}</span><span class="lb ${st}">${s[0]}</span></div>${ln}`;}).join('');}
 document.getElementById('istep-details').innerHTML=istep(1);
 document.getElementById('istep-plan').innerHTML=istep(2);
 document.getElementById('istep-quote').innerHTML=istep(3);
 
+/* labels become spans so the text can fold away; every item keeps an accessible name and a hover label */
+(function(){document.querySelectorAll('#nav button:not(.collapse)').forEach(function(b){var t=null;b.childNodes.forEach(function(n){if(n.nodeType===3&&n.textContent.trim())t=n;});
+  if(t){var s=document.createElement('span'),label=t.textContent.trim();s.className='nl';s.textContent=label;b.replaceChild(s,t);b.setAttribute('aria-label',label);b.setAttribute('data-tip',label);}});})();
+var navAnimT=null;
+function navToggle(force){
+  var app=document.getElementById('app'),sb=document.querySelector('#app .sidebar'),min=typeof force==='boolean'?force:!app.classList.contains('nav-min');
+  if(sb){sb.classList.add('anim');clearTimeout(navAnimT);navAnimT=setTimeout(function(){sb.classList.remove('anim');},300);}
+  app.classList.toggle('nav-min',min);
+  var b=document.getElementById('nav-toggle');
+  if(b){b.setAttribute('aria-expanded',String(!min));b.setAttribute('aria-label',min?'Expand navigation':'Collapse navigation');b.setAttribute('data-tip',min?'Expand':'Collapse');}
+  if(window.ctHide)ctHide();
+}
 function setNavRole(role){document.querySelectorAll('#nav .nav-ag').forEach(b=>b.style.display=role==='ag'?'':'none');document.querySelectorAll('#nav .nav-uw').forEach(b=>b.style.display=role==='uw'?'':'none');document.querySelectorAll('#nav .nav-rm').forEach(b=>b.style.display=role==='rm'?'':'none');}
 function enterAgent(){if(window.nqReset)nqReset();document.getElementById('landing').hidden=true;document.getElementById('app').hidden=false;setNavRole('ag');enableNav(true);go('upload');window.scrollTo(0,0);}
 function enterUnderwriter(){document.getElementById('landing').hidden=true;document.getElementById('app').hidden=false;setNavRole('uw');enableNav(true);renderUW();go('uw-pending');window.scrollTo(0,0);}
@@ -3433,6 +3477,10 @@ document.addEventListener('keydown',function(e){
 });
 
 /* ===== Fleet Evaluation History (agent view) — opened from the clock icon on Active / Pending / Rejected / Expired ===== */
+/* fleets with a history icon have 2–3 versions; fleets without one are still on their first version */
+function evHasHist(kind,r,i){return kind==='active'||(kind==='pending'&&!!r[5])||((kind==='rejected'||kind==='expired')&&i<4);}
+function evVerCount(kind,r,i){if(!evHasHist(kind,r,i))return 1;if(kind==='active'&&r[0]===1111)return 2;return 2+(r[0]%2);}
+function evVerId(kind,r,i){return 'FMS_'+r[0]+'_'+String(evVerCount(kind,r,i)).padStart(3,'0');}
 function evHistData(kind,i){
   var r=(kind==='active'?ACT:kind==='pending'?PEND:kind==='rejected'?REJ:EXP)[i],id='FMS_'+r[0],n=r[0]-1110;
   if(id==='FMS_1111'&&kind==='active'){
@@ -3440,16 +3488,23 @@ function evHistData(kind,i){
       {date:'20 May 2025',actor:'Others',ver:'FMS_1111_002',added:100,total:150,self:60,others:15,disc:'20%',type:'Shared Pool',valid:'15 May 2026',status:'Approved'},
       {date:'15 April 2025',actor:'Self',ver:'FMS_1111_001',added:50,total:50,self:20,others:0,disc:'20%',type:'Exclusive',valid:'15 May 2026',status:'Expired'}]};
   }
-  var shared=!!r[1],ver=(kind==='active'||kind==='pending')?r[2]:'001',versions=ver==='002'?2:1;
+  var shared=!!r[1],versions=evVerCount(kind,r,i);
   var m=kind==='active'?/(\d+)\/(\d+)/.exec(r[4]):null;
   var T=kind==='active'?(m?+m[2]:100+50*(n%3)):kind==='pending'?80+20*(n%4):60+20*(n%3);
   var B=kind==='active'?(m?+m[1]:Math.round(T*0.5)):kind==='expired'?Math.round(T*0.3):0;
   var self=shared&&B?Math.round(B*0.8):B,others=B-self;
   var disc=[20,18,22,15,25][n%5]+'%',valid=kind==='expired'?'15 Jan 2025':kind==='rejected'?'\u2014':'15 May 2026';
   var latest=kind==='active'?r[3]:kind==='pending'?'Pending':kind==='rejected'?'Rejected':'Expired';
-  var a1=versions===2?Math.round(T/3/10)*10:T,e=[];
-  if(versions===2) e.push({date:'20 May 2024',actor:'Others',ver:id+'_002',added:T-a1,total:T,self:self,others:others,disc:disc,type:'Shared Pool',valid:valid,status:latest});
-  e.push({date:'12 April 2024',actor:'Self',ver:id+'_001',added:a1,total:a1,self:versions===2?Math.round(a1*0.4):self,others:versions===2?0:others,disc:disc,type:versions===2?'Exclusive':(shared?'Shared Pool':'Exclusive'),valid:versions===2?'15 May 2025':valid,status:versions===2?'Expired':latest});
+  /* vehicles added per version (they add up to the fleet total) */
+  var parts=versions===1?[]:versions===2?[Math.round(T/3/10)*10]:[Math.round(T*0.3/10)*10,Math.round(T*0.3/10)*10];
+  parts.push(T-parts.reduce(function(s,x){return s+x;},0));
+  var dates=['12 April 2024','20 May 2024','18 June 2024'],e=[],run=0,totals=parts.map(function(x){run+=x;return run;});
+  for(var k=versions;k>=1;k--){
+    var tot=totals[k-1],last=k===versions,later=k>1;
+    e.push({date:dates[k-1],actor:later&&shared?'Others':'Self',ver:id+'_'+String(k).padStart(3,'0'),added:parts[k-1],total:tot,
+      self:last?self:Math.round(tot*0.4),others:last?others:(later&&shared?Math.round(tot*0.05):0),disc:disc,
+      type:later?(shared?'Shared Pool':'Exclusive'):(versions===1&&shared?'Shared Pool':'Exclusive'),valid:last?valid:'15 May 2025',status:last?latest:'Expired'});
+  }
   return {id:id,kind:kind,total:T,self:self,others:others,entries:e};
 }
 function evHistHTML(d){
@@ -3571,19 +3626,19 @@ function evTab(el,kind){
   let head,rows;
   if(kind==='active'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Fleet Status</th><th>Policy Status</th><th>Action</th>`;
-    rows=evRows('active',ACT).map(([r,i])=>`<tr><td>${idcLink('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${r[3]}</td><td>${op(r[4],'green')}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="active" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'}<button class="kb hbtn tip" type="button" data-tip="More options" aria-label="More options for FMS_${r[0]}">${MS('more_vert')}</button></div></td></tr>`).join('');
+    rows=evRows('active',ACT).map(([r,i])=>`<tr><td>${idcLink('FMS_'+r[0],r[1])}</td><td>${evVerId('active',r,i)}</td><td>${BIZ}</td><td>${DT}</td><td>${r[3]}</td><td>${op(r[4],'green')}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="active" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'}<button class="kb hbtn tip" type="button" data-tip="More options" aria-label="More options for FMS_${r[0]}">${MS('more_vert')}</button></div></td></tr>`).join('');
   } else if(kind==='pre'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th><span class="thsort">Time ${MS('unfold_more')}</span></th><th>Status</th>`;
     rows=evRows('pre',PRE).map(([r])=>`<tr><td>${idcBtn('FMS_'+r[0],0,'openPreCase('+r[0]+')','Open evaluation FMS_'+r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${DT}</td><td>11:34 AM</td><td>${op(r[2],r[3])}</td></tr>`).join('');
   } else if(kind==='pending'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Status</th><th>Action</th>`;
-    rows=evRows('pending',PEND).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openPendCase('+i+',this)','View pending status for FMS_'+r[0])}</td><td>FMS_${r[0]}_${r[2]}</td><td>${BIZ}</td><td>${DT}</td><td>${op(r[3],'orange',r[4])}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${r[5]?'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="pending" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>':''}</div></td></tr>`).join('');
+    rows=evRows('pending',PEND).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openPendCase('+i+',this)','View pending status for FMS_'+r[0])}</td><td>${evVerId('pending',r,i)}</td><td>${BIZ}</td><td>${DT}</td><td>${op(r[3],'orange',r[4])}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${r[5]?'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="pending" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>':''}</div></td></tr>`).join('');
   } else if(kind==='rejected'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Status</th><th>Action</th>`;
-    rows=evRows('rejected',REJ).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openRejCase('+i+',this)','View rejection details for FMS_'+r[0])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${op('Rejected','red')}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="rejected" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
+    rows=evRows('rejected',REJ).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openRejCase('+i+',this)','View rejection details for FMS_'+r[0])}</td><td>${evVerId('rejected',r,i)}</td><td>${BIZ}</td><td>${DT}</td><td>${op('Rejected','red')}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="rejected" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
   } else {
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Evaluation Date ${MS('unfold_more')}</span></th><th>Action</th>`;
-    rows=evRows('expired',EXP).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>FMS_${r[0]}_001</td><td>${BIZ}</td><td>${DT}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="expired" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
+    rows=evRows('expired',EXP).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>${evVerId('expired',r,i)}</td><td>${BIZ}</td><td>${DT}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="expired" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
   }
   if(!rows)rows=`<tr><td colspan="${(head.match(/<th/g)||[]).length}" class="qempty">No cases match the selected filters</td></tr>`;
   P.innerHTML=evTools(kind)+`<div class="et-wrap"><div class="et-scroll"><table class="et"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div></div>`+evPager();
