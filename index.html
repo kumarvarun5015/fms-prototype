@@ -1494,8 +1494,10 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #recommend .status-pill.edited svg{stroke:#fff}
 #recommend .zd-mini-stat{font-size:12px;color:var(--muted);margin-top:12px}
 #recommend .zd-mini-stat strong{color:#212121}
-#recommend .rec-action-box{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--soft);border:1px solid #f7cdaf;border-radius:12px;padding:14px 16px;margin-top:16px;position:relative;overflow:hidden}
-#recommend .rec-action-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,rgba(227,83,15,0) 0%,rgba(227,83,15,.9) 22%,rgba(227,83,15,.9) 78%,rgba(227,83,15,0) 100%)}
+#recommend .rec-action-box{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--soft);border:1px solid #f7cdaf;border-radius:12px;padding:14px 16px;margin-top:16px;position:relative}
+/* accent stroke: the box's own rounded left edge. Full colour from corner to corner (no opacity fade); an inset stroke follows the
+   corner radius, so it tapers evenly into the thin outline at the top and bottom — identical on both ends. */
+#recommend .rec-action-box::before{content:'';position:absolute;inset:-1px;border-radius:12px;box-shadow:inset 3px 0 0 0 var(--brand);pointer-events:none}
 #recommend .rec-action-text{font-size:13px;color:#212121;flex:1;min-width:200px;line-height:1.5}
 #recommend .rec-action-text strong{color:var(--brand)}
 #recommend .btn-accept-rec{height:38px;padding:0 18px;border:0;border-radius:8px;background:var(--brand);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
