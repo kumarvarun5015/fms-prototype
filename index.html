@@ -81,6 +81,10 @@ button{font-family:inherit;cursor:pointer}
 .header .r{display:flex;align-items:center;gap:16px}
 .bell{width:32px;height:32px;border:1px solid var(--e0);background:#fff;border-radius:100px;display:grid;place-items:center;position:relative}
 .bell:hover{background:#fafafa}
+.hsw{width:32px;height:32px;border:1px solid var(--e0);background:#fff;border-radius:100px;display:grid;place-items:center;color:#757575;cursor:pointer;padding:0;transition:background .15s,color .15s}
+.hsw .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
+.hsw:hover{background:var(--soft2);color:var(--brand)}
+.hsw:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:2px}
 .bell .dot{position:absolute;top:6px;right:6px;width:7px;height:7px;background:#ffd400;border-radius:50%}
 .user{display:flex;align-items:center;gap:8px}
 .user .av{width:36px;height:36px;border-radius:50%;overflow:hidden;display:grid;place-items:center;flex:0 0 auto}
@@ -500,6 +504,7 @@ table{width:100%;border-collapse:collapse}
 .flt-tab .n{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:100px;background:var(--soft);color:var(--brand);font-size:11.5px;font-weight:700}
 .flt-pane{display:flex;flex-direction:column;min-height:0;padding-left:28px}
 .flt-opts{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2px 16px;align-content:start;padding:2px 4px 16px 0}
+#flt-modal.flt-wide .flt-opts{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}  /* UW / RM: longer option names (locations, people) */
 .flt-opt{display:flex;align-items:center;gap:12px;min-width:0;padding:10px 4px;font-size:14px;font-weight:500;color:#424242;cursor:pointer;border-radius:8px}
 .flt-opt input{width:18px;height:18px;margin:0;flex:none;accent-color:var(--brand);cursor:pointer}
 .flt-opt .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -1683,11 +1688,10 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 .nq-bar i{display:block;height:100%;width:0;background:var(--blue);border-radius:100px;transition:width .12s linear,background .2s}
 .nq-bar.done i{background:var(--green)}
 #upload .flowfoot{justify-content:space-between}
-/* Plan: figures go "stale" until Update is run */
+/* Plan: figures re-price instantly with every change */
 #plan .premfoot .stat .k,#plan .premfoot .btn{white-space:nowrap}
 #plan .stats .stat{padding:4px 8px;margin:-4px -8px;border-radius:8px}
 #plan .stat .v{transition:opacity .2s}
-#plan .premfoot.dirty .stat .v{opacity:.4}
 @keyframes planFresh{0%{background:#E7F7EE}100%{background:transparent}}
 #plan .stats.fresh .stat{animation:planFresh 1.2s ease-out}
 @media(prefers-reduced-motion:reduce){#plan .stats.fresh .stat{animation:none}}
@@ -1928,6 +1932,107 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 @media(prefers-reduced-motion:reduce){.ud-dots i{animation:none}}
 .ud-box[data-tip]:focus-visible::after{opacity:1;visibility:visible}
 .ud-box.bad:focus-visible{outline:2px solid rgba(224,9,3,.35);outline-offset:2px}
+
+/* ===== Underwriter fleet details: breadcrumb, CP tabs, add-on slider (platform tokens only) ===== */
+#uwdetail .subhead.uwd-sub{padding:0 0 14px;border-bottom:0;gap:8px}
+#uwdetail .subhead .bc-lk{padding:2px 0}
+/* CP tabs: orange primary + orange tints (same language as the platform tabs / Compare "on" state) */
+#uwdetail .cpt:hover{background:var(--soft2)}
+#uwdetail .cpt.a1,#uwdetail .cpt.a2{background:var(--otint);color:var(--odark)}
+#uwdetail .cpt.a1::after,#uwdetail .cpt.a2::after{background:var(--orange)}
+#uwdetail .cpt .cdot{background:#BDBDBD}
+#uwdetail .cpt.a1 .cdot,#uwdetail .cpt.a2 .cdot{background:var(--orange)}
+#uwdetail .cmp-btn:hover{background:var(--soft2)}
+#uwdetail .cpt:focus-visible,#uwdetail .cmp-btn:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:-2px}
+#uwdetail .cpt-bn{font-weight:500;opacity:.75}
+/* Add-ons: slider reads as disabled (grey) until Edit is clicked */
+#uwdetail .ao-wrap.disabled .ao-slider,#uwdetail .ao-slider:disabled{filter:grayscale(1);opacity:.6;cursor:not-allowed}
+
+/* ===== Underwriter detail, round 2 ===== */
+/* tabs sit directly on the page: no band / card behind them */
+#uwdetail .cp-bar{background:transparent!important;padding:0!important}
+/* fleet header: status tags share one line at the top right */
+#uwdetail .fh-top{align-items:flex-start}
+#uwdetail .fh-tags{display:flex;align-items:center;gap:12px;flex:none;padding-top:2px}
+/* stuck state: sit flush under the header, square top corners (tabs + Compare) */
+#uwdetail .cp-bar{top:62px}
+#uwdetail .cp-bar.is-stuck .cp-tabs{border-top-left-radius:0;border-top-right-radius:0;border-top-color:transparent}
+#uwdetail .cp-bar.is-stuck .cmp-btn{border-top-left-radius:0!important;border-top-right-radius:0!important;border-top-color:transparent}
+/* decision summary: neutral grey surface, status colour only on the dot + Material tick */
+#uwdetail .dec-sum{background:#F5F5F5}
+#uwdetail .dov{display:inline-flex;align-items:center;gap:6px}
+#uwdetail .dov .ms{font-size:18px;color:var(--grn);font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
+#uwdetail .cmp-ck{font-size:16px;color:var(--grn);font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;margin-right:2px}
+/* submit confirmation (reuses the agent's .appr-* popup styles) */
+
+/* ===== Date selector popup — same pop-up language as Select Filter (Agent / Underwriter / RM); the calendar follows Material's date-range picker proportions ===== */
+#dp-modal.on{place-items:center}
+#dp-modal .dp-dialog{--fcol:calc((100vw - 48px - 11 * 24px) / 12);width:calc(var(--fcol) * 9 + 8 * 24px);max-width:none;max-height:80vh;max-height:80dvh;min-height:40vh;min-height:40dvh;padding:0;text-align:left;display:flex;flex-direction:column;overflow:hidden;animation:fltIn .18s ease-out}
+@media(prefers-reduced-motion:reduce){#dp-modal .dp-dialog{animation:none}}
+#dp-modal .rc-x{top:26px;right:32px}
+.dp-main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(150px,200px) 1fr;padding:0 32px}
+.dp-pane{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:10px 4px 16px 28px}
+/* outlined text fields with a floating label (Material) — columns line up with the two months below */
+#calrows .eact .msym{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+.ds-fields{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.ds-f{display:block;min-width:0;position:relative}
+.ds-fi{position:relative;display:block;height:56px;border:1px solid var(--fbd);border-radius:var(--r-ctl-sm);background:#fff;transition:border-color .15s,box-shadow .15s}
+.ds-fi:hover{border-color:#757575}
+.ds-fi:focus-within{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand)}
+.ds-fi.err,.ds-fi.err:hover{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.ds-fi input{position:absolute;inset:0;width:100%;height:100%;box-sizing:border-box;border:0;outline:0;background:transparent;padding:0 16px;font:inherit;font-size:14px;color:#212121;border-radius:inherit}
+.ds-fi input::placeholder{color:transparent}
+.ds-fi input:focus::placeholder{color:#9E9E9E}
+.ds-fl{position:absolute;left:12px;top:50%;transform:translateY(-50%);padding:0 4px;background:#fff;font-size:14px;line-height:1;color:#757575;pointer-events:none;transition:top .12s,font-size .12s,color .12s}
+.ds-fi input:focus~.ds-fl,.ds-fi input:not(:placeholder-shown)~.ds-fl{top:0;font-size:12px;color:#616161}
+.ds-fi:focus-within .ds-fl{color:var(--brand)}
+.ds-fi.err .ds-fl{color:var(--red)}
+.ds-ft{position:absolute;left:16px;right:0;top:60px;margin:0;font-size:12px;line-height:16px;color:#616161}
+.ds-ft.err{color:var(--red);font-weight:600}
+.ds-sum{min-height:20px;margin:12px 0 12px;font-size:13px;line-height:20px;color:#616161}
+.ds-sum b{color:#212121;font-weight:700}
+/* calendar: 40px day circles on a 44px row pitch, continuous range band, fixed 6-row height so nothing jumps between months */
+.ds-months{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.ds-mh{display:grid;grid-template-columns:40px 1fr 40px;align-items:center;height:48px}
+.ds-mh b{text-align:center;font-size:14px;font-weight:700;color:#212121}
+.ds-nv{width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:#424242;display:grid;place-items:center;cursor:pointer;padding:0}
+.ds-nv:hover:not(:disabled){background:#F5F5F5}
+.ds-nv:disabled{opacity:.38;cursor:not-allowed}
+.ds-nv .msym{font-size:24px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+.ds-nx-s{visibility:hidden}
+.ds-g{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:36px;grid-auto-rows:44px;min-height:300px}
+.ds-w{display:grid;place-items:center;font-size:12px;font-weight:600;color:#616161}
+.ds-c{position:relative;display:grid;place-items:center}
+.ds-c::before{content:'';position:absolute;left:0;right:0;top:2px;bottom:2px}
+.ds-c.in::before{background:var(--soft)}
+.ds-c.rs::before{left:50%;background:var(--soft)}
+.ds-c.re::before{right:50%;background:var(--soft)}
+.ds-c.cl::before{border-radius:20px 0 0 20px}
+.ds-c.cr::before{border-radius:0 20px 20px 0}
+.ds-c.cl.cr::before{border-radius:20px}
+.ds-d{position:relative;z-index:1;width:min(40px,calc(100% - 6px));aspect-ratio:1;border:0;border-radius:50%;background:transparent;font:inherit;font-size:14px;font-weight:500;color:#212121;cursor:pointer;padding:0}
+.ds-d:hover:not(:disabled):not(.sel){background:#F5F5F5}
+.ds-c.in .ds-d:hover:not(.sel){background:rgba(227,83,15,.14)}
+.ds-d.td:not(.sel){box-shadow:inset 0 0 0 1px var(--brand);color:var(--brand);font-weight:700}
+.ds-d.sel{background:var(--brand);color:#fff;font-weight:700}
+.ds-d:disabled{color:#BDBDBD;cursor:not-allowed}
+.ds-nv:focus-visible,.ds-d:focus-visible{outline:2px solid rgba(236,102,37,.55);outline-offset:1px}
+@media(max-width:1279px){
+  .ds-fields,.ds-sum,.ds-months{max-width:392px}   /* one month: fields, summary and calendar share one width */
+  .ds-months{grid-template-columns:minmax(0,1fr)}
+  .ds-nx-s{visibility:visible}
+}
+@media(max-width:900px){
+  #dp-modal .dp-dialog{width:calc(100vw - 40px)}
+  .dp-main{grid-template-columns:1fr;padding:0 20px;overflow-y:auto}
+  #dp-nav{display:flex;flex-wrap:wrap;gap:6px;border-right:0;padding:0 0 12px}
+  #dp-nav .flt-tab{width:auto;padding:8px 14px;border:1px solid var(--e0);border-radius:100px;font-size:13px}
+  #dp-nav .flt-tab.on{border-color:var(--brand);color:var(--brand)}
+  #dp-nav .flt-tab.on::before{display:none}
+  .dp-pane{padding:10px 0 0;overflow:visible}
+  .ds-fields,.ds-sum,.ds-months{max-width:none}
+}
+@media(max-width:560px){.ds-fields{grid-template-columns:1fr}.ds-fields .ds-f+.ds-f{margin-top:8px}}
 </style>
 </head>
 <body>
@@ -1984,6 +2089,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
   <header class="header">
     <div class="logo illogo" onclick="backToLanding()" title="ICICI Lombard"><svg class="il-svg" viewBox="0 0 171 30" role="img" aria-label="ICICI Lombard"><use href="#il-logo"/></svg></div>
     <div class="r">
+      <button class="hsw" type="button" onclick="backToLanding()" title="Switch role" aria-label="Switch role"><span class="msym">switch_account</span></button>
       <button class="bell"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#757575" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></button>
       <div class="user"><div class="av av-in" aria-label="Kumar Varun" title="Kumar Varun">KV</div></div>
     </div>
@@ -2017,13 +2123,8 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 
       <!-- DASHBOARD (plain, grey) -->
       <section class="screen" id="dashboard">
-        <div class="dhead">
-          <div><div class="dtitle">Dashboard</div><div class="dsub">Track key KPIs and gain insights to drive smarter decisions.</div></div>
-          <div style="display:flex;gap:12px">
-            <button class="dbtn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>Apply Filter</button>
-            <button class="dbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>15 Jul 24 - 25 Jul 24</button>
-          </div>
-        </div>
+        <div class="evhead"><div class="dtitle">Dashboard</div><div class="dsub">Track key KPIs and gain insights to drive smarter decisions.</div></div>
+        <div class="evtools"><button class="ebtn" type="button" id="dsb-dashboard" onclick="dsOpen('dashboard')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-dashboard">Select Date</span></button></div>
         <div class="kcards">
           <div class="kcard"><div class="kh"><span class="kic"><span class="msym">currency_rupee</span></span><span class="klab">Net Premium</span></div><div class="kv"><span class="knum">₹50,000</span><span class="kpill up"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>+15%</span></div></div>
           <div class="kcard"><div class="kh"><span class="kic"><span class="msym">data_check</span></span><span class="klab">Policy Booked</span></div><div class="kv"><span class="knum">10,000</span><span class="kpill up"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg>+15%</span></div></div>
@@ -2205,6 +2306,22 @@ body.cta-away #policy .pol-foot{bottom:-160px}
           <div class="flt-foot"><button class="btn ghost" type="button" onclick="fmClear()">Clear Filter</button><button class="btn primary" type="button" id="flt-apply" onclick="fmApply()">Apply Filter</button></div>
         </div>
       </div>
+      <!-- Select Date — one date popup used by the Agent, Underwriter and RM lists -->
+      <div class="rc-mask" id="dp-modal" onclick="if(event.target===this)dsClose()">
+        <div class="rc-dialog dp-dialog" role="dialog" aria-modal="true" aria-labelledby="dp-title">
+          <button class="rc-x" type="button" aria-label="Close" onclick="dsClose()"><span class="msym">close</span></button>
+          <div class="flt-head"><h2 class="flt-title" id="dp-title">Select Date</h2></div>
+          <div class="dp-main">
+            <div class="flt-nav" id="dp-nav" role="tablist" aria-orientation="vertical" aria-label="Date ranges"></div>
+            <div class="dp-pane">
+              <div class="ds-fields" id="dp-fields"></div>
+              <div class="ds-sum" id="dp-sum" aria-live="polite"></div>
+              <div id="dp-cal"></div>
+            </div>
+          </div>
+          <div class="flt-foot"><button class="btn ghost" type="button" onclick="dsClear()">Clear Date</button><button class="btn primary" type="button" id="dp-apply" onclick="dsApply()">Apply Date</button></div>
+        </div>
+      </div>
       <!-- Fleet Evaluation History (agent view) -->
       <div class="rc-mask" id="hist-modal" onclick="if(event.target===this)closeEvHistory()">
         <div class="rc-dialog hist-dialog" role="dialog" aria-modal="true" aria-labelledby="hist-title">
@@ -2235,6 +2352,20 @@ body.cta-away #policy .pol-foot{bottom:-160px}
           </div>
           <div class="rc-modal-actions">
             <button class="btn primary" onclick="approveAnother()">Evaluate another fleet</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Underwriter: decision submitted (same pattern as the agent's Fleet-approved popup) -->
+      <div class="rc-mask" id="uws-modal">
+        <div class="rc-dialog appr-dialog" role="dialog" aria-modal="true" aria-labelledby="uws-title" aria-describedby="uws-body">
+          <button class="rc-x" type="button" aria-label="Close" onclick="uwsClose()"><span class="msym">close</span></button>
+          <div class="appr-tick" id="uws-tick"></div>
+          <div class="rc-modal-title" id="uws-title">Fleet Evaluation Submitted</div>
+          <div class="rc-modal-body" id="uws-body"></div>
+          <div class="appr-det" id="uws-det"></div>
+          <div class="rc-modal-actions">
+            <button class="btn primary" type="button" onclick="uwsClose()">View other cases</button>
           </div>
         </div>
       </div>
@@ -2512,62 +2643,14 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       </section>
 
             <section class="screen" id="calendar">
-        <div class="flowcard" style="border-radius:20px">
-          <div class="flowbody" style="gap:20px">
-        <div class="calhead">
-          <div><div class="dtitle">Calendar</div><div class="dsub">Choose a date in the calendar to track fleet policy expirations</div></div>
-          <div style="display:flex;gap:12px;align-items:center">
-            <button class="dbtn"><span class="msym" style="font-size:16px">filter_alt</span>Apply Filter</button>
-            <div class="calsearch"><span class="msym" style="font-size:18px;color:#BDBDBD">search</span>Search</div>
-          </div>
-        </div>
-        <div class="calcols">
-          <div class="caltbl"><div class="caltbl-scroll"><table class="qtbl">
-            <colgroup><col style="width:15%"><col style="width:22%"><col style="width:15%"><col style="width:20%"><col style="width:13%"><col style="width:15%"></colgroup>
-            <thead><tr>
-              <th><span class="thsort">Reg No. <span class="msym">expand_more</span></span></th>
-              <th><span class="thsort">Business Name <span class="msym">expand_more</span></span></th>
-              <th>Policy Expiry</th>
-              <th><span class="thsort">Policy Status <span class="msym">expand_more</span></span></th>
-              <th>Premium</th>
-              <th>Actions</th>
-            </tr></thead>
-            <tbody id="calrows"></tbody></table></div>
-            <div class="qpager" style="padding:16px 0">
-              <button class="qarrow"><span class="msym" style="font-size:18px">chevron_left</span></button>
-              <button class="qpg">Back</button>
-              <button class="qpg">1</button><button class="qpg on">2</button><button class="qpg">3</button><button class="qpg">4</button><button class="qpg">5</button>
-              <button class="qpg">Next</button>
-              <button class="qarrow"><span class="msym" style="font-size:18px">chevron_right</span></button>
-            </div>
-          </div>
-          <div class="calside">
-            <div class="daterow">
-              <div class="dpick"><span class="k">Start date <span class="msym">expand_more</span></span><span class="v">01 Dec 24 <span class="dow">Tue</span></span></div>
-              <span class="dash"></span>
-              <div class="dpick on"><span class="k">End date <span class="msym">expand_more</span></span><span class="v">31 Dec 24 <span class="dow">Sat</span></span></div>
-            </div>
-            <div class="calbody">
-              <div class="calnav">
-                <button class="nvb"><span class="msym">chevron_left</span></button>
-                <span class="mo"><span class="msym">calendar_month</span>December 2024</span>
-                <button class="nvb"><span class="msym">chevron_right</span></button>
-              </div>
-              <div class="calgrid" id="calgrid"></div>
-            </div>
-            <div class="overview">
-              <div class="ovh"><b>Overview</b><span>01 Dec - 31Dec</span></div>
-              <div class="ovgrid">
-                <div class="ovit"><span class="num">100</span><span class="lbl">Total<br>policy</span></div>
-                <div class="ovit"><span class="num">50</span><span class="lbl">Upcoming<br>policy</span></div>
-                <div class="ovit"><span class="num">30</span><span class="lbl">Booked<br>policy</span></div>
-                <div class="ovit"><span class="num">20</span><span class="lbl">Expired<br>policy</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-                </div>
-        </div>
+        <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
+          <div class="evhead"><div class="dtitle">Calendar</div><div class="dsub">Choose a date range to track fleet policy expirations.</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-calendar" onclick="lfOpen('calendar')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-calendar" hidden></span></button><button class="ebtn" type="button" id="dsb-calendar" onclick="dsOpen('calendar')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-calendar">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Reg No., Business name&rdquo;</div></div>
+          <div class="et-wrap"><div class="et-scroll"><table class="et"><thead><tr>
+            <th><span class="thsort">Reg No. <span class="msym">unfold_more</span></span></th><th><span class="thsort">Business Name <span class="msym">unfold_more</span></span></th><th><span class="thsort">Policy Expiry <span class="msym">unfold_more</span></span></th><th><span class="thsort">Policy Status <span class="msym">unfold_more</span></span></th><th>Premium</th><th>Actions</th>
+          </tr></thead><tbody id="calrows"></tbody></table></div></div>
+          <div class="epager"><button class="enav"><span class="msym">chevron_left</span>Back</button><button class="epg">1</button><button class="epg on">2</button><button class="epg">3</button><button class="epg">4</button><button class="epg">5</button><button class="enav">Next<span class="msym">chevron_right</span></button></div>
+        </div></div>
       </section>
 
       <!-- COMING SOON -->
@@ -2581,7 +2664,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="uw-pending">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Pending cases</div><div class="dsub">Discover pending fleet cases that require underwriter evaluation.</div></div>
-          <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-pending" onclick="lfOpen('uw-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-pending" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-pending" onclick="dsOpen('uw-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-pending">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
             <th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th><span class="thsort">SLR (%) <span class="msym">unfold_more</span></span></th><th><span class="thsort">Reason <span class="msym">unfold_more</span></span></th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th>
           </tr></thead><tbody id="uwp-rows"></tbody></table></div></div>
@@ -2591,7 +2674,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="uw-approved">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Approved cases</div><div class="dsub">Discover fleet cases approved by underwriters.</div></div>
-          <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-approved" onclick="lfOpen('uw-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-approved" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-approved" onclick="dsOpen('uw-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-approved">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
             <th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th><span class="thsort">SLR (%) <span class="msym">unfold_more</span></span></th><th><span class="thsort">Status <span class="msym">unfold_more</span></span></th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th>
           </tr></thead><tbody id="uwa-rows"></tbody></table></div></div>
@@ -2601,7 +2684,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="uw-rejected">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Rejected cases</div><div class="dsub">Discover fleet cases rejected for policy booking.</div></div>
-          <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-rejected" onclick="lfOpen('uw-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-rejected" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-rejected" onclick="dsOpen('uw-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-rejected">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
             <th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th><span class="thsort">SLR (%) <span class="msym">unfold_more</span></span></th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th>
           </tr></thead><tbody id="uwr-rows"></tbody></table></div></div>
@@ -2609,7 +2692,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
         </div></div>
       </section>
       <section class="screen" id="uw-detail"><div id="uwdetail">
-  <div class="bc-row"><a href="#" onclick="go('uw-pending');return false;">Pending Cases</a><span style="color:var(--t3);">›</span><span style="color:var(--t1);font-weight:500;">FMS_1111 – Fleet Details</span></div>
+  <div class="subhead uwd-sub"><svg class="back" onclick="go('uw-pending')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg><nav class="bc" aria-label="Breadcrumb"><button class="bc-lk" onclick="go('uw-pending')">Pending Cases</button><span class="bc-sep">/</span><span class="cur">FMS_1111 – Fleet Details</span></nav></div>
 
   <!-- FLEET HEADER — common, always visible -->
   <div class="fleet-hdr">
@@ -2617,17 +2700,17 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <div class="fh-left">
         <div class="fh-icon"><span class="ms">local_shipping</span></div>
         <div>
-          <div class="fleet-id">Bhavani Insurance Pvt. Ltd &nbsp;<span class="badge bg-grn"><span class="ms">hub</span>Shared Fleet</span></div>
+          <div class="fleet-id">ABC Insurance Pvt. Ltd</div>
           <div class="fleet-sub">Fleet ID: FMS_1111</div>
         </div>
       </div>
-      <span class="badge bg-amb">Evaluation Pending</span>
+      <div class="fh-tags"><span class="badge bg-grn" id="fh-shared"><span class="ms">hub</span>Shared Fleet</span><span class="badge bg-amb">Evaluation Pending</span></div>
     </div>
     <div class="fh-stats">
       <div class="fhs"><span class="fhs-l">Total Fleet Vehicles</span><div class="fhs-v">250</div></div>
-      <div class="fhs"><span class="fhs-l">CP1 Vehicles</span><div class="fhs-v" style="color:var(--cp1);">100</div></div>
-      <div class="fhs"><span class="fhs-l">CP2 Vehicles</span><div class="fhs-v" style="color:var(--cp2);">150</div></div>
-      <div class="fhs" style="border-right:none;"><span class="fhs-l">Common Vehicles</span><div class="fhs-v" style="color:var(--grn);">75</div></div>
+      <div class="fhs"><span class="fhs-l">CP1 Vehicles</span><div class="fhs-v">100</div></div>
+      <div class="fhs"><span class="fhs-l">CP2 Vehicles</span><div class="fhs-v">150</div></div>
+      <div class="fhs" style="border-right:none;"><span class="fhs-l">Common Vehicles</span><div class="fhs-v" style="color:var(--blue);">75</div></div>
     </div>
   </div>
 
@@ -2635,8 +2718,8 @@ body.cta-away #policy .pol-foot{bottom:-160px}
   <div class="cp-bar">
     <div class="cp-bar-inner">
       <div class="cp-tabs">
-        <button class="cpt" id="tab2" onclick="switchCP(2)"><span class="cdot d2"></span>CP2 Fleet <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:#FEF3C7;color:#D97706;margin-left:4px;">Pending</span></button>
-        <button class="cpt a1" id="tab1" onclick="switchCP(1)"><span class="cdot d1"></span>CP1 Fleet <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:#FEF3C7;color:#D97706;margin-left:4px;">Pending</span></button>
+        <button class="cpt a2" id="tab2" onclick="switchCP(2)">CP2 Fleet <span class="cpt-bn" id="tab2-bn"></span></button>
+        <button class="cpt" id="tab1" onclick="switchCP(1)">CP1 Fleet <span class="cpt-bn" id="tab1-bn"></span></button>
       </div>
       <button class="cmp-btn" id="tabc" onclick="switchCP('c')"><span class="ms" style="font-size:16px;">compare_arrows</span>Compare</button>
     </div>
@@ -2651,7 +2734,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
     <div class="card-body">
       <div class="cpv on" id="ins-1">
         <div class="kv">
-          <div class="kv-l">Business Name</div><div class="kv-v">Bhavani Insurance Pvt. Ltd</div>
+          <div class="kv-l">Business Name</div><div class="kv-v">ABC Insurance Pvt. Ltd</div>
           <div class="kv-l">Owner Name(s)</div><div class="kv-v">Mr. Ravikant Tiwari, Ms. Priya Nambiar</div>
           <div class="kv-l">Channel Partner</div><div class="kv-v">Mr. Gurpreet Randhwa</div>
           <div class="kv-l">Date of Submission</div><div class="kv-v">20 May 2025</div>
@@ -2670,7 +2753,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       </div>
       <div class="cpv" id="ins-2">
         <div class="kv">
-          <div class="kv-l">Business Name</div><div class="kv-v">Bhavani Transport Solutions</div>
+          <div class="kv-l">Business Name</div><div class="kv-v">ABC Transport Solutions</div>
           <div class="kv-l">Owner Name(s)</div><div class="kv-v">Kumar Varun, Mr. Tejpratap Singh, Mr. Ravikant Tiwari</div>
           <div class="kv-l">Channel Partner</div><div class="kv-v">Mr. Tejpratap Singh</div>
           <div class="kv-l">Date of Submission</div><div class="kv-v">15 April 2026</div>
@@ -2690,7 +2773,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
         <table class="ctbl">
           <thead><tr><th class="cth0 cc-seg" style="width:180px;">Field</th><th class="cth1 cc-cp2">CP2 – Mr. Tejpratap Singh</th><th class="cth2 cc-cp1">CP1 – Mr. Gurpreet Randhwa</th></tr></thead>
           <tbody>
-            <tr><td class="fl cc-seg">Business Name</td><td class="c1 diff-cell cc-cp2">Bhavani Transport Solutions</td><td class="c2 cc-cp1">Bhavani Insurance Pvt. Ltd</td></tr>
+            <tr><td class="fl cc-seg">Business Name</td><td class="c1 diff-cell cc-cp2">ABC Transport Solutions</td><td class="c2 cc-cp1">ABC Insurance Pvt. Ltd</td></tr>
             <tr><td class="fl cc-seg">Owner Name(s)</td><td class="c1 diff-cell cc-cp2">Kumar Varun, Tejpratap Singh, Ravikant Tiwari</td><td class="c2 cc-cp1">Mr. Ravikant Tiwari, Ms. Priya Nambiar</td></tr>
             <tr><td class="fl cc-seg">Channel Partner</td><td class="c1 diff-cell cc-cp2">Mr. Tejpratap Singh</td><td class="c2 cc-cp1">Mr. Gurpreet Randhwa</td></tr>
             <tr><td class="fl cc-seg">Date of Submission</td><td class="c1 diff-cell cc-cp2">15 April 2026</td><td class="c2 cc-cp1">20 May 2025</td></tr>
@@ -3006,18 +3089,18 @@ body.cta-away #policy .pol-foot{bottom:-160px}
             <th class="cth2 cc-cp1">CP1 – Gurpreet Randhwa</th>
           </tr></thead>
           <tbody>
-            <tr><td class="fl cc-seg" rowspan="3">Zero Depreciation</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2" style="font-weight:600"&#10003; Applied</td><td class="c2 cc-cp1" style="font-weight:600"&#10003; Applied</td></tr>
+            <tr><td class="fl cc-seg" rowspan="3">Zero Depreciation</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2" style="font-weight:600"><span class="ms cmp-ck">check_circle</span> Applied</td><td class="c2 cc-cp1" style="font-weight:600"><span class="ms cmp-ck">check_circle</span> Applied</td></tr>
             <tr><td class="fl2 cc-met">Vehicles Covered</td><td class="c1 cc-cp2">80 of 120 eligible</td><td class="c2 cc-cp1">67 of 90 eligible</td></tr>
             <tr><td class="fl2 cc-met">ZD Declaration %</td><td class="c1 cc-cp2">67%</td><td class="c2 cc-cp1">75%</td></tr>
-            <tr class="div-r"><td class="fl cc-seg" rowspan="3">Engine Protect</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2"&#8212; Not Applied</td><td class="c2 cc-cp1" style="font-weight:600"&#10003; Applied</td></tr>
+            <tr class="div-r"><td class="fl cc-seg" rowspan="3">Engine Protect</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2">&#8212; Not Applied</td><td class="c2 cc-cp1" style="font-weight:600"><span class="ms cmp-ck">check_circle</span> Applied</td></tr>
             <tr><td class="fl2 cc-met">Age Groups</td><td class="c1 cc-cp2">—</td><td class="c2 cc-cp1">New Vehicle, 0–3 yrs</td></tr>
             <tr><td class="fl2 cc-met">Vehicle Types</td><td class="c1 cc-cp2">—</td><td class="c2 cc-cp1">Bus, Truck, Taxi</td></tr>
-            <tr class="div-r"><td class="fl cc-seg" rowspan="3">Roadside Assist</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2" style="font-weight:600"&#10003; Applied</td><td class="c2 cc-cp1"&#8212; Not Applied</td></tr>
+            <tr class="div-r"><td class="fl cc-seg" rowspan="3">Roadside Assist</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2" style="font-weight:600"><span class="ms cmp-ck">check_circle</span> Applied</td><td class="c2 cc-cp1">&#8212; Not Applied</td></tr>
             <tr><td class="fl2 cc-met">Vehicles Covered</td><td class="c1 cc-cp2">60 vehicles</td><td class="c2 cc-cp1">—</td></tr>
             <tr><td class="fl2 cc-met">Age Groups</td><td class="c1 cc-cp2">0–3 yrs</td><td class="c2 cc-cp1">—</td></tr>
-            <tr class="div-r"><td class="fl cc-seg" rowspan="2">Consumables</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2" style="font-weight:600"&#10003; Applied</td><td class="c2 cc-cp1" style="font-weight:600"&#10003; Applied</td></tr>
+            <tr class="div-r"><td class="fl cc-seg" rowspan="2">Consumables</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2" style="font-weight:600"><span class="ms cmp-ck">check_circle</span> Applied</td><td class="c2 cc-cp1" style="font-weight:600"><span class="ms cmp-ck">check_circle</span> Applied</td></tr>
             <tr><td class="fl2 cc-met">Vehicles Covered</td><td class="c1 cc-cp2">30 vehicles · 0–3 yrs</td><td class="c2 cc-cp1">20 vehicles · 0–3 yrs</td></tr>
-            <tr class="div-r"><td class="fl cc-seg" rowspan="2">Accessories</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2" style="font-weight:600"&#10003; Applied</td><td class="c2 cc-cp1" style="font-weight:600"&#10003; Applied</td></tr>
+            <tr class="div-r"><td class="fl cc-seg" rowspan="2">Accessories</td><td class="fl2 cc-met">Status</td><td class="c1 cc-cp2" style="font-weight:600"><span class="ms cmp-ck">check_circle</span> Applied</td><td class="c2 cc-cp1" style="font-weight:600"><span class="ms cmp-ck">check_circle</span> Applied</td></tr>
             <tr><td class="fl2 cc-met">Vehicles Covered</td><td class="c1 cc-cp2">20 vehicles · 0–3 yrs</td><td class="c2 cc-cp1">15 vehicles · 0–3 yrs</td></tr>
           </tbody>
         </table>
@@ -3166,7 +3249,6 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <div class="cpv on" id="disc-1">
         <div class="disc-blk d1" style="margin-top:14px;">
           <div class="dbhdr">
-            <span class="badge bg-b"><span class="ms">person</span>CP1</span>
             <div><div class="dbname">Mr. Gurpreet Randhwa</div><div class="dbsub">100 vehicles &middot; Submitted 20 May 2025</div></div>
           </div>
           <div class="disc-body">
@@ -3182,7 +3264,6 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <div class="cpv" id="disc-2">
         <div class="disc-blk d2" style="margin-top:14px;">
           <div class="dbhdr">
-            <span class="badge bg-p"><span class="ms">person</span>CP2</span>
             <div><div class="dbname">Mr. Tejpratap Singh</div><div class="dbsub">150 vehicles &middot; Submitted 15 April 2026</div></div>
           </div>
           <div class="disc-body">
@@ -3217,14 +3298,14 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 
 <div class="sfoot">
   <button class="btn-close">Close</button>
-  <button class="btn-sub off" id="subbtn" disabled>Submit</button>
+  <button class="btn-sub off" id="subbtn" disabled onclick="uwSubmit()">Submit</button>
 </div>
 
 <div class="toast" id="toast"></div></div></section>
       <section class="screen" id="rm-pending">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Pending cases</div><div class="dsub">Review the pending cases of fleets received from agents that need further action for approval.</div></div>
-          <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-pending" onclick="lfOpen('rm-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-pending" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-pending" onclick="dsOpen('rm-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-pending">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rmp-rows"></tbody></table></div></div>
           <div class="epager"><button class="enav"><span class="msym">chevron_left</span>Back</button><button class="epg">1</button><button class="epg on">2</button><button class="epg">3</button><button class="epg">4</button><button class="epg">5</button><button class="enav">Next<span class="msym">chevron_right</span></button></div>
         </div></div>
@@ -3232,7 +3313,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="rm-approved">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Approved cases</div><div class="dsub">Fleet cases where commission has been submitted and approved.</div></div>
-          <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-approved" onclick="lfOpen('rm-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-approved" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-approved" onclick="dsOpen('rm-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-approved">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rma-rows"></tbody></table></div></div>
           <div class="epager"><button class="enav"><span class="msym">chevron_left</span>Back</button><button class="epg">1</button><button class="epg on">2</button><button class="epg">3</button><button class="epg">4</button><button class="epg">5</button><button class="enav">Next<span class="msym">chevron_right</span></button></div>
         </div></div>
@@ -3240,7 +3321,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="rm-rejected">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Rejected cases</div><div class="dsub">Fleet cases rejected for policy booking.</div></div>
-          <div class="evtools"><button class="ebtn"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter</button><button class="ebtn"><span class="msym" style="font-size:18px">calendar_today</span>Select Date</button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-rejected" onclick="lfOpen('rm-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-rejected" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-rejected" onclick="dsOpen('rm-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-rejected">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rmr-rows"></tbody></table></div></div>
           <div class="epager"><button class="enav"><span class="msym">chevron_left</span>Back</button><button class="epg">1</button><button class="epg on">2</button><button class="epg">3</button><button class="epg">4</button><button class="epg">5</button><button class="enav">Next<span class="msym">chevron_right</span></button></div>
         </div></div>
@@ -3250,7 +3331,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
         <div id="rmdetail">
           <div class="rmcard"><div class="rmcard-hd"><div class="ch-l" style="display:flex;align-items:center;gap:14px"><span class="sec-ic"><span class="msym">badge</span></span><div class="ch-tx"><h2 style="margin:0;font-size:18px">Insured Details</h2></div></div><span class="opill orange" id="rm-status">Commission Awaited</span></div><div class="rmcard-bd">
           <div class="rmkv">
-            <div class="l">Business Name</div><div class="v">Bhavani Insurance Pvt. Ltd</div>
+            <div class="l">Business Name</div><div class="v">ABC Insurance Pvt. Ltd</div>
             <div class="l">Owner Names (4)</div><div class="v"><div class="rm-owners"><span>1. Mr Ravikant Tiwari</span><span>2. Mr. Guru Randhwa</span><span>3. Abhijeet Banerjee</span><span>4. Mr. Tejpratap Singh</span></div></div>
             <div class="l">Evaluation ID</div><div class="v">FMS_1111</div>
             <div class="l">Channel Partner Name</div><div class="v">Mr. Ravichandra Ashwin</div>
@@ -3587,19 +3668,15 @@ const calRows=[
  ['WB23PQ5618','Clearpath Risk Solutions','11/02/2025','Policy Booked','green','₹71,820'],
  ['TS09RS4127','Harborview Assurance','30/06/2025','Pending to renew','amber','₹54,900']
 ];
-var _cr=document.getElementById('calrows');
-if(_cr)_cr.innerHTML=calRows.map(r=>`<tr>
- <td class="reg">${r[0]}</td>
- <td class="dim">${r[1]}</td>
- <td class="dim">${r[2]}</td>
- <td><span class="st ${r[4]}">${r[3]}</span></td>
- <td class="dim">${r[5]}</td>
- <td><div class="calact"><button class="viewlink" data-go="policy">View</button><button class="dlbtn"><span class="msym">download</span></button></div></td>
-</tr>`).join('');
-var _cg=document.getElementById('calgrid');
-if(_cg){var dows=['S','M','T','W','T','F','S'];var html=dows.map(d=>`<div class="dow">${d}</div>`).join('');
- for(var d=1;d<=31;d++){var on=(d===1||d===31)?' on':'';html+=`<div class="day${on}"><span class="in">${d}</span></div>`;}
- _cg.innerHTML=html;}
+/* Calendar list: rows are filtered by the Select Filter popup (Policy Status, Business Name) and the Select Date popup (Policy Expiry) */
+function renderCal(){
+  var el=document.getElementById('calrows');if(!el)return;
+  var q=lfRows('calendar');
+  el.innerHTML=q.length?q.map(function(x){var r=x[0],i=x[1];
+    return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+dsFmt('calendar',i)+'</td><td>'+op(r[3],r[4])+'</td><td>'+r[5]+'</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-go="policy" data-tip="View Policy" aria-label="View policy for '+r[0]+'">'+MS('visibility')+'</button><button class="ic hbtn tip" type="button" data-tip="Download Policy" aria-label="Download policy for '+r[0]+'">'+MS('download')+'</button></div></td></tr>';}).join('')
+    :lfEmpty(6);
+  lfBadges(['calendar']);dsSync(['calendar']);
+}
 
 
 /* ===== Evaluated Cases ===== */
@@ -3610,14 +3687,13 @@ function evPager(){return `<div class="epager"><button class="enav">${MS('chevro
 function evTools(kind){
   const n=fmCount(evFilt[kind]);
   const f=`<button class="ebtn${n?' on':''}" type="button" onclick="evOpenFilter('${kind}')" aria-haspopup="dialog">${MS('filter_alt')}Apply Filter${n?'<span class="fbadge">'+n+'</span>':''}</button>`;
-  const sd=`<button class="ebtn">${MS('calendar_today')}Select Date</button>`;
-  const dr=`<button class="ebtn">${MS('calendar_today')}19 Jul 24 - 22 Sep 24</button>`;
+  const dt=dsBtn('ev-'+kind);   /* one date selector for every tab */
   const se=`<div class="evsearch">${MS('search')}Search &ldquo;Business name, Evaluation ID&rdquo;</div>`;
   /* platform rule: whenever a toolbar has both, the Filter CTA comes first, then the date filter */
   let left='';
-  if(kind==='active')left=f+dr;
-  else if(kind==='pre'||kind==='pending'||kind==='rejected')left=f+sd;
-  else if(kind==='expired')left=sd;
+  if(kind==='active')left=f+dt;
+  else if(kind==='pre'||kind==='pending'||kind==='rejected')left=f+dt;
+  else if(kind==='expired')left=dt;
   return `<div class="evtools">${left}${se}</div>`;
 }
 function idc(id,sp){return `<span class="evid">${id}</span>${sp?SP:''}`;}
@@ -3629,8 +3705,9 @@ function idcLink(id,sp){return `<button class="evid evlink" onclick="openEvQuote
 
 /* ===== Dashboard chart tooltips: Vehicle Funnel, Claims Count, OD Claim Statistics (hover, tap or keyboard focus) ===== */
 var CT_DONUT=[{l:'OD Claims',v:400},{l:'TP Claims',v:100}],CT_DONUT_TOTAL=500;
-function ctRange(ly){var t=((document.querySelector('#dashboard .dbtn:last-of-type')||{}).textContent||'15 Jul 24 - 25 Jul 24').trim();
-  return ly?t.replace(/(\d{2})(?=\s*$|\s*-)/g,function(y){return String(+y-1).padStart(2,'0');}):t;}
+function ctRange(ly){
+  var f=DSF['dashboard'],t=(f&&f.from&&f.to)?dsLabel('dashboard'):'All time';   /* the Dashboard's Select Date range */
+  return(ly&&f&&f.from)?t.replace(/(\d{2})(?=\s*$|\s*-)/g,function(y){return String(+y-1).padStart(2,'0');}):t;}
 function ctShow(x,y,l,v,s){
   var t=document.getElementById('ctip');t.querySelector('.l').textContent=l;t.querySelector('.v').textContent=v;t.querySelector('.s').textContent=s;
   t.classList.add('on');t.setAttribute('aria-hidden','false');
@@ -3676,7 +3753,7 @@ function fmSel(k){return FM.stage[k]||(FM.stage[k]=[]);}
 function fmCount(sel){return Object.keys(sel||{}).reduce(function(n,k){return n+((sel[k]&&sel[k].length)||0);},0);}
 function fmOpen(cfg){
   FM.cfg=cfg;FM.stage={};Object.keys(cfg.selected||{}).forEach(function(k){FM.stage[k]=(cfg.selected[k]||[]).slice();});
-  FM.cat=0;FM.trigger=document.activeElement;fmRender();
+  FM.cat=0;FM.trigger=document.activeElement;document.getElementById('flt-modal').classList.toggle('flt-wide',!!cfg.wide);fmRender();
   document.getElementById('flt-modal').classList.add('on');document.body.style.overflow='hidden';
   setTimeout(function(){var t=document.querySelector('#flt-nav .flt-tab.on');if(t)t.focus();},30);
 }
@@ -3711,9 +3788,10 @@ document.addEventListener('keydown',function(e){
 });
 
 /* ===== Fleet Evaluation History (agent view) — opened from the clock icon on Active / Pending / Rejected / Expired ===== */
-/* fleets with a history icon have 2–3 versions; fleets without one are still on their first version */
-function evHasHist(kind,r,i){return kind==='active'||(kind==='pending'&&!!r[5])||((kind==='rejected'||kind==='expired')&&i<4);}
-function evVerCount(kind,r,i){if(!evHasHist(kind,r,i))return 1;if(kind==='active'&&r[0]===1111)return 2;return 2+(r[0]%2);}
+/* every fleet (Pending / Active / Rejected / Expired) has an Evaluation History icon. Fleets with 2–3 versions show every version; a fleet still on its first version shows a single entry. */
+function evHasHist(kind,r,i){return true;}
+function evMulti(kind,r,i){return kind==='active'||(kind==='pending'&&!!r[5])||((kind==='rejected'||kind==='expired')&&i<4);}
+function evVerCount(kind,r,i){if(!evMulti(kind,r,i))return 1;if(kind==='active'&&r[0]===1111)return 2;return 2+(r[0]%2);}
 function evVerId(kind,r,i){return 'FMS_'+r[0]+'_'+String(evVerCount(kind,r,i)).padStart(3,'0');}
 function evHistData(kind,i){
   var r=(kind==='active'?ACT:kind==='pending'?PEND:kind==='rejected'?REJ:EXP)[i],id='FMS_'+r[0],n=r[0]-1110;
@@ -3841,6 +3919,171 @@ document.addEventListener('keydown',function(e){var m=document.getElementById('s
   if(e.key==='Tab'){var f=[].filter.call(m.querySelectorAll('button'),function(x){return x.offsetParent!==null;});var a=f[0],z=f[f.length-1];
     if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}});
 
+/* ===== Date selector — one popup for the Agent, Underwriter and RM lists (same pop-up language as Select Filter) =====
+   Presets (past 7 days / 1, 3, 6, 12 months / this month / last month) + a custom range on a two-month calendar.
+   State per list: DSF[key]={id,from,to}. Rows carry stable demo dates spread back from today so every preset has something to show. */
+var DS_TODAY=(function(){var d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate());})();
+var DS_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var DS_MONL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function dsAdd(d,n){return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);}
+function dsAddM(d,n){var t=new Date(d.getFullYear(),d.getMonth()+n,1),last=new Date(t.getFullYear(),t.getMonth()+1,0).getDate();return new Date(t.getFullYear(),t.getMonth(),Math.min(d.getDate(),last));}
+function dsMon1(d){return new Date(d.getFullYear(),d.getMonth(),1);}
+function dsSame(a,b){return !!a&&!!b&&a.getTime()===b.getTime();}
+function dsDMY(d){return ('0'+d.getDate()).slice(-2)+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+d.getFullYear();}
+function dsShort(d){return d.getDate()+' '+DS_MON[d.getMonth()]+' '+String(d.getFullYear()).slice(-2);}
+function dsLong(d){return d.getDate()+' '+DS_MON[d.getMonth()]+' '+d.getFullYear();}
+function dsParse(t){var m=/^\s*(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})\s*$/.exec(t||'');if(!m)return null;var y=+m[3],mo=+m[2]-1,d=+m[1],x=new Date(y,mo,d);return(x.getFullYear()===y&&x.getMonth()===mo&&x.getDate()===d)?x:null;}
+var DS_PRESETS=[
+  {id:'p7',label:'Past 7 days',range:function(t){return [dsAdd(t,-6),t];}},
+  {id:'m1',label:'Past 1 month',range:function(t){return [dsAddM(t,-1),t];}},
+  {id:'m3',label:'Past 3 months',range:function(t){return [dsAddM(t,-3),t];}},
+  {id:'m6',label:'Past 6 months',range:function(t){return [dsAddM(t,-6),t];}},
+  {id:'m12',label:'Past 12 months',range:function(t){return [dsAddM(t,-12),t];}},
+  {id:'tm',label:'This month',range:function(t){return [dsMon1(t),t];}},
+  {id:'lm',label:'Last month',range:function(t){return [new Date(t.getFullYear(),t.getMonth()-1,1),new Date(t.getFullYear(),t.getMonth(),0)];}},
+  {id:'custom',label:'Custom range'}
+];
+/* Calendar tracks policy expiries, so its popup also offers upcoming ranges and lets you pick dates up to 2 years ahead */
+var DS_FUTURE={'calendar':true};
+var DS_PRESETS_FUT=[
+  {id:'n7',label:'Next 7 days',range:function(t){return [t,dsAdd(t,6)];}},
+  {id:'n1',label:'Next 1 month',range:function(t){return [t,dsAddM(t,1)];}},
+  {id:'n3',label:'Next 3 months',range:function(t){return [t,dsAddM(t,3)];}},
+  {id:'m1',label:'Past 1 month',range:function(t){return [dsAddM(t,-1),t];}},
+  {id:'m3',label:'Past 3 months',range:function(t){return [dsAddM(t,-3),t];}},
+  {id:'tm',label:'This month',range:function(t){return [dsMon1(t),new Date(t.getFullYear(),t.getMonth()+1,0)];}},
+  {id:'custom',label:'Custom range'}
+];
+function dsMatch(from,to){var L=(typeof DS!=='undefined'&&DS.presets)||DS_PRESETS;for(var i=0;i<L.length;i++){var p=L[i];if(!p.range)continue;var r=p.range(DS_TODAY);if(dsSame(r[0],from)&&dsSame(r[1],to))return p.id;}return 'custom';}
+/* demo row dates: days back from today, per list (Active is kept inside its default 3-month window) */
+var DS_OFFS={def:[1,4,9,16,27,41,63,88,130,200],'ev-active':[1,3,6,10,15,22,31,44,58,79],'calendar':[-15,-30,-33,12,-27,35,70,-95,-140,-6]};   /* Calendar rows are policy expiries: some ahead of today, some behind */
+function dsRowDate(key,i){var o=DS_OFFS[key]||DS_OFFS.def;return dsAdd(DS_TODAY,-o[i%o.length]);}
+function dsFmt(key,i){return dsDMY(dsRowDate(key,i));}
+var DSF={'ev-active':{id:'m3',from:dsAddM(DS_TODAY,-3),to:DS_TODAY},'dashboard':{id:'m1',from:dsAddM(DS_TODAY,-1),to:DS_TODAY}};   /* Active tab opens on the past 3 months, as its toolbar always showed a range */
+function dsIn(key,i){var f=DSF[key];if(!f||!f.from||!f.to)return true;var d=dsRowDate(key,i);return d>=f.from&&d<=f.to;}
+function dsLabel(key){var f=DSF[key];return(f&&f.from&&f.to)?dsShort(f.from)+' - '+dsShort(f.to):'Select Date';}
+function dsBtn(key){var on=!!(DSF[key]&&DSF[key].from);
+  return '<button class="ebtn'+(on?' on':'')+'" type="button" id="dsb-'+key+'" onclick="dsOpen(\''+key+'\')" aria-haspopup="dialog">'+MS('calendar_today')+'<span id="dsl-'+key+'">'+dsLabel(key)+'</span></button>';}
+function dsSync(keys){keys.forEach(function(k){var l=document.getElementById('dsl-'+k),b=document.getElementById('dsb-'+k);if(l)l.textContent=dsLabel(k);if(b)b.classList.toggle('on',!!(DSF[k]&&DSF[k].from));});}
+function dsRefresh(key){
+  if(key.indexOf('ev-')===0)evTab(null,key.slice(3));else if(key==='calendar')renderCal();else if(key==='dashboard')dsSync(['dashboard']);else if(key.indexOf('uw-')===0)renderUW();else renderRM();
+  var b=document.getElementById('dsb-'+key);if(b)b.focus();
+}
+
+var DS={key:null,id:null,from:null,to:null,view:null,focus:null,err:'',errw:'',trigger:null,presets:null,max:null};
+function dsSingle(){return !!(window.matchMedia&&window.matchMedia('(max-width:1279px)').matches);}
+function dsSpan(){return dsSingle()?1:2;}
+function dsMax(){return DS.max||DS_TODAY;}
+function dsClampView(v){var m=dsMon1(dsMax()),max=dsSingle()?m:dsAddM(m,-1);return v>max?max:v;}
+function dsViewFor(d){return dsClampView(dsSingle()?dsMon1(d):dsAddM(dsMon1(d),-1));}
+function dsShowMonthOf(d){var m=dsMon1(d);if(m<DS.view)DS.view=dsClampView(m);else if(m>=dsAddM(DS.view,dsSpan()))DS.view=dsViewFor(d);}
+function dsOpen(key){
+  var f=DSF[key]||{};
+  DS.key=key;DS.presets=DS_FUTURE[key]?DS_PRESETS_FUT:DS_PRESETS;DS.max=DS_FUTURE[key]?dsAddM(DS_TODAY,24):DS_TODAY;DS.id=f.id||null;DS.from=f.from||null;DS.to=f.to||null;DS.err='';DS.errw='';DS.trigger=document.activeElement;
+  DS.focus=DS.to||DS.from||DS_TODAY;DS.view=dsViewFor(DS.focus);
+  dsRender();
+  document.getElementById('dp-modal').classList.add('on');document.body.style.overflow='hidden';
+  setTimeout(function(){var t=document.querySelector('#dp-nav .flt-tab[tabindex="0"]');if(t)t.focus();},30);
+}
+function dsClose(skipFocus){
+  var m=document.getElementById('dp-modal');if(!m.classList.contains('on'))return;
+  m.classList.remove('on');document.body.style.overflow='';
+  if(!skipFocus&&DS.trigger&&document.body.contains(DS.trigger))DS.trigger.focus();DS.trigger=null;
+}
+function dsRender(){dsRenderNav();dsRenderFields();dsRenderSum();dsRenderCal();}
+function dsRenderNav(){
+  document.getElementById('dp-nav').innerHTML=DS.presets.map(function(p,i){var on=DS.id===p.id,tab=on||(!DS.id&&i===0);
+    return '<button class="flt-tab'+(on?' on':'')+'" type="button" role="tab" aria-selected="'+on+'" tabindex="'+(tab?0:-1)+'" onclick="dsPreset(\''+p.id+'\')"><span>'+p.label+'</span></button>';}).join('');
+}
+function dsRenderFields(){
+  var fld=function(w,label,d){return '<label class="ds-f"><span class="ds-fi" data-w="'+w+'"><input type="text" inputmode="numeric" autocomplete="off" placeholder="DD/MM/YYYY" value="'+(d?dsDMY(d):'')+'" data-w="'+w+'" onchange="dsTyped(this)" onkeydown="if(event.key===\'Enter\'){event.preventDefault();this.blur();}"><span class="ds-fl">'+label+'</span></span><span class="ds-ft" data-w="'+w+'"></span></label>';};
+  document.getElementById('dp-fields').innerHTML=fld('from','Start date',DS.from)+fld('to','End date',DS.to);
+}
+function dsRenderSum(){
+  var s=document.getElementById('dp-sum'),n;
+  if(DS.from&&DS.to){n=Math.round((DS.to-DS.from)/864e5)+1;s.innerHTML='<b>'+dsLong(DS.from)+' – '+dsLong(DS.to)+'</b> · '+n+' day'+(n===1?'':'s');}
+  else if(DS.from)s.textContent='Select an end date.';
+  else s.textContent='Choose a range on the left, or pick start and end dates on the calendar.';
+  ['from','to'].forEach(function(w){
+    var bad=!!DS.err&&DS.errw===w,fi=document.querySelector('#dp-fields .ds-fi[data-w="'+w+'"]'),ft=document.querySelector('#dp-fields .ds-ft[data-w="'+w+'"]');
+    if(fi)fi.classList.toggle('err',bad);
+    if(ft){ft.classList.toggle('err',bad);ft.textContent=bad?DS.err:'';if(bad)ft.setAttribute('role','alert');else ft.removeAttribute('role');}
+  });
+  s.style.visibility=DS.err?'hidden':'visible';
+  var half=(!!DS.from)!==(!!DS.to);document.getElementById('dp-apply').disabled=!!DS.err||half;
+}
+function dsMonth(first,pos){
+  var y=first.getFullYear(),m=first.getMonth(),n=new Date(y,m+1,0).getDate(),off=(first.getDay()+6)%7,cur=dsMon1(dsMax()),single=dsSingle();
+  var nextBtn=function(cls,ok){return '<button class="ds-nv'+cls+'" type="button" aria-label="Next month" onclick="dsShift(1)"'+(ok?'':' disabled')+'>'+MS('chevron_right')+'</button>';};
+  var h='<div class="ds-m"><div class="ds-mh">'
+    +(pos===0?'<button class="ds-nv" type="button" aria-label="Previous month" onclick="dsShift(-1)">'+MS('chevron_left')+'</button>':'<span></span>')
+    +'<b>'+DS_MONL[m]+' '+y+'</b>'
+    +(pos===0?(single?nextBtn('',DS.view<cur):'<span></span>'):nextBtn('',dsAddM(DS.view,1)<cur))
+    +'</div><div class="ds-g" role="group" aria-label="'+DS_MONL[m]+' '+y+'">';
+  ['M','T','W','T','F','S','S'].forEach(function(w){h+='<span class="ds-w" aria-hidden="true">'+w+'</span>';});
+  for(var b=0;b<off;b++)h+='<span class="ds-c"></span>';
+  var range=!!(DS.from&&DS.to&&DS.to>DS.from);
+  for(var d=1;d<=n;d++){
+    var x=new Date(y,m,d),col=(off+d-1)%7,fut=x>dsMax(),sf=dsSame(x,DS.from),st=dsSame(x,DS.to),sel=sf||st;
+    var inr=range&&x>DS.from&&x<DS.to,rs=range&&sf&&col!==6&&d!==n,re=range&&st&&col!==0&&d!==1;
+    var cell='ds-c'+(inr?' in':'')+(rs?' rs':'')+(re?' re':'');
+    if(inr){if(col===0||d===1)cell+=' cl';if(col===6||d===n)cell+=' cr';}
+    h+='<div class="'+cell+'"><button class="ds-d'+(sel?' sel':'')+(dsSame(x,DS_TODAY)?' td':'')+'" type="button" data-ts="'+x.getTime()+'" tabindex="'+(dsSame(x,DS.focus)?0:-1)+'"'+(fut?' disabled':'')
+      +' aria-label="'+d+' '+DS_MONL[m]+' '+y+'" aria-pressed="'+sel+'"'+(dsSame(x,DS_TODAY)?' aria-current="date"':'')+'>'+d+'</button></div>';
+  }
+  return h+'</div></div>';
+}
+function dsRenderCal(){document.getElementById('dp-cal').innerHTML='<div class="ds-months">'+dsMonth(DS.view,0)+(dsSingle()?'':dsMonth(dsAddM(DS.view,1),1))+'</div>';}
+function dsFocusDay(ts){var b=document.querySelector('#dp-cal .ds-d[data-ts="'+ts+'"]');if(b)b.focus();}
+function dsShift(dir){
+  DS.view=dsClampView(dsAddM(DS.view,dir));
+  var lo=DS.view,hi=dsAddM(DS.view,dsSpan());if(DS.focus<lo||DS.focus>=hi){DS.focus=dir<0?dsAddM(hi,-1):lo;if(DS.focus>dsMax())DS.focus=dsMax();}
+  dsRenderCal();
+}
+function dsPreset(id){
+  DS.err='';DS.errw='';
+  if(id==='custom'){DS.id='custom';dsRenderNav();var i=document.querySelector('#dp-fields input');if(i)i.focus();dsRenderSum();return;}
+  var p=DS.presets.filter(function(x){return x.id===id;})[0],r=p.range(DS_TODAY);
+  DS.id=id;DS.from=r[0];DS.to=r[1];DS.focus=DS.to;DS.view=dsViewFor(DS.to);
+  dsRender();var t=document.querySelector('#dp-nav .flt-tab.on');if(t)t.focus();
+}
+function dsPick(ts){
+  var d=new Date(+ts);DS.err='';DS.errw='';
+  if(DS.from&&!DS.to){if(d<DS.from){DS.to=DS.from;DS.from=d;}else DS.to=d;}
+  else{DS.from=d;DS.to=null;}
+  DS.id=(DS.from&&DS.to)?dsMatch(DS.from,DS.to):'custom';DS.focus=d;
+  dsRenderNav();dsRenderFields();dsRenderSum();dsRenderCal();dsFocusDay(d.getTime());
+}
+function dsTyped(el){
+  var w=el.getAttribute('data-w'),t=el.value.trim(),err='',d=null;
+  if(!t)DS[w]=null;
+  else{d=dsParse(t);if(!d)err='Enter a valid date';else if(d>dsMax())err=dsMax()>DS_TODAY?'Pick a date within 2 years':'Can’t be a future date';else DS[w]=d;}
+  var errw=err?w:'';
+  if(!err&&DS.from&&DS.to&&DS.from>DS.to){err='Start must be before end';errw=w;}
+  DS.err=err;DS.errw=errw;
+  if(!err){DS.id=(DS.from&&DS.to)?dsMatch(DS.from,DS.to):((DS.from||DS.to)?'custom':null);if(d){DS.focus=d;dsShowMonthOf(d);}}
+  dsRenderNav();dsRenderSum();dsRenderCal();
+}
+function dsClear(){DS.from=null;DS.to=null;DS.id=null;DS.err='';DS.errw='';DS.focus=DS_TODAY;DS.view=dsViewFor(DS_TODAY);dsRender();}
+function dsApply(){
+  var half=(!!DS.from)!==(!!DS.to);if(DS.err||half)return;
+  var k=DS.key;if(DS.from&&DS.to)DSF[k]={id:DS.id||'custom',from:DS.from,to:DS.to};else delete DSF[k];
+  dsClose(true);dsRefresh(k);
+}
+window.addEventListener('resize',function(){var m=document.getElementById('dp-modal');if(m&&m.classList.contains('on')){DS.view=dsClampView(DS.view);dsShowMonthOf(DS.focus);dsRenderCal();}});
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('#dp-cal .ds-d');if(b&&!b.disabled)dsPick(b.getAttribute('data-ts'));});
+document.addEventListener('keydown',function(e){
+  var m=document.getElementById('dp-modal');if(!m||!m.classList.contains('on'))return;
+  if(e.key==='Escape'){e.preventDefault();dsClose();return;}
+  var tab=e.target.closest&&e.target.closest('#dp-nav .flt-tab');
+  if(tab&&(e.key==='ArrowDown'||e.key==='ArrowUp')){e.preventDefault();var cur=DS.presets.map(function(p){return p.id;}).indexOf(DS.id);if(cur<0)cur=0;var n=DS.presets.length;dsPreset(DS.presets[(cur+(e.key==='ArrowDown'?1:n-1))%n].id);return;}
+  var day=e.target.closest&&e.target.closest('#dp-cal .ds-d');
+  if(day){var step={ArrowLeft:-1,ArrowRight:1,ArrowUp:-7,ArrowDown:7}[e.key],mon={PageUp:-1,PageDown:1}[e.key];
+    if(step||mon){e.preventDefault();var f=new Date(+day.getAttribute('data-ts')),nf=step?dsAdd(f,step):dsAddM(f,mon);if(nf>dsMax())nf=dsMax();DS.focus=nf;dsShowMonthOf(nf);dsRenderCal();dsFocusDay(nf.getTime());return;}}
+  if(e.key==='Tab'){var fs=[].filter.call(m.querySelectorAll('button:not([tabindex="-1"]):not(:disabled),input'),function(x){return x.offsetParent!==null;});if(!fs.length)return;
+    var a=fs[0],z=fs[fs.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}
+});
+
 /* Evaluated Cases filters — interim categories from each tab's own columns (final lists to be confirmed) */
 var evFilt={};
 const EV_FCATS={active:[['type','Fleet Type'],['fstatus','Fleet Status'],['pstatus','Policy Status']],pre:[['status','Status']],pending:[['type','Fleet Type'],['status','Status']],rejected:[['type','Fleet Type']],expired:[['type','Fleet Type']]};
@@ -3850,7 +4093,7 @@ function evVal(kind,r,k){
   if(k==='pstatus')return r[4]==='Policy Booked'?'Policy Booked':'Partially Booked';
   if(k==='status')return kind==='pre'?r[2]:r[3];
 }
-function evRows(kind,arr){var f=evFilt[kind]||{};return arr.map(function(r,i){return [r,i];}).filter(function(p){return Object.keys(f).every(function(k){return !f[k].length||f[k].indexOf(evVal(kind,p[0],k))>-1;});});}
+function evRows(kind,arr){var f=evFilt[kind]||{};return arr.map(function(r,i){return [r,i];}).filter(function(p){return dsIn('ev-'+kind,p[1])&&Object.keys(f).every(function(k){return !f[k].length||f[k].indexOf(evVal(kind,p[0],k))>-1;});});}
 function evOpenFilter(kind){
   var src=kind==='active'?ACT:kind==='pre'?PRE:kind==='pending'?PEND:kind==='rejected'?REJ:EXP;
   fmOpen({cats:EV_FCATS[kind].map(function(c){var m={};src.forEach(function(r){var v=evVal(kind,r,c[0]);m[v]=(m[v]||0)+1;});return {key:c[0],label:c[1],options:Object.keys(m).sort().map(function(v){return [v,m[v]];})};}),
@@ -3862,19 +4105,19 @@ function evTab(el,kind){
   let head,rows;
   if(kind==='active'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Fleet Status</th><th>Policy Status</th><th>Action</th>`;
-    rows=evRows('active',ACT).map(([r,i])=>`<tr><td>${idcLink('FMS_'+r[0],r[1])}</td><td>${evVerId('active',r,i)}</td><td>${BIZ}</td><td>${DT}</td><td>${r[3]}</td><td>${op(r[4],'green')}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="active" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'}<button class="kb hbtn tip" type="button" data-tip="More options" aria-label="More options for FMS_${r[0]}">${MS('more_vert')}</button></div></td></tr>`).join('');
+    rows=evRows('active',ACT).map(([r,i])=>`<tr><td>${idcLink('FMS_'+r[0],r[1])}</td><td>${evVerId('active',r,i)}</td><td>${BIZ}</td><td>${dsFmt('ev-active',i)}</td><td>${r[3]}</td><td>${op(r[4],'green')}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="active" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'}<button class="kb hbtn tip" type="button" data-tip="More options" aria-label="More options for FMS_${r[0]}">${MS('more_vert')}</button></div></td></tr>`).join('');
   } else if(kind==='pre'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th><span class="thsort">Time ${MS('unfold_more')}</span></th><th>Status</th>`;
-    rows=evRows('pre',PRE).map(([r])=>`<tr><td>${idcBtn('FMS_'+r[0],0,'openPreCase('+r[0]+')','Open evaluation FMS_'+r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${DT}</td><td>11:34 AM</td><td>${op(r[2],r[3])}</td></tr>`).join('');
+    rows=evRows('pre',PRE).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],0,'openPreCase('+r[0]+')','Open evaluation FMS_'+r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${dsFmt('ev-pre',i)}</td><td>11:34 AM</td><td>${op(r[2],r[3])}</td></tr>`).join('');
   } else if(kind==='pending'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Status</th><th>Action</th>`;
-    rows=evRows('pending',PEND).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openPendCase('+i+',this)','View pending status for FMS_'+r[0])}</td><td>${evVerId('pending',r,i)}</td><td>${BIZ}</td><td>${DT}</td><td>${op(r[3],'orange',r[4])}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${r[5]?'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="pending" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>':(PEND_UP[i]?'<span class="eslot" aria-hidden="true"></span>':'')}${PEND_UP[i]?'<button class="ic hbtn tip upl" type="button" data-tip="Upload Documents" onclick="openUploadDocs('+i+')" aria-label="Upload documents for FMS_'+r[0]+' (action needed)">'+MS('upload')+'<span class="ndot" aria-hidden="true"></span></button>':''}</div></td></tr>`).join('');
+    rows=evRows('pending',PEND).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openPendCase('+i+',this)','View pending status for FMS_'+r[0])}</td><td>${evVerId('pending',r,i)}</td><td>${BIZ}</td><td>${dsFmt('ev-pending',i)}</td><td>${op(r[3],'orange',r[4])}</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-tip="Download Quote Summary" aria-label="Download quote summary for FMS_${r[0]}">${MS('download')}</button>${'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="pending" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'}${PEND_UP[i]?'<button class="ic hbtn tip upl" type="button" data-tip="Upload Documents" onclick="openUploadDocs('+i+')" aria-label="Upload documents for FMS_'+r[0]+' (action needed)">'+MS('upload')+'<span class="ndot" aria-hidden="true"></span></button>':''}</div></td></tr>`).join('');
   } else if(kind==='rejected'){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date ${MS('unfold_more')}</span></th><th>Status</th><th>Action</th>`;
-    rows=evRows('rejected',REJ).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openRejCase('+i+',this)','View rejection details for FMS_'+r[0])}</td><td>${evVerId('rejected',r,i)}</td><td>${BIZ}</td><td>${DT}</td><td>${op('Rejected','red')}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="rejected" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
+    rows=evRows('rejected',REJ).map(([r,i])=>`<tr><td>${idcBtn('FMS_'+r[0],r[1],'openRejCase('+i+',this)','View rejection details for FMS_'+r[0])}</td><td>${evVerId('rejected',r,i)}</td><td>${BIZ}</td><td>${dsFmt('ev-rejected',i)}</td><td>${op('Rejected','red')}</td><td>${'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="rejected" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>'}</td></tr>`).join('');
   } else {
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Evaluation Date ${MS('unfold_more')}</span></th><th>Action</th>`;
-    rows=evRows('expired',EXP).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>${evVerId('expired',r,i)}</td><td>${BIZ}</td><td>${DT}</td><td>${i<4?'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="expired" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>':''}</td></tr>`).join('');
+    rows=evRows('expired',EXP).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>${evVerId('expired',r,i)}</td><td>${BIZ}</td><td>${dsFmt('ev-expired',i)}</td><td>${'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="expired" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>'}</td></tr>`).join('');
   }
   if(!rows)rows=`<tr><td colspan="${(head.match(/<th/g)||[]).length}" class="qempty">No cases match the selected filters</td></tr>`;
   P.innerHTML=evTools(kind)+`<div class="et-wrap"><div class="et-scroll"><table class="et"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div></div>`+evPager();
@@ -4083,22 +4326,65 @@ function uwFleetTag(id){return UWSHARED[id]?'<span class="spool">Shared Fleet</s
 var uwMode='shared';
 function setUWMode(m){uwMode=m;var d=document.getElementById('uwdetail');if(!d)return;d.classList.toggle('basic',m==='basic');
   var sub=d.querySelector('.fleet-sub');if(sub)sub.innerHTML='Fleet ID: FMS_1111';
-  var bdg=d.querySelector('.fleet-id .badge');if(bdg)bdg.style.display=(m==='basic')?'none':'';
+  var bdg=d.querySelector('#fh-shared');if(bdg)bdg.style.display=(m==='basic')?'none':'';
   var l2=d.querySelector('.fh-stats .fhs:nth-child(2) .fhs-l');if(l2)l2.textContent=(m==='basic')?'Fleet Vehicles':'CP1 Vehicles';
   var dp=d.querySelector('.ch-l p');if(dp)dp.textContent=(m==='basic')?'Take the underwriting decision for this fleet.':'Take an independent decision for each fleet. Both decisions required before submitting.';
   var hint=document.getElementById('sfhint');if(hint)hint.innerHTML='<span class="ms">info</span>'+(m==='basic'?'Decision pending for this fleet':'Decision pending for CP1 and CP2');
   if(m==='basic'){try{dec[2]=null;}catch(e){} try{switchCP(1);}catch(e){}}
+  else{try{switchCP(2);}catch(e){}}
   try{updateDec();}catch(e){}
 }
 function openUWCase(id){setUWMode(UWSHARED[id]?'shared':'basic');go('uw-detail');}
 
+/* ===== Underwriter + RM list filters =====
+   Same Select Filter modal, toolbar button, count badge and empty state as the agent's Evaluated Cases.
+   Categories come from each list's own columns (Reason, Location, Fleet Type, Agent Name, U/W Assigned; Status on UW Approved). */
+const LOCS=['Bhuj, Gujarat','Mumbai, Maharashtra','Pune, Maharashtra','Bhuj, Gujarat','Ahmedabad, Gujarat','Mumbai, Maharashtra','Nagpur, Maharashtra','Pune, Maharashtra','Surat, Gujarat','Bhuj, Gujarat'];
+var LF={};
+const RMROWS=[1111,1112,1113,1114,1115,1116,1117,1118,1119,1120].map(function(id){return [id];});
+const LF_CFG={
+  'uw-pending':{src:function(){return UWP;},cats:[['reason','Reason'],['loc','Location'],['type','Fleet Type'],['agent','Agent Name'],['uw','U/W Assigned']]},
+  'uw-approved':{src:function(){return UWA;},cats:[['status','Status'],['loc','Location'],['type','Fleet Type'],['agent','Agent Name'],['uw','U/W Assigned']]},
+  'uw-rejected':{src:function(){return UWR;},cats:[['loc','Location'],['type','Fleet Type'],['agent','Agent Name'],['uw','U/W Assigned']]},
+  'rm-pending':{src:function(){return RMROWS;},cats:[['loc','Location'],['type','Fleet Type'],['agent','Agent Name'],['uw','U/W Assigned']]},
+  'rm-approved':{src:function(){return RMROWS;},cats:[['loc','Location'],['type','Fleet Type'],['agent','Agent Name'],['uw','U/W Assigned']]},
+  'rm-rejected':{src:function(){return RMROWS;},cats:[['loc','Location'],['type','Fleet Type'],['agent','Agent Name'],['uw','U/W Assigned']]},
+  'calendar':{src:function(){return calRows;},cats:[['status','Policy Status'],['biz','Business Name']]}
+};
+function lfVal(key,r,i,c){
+  if(key==='calendar'){if(c==='status')return r[3];if(c==='biz')return r[1];}
+  var rm=key.indexOf('rm-')===0;
+  if(c==='loc')return LOCS[i];
+  if(c==='type')return rm?(RMSHARED[r[0]]?'Shared Pool':'Exclusive'):(UWSHARED[r[0]]?'Shared Fleet':'Exclusive Fleet');
+  if(c==='reason'||c==='status')return r[2];
+  if(rm){if(c==='agent')return RMAG[i];if(c==='uw')return RMUW[i][0];}
+  else if(key==='uw-rejected'){if(c==='agent')return r[2];if(c==='uw')return r[3];}
+  else{if(c==='agent')return r[4];if(c==='uw')return r[5];}
+}
+function lfRows(key){
+  var f=LF[key]||{};
+  return LF_CFG[key].src().map(function(r,i){return [r,i];}).filter(function(x){
+    return dsIn(key,x[1])&&Object.keys(f).every(function(c){return !f[c].length||f[c].indexOf(lfVal(key,x[0],x[1],c))>-1;});});
+}
+function lfOpen(key){
+  var cfg=LF_CFG[key],src=cfg.src();
+  fmOpen({cats:cfg.cats.map(function(c){var m={};src.forEach(function(r,i){var v=lfVal(key,r,i,c[0]);m[v]=(m[v]||0)+1;});
+      return {key:c[0],label:c[1],options:Object.keys(m).sort().map(function(v){return [v,m[v]];})};}),
+    wide:true,selected:LF[key]||{},
+    onApply:function(sel){LF[key]=sel;lfRender(key);var b=document.getElementById('lfb-'+key);if(b)b.focus();}});
+}
+function lfRender(key){if(key==='calendar')renderCal();else if(key.indexOf('uw-')===0)renderUW();else renderRM();}
+function lfEmpty(n){return '<tr><td colspan="'+n+'" class="qempty">No cases match the selected filters</td></tr>';}
+function lfBadges(keys){keys.forEach(function(k){fmBadge('lfb-'+k,'lfn-'+k,LF[k]);});}
+
 function renderUW(){
   var p=document.getElementById('uwp-rows');
-  if(p)p.innerHTML=UWP.map(r=>`<tr><td><span class="evid" style="cursor:pointer" onclick="openUWCase(${r[0]})">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${UWD}</td><td>85</td><td>${opill(r[2],'orange',r[3])}</td><td>${r[4]}</td><td>${UWLOC}</td><td>${uwCell(r[5],r[6])}</td></tr>`).join('');
+  if(p){var q=lfRows('uw-pending');p.innerHTML=q.length?q.map(([r,i])=>`<tr><td><span class="evid" style="cursor:pointer" onclick="openUWCase(${r[0]})">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-pending',i)}</td><td>85</td><td>${opill(r[2],'orange',r[3])}</td><td>${r[4]}</td><td>${LOCS[i]}</td><td>${uwCell(r[5],r[6])}</td></tr>`).join(''):lfEmpty(9);}
   var a=document.getElementById('uwa-rows');
-  if(a)a.innerHTML=UWA.map(r=>`<tr><td><span class="evid">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${UWD}</td><td>85</td><td>${opill(r[2],r[3])}</td><td>${r[4]}</td><td>${UWLOC}</td><td>${uwCell(r[5],r[6])}</td></tr>`).join('');
+  if(a){var q2=lfRows('uw-approved');a.innerHTML=q2.length?q2.map(([r,i])=>`<tr><td><span class="evid">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-approved',i)}</td><td>85</td><td>${opill(r[2],r[3])}</td><td>${r[4]}</td><td>${LOCS[i]}</td><td>${uwCell(r[5],r[6])}</td></tr>`).join(''):lfEmpty(9);}
   var j=document.getElementById('uwr-rows');
-  if(j)j.innerHTML=UWR.map(r=>`<tr><td><span class="evid">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${UWD}</td><td>85</td><td>${r[2]}</td><td>${UWLOC}</td><td>${uwCell(r[3],r[4])}</td></tr>`).join('');
+  if(j){var q3=lfRows('uw-rejected');j.innerHTML=q3.length?q3.map(([r,i])=>`<tr><td><span class="evid">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-rejected',i)}</td><td>85</td><td>${r[2]}</td><td>${LOCS[i]}</td><td>${uwCell(r[3],r[4])}</td></tr>`).join(''):lfEmpty(8);}
+  lfBadges(['uw-pending','uw-approved','uw-rejected']);dsSync(['uw-pending','uw-approved','uw-rejected']);
 }
 
 
@@ -4281,12 +4567,64 @@ function cascadeMetrics(){
 }
 
 /* ─── TOAST ─── */
-function showToast(msg){
-  var t = document.getElementById('toast');
-  t.textContent = '✓ '+msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 2800);
+function showToast(msg){ fmsToast(msg,'success'); }
+
+/* ── Submit: confirmation popup (same pattern as the agent's "Fleet Evaluated" popup) ── */
+var UWS_CP={2:{veh:150,lc:1933000},1:{veh:100,lc:1092000}};   /* vehicles + OD LC Final per CP, as shown in Fleet Metrics */
+var UWS_MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function uwsStamp(){
+  var d=new Date(),h=d.getHours(),ap=h>=12?'PM':'AM';h=h%12||12;
+  return d.getDate()+' '+UWS_MON[d.getMonth()]+' '+d.getFullYear()+', '+h+':'+('0'+d.getMinutes()).slice(-2)+' '+ap;
 }
+function uwSubmit(){
+  var basic=(typeof uwMode!=='undefined'&&uwMode==='basic');
+  var fs=document.querySelector('#uwdetail .fleet-sub');
+  var fid=((fs&&fs.textContent)||'FMS_1111').replace(/^\s*Fleet ID:\s*/,'').trim();
+  var cps=basic?[1]:[2,1],total=0,approved=0,lc=0;
+  cps.forEach(function(n){total+=UWS_CP[n].veh;lc+=UWS_CP[n].lc;if(dec[n]==='ap')approved+=UWS_CP[n].veh;});
+  var row=function(l,r){return '<div class="appr-row"><span class="l">'+l+'</span><span class="r">'+r+'</span></div>';};
+  var rows=row('Fleet ID',fid)
+    +row('Vehicles approved',approved+' of '+total)
+    +row('Loss cost (entire fleet)','\u20b9'+lc.toLocaleString('en-IN'))
+    +row('Evaluated on',uwsStamp());
+  document.getElementById('uws-det').innerHTML=rows;
+  document.getElementById('uws-body').textContent=basic
+    ?'Your decision has been recorded. The remark will be shared with the Agent and Relationship Manager via email.'
+    :'Your decisions have been recorded. Remarks will be shared with the respective Agents and Relationship Managers via email.';
+  document.getElementById('uws-tick').innerHTML='<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><circle class="appr-circle" cx="26" cy="26" r="24"/><path class="appr-check" d="M15 27l7 7 15-16"/></svg>';
+  document.getElementById('uws-modal').classList.add('on');document.body.style.overflow='hidden';
+  setTimeout(function(){var b=document.querySelector('#uws-modal .btn.primary');if(b)b.focus();},30);
+}
+function uwdReset(){
+  [1,2].forEach(function(n){dec[n]=null;});
+  document.querySelectorAll('#uwdetail .rg .ro').forEach(function(r){r.className='ro';var i=r.querySelector('input');if(i)i.checked=false;});
+  document.querySelectorAll('#uwdetail .msgbox textarea').forEach(function(t){t.value='';});
+  updateDec();
+}
+document.addEventListener('DOMContentLoaded',function(){
+  try{switchCP(2);}catch(e){}
+  try{renderCal();}catch(e){}
+  /* tab hint: "(" + first 8 characters of the CP's business name + "…" + ")" ; full name on hover / for screen readers */
+  [2,1].forEach(function(n){
+    var lab=[].filter.call(document.querySelectorAll('#ins-'+n+' .kv-l'),function(e){return e.textContent.trim()==='Business Name';})[0];
+    var name=lab&&lab.nextElementSibling?lab.nextElementSibling.textContent.trim():'';
+    var hint=document.getElementById('tab'+n+'-bn'),btn=document.getElementById('tab'+n);
+    if(!hint||!name)return;
+    hint.textContent='('+(name.length>8?name.slice(0,8).trimEnd()+'…':name)+')';
+    btn.setAttribute('title',name);btn.setAttribute('aria-label','CP'+n+' Fleet, '+name);
+  });
+  try{dsSync(['dashboard']);}catch(e){}
+  /* flag the tab bar only while it is really stuck under the header (exact: its top == header height) */
+  var bar=document.querySelector('#uwdetail .cp-bar');
+  function stuck(){if(bar)bar.classList.toggle('is-stuck',bar.offsetParent!==null&&bar.getBoundingClientRect().top<=62.5);}
+  window.addEventListener('scroll',stuck,{passive:true});window.addEventListener('resize',stuck);stuck();
+});
+function uwsClose(){
+  var m=document.getElementById('uws-modal');if(!m.classList.contains('on'))return;
+  m.classList.remove('on');document.body.style.overflow='';
+  uwdReset();go('uw-pending');window.scrollTo(0,0);
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')uwsClose();});
 
 /* switchCP is patched above to call showInputsForCP when in edit mode */
 var dlabels={ap:'Approved',ho:'On Hold',re:'Rejected'};
@@ -4353,6 +4691,9 @@ function aoSelectAddon(cp, key, el){
   });
 }
 
+function aoSetEnabled(on){
+  document.querySelectorAll('#uwdetail .ao-wrap input').forEach(function(i){ i.disabled=!on; });
+}
 function aoEnterEdit(){
   aoEditMode = true;
   /* snapshot current state for cancel */
@@ -4362,6 +4703,7 @@ function aoEnterEdit(){
   });
   /* enable both CPs wraps */
   document.querySelectorAll('.ao-wrap').forEach(function(w){ w.classList.remove('disabled'); });
+  aoSetEnabled(true);
   /* CTA swap */
   document.getElementById('ao-btn-edit').classList.add('hidden');
   document.getElementById('ao-btn-cancel').classList.remove('hidden');
@@ -4387,12 +4729,14 @@ function aoUpdate(){
 function aoExitEdit(){
   aoEditMode = false;
   document.querySelectorAll('.ao-wrap').forEach(function(w){ w.classList.add('disabled'); });
+  aoSetEnabled(false);
   document.getElementById('ao-btn-edit').classList.remove('hidden');
   document.getElementById('ao-btn-cancel').classList.add('hidden');
   document.getElementById('ao-btn-update').classList.add('hidden');
   document.getElementById('ao-hdr-title').textContent = 'Update Add-ons';
 }
 
+aoSetEnabled(false); /* read-only until Edit */
 function aoZDSlide(cp, val){
   val = parseInt(val);
   var inp = document.getElementById('ao'+cp+'-zd-input');
@@ -4551,7 +4895,8 @@ function updateDec(){
   var cnt=(dec[1]?1:0)+(basic?0:(dec[2]?1:0));
   var ok=basic?!!dec[1]:(dec[1]&&dec[2]);
   var dov=document.getElementById('dov');
-  if(dov)dov.textContent=basic?(ok?'\u2713 Decision complete \u00b7 Ready to submit':'1 decision required \u00b7 '+cnt+' completed'):(cnt===2?'\u2713 Both decisions complete \u00b7 Ready to submit':'2 decisions required \u00b7 '+cnt+' completed');
+  if(dov){var done=basic?ok:(cnt===2);
+    dov.innerHTML=done?'<span class="ms">check_circle</span>'+(basic?'Decision complete':'Both decisions complete')+' &middot; Ready to submit':(basic?'1 decision required &middot; '+cnt+' completed':'2 decisions required &middot; '+cnt+' completed');}
   var btn=document.getElementById('subbtn');
   if(ok){btn.className='btn-sub on';btn.disabled=false;}
   else{btn.className='btn-sub off';btn.disabled=true;}
@@ -4650,15 +4995,15 @@ const RMSHARED={1111:1,1113:1,1116:1,1119:1};
 function rmTag(id){return RMSHARED[id]?'<span class="spool">Shared Pool</span>':'';}
 const RMAG=['Arvind Taneja','Priya Menon','Rahul Nair','Sunita Rao','Vikram Singh','Kavya Iyer','Rohit Sharma','Deepak Joshi','Meera Pillai','Anil Kumar'];
 const RMUW=[['Ravi Reddy',1],['Amarjeet Kapoor',1],['Bhashkar Shetty',1],['Neha Gupta',0],['Ravi Reddy',0],['Sanjay Verma',0],['Amarjeet Kapoor',0],['Pooja Desai',0],['Sneha Reddy',0],['Bhashkar Shetty',0]];
-function rmRow(id,i,ver,st,cls,from){return `<tr><td><span class="evid" style="cursor:pointer" onclick="openRMCase(${id},'${st==='Commission Awaited'?'edit':'view'}','${from}')">FMS_${id}</span>${rmTag(id)}</td><td>FMS_${id}_${ver}</td><td>${RMB}</td><td>${RMD}</td><td><span class="opill ${cls}">${st}</span></td><td>${RMAG[i]}</td><td>${RMLOC}</td><td>${RMUW[i][0]}${RMUW[i][1]?'<span class="umore">+2 more</span>':''}</td></tr>`;}
+function rmRow(id,i,ver,st,cls,from){return `<tr><td><span class="evid" style="cursor:pointer" onclick="openRMCase(${id},'${st==='Commission Awaited'?'edit':'view'}','${from}')">FMS_${id}</span>${rmTag(id)}</td><td>FMS_${id}_${ver}</td><td>${RMB}</td><td>${dsFmt(from,i)}</td><td><span class="opill ${cls}">${st}</span></td><td>${RMAG[i]}</td><td>${LOCS[i]}</td><td>${RMUW[i][0]}${RMUW[i][1]?'<span class="umore">+2 more</span>':''}</td></tr>`;}
 function renderRM(){
-  var ids=[1111,1112,1113,1114,1115,1116,1117,1118,1119,1120];
-  var p=document.getElementById('rmp-rows');
-  if(p)p.innerHTML=ids.map((id,i)=>rmRow(id,i,RMSHARED[id]?'002':'001','Commission Awaited','orange','rm-pending')).join('');
-  var a=document.getElementById('rma-rows');
-  if(a)a.innerHTML=ids.map((id,i)=>rmRow(id,i,RMSHARED[id]?'002':'001','Approved','green','rm-approved')).join('');
-  var r=document.getElementById('rmr-rows');
-  if(r)r.innerHTML=ids.map((id,i)=>rmRow(id,i,RMSHARED[id]?'002':'001','Rejected','red','rm-rejected')).join('');
+  var spec=[['rmp-rows','rm-pending','Commission Awaited','orange'],['rma-rows','rm-approved','Approved','green'],['rmr-rows','rm-rejected','Rejected','red']];
+  spec.forEach(function(x){
+    var el=document.getElementById(x[0]);if(!el)return;
+    var q=lfRows(x[1]);
+    el.innerHTML=q.length?q.map(function(y){var id=y[0][0];return rmRow(id,y[1],RMSHARED[id]?'002':'001',x[2],x[3],x[1]);}).join(''):lfEmpty(8);
+  });
+  lfBadges(['rm-pending','rm-approved','rm-rejected']);dsSync(['rm-pending','rm-approved','rm-rejected']);
 }
 function openRMCase(id,mode,from){rmMode=mode;rmFrom=from||'rm-pending';setRMMode(mode);go('rm-detail');}
 function rmBackTarget(){return rmFrom||'rm-pending';}
@@ -4767,6 +5112,7 @@ let customMode = {};      // { [segId]: bool } — true while editing above reco
 let segResult = {};       // { [segId]: undefined | 'qualified' | 'not-qualified' | 'accepted' | 'rec-updated' }
 let recUpdatedFrom = {};  // { [segId]: name of the segment whose modification caused this shift }
 let editingSegId = null;  // segment currently showing inline editor
+let editSnap = null;      // state of the edited segment when its editor opened (Reset restores it)
 let agentConfig = {};     // { [segId]: { disc, isCustom, addons } }
 let attempts = 5;
 let hasReEvaluated = false;
@@ -5019,8 +5365,8 @@ function openZdEditor() {
   setTimeout(() => { const el = document.getElementById('zd-input'); if (el) el.focus(); }, 50);
 }
 
-function closeZdEditor() {
-  zdEditing = false;
+function closeZdEditor() {   // Reset: drop the modification and go back to the system's recommendation
+  zdEditing = false; zdModified = false; zdModVal = null;
   buildSegments();
 }
 
@@ -5041,6 +5387,9 @@ function onZdInput() {
   const clean = isNaN(val) ? zdCurrent : Math.max(0, Math.min(100, val));
   const declared = Math.ceil(zdEligibleCount * (clean / 100));
   document.getElementById('zd-min-vehicles').textContent = declared;
+  /* instant: a valid declaration is applied right away (price + footer), an invalid one falls back to the plan's value */
+  if (zdEditValid()) { zdModVal = parseFloat(input.value); zdModified = true; zdAccepted = false; }
+  else { zdModified = false; zdModVal = null; }
   wireFooter();
 }
 
@@ -5224,6 +5573,7 @@ function openEditor(segId) {
   editingSegId = segId;
   const seg = segments.find(s => s.id === segId);
   const ac = agentConfig[segId];
+  editSnap = { id: segId, ac: ac ? JSON.parse(JSON.stringify(ac)) : undefined, res: segResult[segId], custom: !!(ac && ac.isCustom) };
   // Restore addon state from last submitted config
   addonState[segId] = {};
   if (ac && ac.addons) {
@@ -5255,12 +5605,16 @@ function openEditor(segId) {
   }, 50);
 }
 
-function closeEditor(segId) {
+/* put a segment back to how it was when its editor opened (edits apply live, so Reset has to undo them) */
+function revertSegmentEdit(segId) {
+  if (!editSnap || editSnap.id !== segId) return;
+  if (editSnap.ac) agentConfig[segId] = JSON.parse(JSON.stringify(editSnap.ac)); else delete agentConfig[segId];
+  if (editSnap.res === undefined) delete segResult[segId]; else segResult[segId] = editSnap.res;
+  customMode[segId] = editSnap.custom;
+}
+function closeEditor(segId) {   // Reset
   editingSegId = null;
-  // Discard this session's in-progress changes — fall back to whatever was already
-  // committed for this segment (or nothing, if it was never edited before)
-  const ac = agentConfig[segId];
-  customMode[segId] = !!(ac && ac.isCustom);
+  revertSegmentEdit(segId);
   buildSegments();
 }
 
@@ -5280,6 +5634,8 @@ function onDiscountInput(segId) {
     wrap.style.display = 'none';
     customMode[segId] = false;
   }
+  /* instant: a valid discount is applied right away; an invalid one goes back to how the segment was before editing */
+  if (segEditValid(seg)) commitSegmentEdit(segId); else revertSegmentEdit(segId);
   wireFooter();
 }
 
@@ -5288,6 +5644,8 @@ function toggleAddon(segId, ai, bi) {
   const s = addonState[segId][ai];
   if (s.has(bi)) s.delete(bi); else s.add(bi);
   document.getElementById(`chip-${segId}-${ai}-${bi}`).classList.toggle('checked', s.has(bi));
+  const sg = segments.find(x => x.id === segId); if (sg && customMode[segId] && segEditValid(sg)) commitSegmentEdit(segId);   // instant
+  wireFooter();
 }
 
 // ── Accept the system's counter-recommendation ──
@@ -5312,28 +5670,20 @@ function zdEditValid() {
   const v = parseFloat(i.value), base = zdModified ? zdModVal : zdCurrent;
   return !isNaN(v) && v > zdCurrent && v <= 100 && v !== base;
 }
-/* "Update" applies an in-progress modification (prices were frozen while editing), then the CTA becomes "Proceed" */
-function recUpdateRun(apply) {
-  analyse(['Updating your changes'], 'Please wait while your changes are applied.', function () { apply(); fmsToast('Changes updated successfully.', 'success'); }, 1200);
-}
-function zdUpdate() {
-  if (!zdEditValid()) return;
-  const v = parseFloat(document.getElementById('zd-input').value);
-  recUpdateRun(() => { zdModVal = v; zdModified = true; zdEditing = false; zdAccepted = false; buildSegments(); });
+/* Edits apply instantly (no Update step): a valid ZD declaration / segment discount re-prices the footer as you type. */
+function zdEditValid() {
+  const i = document.getElementById('zd-input'); if (!i) return false;
+  const v = parseFloat(i.value);
+  return !isNaN(v) && v > zdCurrent && v <= 100;
 }
 function proceedZdModified() {
   if (attempts <= 0) { routeToUnderwriter('No attempts remaining. Fleet will be routed to underwriter evaluation.'); return; }
   recLoad(() => { attempts--; updateAttempts(); zdFinal = zdModVal; enterSegmentPhase(); });
 }
-function segUpdate() {
-  const id = editingSegId, s = segments.find(x => x.id === id);
-  if (!s || !segEditModified(s)) return;
-  recUpdateRun(() => { commitSegmentEdit(id); editingSegId = null; buildSegments(); });
-}
-function segEditModified(s) {
+function segEditValid(s) {
   const i = document.getElementById('disc-input-' + s.id); if (!i) return false;
-  const v = parseFloat(i.value), ac = agentConfig[s.id];
-  return !isNaN(v) && v > s.recDisc && v <= s.prevDisc && (!ac || v !== ac.disc);
+  const v = parseFloat(i.value);
+  return !isNaN(v) && v > s.recDisc && v <= s.prevDisc;
 }
 /* B2C price block (shared by the Plan and Recommendation footers): final premium, before-discount premium struck through, "Saved" chip */
 function priceWrite(p, f) {
@@ -5356,7 +5706,6 @@ function recCurDisc(s) {
 }
 function recPrice() {
   const f0 = window.planLast; if (!f0 || !document.getElementById('rec-prem')) return;
-  if (zdEditing || editingSegId !== null) return;   // frozen while a modification is in progress — changes only on Update
   const z0 = Number(zdCurrent), Lr = (1 + 0.12 * recCurZd() / 100) / (1 + 0.12 * z0 / 100);
   let req = 0, cur = 0; segments.forEach(s => { req += s.count * s.prevDisc; cur += s.count * recCurDisc(s); });
   const gross = Math.round(f0.gross * ((1 - f0.odShare) + f0.odShare * Lr) / 25) * 25;
@@ -5369,14 +5718,14 @@ function recPrice() {
 function wireFooter() {
   const btn = document.getElementById('main-cta');
   const set = (label, enabled, fn) => { btn.textContent = label; btn.disabled = !enabled; btn.onclick = enabled ? fn : null; recPrice(); };
-  /* any modification in progress -> "Update" (enabled once the value really changed); otherwise "Proceed" */
+  /* edits apply instantly, so the CTA is always "Proceed" (enabled once the current edit is valid) */
   if (zdPhase) {
-    if (zdEditing) { set('Update', zdEditValid(), zdUpdate); return; }
+    if (zdEditing) { set('Proceed', zdModified, proceedZdModified); return; }   // a valid declaration is already applied (live)
     if (zdAccepted) { set('Proceed', true, proceedZdAccepted); return; }
     if (zdModified) { set('Proceed', true, proceedZdModified); return; }
     set('Proceed', false, null); return;
   }
-  if (editingSegId !== null) { const s = segments.find(x => x.id === editingSegId); set('Update', !!s && segEditModified(s), segUpdate); return; }
+  if (editingSegId !== null) { const s = segments.find(x => x.id === editingSegId); if (!s || !segEditValid(s)) { set('Proceed', false, null); return; } }   // the edited discount is already applied (live)
   const unsettled = segments.filter(s => !resolved[s.id]);
   const handled = s => segResult[s.id] === 'accepted' || (agentConfig[s.id] && segResult[s.id] === undefined);
   set('Proceed', unsettled.length > 0 && unsettled.every(handled), doReEvaluate);
@@ -5597,7 +5946,7 @@ function fmsToast(msg, type){
 
 </script>
 <script>
-/* ===== Plan: any change turns "Get Quote" into "Update"; Update re-prices the plan, then "Get Quote" is active again ===== */
+/* ===== Plan: pricing follows every change instantly (cover type, segment discounts, ZD, add-ons). There is no Update step. ===== */
 var PLAN_N=[30,20,20,30], PLAN_OD=[24000,30000,28000,12000], PLAN_TP=[8000,9000,9000,4500];
 var PLAN_BASE_NET=2847500, PLAN_BASE_SAV=142375, PLAN_BASE_GROSS=2847500+142375, PLAN_BASE_DISC=21;   // what the default plan shows
 var planLast=null;   // last applied figures {gross, sav, net, disc, odShare}
@@ -5632,34 +5981,25 @@ function planFigures(st){
   var r=planRaw(st),gross=Math.round(PLAN_BASE_GROSS*r.gross/planBase.gross/25)*25,sav=Math.round(PLAN_BASE_SAV*r.sav/planBase.sav/25)*25;
   return {gross:gross,sav:sav,net:gross-sav,disc:Math.round(PLAN_BASE_DISC*r.disc/planBase.disc*10)/10,odShare:r.od/r.gross};
 }
-function planDirty(){return JSON.stringify(planState())!==planSnap;}
-function planSync(){
-  var b=document.getElementById('plan-cta'),f=document.querySelector('#plan .premfoot');if(!b||!f)return;
-  var d=planDirty();
-  b.textContent=d?'Update':'Get Quote \u2192';b.dataset.mode=d?'update':'quote';
-  f.classList.toggle('dirty',d);
+/* re-prices the plan the moment anything that affects price changes */
+function planApply(){
+  var st=planState(),key=JSON.stringify(st);
+  if(key===planSnap)return;
+  planSnap=key;
+  var fg=planFigures(st);
+  priceWrite('plan',fg);planLast=fg;
+  var o=document.getElementById('overall');if(o)o.textContent=fg.disc;
+  var s=document.querySelector('#plan .stats');if(s){s.classList.remove('fresh');void s.offsetWidth;s.classList.add('fresh');}
 }
 function planGetQuote(){
   analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){openInterception();},4000);
 }
-function planUpdate(){
-  planBusy=true;
-  analyse(['Updating your plan','Recalculating premium and savings'],'Please wait while your changes are applied.',function(){
-    var st=planState(),fg=planFigures(st);
-    priceWrite('plan',fg);planLast=fg;
-    document.getElementById('overall').textContent=fg.disc;
-    planSnap=JSON.stringify(st);planBusy=false;planSync();
-    var s=document.querySelector('#plan .stats');if(s){s.classList.remove('fresh');void s.offsetWidth;s.classList.add('fresh');}
-    fmsToast('Changes updated successfully.','success');
-  },1600);
-}
-function planCta(){if(planBusy)return;if(planDirty())planUpdate();else planGetQuote();}
+function planCta(){if(planBusy)return;planGetQuote();}
 (function planInit(){
   var pl=document.getElementById('plan');if(!pl)return;
   planBase=planRaw(planState());planSnap=JSON.stringify(planState());
   planLast=planFigures(planState());priceWrite('plan',planLast);
-  ['input','change','click'].forEach(function(t){pl.addEventListener(t,function(){setTimeout(planSync,0);});});
-  planSync();
+  ['input','change','click'].forEach(function(t){pl.addEventListener(t,function(){setTimeout(planApply,0);});});
 })();
 </script>
 <script>
