@@ -81,10 +81,6 @@ button{font-family:inherit;cursor:pointer}
 .header .r{display:flex;align-items:center;gap:16px}
 .bell{width:32px;height:32px;border:1px solid var(--e0);background:#fff;border-radius:100px;display:grid;place-items:center;position:relative}
 .bell:hover{background:#fafafa}
-.hsw{width:32px;height:32px;border:1px solid var(--e0);background:#fff;border-radius:100px;display:grid;place-items:center;color:#757575;cursor:pointer;padding:0;transition:background .15s,color .15s}
-.hsw .msym{font-size:18px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20}
-.hsw:hover{background:var(--soft2);color:var(--brand)}
-.hsw:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:2px}
 .bell .dot{position:absolute;top:6px;right:6px;width:7px;height:7px;background:#ffd400;border-radius:50%}
 .user{display:flex;align-items:center;gap:8px}
 .user .av{width:36px;height:36px;border-radius:50%;overflow:hidden;display:grid;place-items:center;flex:0 0 auto}
@@ -778,7 +774,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
   --r:16px;--rp:999px;
 }
 #uwdetail *{box-sizing:border-box;margin:0;padding:0;}
-#uwdetail{font-family:'Mulish',sans-serif;background:transparent;color:var(--t1);-webkit-font-smoothing:antialiased;padding-bottom:80px;}
+#uwdetail{font-family:'Mulish',sans-serif;background:transparent;color:var(--t1);-webkit-font-smoothing:antialiased;padding-bottom:0;}
 #uwdetail .ms{font-family:'Material Symbols Rounded';font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;font-size:18px;line-height:1;vertical-align:-3px;display:inline-block;}
 #uwdetail button, #uwdetail input, #uwdetail textarea{font-family:inherit;cursor:pointer;}
 #uwdetail .topbar{height:54px;background:linear-gradient(105deg,var(--or1),var(--or2) 55%,var(--or3));display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:200;}
@@ -925,7 +921,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .tl{width:2px;height:100%;background:var(--bs);margin:0 auto;}
 #uwdetail .tbl-foot{display:flex;justify-content:flex-end;padding:9px 14px;font-size:11.5px;color:var(--t3);background:#FAFAFA;border-top:1px solid var(--tb);}
 #uwdetail .frz-c{width:90px;min-width:90px;}
-#uwdetail .od-inp{width:62px;border:1.4px solid var(--bs);border-radius:6px;padding:4px 7px;font-size:12px;font-weight:700;color:var(--t3);background:#F5F2EE;text-align:right;outline:none;cursor:default;}
+#uwdetail .od-inp{width:62px;border:1.4px solid var(--bs);border-radius:6px;padding:4px 7px;font-size:12px;font-weight:700;color:var(--t3);background:#F5F5F5;text-align:right;outline:none;cursor:default;}
 #uwdetail .edit-mode .od-inp{border-color:var(--orange);background:#fff;color:var(--t1);cursor:text;}
 #uwdetail .edit-mode .od-inp:focus{border-color:var(--cp1);background:var(--cp1t);box-shadow:0 0 0 3px rgba(29,96,212,.12);}
 #uwdetail .od-ro{font-size:12px;color:var(--t2);}
@@ -975,7 +971,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .ao-panel-title{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;color:var(--t1);}
 #uwdetail .ao-panel-sub{font-size:13px;color:var(--t2);margin-bottom:20px;line-height:1.5;}
 #uwdetail /* ZD slider panel */
-.ao-slider-box{border:1.5px solid #D9D6D0;border-radius:12px;padding:18px 24px;background:#F9F8F6;margin-bottom:20px;}
+.ao-slider-box{border:1.5px solid #E0E0E0;border-radius:12px;padding:18px 24px;background:#F5F5F5;margin-bottom:20px;}
 #uwdetail .ao-slider-lbl{font-size:12.5px;font-weight:600;color:var(--t2);margin-bottom:14px;}
 #uwdetail .ao-slider-row{display:flex;align-items:center;gap:12px;}
 #uwdetail .ao-slider-min{font-size:12px;color:var(--t2);font-weight:500;flex-shrink:0;}
@@ -984,15 +980,15 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .ao-slider:disabled{opacity:.5;cursor:not-allowed;}
 #uwdetail .ao-slider-val{width:52px;border:1.5px solid var(--bc);border-radius:7px;padding:5px 8px;font-size:13px;font-weight:700;text-align:center;outline:none;flex-shrink:0;}
 #uwdetail .ao-slider-val:focus{border-color:var(--cp1);}
-#uwdetail .ao-slider-val:disabled{background:#F5F2EE;color:var(--t3);cursor:not-allowed;}
-#uwdetail .ao-slider-stats{margin-top:16px;padding-top:14px;border-top:1px solid #E5E3DF;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t2);}
+#uwdetail .ao-slider-val:disabled{background:#F5F5F5;color:var(--t3);cursor:not-allowed;}
+#uwdetail .ao-slider-stats{margin-top:16px;padding-top:14px;border-top:1px solid #E0E0E0;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t2);}
 #uwdetail .ao-slider-stats .stat-sep{color:var(--t3);}
 #uwdetail .ao-slider-stats .stat-val{font-weight:700;color:var(--cp1);}
 #uwdetail .ao-confirm-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--t2);}
 #uwdetail .ao-confirm-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--orange);margin-top:2px;flex-shrink:0;}
 #uwdetail /* Age group accordion */
 .ao-grps{display:flex;flex-direction:column;gap:8px;}
-#uwdetail .ao-grp{border:1px solid #E5E3DF;border-radius:10px;overflow:hidden;background:#F5F3EF;}
+#uwdetail .ao-grp{border:1px solid #E0E0E0;border-radius:10px;overflow:hidden;background:#F5F5F5;}
 #uwdetail .ao-gh{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;background:transparent;}
 #uwdetail .ao-gh input[type=checkbox]{width:16px;height:16px;accent-color:var(--orange);flex-shrink:0;}
 #uwdetail .ao-gl{font-size:13px;font-weight:600;flex:1;color:var(--t1);}
@@ -1010,7 +1006,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 .ao-wrap.disabled .ao-gh{cursor:default;pointer-events:none;}
 #uwdetail .ao-wrap.disabled input[type=checkbox]{pointer-events:none;opacity:.55;}
 #uwdetail .ao-wrap.disabled .ao-slider{pointer-events:none;cursor:not-allowed;opacity:.65;}
-#uwdetail .ao-wrap.disabled .ao-slider-val{pointer-events:none;background:#F5F2EE;color:var(--t2);}
+#uwdetail .ao-wrap.disabled .ao-slider-val{pointer-events:none;background:#F5F5F5;color:var(--t2);}
 #uwdetail .ao-wrap.disabled .ao-confirm-row{pointer-events:none;opacity:.6;}
 #uwdetail .ao-wrap.disabled .ao-it{cursor:default;}
 #uwdetail /* CTAs */
@@ -1060,7 +1056,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .dinf{width:100%;margin-bottom:20px;}
 #uwdetail .ddoc{width:100%;}
 #uwdetail .dc-lbl{display:none;}
-#uwdetail .dvtb{display:flex;align-items:center;gap:0;padding:12px 18px;background:#F8F6F2;border:1px solid var(--bc);border-radius:10px 10px 0 0;}
+#uwdetail .dvtb{display:flex;align-items:center;gap:0;padding:12px 18px;background:#F5F5F5;border:1px solid var(--bc);border-radius:10px 10px 0 0;}
 #uwdetail .dvtb-lbl{font-size:13px;font-weight:700;flex-shrink:0;min-width:120px;}
 #uwdetail .dvpgr{display:flex;align-items:center;gap:8px;flex:1;justify-content:center;}
 #uwdetail .dpbtn{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bc);background:#fff;color:var(--t2);display:flex;align-items:center;justify-content:center;}
@@ -1069,11 +1065,11 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .dplbl{font-size:13px;font-weight:500;color:var(--t2);white-space:nowrap;}
 #uwdetail .dvic{display:flex;align-items:center;gap:12px;flex-shrink:0;}
 #uwdetail .dvic .ms{font-size:20px;color:var(--t2);cursor:pointer;}
-#uwdetail .dvc{border:1px solid var(--bc);border-top:none;border-radius:0 0 10px 10px;padding:24px 20px;background:#F5F3EF;display:flex;justify-content:center;min-height:280px;}
+#uwdetail .dvc{border:1px solid var(--bc);border-top:none;border-radius:0 0 10px 10px;padding:24px 20px;background:#F5F5F5;display:flex;justify-content:center;min-height:280px;}
 #uwdetail .a4{width:100%;max-width:180px;aspect-ratio:1/1.414;background:#fff;border:1px solid var(--bs);border-radius:4px;padding:10px 9px;display:flex;flex-direction:column;margin:0 auto;}
 #uwdetail .a4-hd{height:3px;border-radius:2px;background:linear-gradient(90deg,var(--bs),var(--bc));margin-bottom:9px;}
 #uwdetail .a4-tr{display:flex;gap:7px;margin-bottom:10px;}
-#uwdetail .a4-ph{width:26px;height:26px;border-radius:4px;background:#EEE8DC;flex-shrink:0;}
+#uwdetail .a4-ph{width:26px;height:26px;border-radius:4px;background:#EEEEEE;flex-shrink:0;}
 #uwdetail .a4-ls{flex:1;display:flex;flex-direction:column;gap:4px;padding-top:3px;}
 #uwdetail .a4-ls span{display:block;height:3px;border-radius:2px;background:var(--bs);}
 #uwdetail .a4-ls span:last-child{width:55%;}
@@ -1127,7 +1123,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .hcpbdg{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin:0 3px;}
 #uwdetail .hcpbdg.b1{background:var(--cp1t);color:var(--cp1);}
 #uwdetail .hcpbdg.b2{background:var(--cp2t);color:var(--cp2);}
-#uwdetail .hbox{background:#fff;border:1px solid #E8E4DE;border-radius:12px;padding:24px 28px;margin-bottom:28px;border-left:3px solid var(--bc);}
+#uwdetail .hbox{background:#fff;border:1px solid #E0E0E0;border-radius:12px;padding:24px 28px;margin-bottom:28px;border-left:3px solid var(--bc);}
 #uwdetail .hbox.h1{border-left-color:var(--cp1);}
 #uwdetail .hbox.h2{border-left-color:var(--cp2);}
 #uwdetail .hgr{display:grid;grid-template-columns:repeat(5,1fr);gap:8px 20px;margin-bottom:20px;}
@@ -1135,7 +1131,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .hg-l{font-size:11px;color:var(--t3);font-weight:500;}
 #uwdetail .hg-v{font-size:14px;font-weight:700;color:var(--t1);}
 #uwdetail .hg-v.ok{color:var(--grn);}
-#uwdetail .hrk{margin-top:18px;padding-top:16px;border-top:1px solid #EDE9E3;}
+#uwdetail .hrk{margin-top:18px;padding-top:16px;border-top:1px solid #EEEEEE;}
 #uwdetail .hrk .hg-l{font-size:11px;color:var(--t3);font-weight:500;display:block;margin-bottom:10px;}
 #uwdetail .hrk-list{display:flex;flex-direction:column;gap:6px;}
 #uwdetail .hrk-item{font-size:13px;color:var(--t1);font-weight:500;}
@@ -1157,7 +1153,7 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .msgbox label{font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.3px;margin-bottom:7px;}
 #uwdetail .msgbox textarea{flex:1;min-height:100px;resize:vertical;border:1.4px solid var(--bc);border-radius:10px;padding:13px 15px;font-size:13px;color:var(--t1);outline:none;line-height:1.6;}
 #uwdetail .msgbox textarea:focus{border-color:var(--orange);}
-#uwdetail .dec-sum{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#F8F5F0;border-radius:10px;margin-top:4px;flex-wrap:wrap;}
+#uwdetail .dec-sum{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#F5F5F5;border-radius:10px;margin-top:4px;flex-wrap:wrap;}
 #uwdetail .dsi{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;}
 #uwdetail .dsi-d{width:8px;height:8px;border-radius:50%;background:var(--t3);}
 #uwdetail .dsi-d.ap{background:var(--grn);}
@@ -1174,14 +1170,14 @@ input[type=range].sl::-moz-range-track{background:transparent}
 #uwdetail .lbtn .ms{font-size:14px;}
 #uwdetail .lbtn:hover{text-decoration:underline;}
 #uwdetail /* STICKY FOOTER */
-.sfoot{position:fixed;bottom:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:center;gap:16px;padding:16px 0;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--bc);box-shadow:0 -4px 20px rgba(0,0,0,.08);transition:transform .25s ease, opacity .25s ease;}
+.sfoot{position:sticky;bottom:0;z-index:30;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:12px 24px;background:#fff;border-top:1px solid #E5E7EB;box-shadow:0 -6px 15px -3px rgba(0,0,0,.05);margin-top:16px;transition:transform .25s ease, opacity .25s ease;}
 #uwdetail .sfoot.hidden-foot{transform:translateY(100%);opacity:0;pointer-events:none;}
 #uwdetail .sfhint{display:none;}
-#uwdetail .btn-close{padding:13px 52px;border-radius:50px;font-size:14px;font-weight:600;border:1.5px solid var(--orange);background:#fff;color:var(--orange);cursor:pointer;transition:all .18s;}
+#uwdetail .btn-close{padding:10px 24px;border-radius:50px;font-size:14px;font-weight:700;border:1.5px solid var(--orange);background:#fff;color:var(--orange);cursor:pointer;transition:all .18s;}
 #uwdetail .btn-close:hover{background:var(--otint);}
-#uwdetail .btn-sub{padding:13px 52px;border-radius:50px;font-size:14px;font-weight:600;border:none;transition:all .18s;}
+#uwdetail .btn-sub{padding:10px 24px;border-radius:50px;font-size:14px;font-weight:700;border:none;transition:all .18s;}
 #uwdetail .btn-sub.on{background:linear-gradient(135deg,var(--or1),var(--or2));color:#fff;box-shadow:0 5px 18px rgba(239,100,32,.35);}
-#uwdetail .btn-sub.off{background:#E5DED6;color:#9E9E9E;cursor:not-allowed;}
+#uwdetail .btn-sub.off{background:#E0E0E0;color:#9E9E9E;cursor:not-allowed;}
 #uwdetail /* UTILS */
 .cpv{display:none;}
 #uwdetail .cpv.on{display:block;}
@@ -1267,7 +1263,7 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 .rmd-back{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:14px}
 .rmd-back a{color:var(--brand);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
 .rmd-back .crumb{color:#616161}
-#rmdetail{display:flex;flex-direction:column;gap:16px;padding-bottom:80px}
+#rmdetail{display:flex;flex-direction:column;gap:16px;padding-bottom:0}
 .rmcard{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
 .rmcard-hd{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;gap:12px;border-bottom:1px solid var(--line);cursor:default}
 .rmcard.coll .rmcard-hd{cursor:pointer}
@@ -1303,9 +1299,9 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 .rm-comm:focus{outline:none;border-color:var(--brand)}
 .rm-comm.err{border-color:#E3530F;background:#FFF2EE}
 .rm-comm:disabled{background:#F5F5F5;color:#9E9E9E;cursor:not-allowed}
-.rmfoot{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;align-items:center;gap:16px;padding:14px;z-index:50}
-.rm-close{height:46px;padding:0 44px;border-radius:100px;border:1px solid var(--brand);background:#fff;color:var(--brand);font-size:14px;font-weight:700;cursor:pointer}
-.rm-submit{height:46px;padding:0 52px;border-radius:100px;border:none;background:#E0E0E0;color:#9E9E9E;font-size:14px;font-weight:700;cursor:not-allowed}
+.rmfoot{position:sticky;bottom:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px;background:#fff;border-top:1px solid #E5E7EB;box-shadow:0 -6px 15px -3px rgba(0,0,0,.05);margin-top:16px}
+.rm-close{height:40px;padding:0 24px;border-radius:100px;border:1px solid var(--brand);background:#fff;color:var(--brand);font-size:14px;font-weight:700;cursor:pointer}
+.rm-submit{height:40px;padding:0 24px;border-radius:100px;border:none;background:#E0E0E0;color:#9E9E9E;font-size:14px;font-weight:700;cursor:not-allowed}
 .rm-submit.on{background:var(--brand);color:#fff;cursor:pointer}
 /* RM commission table fits container (no horizontal scroll) */
 #rmdetail .rmct{min-width:0!important;width:100%;table-layout:fixed;}
@@ -1334,7 +1330,7 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 #ag-addon .ao-panel-title{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;color:var(--t1);}
 #ag-addon .ao-panel-sub{font-size:13px;color:var(--t2);margin-bottom:20px;line-height:1.5;}
 #ag-addon /* ZD slider panel */
-.ao-slider-box{border:1.5px solid #D9D6D0;border-radius:12px;padding:18px 24px;background:#F9F8F6;margin-bottom:20px;}
+.ao-slider-box{border:1.5px solid #E0E0E0;border-radius:12px;padding:18px 24px;background:#F5F5F5;margin-bottom:20px;}
 #ag-addon .ao-slider-lbl{font-size:12.5px;font-weight:600;color:var(--t2);margin-bottom:14px;}
 #ag-addon .ao-slider-row{display:flex;align-items:center;gap:12px;}
 #ag-addon .ao-slider-min{font-size:12px;color:var(--t2);font-weight:500;flex-shrink:0;}
@@ -1343,15 +1339,15 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 #ag-addon .ao-slider:disabled{opacity:.5;cursor:not-allowed;}
 #ag-addon .ao-slider-val{width:52px;border:1.5px solid var(--bc);border-radius:7px;padding:5px 8px;font-size:13px;font-weight:700;text-align:center;outline:none;flex-shrink:0;}
 #ag-addon .ao-slider-val:focus{border-color:var(--cp1);}
-#ag-addon .ao-slider-val:disabled{background:#F5F2EE;color:var(--t3);cursor:not-allowed;}
-#ag-addon .ao-slider-stats{margin-top:16px;padding-top:14px;border-top:1px solid #E5E3DF;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t2);}
+#ag-addon .ao-slider-val:disabled{background:#F5F5F5;color:var(--t3);cursor:not-allowed;}
+#ag-addon .ao-slider-stats{margin-top:16px;padding-top:14px;border-top:1px solid #E0E0E0;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t2);}
 #ag-addon .ao-slider-stats .stat-sep{color:var(--t3);}
 #ag-addon .ao-slider-stats .stat-val{font-weight:700;color:var(--cp1);}
 #ag-addon .ao-confirm-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--t2);}
 #ag-addon .ao-confirm-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--orange);margin-top:2px;flex-shrink:0;}
 #ag-addon /* Age group accordion */
 .ao-grps{display:flex;flex-direction:column;gap:8px;}
-#ag-addon .ao-grp{border:1px solid #E5E3DF;border-radius:10px;overflow:hidden;background:#F5F3EF;}
+#ag-addon .ao-grp{border:1px solid #E0E0E0;border-radius:10px;overflow:hidden;background:#F5F5F5;}
 #ag-addon .ao-gh{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;background:transparent;}
 #ag-addon .ao-gh input[type=checkbox]{width:16px;height:16px;accent-color:var(--orange);flex-shrink:0;}
 #ag-addon .ao-gl{font-size:13px;font-weight:600;flex:1;color:var(--t1);}
@@ -1369,7 +1365,7 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 .ao-wrap.disabled .ao-gh{cursor:default;pointer-events:none;}
 #ag-addon .ao-wrap.disabled input[type=checkbox]{pointer-events:none;opacity:.55;}
 #ag-addon .ao-wrap.disabled .ao-slider{pointer-events:none;cursor:not-allowed;opacity:.65;}
-#ag-addon .ao-wrap.disabled .ao-slider-val{pointer-events:none;background:#F5F2EE;color:var(--t2);}
+#ag-addon .ao-wrap.disabled .ao-slider-val{pointer-events:none;background:#F5F5F5;color:var(--t2);}
 #ag-addon .ao-wrap.disabled .ao-confirm-row{pointer-events:none;opacity:.6;}
 #ag-addon .ao-wrap.disabled .ao-it{cursor:default;}
 /* icon-tile glyphs scaled ~30% smaller */
@@ -1493,14 +1489,14 @@ body.cta-away .sfoot,body.cta-away .rmfoot{transform:translateY(120%)}
 #recommend .disc-chip-vpill{font-size:11px;font-weight:700;color:#2168F6;background:#DCE8FF;border-radius:100px;padding:2px 8px;margin-left:8px}
 #recommend .disc-chip.prev .disc-chip-vpill{color:#616161;background:#E8E8E8}
 #recommend .disc-arrow{color:#9E9E9E;font-size:16px;font-weight:700}
-#recommend .status-pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:100px;margin-left:auto}
+#recommend .status-pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:100px;margin-left:auto;align-self:flex-start}
 #recommend .status-pill svg{width:13px;height:13px}
 #recommend .status-pill{color:#fff}
 #recommend .status-pill.verified{background:#01A252}
 #recommend .status-pill.verified svg{stroke:#fff}
 #recommend .status-pill.not-qualified{background:#E8290B}
 #recommend .status-pill.not-qualified svg{stroke:#fff}
-#recommend .status-pill.edited{background:#8A8078}
+#recommend .status-pill.edited{background:#757575}
 #recommend .status-pill.edited svg{stroke:#fff}
 #recommend .zd-mini-stat{font-size:12px;color:var(--muted);margin-top:12px}
 #recommend .zd-mini-stat strong{color:#212121}
@@ -1890,8 +1886,9 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 .ud-pgb:hover:not(:disabled){background:#FAFAFA}
 .ud-pgb:disabled{opacity:.35;cursor:not-allowed}
 .ud-pgb .msym{font-size:20px}
-.ud-foot{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding-top:4px}
-.ud-foot .btn{min-width:240px;height:48px;justify-content:center}
+#upload-docs .flowcard{overflow:visible}   /* sticky footer needs a visible-overflow card, like the other agent screens */
+#upload-docs .flowfoot{position:sticky;bottom:0;z-index:30;transition:bottom .25s ease}
+body.cta-away #upload-docs .flowfoot{bottom:-160px}
 .btn.ud-ol{background:#fff;border:1px solid var(--brand);color:var(--brand)}
 .btn.ud-ol:hover{background:var(--soft)}
 .btn.primary .msym{font-size:18px}
@@ -2033,6 +2030,32 @@ body.cta-away #policy .pol-foot{bottom:-160px}
   .ds-fields,.ds-sum,.ds-months{max-width:none}
 }
 @media(max-width:560px){.ds-fields{grid-template-columns:1fr}.ds-fields .ds-f+.ds-f{margin-top:8px}}
+/* Add-on age-group accordions: vehicle-type checkboxes sit directly under the group checkbox, labels under the group label */
+#ag-addon .ao-sub,#uwdetail .ao-sub{padding:12px 18px 16px 18px}
+#ag-addon .ao-ck,#uwdetail .ao-ck{gap:12px}
+/* List search: the search pill is a real input (Agent / Underwriter / RM / Calendar lists) */
+.evsearch input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;color:#212121;padding:0}
+.evsearch input::placeholder{color:#9E9E9E}
+.evsearch input::-webkit-search-cancel-button,.evsearch input::-webkit-search-decoration{-webkit-appearance:none;display:none}
+.evsearch:focus-within{border-color:var(--brand)}
+.evsearch .sq-x{width:24px;height:24px;flex:none;border:0;border-radius:50%;background:transparent;color:#757575;display:grid;place-items:center;cursor:pointer;padding:0}
+.evsearch .sq-x:hover{background:#F5F5F5}
+.evsearch .sq-x[hidden]{display:none}
+.evsearch .sq-x .msym{font-size:18px;color:#757575}
+.evsearch .sq-x:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:1px}
+/* Bottom-left quiet footer: a subtle way back to the main page + the demo version label (all neutral grey) */
+.homebar{position:fixed;left:24px;bottom:calc(16px + var(--home-lift,0px));z-index:205;display:flex;flex-direction:column;align-items:flex-start;transition:bottom .25s ease;pointer-events:none}
+.homebtn{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;margin-left:-8px;padding:4px 8px;border:0;border-radius:6px;background:transparent;color:#757575;font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:color .15s,background .15s}
+.homebtn .msym{font-size:16px;font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 20}
+.homebtn:hover{color:#424242;background:rgba(0,0,0,.05)}
+.homebtn:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:1px}
+.homever{font-size:11px;line-height:1.5;color:#9E9E9E;white-space:nowrap}   /* one step lighter than the Return to Home label (#757575) */
+#app[hidden]~.homebar .homebtn{display:none}   /* on the main page itself only the version label shows */
+@media(prefers-reduced-motion:reduce){.homebar{transition:none}}
+.rmfoot .stats{display:flex;gap:40px;align-items:flex-start}
+.rmfoot .stat .k{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+.rmfoot .stat .v{font-size:16px;font-weight:800;margin-top:2px}
+.rmfoot .rm-btns{display:flex;gap:12px}
 </style>
 </head>
 <body>
@@ -2089,7 +2112,6 @@ body.cta-away #policy .pol-foot{bottom:-160px}
   <header class="header">
     <div class="logo illogo" onclick="backToLanding()" title="ICICI Lombard"><svg class="il-svg" viewBox="0 0 171 30" role="img" aria-label="ICICI Lombard"><use href="#il-logo"/></svg></div>
     <div class="r">
-      <button class="hsw" type="button" onclick="backToLanding()" title="Switch role" aria-label="Switch role"><span class="msym">switch_account</span></button>
       <button class="bell"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#757575" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></button>
       <div class="user"><div class="av av-in" aria-label="Kumar Varun" title="Kumar Varun">KV</div></div>
     </div>
@@ -2370,6 +2392,20 @@ body.cta-away #policy .pol-foot{bottom:-160px}
         </div>
       </div>
 
+      <!-- RM: evaluation successful (same pattern as the Underwriter's submit popup) -->
+      <div class="rc-mask" id="rms-modal">
+        <div class="rc-dialog appr-dialog" role="dialog" aria-modal="true" aria-labelledby="rms-title" aria-describedby="rms-body">
+          <button class="rc-x" type="button" aria-label="Close" onclick="rmsClose()"><span class="msym">close</span></button>
+          <div class="appr-tick" id="rms-tick"></div>
+          <div class="rc-modal-title" id="rms-title">Evaluation Successful</div>
+          <div class="rc-modal-body" id="rms-body">Commission values have been saved. The fleet is approved and ready for sourcing.</div>
+          <div class="appr-det" id="rms-det"></div>
+          <div class="rc-modal-actions">
+            <button class="btn primary" type="button" onclick="rmsClose()">View other cases</button>
+          </div>
+        </div>
+      </div>
+
       <!-- UPLOAD (flow card) -->
       <section class="screen on" id="upload">
         <div class="flowcard" style="border-radius:20px">
@@ -2616,7 +2652,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <!-- CALENDAR (plain) -->
       <!-- ===== UPLOAD DOCUMENTS (opened from the Upload icon on Evaluated Cases → Pending) ===== -->
       <section class="screen" id="upload-docs">
-        <div class="flowcard" style="border-radius:20px">
+        <div class="flowcard">
           <div class="flowbody">
             <div>
               <div class="ud-head">
@@ -2633,10 +2669,10 @@ body.cta-away #policy .pol-foot{bottom:-160px}
               <div class="ud-sub">Upload all required documents to move your fleet towards approval.</div>
             </div>
             <div class="ud-segs" id="ud-segs"></div>
-            <div class="ud-foot">
-              <button class="btn ud-ol" type="button" id="ud-save" onclick="udSaveExit()">Save &amp; Exit</button>
-              <button class="btn primary" type="button" id="ud-submit" onclick="udSubmitOpen()" disabled>Submit</button>
-            </div>
+          </div>
+          <div class="flowfoot">
+            <button class="btn ud-ol" type="button" id="ud-save" onclick="udSaveExit()">Save &amp; Exit</button>
+            <button class="btn primary" type="button" id="ud-submit" onclick="udSubmitOpen()" disabled>Submit</button>
           </div>
         </div>
         <input type="file" id="ud-file" hidden accept=".pdf,.jpg,.jpeg,.png">
@@ -2645,7 +2681,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
             <section class="screen" id="calendar">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Calendar</div><div class="dsub">Choose a date range to track fleet policy expirations.</div></div>
-          <div class="evtools"><button class="ebtn" type="button" id="lfb-calendar" onclick="lfOpen('calendar')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-calendar" hidden></span></button><button class="ebtn" type="button" id="dsb-calendar" onclick="dsOpen('calendar')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-calendar">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Reg No., Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-calendar" onclick="lfOpen('calendar')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-calendar" hidden></span></button><button class="ebtn" type="button" id="dsb-calendar" onclick="dsOpen('calendar')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-calendar">Select Date</span></button><label class="evsearch"><span class="msym" aria-hidden="true">search</span><input type="search" id="sq-calendar" placeholder="Search “Reg No., Business name”" aria-label="Search by Reg No., Business name" autocomplete="off" oninput="sqSet('calendar',this.value,this.selectionStart)"><button type="button" class="sq-x" aria-label="Clear search" onclick="sqClear('calendar')" hidden><span class="msym">close</span></button></label></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et"><thead><tr>
             <th><span class="thsort">Reg No. <span class="msym">unfold_more</span></span></th><th><span class="thsort">Business Name <span class="msym">unfold_more</span></span></th><th><span class="thsort">Policy Expiry <span class="msym">unfold_more</span></span></th><th><span class="thsort">Policy Status <span class="msym">unfold_more</span></span></th><th>Premium</th><th>Actions</th>
           </tr></thead><tbody id="calrows"></tbody></table></div></div>
@@ -2664,7 +2700,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="uw-pending">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Pending cases</div><div class="dsub">Discover pending fleet cases that require underwriter evaluation.</div></div>
-          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-pending" onclick="lfOpen('uw-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-pending" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-pending" onclick="dsOpen('uw-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-pending">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-pending" onclick="lfOpen('uw-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-pending" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-pending" onclick="dsOpen('uw-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-pending">Select Date</span></button><label class="evsearch"><span class="msym" aria-hidden="true">search</span><input type="search" id="sq-uw-pending" placeholder="Search “Evaluation ID, Business name”" aria-label="Search by Evaluation ID, Business name" autocomplete="off" oninput="sqSet('uw-pending',this.value,this.selectionStart)"><button type="button" class="sq-x" aria-label="Clear search" onclick="sqClear('uw-pending')" hidden><span class="msym">close</span></button></label></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
             <th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th><span class="thsort">SLR (%) <span class="msym">unfold_more</span></span></th><th><span class="thsort">Reason <span class="msym">unfold_more</span></span></th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th>
           </tr></thead><tbody id="uwp-rows"></tbody></table></div></div>
@@ -2674,7 +2710,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="uw-approved">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Approved cases</div><div class="dsub">Discover fleet cases approved by underwriters.</div></div>
-          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-approved" onclick="lfOpen('uw-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-approved" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-approved" onclick="dsOpen('uw-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-approved">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-approved" onclick="lfOpen('uw-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-approved" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-approved" onclick="dsOpen('uw-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-approved">Select Date</span></button><label class="evsearch"><span class="msym" aria-hidden="true">search</span><input type="search" id="sq-uw-approved" placeholder="Search “Evaluation ID, Business name”" aria-label="Search by Evaluation ID, Business name" autocomplete="off" oninput="sqSet('uw-approved',this.value,this.selectionStart)"><button type="button" class="sq-x" aria-label="Clear search" onclick="sqClear('uw-approved')" hidden><span class="msym">close</span></button></label></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
             <th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th><span class="thsort">SLR (%) <span class="msym">unfold_more</span></span></th><th><span class="thsort">Status <span class="msym">unfold_more</span></span></th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th>
           </tr></thead><tbody id="uwa-rows"></tbody></table></div></div>
@@ -2684,7 +2720,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="uw-rejected">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Rejected cases</div><div class="dsub">Discover fleet cases rejected for policy booking.</div></div>
-          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-rejected" onclick="lfOpen('uw-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-rejected" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-rejected" onclick="dsOpen('uw-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-rejected">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-uw-rejected" onclick="lfOpen('uw-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-uw-rejected" hidden></span></button><button class="ebtn" type="button" id="dsb-uw-rejected" onclick="dsOpen('uw-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-uw-rejected">Select Date</span></button><label class="evsearch"><span class="msym" aria-hidden="true">search</span><input type="search" id="sq-uw-rejected" placeholder="Search “Evaluation ID, Business name”" aria-label="Search by Evaluation ID, Business name" autocomplete="off" oninput="sqSet('uw-rejected',this.value,this.selectionStart)"><button type="button" class="sq-x" aria-label="Clear search" onclick="sqClear('uw-rejected')" hidden><span class="msym">close</span></button></label></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr>
             <th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th><span class="thsort">SLR (%) <span class="msym">unfold_more</span></span></th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th>
           </tr></thead><tbody id="uwr-rows"></tbody></table></div></div>
@@ -3305,7 +3341,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="rm-pending">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Pending cases</div><div class="dsub">Review the pending cases of fleets received from agents that need further action for approval.</div></div>
-          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-pending" onclick="lfOpen('rm-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-pending" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-pending" onclick="dsOpen('rm-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-pending">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-pending" onclick="lfOpen('rm-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-pending" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-pending" onclick="dsOpen('rm-pending')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-pending">Select Date</span></button><label class="evsearch"><span class="msym" aria-hidden="true">search</span><input type="search" id="sq-rm-pending" placeholder="Search “Evaluation ID, Business name”" aria-label="Search by Evaluation ID, Business name" autocomplete="off" oninput="sqSet('rm-pending',this.value,this.selectionStart)"><button type="button" class="sq-x" aria-label="Clear search" onclick="sqClear('rm-pending')" hidden><span class="msym">close</span></button></label></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rmp-rows"></tbody></table></div></div>
           <div class="epager"><button class="enav"><span class="msym">chevron_left</span>Back</button><button class="epg">1</button><button class="epg on">2</button><button class="epg">3</button><button class="epg">4</button><button class="epg">5</button><button class="enav">Next<span class="msym">chevron_right</span></button></div>
         </div></div>
@@ -3313,7 +3349,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="rm-approved">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Approved cases</div><div class="dsub">Fleet cases where commission has been submitted and approved.</div></div>
-          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-approved" onclick="lfOpen('rm-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-approved" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-approved" onclick="dsOpen('rm-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-approved">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-approved" onclick="lfOpen('rm-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-approved" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-approved" onclick="dsOpen('rm-approved')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-approved">Select Date</span></button><label class="evsearch"><span class="msym" aria-hidden="true">search</span><input type="search" id="sq-rm-approved" placeholder="Search “Evaluation ID, Business name”" aria-label="Search by Evaluation ID, Business name" autocomplete="off" oninput="sqSet('rm-approved',this.value,this.selectionStart)"><button type="button" class="sq-x" aria-label="Clear search" onclick="sqClear('rm-approved')" hidden><span class="msym">close</span></button></label></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rma-rows"></tbody></table></div></div>
           <div class="epager"><button class="enav"><span class="msym">chevron_left</span>Back</button><button class="epg">1</button><button class="epg on">2</button><button class="epg">3</button><button class="epg">4</button><button class="epg">5</button><button class="enav">Next<span class="msym">chevron_right</span></button></div>
         </div></div>
@@ -3321,7 +3357,7 @@ body.cta-away #policy .pol-foot{bottom:-160px}
       <section class="screen" id="rm-rejected">
         <div class="flowcard" style="border-radius:20px"><div class="flowbody" style="gap:0">
           <div class="evhead"><div class="dtitle">Rejected cases</div><div class="dsub">Fleet cases rejected for policy booking.</div></div>
-          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-rejected" onclick="lfOpen('rm-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-rejected" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-rejected" onclick="dsOpen('rm-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-rejected">Select Date</span></button><div class="evsearch"><span class="msym">search</span>Search &ldquo;Evaluation ID, Business name&rdquo;</div></div>
+          <div class="evtools"><button class="ebtn" type="button" id="lfb-rm-rejected" onclick="lfOpen('rm-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">filter_alt</span>Apply Filter<span class="fbadge" id="lfn-rm-rejected" hidden></span></button><button class="ebtn" type="button" id="dsb-rm-rejected" onclick="dsOpen('rm-rejected')" aria-haspopup="dialog"><span class="msym" style="font-size:18px">calendar_today</span><span id="dsl-rm-rejected">Select Date</span></button><label class="evsearch"><span class="msym" aria-hidden="true">search</span><input type="search" id="sq-rm-rejected" placeholder="Search “Evaluation ID, Business name”" aria-label="Search by Evaluation ID, Business name" autocomplete="off" oninput="sqSet('rm-rejected',this.value,this.selectionStart)"><button type="button" class="sq-x" aria-label="Clear search" onclick="sqClear('rm-rejected')" hidden><span class="msym">close</span></button></label></div>
           <div class="et-wrap"><div class="et-scroll"><table class="et wide"><thead><tr><th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Date <span class="msym">unfold_more</span></span></th><th>Status</th><th>Agent Name</th><th>Location</th><th>U/W Assigned</th></tr></thead><tbody id="rmr-rows"></tbody></table></div></div>
           <div class="epager"><button class="enav"><span class="msym">chevron_left</span>Back</button><button class="epg">1</button><button class="epg on">2</button><button class="epg">3</button><button class="epg">4</button><button class="epg">5</button><button class="enav">Next<span class="msym">chevron_right</span></button></div>
         </div></div>
@@ -3367,13 +3403,15 @@ body.cta-away #policy .pol-foot{bottom:-160px}
             </div>
             <div class="hrem"><div class="l">Underwriter Name &amp; Remark</div>1. Mrs. Anjum Chopra : Fleet is approved</div>
           </div></div></div>
-          <div class="rmcard"><div class="rmcard-bd"><div class="ch-l" style="display:flex;align-items:center;gap:14px;margin-bottom:4px"><span class="sec-ic"><span class="msym">payments</span></span><div class="ch-tx"><h2 style="margin:0;font-size:18px">Enter Commission Values for Vehicle Segments</h2><p style="margin:4px 0 0;font-size:12px;color:#616161">Please enter commission values for each vehicle segment, with pre-filled discounts already provided in the table.</p></div></div><div class="rm-err" id="rm-err" hidden><span><span class="msym" style="font-size:18px;vertical-align:-3px">warning</span> Discount exceeds limit. Reduce commission to proceed.</span><span class="x" onclick="document.getElementById('rm-err').hidden=true"><span class="msym">close</span></span></div><div class="et-wrap"><table class="et rmct"><colgroup><col style="width:6%"><col style="width:30%"><col style="width:16%"><col style="width:15%"><col style="width:13%"><col style="width:20%"></colgroup><thead><tr><th>S.No.</th><th>Segment</th><th>Number of vehicle</th><th>Status</th><th>Discount (%)</th><th>Commission (%)</th></tr></thead><tbody><tr><td>1</td><td>SCV&lt;=2.5T- private</td><td>40</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>2</td><td>GCV&gt;20&lt;=40T truck-Private</td><td>50</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>3</td><td>PCV CC&gt;18 &amp; &lt;36_School Bus- Private</td><td>40</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>4</td><td>SCV&lt;=2.5T- private</td><td>20</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>5</td><td>GCV&gt;20&lt;=40T truck-Private</td><td>10</td><td><span class="opill red">Rejected</span></td><td>15</td><td><input class="rm-comm" data-rej="1" disabled placeholder="Enter Commission"></td></tr></tbody></table></div></div></div>
+          <div class="rmcard"><div class="rmcard-bd"><div class="rm-head" style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:4px"><div class="ch-l" style="display:flex;align-items:center;gap:14px"><span class="sec-ic"><span class="msym">payments</span></span><div class="ch-tx"><h2 style="margin:0;font-size:18px">Enter Commission Values for Vehicle Segments</h2><p style="margin:4px 0 0;font-size:12px;color:#616161">Please enter commission values for each vehicle segment, with pre-filled discounts already provided in the table.</p></div></div><div class="rm-tots" style="display:flex;gap:12px;flex:0 0 auto"><div class="totdisc" id="rm-totdisc"><div class="k">Total Discount</div><div class="v"><b id="rm-td">0</b><i>%</i></div></div><div class="totdisc" id="rm-totcomm"><div class="k">Total Commission</div><div class="v"><b id="rm-tc">0</b><i>%</i></div></div></div></div><div class="rm-err" id="rm-err" hidden><span><span class="msym" style="font-size:18px;vertical-align:-3px">warning</span> Discount exceeds limit. Reduce commission to proceed.</span><span class="x" onclick="document.getElementById('rm-err').hidden=true"><span class="msym">close</span></span></div><div class="et-wrap"><table class="et rmct"><colgroup><col style="width:6%"><col style="width:30%"><col style="width:16%"><col style="width:15%"><col style="width:13%"><col style="width:20%"></colgroup><thead><tr><th>S.No.</th><th>Segment</th><th>Number of vehicle</th><th>Status</th><th>Discount (%)</th><th>Commission (%)</th></tr></thead><tbody><tr><td>1</td><td>SCV&lt;=2.5T- private</td><td>50</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>2</td><td>GCV&gt;20&lt;=40T truck-Private</td><td>60</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>3</td><td>PCV CC&gt;18 &amp; &lt;36_School Bus- Private</td><td>40</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>4</td><td>SCV&lt;=2.5T- private</td><td>30</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>5</td><td>GCV&gt;20&lt;=40T truck-Private</td><td>20</td><td><span class="opill red">Rejected</span></td><td>15</td><td><input class="rm-comm" data-rej="1" disabled placeholder="Enter Commission"></td></tr></tbody></table></div></div></div>
         </div>
-        <div class="rmfoot"><button class="rm-close" onclick="go(rmBackTarget())">Close</button><button class="rm-submit" id="rm-foot-submit" disabled>Submit</button></div>
+        <div class="rmfoot"><div class="stats"><div class="stat"><div class="k">Final Annual Premium<span class="info-tip"><button type="button" class="info-tip-btn" aria-label="How this is calculated" aria-expanded="false" aria-describedby="tip-rm-prem"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><span class="info-tip-bubble" role="tooltip" id="tip-rm-prem">Premium for the approved vehicles after the fleet discount. Rejected segments are not included.</span></span></div><div class="v pricev"><span class="mono" id="rm-prem">&#8377;0</span><s class="was mono" id="rm-gross" title="Premium before discount">&#8377;0</s><span class="save-chip" id="rm-save-chip"><span class="msym">sell</span>Saved <span class="mono" id="rm-sav">&#8377;0</span></span></div></div></div><div class="rm-btns"><button class="rm-close" onclick="go(rmBackTarget())">Close</button><button class="rm-submit" id="rm-foot-submit" disabled onclick="rmSubmit()">Submit</button></div></div>
       </section>
     </main>
   </div>
 </div>
+
+<div class="homebar" id="homebar"><button class="homebtn" type="button" onclick="backToLanding()"><span class="msym" aria-hidden="true">arrow_back</span>Return to Home</button><span class="homever">Version V1.2 For Demo</span></div>
 
 <script>
 const strat=[[1,'Apex Shield Insurance','FMS1001',100,50,20,40],[2,'BlueStar Risk Partners','FMS1002',200,100,60,60],[3,'Crestline Assurance Co.','FMS1003',300,150,100,67],[4,'Vantage Protect Agency','FMS1004',400,200,140,70],[5,'Meridian Cover Group','FMS1005',500,250,180,72],[6,'Pinnacle Trust Insurers','FMS1006',600,300,220,73],[7,'Safehold Advisory Pvt. Ltd','FMS1007',700,350,260,74],[8,'Nexus Guard Insurance','FMS1008',800,400,300,75],[9,'Clearpath Risk Solutions','FMS1009',900,450,340,76],[10,'Harborview Assurance Ltd','FMS1010',1000,500,380,76]];
@@ -3674,7 +3712,7 @@ function renderCal(){
   var q=lfRows('calendar');
   el.innerHTML=q.length?q.map(function(x){var r=x[0],i=x[1];
     return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+dsFmt('calendar',i)+'</td><td>'+op(r[3],r[4])+'</td><td>'+r[5]+'</td><td><div class="eact"><button class="ic hbtn tip" type="button" data-go="policy" data-tip="View Policy" aria-label="View policy for '+r[0]+'">'+MS('visibility')+'</button><button class="ic hbtn tip" type="button" data-tip="Download Policy" aria-label="Download policy for '+r[0]+'">'+MS('download')+'</button></div></td></tr>';}).join('')
-    :lfEmpty(6);
+    :lfEmpty(6,'calendar');
   lfBadges(['calendar']);dsSync(['calendar']);
 }
 
@@ -3688,7 +3726,7 @@ function evTools(kind){
   const n=fmCount(evFilt[kind]);
   const f=`<button class="ebtn${n?' on':''}" type="button" onclick="evOpenFilter('${kind}')" aria-haspopup="dialog">${MS('filter_alt')}Apply Filter${n?'<span class="fbadge">'+n+'</span>':''}</button>`;
   const dt=dsBtn('ev-'+kind);   /* one date selector for every tab */
-  const se=`<div class="evsearch">${MS('search')}Search &ldquo;Business name, Evaluation ID&rdquo;</div>`;
+  const se=sqBox('ev-'+kind,'Business name, Evaluation ID');
   /* platform rule: whenever a toolbar has both, the Filter CTA comes first, then the date filter */
   let left='';
   if(kind==='active')left=f+dt;
@@ -3959,6 +3997,7 @@ function dsMatch(from,to){var L=(typeof DS!=='undefined'&&DS.presets)||DS_PRESET
 var DS_OFFS={def:[1,4,9,16,27,41,63,88,130,200],'ev-active':[1,3,6,10,15,22,31,44,58,79],'calendar':[-15,-30,-33,12,-27,35,70,-95,-140,-6]};   /* Calendar rows are policy expiries: some ahead of today, some behind */
 function dsRowDate(key,i){var o=DS_OFFS[key]||DS_OFFS.def;return dsAdd(DS_TODAY,-o[i%o.length]);}
 function dsFmt(key,i){return dsDMY(dsRowDate(key,i));}
+var SQ={};   /* list search text per list (see sqSet) — created early: the Agent list renders once at page load */
 var DSF={'ev-active':{id:'m3',from:dsAddM(DS_TODAY,-3),to:DS_TODAY},'dashboard':{id:'m1',from:dsAddM(DS_TODAY,-1),to:DS_TODAY}};   /* Active tab opens on the past 3 months, as its toolbar always showed a range */
 function dsIn(key,i){var f=DSF[key];if(!f||!f.from||!f.to)return true;var d=dsRowDate(key,i);return d>=f.from&&d<=f.to;}
 function dsLabel(key){var f=DSF[key];return(f&&f.from&&f.to)?dsShort(f.from)+' - '+dsShort(f.to):'Select Date';}
@@ -4093,7 +4132,7 @@ function evVal(kind,r,k){
   if(k==='pstatus')return r[4]==='Policy Booked'?'Policy Booked':'Partially Booked';
   if(k==='status')return kind==='pre'?r[2]:r[3];
 }
-function evRows(kind,arr){var f=evFilt[kind]||{};return arr.map(function(r,i){return [r,i];}).filter(function(p){return dsIn('ev-'+kind,p[1])&&Object.keys(f).every(function(k){return !f[k].length||f[k].indexOf(evVal(kind,p[0],k))>-1;});});}
+function evRows(kind,arr){var f=evFilt[kind]||{};return arr.map(function(r,i){return [r,i];}).filter(function(p){return dsIn('ev-'+kind,p[1])&&sqHit('ev-'+kind,sqHay('ev-'+kind,p[0],p[1]))&&Object.keys(f).every(function(k){return !f[k].length||f[k].indexOf(evVal(kind,p[0],k))>-1;});});}
 function evOpenFilter(kind){
   var src=kind==='active'?ACT:kind==='pre'?PRE:kind==='pending'?PEND:kind==='rejected'?REJ:EXP;
   fmOpen({cats:EV_FCATS[kind].map(function(c){var m={};src.forEach(function(r){var v=evVal(kind,r,c[0]);m[v]=(m[v]||0)+1;});return {key:c[0],label:c[1],options:Object.keys(m).sort().map(function(v){return [v,m[v]];})};}),
@@ -4119,7 +4158,7 @@ function evTab(el,kind){
     head=`<th>Evaluation ID</th><th>Fleet Version</th><th>Business Name</th><th><span class="thsort">Evaluation Date ${MS('unfold_more')}</span></th><th>Action</th>`;
     rows=evRows('expired',EXP).map(([r,i])=>`<tr><td>${idc('FMS_'+r[0],r[1])}</td><td>${evVerId('expired',r,i)}</td><td>${BIZ}</td><td>${dsFmt('ev-expired',i)}</td><td>${'<div class="eact">'+'<button class="ic hbtn tip" type="button" data-id="'+'FMS_'+r[0]+'" data-kind="expired" data-i="'+i+'" onclick="openEvHistory(this)" aria-label="Evaluation history for '+'FMS_'+r[0]+'" data-tip="Evaluation History">'+MS('history')+'</button>'+'</div>'}</td></tr>`).join('');
   }
-  if(!rows)rows=`<tr><td colspan="${(head.match(/<th/g)||[]).length}" class="qempty">No cases match the selected filters</td></tr>`;
+  if(!rows){const q=(SQ['ev-'+kind]||'').trim();rows=`<tr><td colspan="${(head.match(/<th/g)||[]).length}" class="qempty">${q?'No results for “'+sqEsc(q)+'”':'No cases match the selected filters'}</td></tr>`;}
   P.innerHTML=evTools(kind)+`<div class="et-wrap"><div class="et-scroll"><table class="et"><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div></div>`+evPager();
 }
 evTab(null,'active');
@@ -4162,8 +4201,8 @@ function udExt(n){return (String(n).split('.').pop()||'').toLowerCase();}
 function udFileIc(name){
   var ext=udExt(name),img=ext!=='pdf',col=img?'#004FE1':'#E00903',lab=ext.toUpperCase().slice(0,4);
   var body=img?'<circle cx="21" cy="30" r="4" fill="#D9E3F5"/><path d="M12 46l9-10 7 7 6-6 10 9v4a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2z" fill="#C9D6EE"/>'
-    :'<rect x="14" y="28" width="30" height="3.5" rx="1.75" fill="#D9D4CC"/><rect x="14" y="37" width="30" height="3.5" rx="1.75" fill="#D9D4CC"/><rect x="14" y="46" width="20" height="3.5" rx="1.75" fill="#D9D4CC"/>';
-  return '<svg width="38" height="46" viewBox="0 0 60 72" aria-hidden="true"><path d="M10 2h28l14 14v50a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4z" fill="#fff" stroke="#E3DFDA"/><path d="M38 2v12a2 2 0 0 0 2 2h12z" fill="#EFEBE5"/>'+body+'<rect x="4" y="50" width="40" height="17" rx="4" fill="'+col+'"/><text x="24" y="62.5" font-family="Mulish,sans-serif" font-size="'+(lab.length>3?8.5:10)+'" font-weight="700" fill="#fff" text-anchor="middle">'+lab+'</text></svg>';
+    :'<rect x="14" y="28" width="30" height="3.5" rx="1.75" fill="#E0E0E0"/><rect x="14" y="37" width="30" height="3.5" rx="1.75" fill="#E0E0E0"/><rect x="14" y="46" width="20" height="3.5" rx="1.75" fill="#E0E0E0"/>';
+  return '<svg width="38" height="46" viewBox="0 0 60 72" aria-hidden="true"><path d="M10 2h28l14 14v50a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4z" fill="#fff" stroke="#E0E0E0"/><path d="M38 2v12a2 2 0 0 0 2 2h12z" fill="#EEEEEE"/>'+body+'<rect x="4" y="50" width="40" height="17" rx="4" fill="'+col+'"/><text x="24" y="62.5" font-family="Mulish,sans-serif" font-size="'+(lab.length>3?8.5:10)+'" font-weight="700" fill="#fff" text-anchor="middle">'+lab+'</text></svg>';
 }
 /* one tile: empty slot / uploading / uploaded / failed. removable=false for RC Front/Back (they lock in once uploaded) */
 function udTile(f,label,addAttrs,rmAttrs,addLabel){
@@ -4336,6 +4375,40 @@ function setUWMode(m){uwMode=m;var d=document.getElementById('uwdetail');if(!d)r
 }
 function openUWCase(id){setUWMode(UWSHARED[id]?'shared':'basic');go('uw-detail');}
 
+/* ===== List search (Agent Evaluated Cases / Underwriter / RM / Calendar) =====
+   One search per list. Matches the Evaluation ID, Fleet Version and Business Name (Reg No. + Business Name on the Calendar),
+   ignoring case, spaces and underscores, so "fms 1112", "FMS_1112" and "1112_00" all work. It combines with the filter and date range. */
+function sqNorm(t){return String(t==null?'':t).toLowerCase().replace(/[^a-z0-9]/g,'');}
+function sqKey(t){return String(t==null?'':t).toLowerCase().replace(/[\s_\-]+/g,'_').replace(/^_+|_+$/g,'');}   /* spaces, underscores and dashes count as one separator */
+function sqEsc(t){return String(t).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+/* parts = the searchable fields of one row, e.g. [Evaluation ID, Fleet Version, Business Name]; each is searched on its own so
+   digits from neighbouring fields never run together (the ID alone also matches without its underscore: "fms1114") */
+function sqHit(key,parts){
+  var raw=SQ[key],q=sqKey(raw);if(!q)return true;
+  var qs=sqNorm(raw);
+  return parts.some(function(p,i){return sqKey(p).indexOf(q)>-1||(i===0&&sqNorm(p).indexOf(qs)>-1);});
+}
+function sqHay(key,r,i){
+  if(key==='calendar')return [r[0],r[1]];
+  if(key.indexOf('ev-')===0){var kind=key.slice(3);return ['FMS_'+r[0],kind==='pre'?'FMS_'+r[0]+'_'+r[1]:evVerId(kind,r,i),BIZ];}
+  if(key.indexOf('rm-')===0)return ['FMS_'+r[0],'FMS_'+r[0]+'_'+(RMSHARED[r[0]]?'002':'001'),RMB];
+  return ['FMS_'+r[0],'FMS_'+r[0]+'_'+r[1],UWB];
+}
+function sqBox(key,ph){
+  var v=SQ[key]||'';
+  return '<label class="evsearch"><span class="msym" aria-hidden="true">search</span><input type="search" id="sq-'+key+'" value="'+sqEsc(v)+'" placeholder="Search “'+ph+'”" aria-label="Search by '+ph+'" autocomplete="off" oninput="sqSet(\''+key+'\',this.value,this.selectionStart)"><button type="button" class="sq-x" aria-label="Clear search" onclick="sqClear(\''+key+'\')"'+(v?'':' hidden')+'>'+MS('close')+'</button></label>';
+}
+function sqSet(key,v,pos){SQ[key]=v;sqRefresh(key,pos);}
+function sqClear(key){SQ[key]='';sqRefresh(key,0);var i=document.getElementById('sq-'+key);if(i)i.focus();}
+function sqRefresh(key,pos){
+  if(key.indexOf('ev-')===0){   /* the Agent toolbar is rebuilt with the table, so put the cursor back */
+    evTab(null,key.slice(3));var i=document.getElementById('sq-'+key);
+    if(i){i.focus();try{i.setSelectionRange(pos,pos);}catch(e){}}
+  }else{
+    lfRender(key);var x=document.querySelector('#sq-'+key+' ~ .sq-x');if(x)x.hidden=!SQ[key];
+  }
+}
+
 /* ===== Underwriter + RM list filters =====
    Same Select Filter modal, toolbar button, count badge and empty state as the agent's Evaluated Cases.
    Categories come from each list's own columns (Reason, Location, Fleet Type, Agent Name, U/W Assigned; Status on UW Approved). */
@@ -4364,7 +4437,7 @@ function lfVal(key,r,i,c){
 function lfRows(key){
   var f=LF[key]||{};
   return LF_CFG[key].src().map(function(r,i){return [r,i];}).filter(function(x){
-    return dsIn(key,x[1])&&Object.keys(f).every(function(c){return !f[c].length||f[c].indexOf(lfVal(key,x[0],x[1],c))>-1;});});
+    return dsIn(key,x[1])&&sqHit(key,sqHay(key,x[0],x[1]))&&Object.keys(f).every(function(c){return !f[c].length||f[c].indexOf(lfVal(key,x[0],x[1],c))>-1;});});
 }
 function lfOpen(key){
   var cfg=LF_CFG[key],src=cfg.src();
@@ -4374,16 +4447,16 @@ function lfOpen(key){
     onApply:function(sel){LF[key]=sel;lfRender(key);var b=document.getElementById('lfb-'+key);if(b)b.focus();}});
 }
 function lfRender(key){if(key==='calendar')renderCal();else if(key.indexOf('uw-')===0)renderUW();else renderRM();}
-function lfEmpty(n){return '<tr><td colspan="'+n+'" class="qempty">No cases match the selected filters</td></tr>';}
+function lfEmpty(n,key){var q=key&&SQ[key]?SQ[key].trim():'';return '<tr><td colspan="'+n+'" class="qempty">'+(q?'No results for “'+sqEsc(q)+'”':'No cases match the selected filters')+'</td></tr>';}
 function lfBadges(keys){keys.forEach(function(k){fmBadge('lfb-'+k,'lfn-'+k,LF[k]);});}
 
 function renderUW(){
   var p=document.getElementById('uwp-rows');
-  if(p){var q=lfRows('uw-pending');p.innerHTML=q.length?q.map(([r,i])=>`<tr><td><span class="evid" style="cursor:pointer" onclick="openUWCase(${r[0]})">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-pending',i)}</td><td>85</td><td>${opill(r[2],'orange',r[3])}</td><td>${r[4]}</td><td>${LOCS[i]}</td><td>${uwCell(r[5],r[6])}</td></tr>`).join(''):lfEmpty(9);}
+  if(p){var q=lfRows('uw-pending');p.innerHTML=q.length?q.map(([r,i])=>`<tr><td><span class="evid" style="cursor:pointer" onclick="openUWCase(${r[0]})">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-pending',i)}</td><td>85</td><td>${opill(r[2],'orange',r[3])}</td><td>${r[4]}</td><td>${LOCS[i]}</td><td>${uwCell(r[5],r[6])}</td></tr>`).join(''):lfEmpty(9,'uw-pending');}
   var a=document.getElementById('uwa-rows');
-  if(a){var q2=lfRows('uw-approved');a.innerHTML=q2.length?q2.map(([r,i])=>`<tr><td><span class="evid">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-approved',i)}</td><td>85</td><td>${opill(r[2],r[3])}</td><td>${r[4]}</td><td>${LOCS[i]}</td><td>${uwCell(r[5],r[6])}</td></tr>`).join(''):lfEmpty(9);}
+  if(a){var q2=lfRows('uw-approved');a.innerHTML=q2.length?q2.map(([r,i])=>`<tr><td><span class="evid">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-approved',i)}</td><td>85</td><td>${opill(r[2],r[3])}</td><td>${r[4]}</td><td>${LOCS[i]}</td><td>${uwCell(r[5],r[6])}</td></tr>`).join(''):lfEmpty(9,'uw-approved');}
   var j=document.getElementById('uwr-rows');
-  if(j){var q3=lfRows('uw-rejected');j.innerHTML=q3.length?q3.map(([r,i])=>`<tr><td><span class="evid">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-rejected',i)}</td><td>85</td><td>${r[2]}</td><td>${LOCS[i]}</td><td>${uwCell(r[3],r[4])}</td></tr>`).join(''):lfEmpty(8);}
+  if(j){var q3=lfRows('uw-rejected');j.innerHTML=q3.length?q3.map(([r,i])=>`<tr><td><span class="evid">FMS_${r[0]}</span>${uwFleetTag(r[0])}</td><td>FMS_${r[0]}_${r[1]}</td><td>${UWB}</td><td>${dsFmt('uw-rejected',i)}</td><td>85</td><td>${r[2]}</td><td>${LOCS[i]}</td><td>${uwCell(r[3],r[4])}</td></tr>`).join(''):lfEmpty(8,'uw-rejected');}
   lfBadges(['uw-pending','uw-approved','uw-rejected']);dsSync(['uw-pending','uw-approved','uw-rejected']);
 }
 
@@ -4601,9 +4674,30 @@ function uwdReset(){
   document.querySelectorAll('#uwdetail .msgbox textarea').forEach(function(t){t.value='';});
   updateDec();
 }
+function homePlace(){
+  var h=document.getElementById('homebar');if(!h)return;
+  var vh=window.innerHeight,right=h.getBoundingClientRect().right+8,lift=0;
+  if(!document.body.classList.contains('cta-away')){   /* bars hide on scroll-down: then the label drops back to the corner */
+    [].forEach.call(document.querySelectorAll('#plan .premfoot,#recommend .flowfoot,#details .flowfoot,#upload .flowfoot,#upload-docs .flowfoot,#policy .pol-foot,.sfoot,.rmfoot'),function(e){
+      if(!e.getClientRects().length)return;
+      var cs=getComputedStyle(e),r=e.getBoundingClientRect();
+      if(r.left>=right)return;   /* the bar starts to the right of the label — no clash */
+      if(cs.position==='fixed'||cs.position==='sticky')lift=Math.max(lift,r.height);
+      else if(r.top<vh&&r.bottom>vh-90)lift=Math.max(lift,vh-r.top);
+    });
+  }
+  h.style.setProperty('--home-lift',lift+'px');
+}
 document.addEventListener('DOMContentLoaded',function(){
   try{switchCP(2);}catch(e){}
+  (function(){
+    var g0=go;go=function(){var r=g0.apply(this,arguments);homePlace();setTimeout(homePlace,80);return r;};
+    window.addEventListener('scroll',homePlace,{passive:true});window.addEventListener('resize',homePlace);
+    new MutationObserver(homePlace).observe(document.body,{attributes:true,attributeFilter:['class']});
+    homePlace();
+  })();
   try{renderCal();}catch(e){}
+  try{rmCalc();}catch(e){}
   /* tab hint: "(" + first 8 characters of the CP's business name + "…" + ")" ; full name on hover / for screen readers */
   [2,1].forEach(function(n){
     var lab=[].filter.call(document.querySelectorAll('#ins-'+n+' .kv-l'),function(e){return e.textContent.trim()==='Business Name';})[0];
@@ -4866,7 +4960,7 @@ function getPages(c){
 
 function a4(){var r='';for(var i=0;i<4;i++)r+='<div class="a4-fr"><span class="lb"></span><span class="vb"></span></div>';return'<div class="a4"><div class="a4-hd"></div><div class="a4-tr"><div class="a4-ph"></div><div class="a4-ls"><span></span><span></span></div></div><div class="a4-fs">'+r+'</div></div>';}
 function fakeNo(seed){var h=0;for(var i=0;i<seed.length;i++)h=(h*31+seed.charCodeAt(i))>>>0;var d=String(h);while(d.length<12)d='7'+d;d=d.slice(-12);return d.slice(0,4)+' '+d.slice(4,8)+' '+d.slice(8,12);}
-function aadhaarF(c){var no=fakeNo(c.id+c.owner);return'<div class="rc"><div class="rcb"><div class="rcbl"><div class="rcbi"><span class="ms">fingerprint</span></div><div><div class="rctl">Aadhaar</div><div style="font-size:9px;color:#3E617F;">Unique Identification Authority of India</div></div></div></div><div class="rcbody"><div style="display:flex;gap:8px;margin-bottom:9px;"><div style="width:38px;height:46px;border-radius:4px;background:#EEE8DC;flex-shrink:0;"></div><div style="flex:1;"><div style="font-size:8.5px;color:var(--t3);margin-bottom:2px;">Name</div><div style="font-size:11px;font-weight:700;">'+c.owner+'</div><div style="font-size:8.5px;color:var(--t3);margin-top:5px;margin-bottom:2px;">DOB</div><div style="font-size:10px;font-weight:600;">15-08-1985</div></div><div class="rc-qr"></div></div><div style="font-size:8.5px;color:var(--t3);">Aadhaar Number</div><div style="font-size:14px;font-weight:800;letter-spacing:2px;margin-top:2px;">'+no+'</div><div class="rc-wm">\u0906\u0927\u093e\u0930</div></div></div>';}
+function aadhaarF(c){var no=fakeNo(c.id+c.owner);return'<div class="rc"><div class="rcb"><div class="rcbl"><div class="rcbi"><span class="ms">fingerprint</span></div><div><div class="rctl">Aadhaar</div><div style="font-size:9px;color:#3E617F;">Unique Identification Authority of India</div></div></div></div><div class="rcbody"><div style="display:flex;gap:8px;margin-bottom:9px;"><div style="width:38px;height:46px;border-radius:4px;background:#EEEEEE;flex-shrink:0;"></div><div style="flex:1;"><div style="font-size:8.5px;color:var(--t3);margin-bottom:2px;">Name</div><div style="font-size:11px;font-weight:700;">'+c.owner+'</div><div style="font-size:8.5px;color:var(--t3);margin-top:5px;margin-bottom:2px;">DOB</div><div style="font-size:10px;font-weight:600;">15-08-1985</div></div><div class="rc-qr"></div></div><div style="font-size:8.5px;color:var(--t3);">Aadhaar Number</div><div style="font-size:14px;font-weight:800;letter-spacing:2px;margin-top:2px;">'+no+'</div><div class="rc-wm">\u0906\u0927\u093e\u0930</div></div></div>';}
 function aadhaarB(c){var no=fakeNo(c.id+c.owner);return'<div class="rc"><div class="rcb"><div class="rcbl"><div class="rcbi"><span class="ms">fingerprint</span></div><div><div class="rctl">Aadhaar \u2014 Address</div></div></div></div><div class="rcbody"><div style="font-size:13px;font-weight:800;letter-spacing:2px;margin-bottom:10px;">'+no+'</div><div style="font-size:10.5px;"><strong>Address:</strong> Plot 14, MIDC Industrial Area, Navi Mumbai \u2014 400703</div><div class="rc-qr" style="margin-top:10px;"></div></div></div>';}
 var STATES={MH:'Maharashtra',GJ:'Gujarat',KA:'Karnataka',DL:'Delhi'};
 function rcF(c){var sc=c.label.slice(0,2);var sn=STATES[sc]||'Maharashtra';var fr=c.label.replace(/[^A-Z0-9]/g,'');var eng='K12MN'+fr.slice(-6);var chs='MA3EWB'+fr.slice(-6)+'00';return'<div class="rc"><div class="rcb"><div class="rcbl"><div class="rcbi"><span class="ms">shield</span></div><div><div class="rctl">Vehicle Registration Certificate</div><div style="font-size:8.5px;color:#3E617F;">Government of '+sn+'</div></div></div><div class="rcbdgs"><div class="rcdg bl">T</div><div class="rcdg or">'+sc+'</div></div></div><div class="rcbody"><div class="rc-hr"><div><span class="rc-hl">Regn. No.</span><div class="rc-hv">'+c.label+'</div></div><div><span class="rc-hl">Date of Regn.</span><div class="rc-hv sm">15-06-2022</div></div><div><span class="rc-hl">Validity</span><div class="rc-hv sm">Per Fitness</div></div></div><div class="rc-or"><div class="rc-sc">1</div><div class="rc-of"><div class="rc-ofl"><span class="ms">tag</span>Chassis No.</div><div class="rc-ofv">'+chs+'</div><div class="rc-ofl" style="margin-top:4px;"><span class="ms">settings</span>Engine No.</div><div class="rc-ofv">'+eng+'</div><div class="rc-ofl" style="margin-top:4px;"><span class="ms">person</span>Owner</div><div class="rc-ofv">'+(c.owner||'\u2014')+'</div></div></div><div class="rc-wm">VAHAN</div></div></div>';}
@@ -5001,7 +5095,7 @@ function renderRM(){
   spec.forEach(function(x){
     var el=document.getElementById(x[0]);if(!el)return;
     var q=lfRows(x[1]);
-    el.innerHTML=q.length?q.map(function(y){var id=y[0][0];return rmRow(id,y[1],RMSHARED[id]?'002':'001',x[2],x[3],x[1]);}).join(''):lfEmpty(8);
+    el.innerHTML=q.length?q.map(function(y){var id=y[0][0];return rmRow(id,y[1],RMSHARED[id]?'002':'001',x[2],x[3],x[1]);}).join(''):lfEmpty(8,x[1]);
   });
   lfBadges(['rm-pending','rm-approved','rm-rejected']);dsSync(['rm-pending','rm-approved','rm-rejected']);
 }
@@ -5017,7 +5111,73 @@ function setRMMode(mode){
   document.querySelectorAll('#rmdetail .rm-comm').forEach(function(i){i.classList.remove('err');});
   rmValidate();
 }
+
+
+/* ===== RM footer figures: Final premium, saving and cumulative commission (live) =====
+   Per approved segment: gross premium = vehicles x (own-damage + third-party premium per vehicle);
+   saving = vehicles x own-damage premium x 0.5 x discount % (the same rule the Plan page uses);
+   premium = gross - saving; commission = premium x the commission % typed for that segment.
+   Rejected segments are left out. Premium and saving are rounded to the nearest Rs 25, as on the Plan page. */
+var RM_SEG={scv:{od:12000,tp:4500},gcv:{od:24000,tp:8000},pcv:{od:28000,tp:9000}};
+function rmFigures(){
+  var gross=0,sav=0,comm=0,veh=0,wv=0,wd=0;
+  [].forEach.call(document.querySelectorAll('#rmdetail tbody tr'),function(tr){
+    var c=tr.querySelector('.rm-comm');if(!c||c.dataset.rej)return;
+    var name=tr.children[1].textContent.trim(),k=/^SCV/i.test(name)?'scv':(/^GCV/i.test(name)?'gcv':'pcv'),sg=RM_SEG[k];
+    var n=parseInt(tr.children[2].textContent,10)||0,d=Number(c.dataset.disc)||0,pct=Number(c.value)||0;
+    var g=Math.round(n*(sg.od+sg.tp)/25)*25,sv=Math.round(n*sg.od*0.5*d/100/25)*25;
+    gross+=g;sav+=sv;comm+=(g-sv)*pct/100;veh+=n;wv+=n*pct;wd+=n*d;
+  });
+  var net=gross-sav;
+  return {gross:gross,sav:sav,net:net,comm:Math.round(comm),pct:veh?Math.round(wv/veh*100)/100:0,disc:veh?Math.round(wd/veh*100)/100:0};   /* pct = average commission rate across approved vehicles */
+}
+function rmCalc(){
+  if(!document.getElementById('rm-prem'))return;
+  var f=rmFigures();priceWrite('rm',f);
+  var view=(typeof rmMode!=='undefined'&&rmMode==='view');
+  var td=document.getElementById('rm-td'),dbox=document.getElementById('rm-totdisc');
+  if(td)td.textContent=f.disc;                      /* average discount across approved vehicles */
+  if(dbox){var dt='Saving from the discount: \u20b9'+f.sav.toLocaleString('en-IN');dbox.title=dt;dbox.setAttribute('aria-label','Total discount '+f.disc+'%. '+dt);}
+  var tc=document.getElementById('rm-tc'),box=document.getElementById('rm-totcomm');
+  if(tc)tc.textContent=f.pct;                       /* average commission across approved vehicles */
+  if(box){
+    box.hidden=view;                                /* commission is only entered on pending cases */
+    var tip='Cumulative commission: \u20b9'+f.comm.toLocaleString('en-IN');
+    box.title=tip;box.setAttribute('aria-label','Total commission '+f.pct+'%. '+tip);
+  }
+}
+
+/* ===== RM: Submit -> "Evaluation Successful" popup with the fleet's key figures ===== */
+function rmSubmit(){
+  var sub=document.getElementById('rm-foot-submit');if(!sub||sub.disabled)return;
+  var kv=function(label){var l=[].filter.call(document.querySelectorAll('#rmdetail .rmkv .l'),function(e){return e.textContent.trim()===label;})[0];return l&&l.nextElementSibling?l.nextElementSibling.textContent.trim():'';};
+  var total=0,appr=0,wsum=0,dsum=0;
+  [].forEach.call(document.querySelectorAll('#rmdetail tbody tr'),function(tr){
+    var c=tr.querySelector('.rm-comm'),n=parseInt(tr.children[2].textContent,10)||0;total+=n;
+    if(c&&!c.dataset.rej){appr+=n;wsum+=n*(Number(c.value)||0);dsum+=n*(parseFloat(tr.children[4].textContent)||0);}
+  });
+  var fin=appr?Math.round(wsum/appr*100)/100:0;   /* commission and discount, each weighted by the approved vehicles in its segment */
+  var disc=appr?Math.round(dsum/appr*100)/100:0;
+  var row=function(l,r){return '<div class="appr-row"><span class="l">'+l+'</span><span class="r">'+r+'</span></div>';};
+  document.getElementById('rms-det').innerHTML=row('Fleet ID',kv('Evaluation ID')||'FMS_1111')
+    +row('Fleet type',kv('Fleet Type')||'—')
+    +row('Vehicles approved',appr+' of '+total)
+    +row('Final discount',disc+'%')
+    +row('Final commission',fin+'%')
+    +row('Submitted on',uwsStamp());
+  document.getElementById('rms-tick').innerHTML='<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><circle class="appr-circle" cx="26" cy="26" r="24"/><path class="appr-check" d="M15 27l7 7 15-16"/></svg>';
+  document.getElementById('rms-modal').classList.add('on');document.body.style.overflow='hidden';
+  setTimeout(function(){var b=document.querySelector('#rms-modal .btn.primary');if(b)b.focus();},30);
+}
+function rmsClose(){
+  var m=document.getElementById('rms-modal');if(!m.classList.contains('on'))return;
+  m.classList.remove('on');document.body.style.overflow='';
+  [].forEach.call(document.querySelectorAll('#rmdetail .rm-comm'),function(i){if(!i.dataset.rej)i.value='';});   /* fresh form next time */
+  rmValidate();go('rm-pending');window.scrollTo(0,0);
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')rmsClose();});
 function rmValidate(){
+  rmCalc();
   if(rmMode==='view')return;
   var bad=false, filled=0, need=0;
   document.querySelectorAll('#rmdetail .rm-comm').forEach(function(i){
@@ -5905,7 +6065,7 @@ function rcCloseModal(){document.getElementById('rc-modal').classList.remove('on
 function openInterception(){
   rcModal({ic:'',icon:'auto_awesome',dismiss:true,title:'Choose How to Proceed',
     body:'Review the system recommendations to help this fleet qualify for real-time approval, or continue with your current configuration for underwriter evaluation.',
-    secondary:{label:'Continue as Is',onClick:function(){rcCloseModal();routeToUnderwriter('Fleet routed to underwriter evaluation.');}},
+    secondary:{label:'Continue as Is',onClick:function(){}},   /* intentionally inert for now: only Review Recommendations proceeds */
     primary:{label:'Review Recommendations',onClick:function(){rcCloseModal();enterRecommend();}}});
 }
 /* entry: reset engine state, then show the screen */
