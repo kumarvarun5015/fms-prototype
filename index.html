@@ -2191,7 +2191,7 @@ div[style*="border:1px solid"],section[style*="border:1px solid"]{border:0!impor
    Tertiary  no fill, Orange-500 text, no left pad.  hover Orange-600 + underline · pressed Orange-700 · disabled grey text.
    All types: orange focus ring for keyboard users.
    ===================================================================================================================== */
-:root{--btn-fs:12px;--btn-fw:700;--btn-r:999px;--btn-px:12px;--btn-py:10px;--btn-gap:8px;
+:root{--btn-fs:12px;--btn-fw:700;--btn-r:999px;--btn-px:20px;--btn-py:10px;--btn-gap:8px;
   --o100:#FFF2ED;--o200:#FFE4D6;--o300:#FFD6C2;--o500:#E3530F;--o600:#CF4A0D;--o700:#B0420A}
 /* shared structure */
 #app :is(.btn.primary,.uploadbtn,.btn-sub,.rm-submit,.btn-accept-rec,.bookbtn,.btn-update,
@@ -2249,9 +2249,9 @@ body.cta-away .sfoot,body.cta-away .rmfoot,.sfoot.hidden-foot{transform:none!imp
 
 /* LANDING PAGE — the "Enter workspace" call-to-actions use the same button system (Agent = primary, the others = tertiary) */
 #landing .role .go{font-size:12px;font-weight:700;gap:8px;line-height:16px;border-radius:var(--btn-r);transition:background .15s ease,color .15s ease}
-#landing .role.agent .go{background:var(--o500);color:#fff;padding:10px 12px}
+#landing .role.agent .go{background:var(--o500);color:#fff;padding:10px 20px}
 #landing .role.agent:hover .go{background:var(--o600)}
-#landing .role:not(.agent) .go{background:transparent;color:var(--o500);padding:10px 12px 10px 0}
+#landing .role:not(.agent) .go{background:transparent;color:var(--o500);padding:10px 20px 10px 0}
 #landing .role:not(.agent):hover .go{color:var(--o600);text-decoration:underline}
 #landing .role .go .msym{font-size:16px}
 </style>
