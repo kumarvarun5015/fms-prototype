@@ -22,7 +22,12 @@
   /* Unified card treatment (reference: the Upload card): white surface, 1px var(--line) stroke, this soft shadow. Every card uses these two tokens. */
   /* Summary-metric figures (Dashboard KPIs, Underwriter fleet header, Total Discount): one size platform-wide */
   --metric-fs:20px;--metric-fw:700;--metric-lh:28px;
-  --shadow:0px 21px 45px rgba(207,207,207,.10),0px 3px 11px rgba(184,184,184,.10);
+  /* Card elevation (no outlines anywhere): three soft layers in neutral grey with a trace of sky blue — a tight contact shadow,
+     a mid ambient shadow and a wide, slightly cooler lift (Apple / Fluent-style depth). */
+  --shadow:0 0 6px rgba(84,104,138,.08),0 1px 2px rgba(84,104,138,.06),0 3px 8px rgba(84,104,138,.07),0 8px 16px -4px rgba(96,126,168,.10);
+  /* Card inside a card: same recipe as --shadow with the opacity at 75% and every offset / blur / spread at 25% (75% tighter) */
+  --shadow-nested:0 0 2px rgba(84,104,138,.06),0 .25px .5px rgba(84,104,138,.045),0 .75px 2px rgba(84,104,138,.053),0 2px 4px -1px rgba(96,126,168,.075);
+  --shadow-hover:0 0 6px rgba(84,104,138,.08),0 2px 4px rgba(84,104,138,.07),0 6px 14px rgba(84,104,138,.10),0 14px 28px -6px rgba(96,126,168,.15);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -81,6 +86,15 @@ button{font-family:inherit;cursor:pointer}
 .header .r{display:flex;align-items:center;gap:16px}
 .bell{width:32px;height:32px;border:1px solid var(--e0);background:#fff;border-radius:100px;display:grid;place-items:center;position:relative}
 .bell:hover{background:#fafafa}
+/* Switch Workspace: sits beside the bell, same 32px round button, dark tooltip opens below (header is at the top edge) */
+.swbtn{cursor:pointer;padding:0;color:#757575}
+.swbtn .msym{font-size:20px;font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+.swbtn:hover{color:var(--brand)}
+.swbtn:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:2px}
+.swbtn[data-tip]::after{content:attr(data-tip);position:absolute;top:calc(100% + 10px);right:-4px;background:#212121;color:#fff;font-family:Mulish,sans-serif;font-size:12px;font-weight:600;line-height:1.3;white-space:nowrap;padding:6px 10px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translateY(-3px);transition:opacity .12s,transform .12s,visibility .12s;pointer-events:none;z-index:60}
+.swbtn[data-tip]::before{content:'';position:absolute;top:calc(100% + 4px);right:10px;border:6px solid transparent;border-top:0;border-bottom-color:#212121;opacity:0;visibility:hidden;transition:opacity .12s,visibility .12s;pointer-events:none;z-index:60}
+.swbtn[data-tip]:hover::after,.swbtn[data-tip]:hover::before,.swbtn[data-tip]:focus-visible::after,.swbtn[data-tip]:focus-visible::before{opacity:1;visibility:visible;transform:none}
+@media(prefers-reduced-motion:reduce){.swbtn[data-tip]::after,.swbtn[data-tip]::before{transition:none}}
 .bell .dot{position:absolute;top:6px;right:6px;width:7px;height:7px;background:#ffd400;border-radius:50%}
 .user{display:flex;align-items:center;gap:8px}
 .user .av{width:36px;height:36px;border-radius:50%;overflow:hidden;display:grid;place-items:center;flex:0 0 auto}
@@ -1396,6 +1410,25 @@ tr:nth-child(even) .cc-seg{background:#E8E8E8 !important;}
 @keyframes ovpulse{0%,80%,100%{opacity:.35}40%{opacity:1}}
 .ov-title{font-family:Inter,Mulish,sans-serif;font-size:19px;font-weight:800;color:#212121}
 .ov-sub{font-size:13px;font-weight:500;color:var(--muted);margin-top:10px;line-height:1.5}
+/* ===== Progress overlay: live % ring + step checklist (same card, tokens and brand colours as the rest of the platform) ===== */
+/* balanced hierarchy: heading + description stay the lead-in; the progress sits in its own tinted panel (current process left, live % right) */
+.ov-card{max-width:460px;padding:28px;text-align:left}
+.ov-card .ov-title{font-size:19px;line-height:1.3}
+.ov-card .ov-sub{margin-top:2px;font-size:13px;line-height:1.5}
+.ov-prog{margin-top:22px;padding:16px 18px 18px;background:#FAFAFA;border:1px solid var(--line);border-radius:12px}
+.ov-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.ov-stepno{min-width:0;font-size:14px;font-weight:600;color:#212121}
+.ov-pc{display:inline-flex;align-items:baseline;flex:none}
+.ov-pc b{font-size:14px;font-weight:700;line-height:1.4;color:#212121;font-variant-numeric:tabular-nums}
+.ov-bar{height:10px;margin-top:0;border-radius:100px;background:#EEEEEE;overflow:hidden}
+/* ticker: only the process currently running is shown; the text rolls up into place whenever the process changes */
+.ov-stepno{display:inline-flex;align-items:center;gap:8px;overflow:hidden}
+.ov-stepno .tk{display:inline-block;white-space:nowrap}
+.ov-stepno .tk.in{animation:ovTk .3s cubic-bezier(.22,1,.36,1)}
+@keyframes ovTk{from{transform:translateY(110%);opacity:0}to{transform:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.ov-stepno .tk.in{animation:none}}
+.ov-bar i{display:block;height:100%;width:0;border-radius:100px;background:var(--brand);transition:width .08s linear}
+@media(prefers-reduced-motion:reduce){.ov-bar i{transition:none}}
 /* sticky bottom action bars: Vehicle data + Plan */
 #details .flowcard,#plan .flowcard,#recommend .flowcard{overflow:visible}
 #details .flowfoot,#upload .flowfoot,#recommend .flowfoot,#plan .premfoot{position:sticky;bottom:0;z-index:30}
@@ -1681,8 +1714,8 @@ body.cta-away #policy .pol-foot{bottom:-160px}
 .nq-dot{flex:0 0 auto;color:var(--muted)}
 .nq-dot[hidden]{display:none}
 .nq-bar{height:6px;border-radius:100px;background:var(--line);margin-top:8px;overflow:hidden}
-.nq-bar i{display:block;height:100%;width:0;background:var(--blue);border-radius:100px;transition:width .12s linear,background .2s}
-.nq-bar.done i{background:var(--green)}
+.nq-bar i{display:block;height:100%;width:0;background:var(--brand);border-radius:100px;transition:width .12s linear,background .2s}
+.nq-bar.done{display:none}   /* once the file has uploaded (100%) the bar goes away; the "Uploaded" status stays */
 #upload .flowfoot{justify-content:space-between}
 /* Plan: figures re-price instantly with every change */
 #plan .premfoot .stat .k,#plan .premfoot .btn{white-space:nowrap}
@@ -2043,19 +2076,186 @@ body.cta-away #upload-docs .flowfoot{bottom:-160px}
 .evsearch .sq-x[hidden]{display:none}
 .evsearch .sq-x .msym{font-size:18px;color:#757575}
 .evsearch .sq-x:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:1px}
-/* Bottom-left quiet footer: a subtle way back to the main page + the demo version label (all neutral grey) */
-.homebar{position:fixed;left:24px;bottom:calc(16px + var(--home-lift,0px));z-index:205;display:flex;flex-direction:column;align-items:flex-start;transition:bottom .25s ease;pointer-events:none}
-.homebtn{pointer-events:auto;display:inline-flex;align-items:center;gap:6px;margin-left:-8px;padding:4px 8px;border:0;border-radius:6px;background:transparent;color:#757575;font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:color .15s,background .15s}
-.homebtn .msym{font-size:16px;font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 20}
-.homebtn:hover{color:#424242;background:rgba(0,0,0,.05)}
-.homebtn:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:1px}
-.homever{font-size:11px;line-height:1.5;color:#9E9E9E;white-space:nowrap}   /* one step lighter than the Return to Home label (#757575) */
-#app[hidden]~.homebar .homebtn{display:none}   /* on the main page itself only the version label shows */
-@media(prefers-reduced-motion:reduce){.homebar{transition:none}}
 .rmfoot .stats{display:flex;gap:40px;align-items:flex-start}
 .rmfoot .stat .k{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
 .rmfoot .stat .v{font-size:16px;font-weight:800;margin-top:2px}
 .rmfoot .rm-btns{display:flex;gap:12px}
+/* RM commission entry: each segment shows what its commission works out to; the totals build up underneath */
+#rmdetail .rmct tbody td:nth-child(5){color:#616161}                       /* fixed by underwriting: grey */
+#rmdetail .rmct .rm-amt{color:#007234;font-weight:600}                    /* live, follows the % the RM types: green */
+#rmdetail .rmct .rm-amt.empty,#rmdetail .rmct .live.empty{color:#9E9E9E;font-weight:400}
+#rmdetail .rmct tfoot td{background:#F5F5F5;border-top:1px solid #E0E0E0;height:60px;font-weight:700;color:#212121}
+#rmdetail .rmct tfoot .mut{font-weight:400;color:#616161}
+#rmdetail .rmct tfoot td.mut{font-weight:400;color:#616161}
+#rmdetail .rmct tfoot .live{color:#007234}
+#rmdetail .rmct tfoot td:nth-child(6){padding-left:26px}
+
+/* =====================================================================================================================
+   CARD TREATMENT — platform-wide, kept LAST so it wins over every older per-component rule.
+   1) No card has a stroke / outline (status that used to be a coloured border is still carried by pills, icons and text).
+   2) Every white card has the same soft, cool-grey shadow (--shadow). Tinted panels (grey / blue / orange fills nested inside a
+      card) lose their outline too and are defined by their fill; they carry no shadow of their own.
+   Not cards, so they keep their outlines: inputs, dropdowns, buttons, search / filter controls, chips and pills, tab groups,
+   dashed upload drop-zones, selectable option buttons, alert banners, menus, tooltips and table row dividers.
+   ===================================================================================================================== */
+/* white cards: no stroke + shadow */
+.role,.card,.newqcard,.kcard,.dsec,.seg,.acc,.scard,.aoc,.subacc,.ownacc,.sbox,.nq-card,.fcard,.idvbox,.et-wrap,.tbl-wrap,.caltbl,.calside,
+.hist-card,.rmcard,.ud-seg,.stat-file,.rm-metric,.rec-warnbar,.fms-toast,.flowcard,.navcard,
+#uwdetail .card,#uwdetail .fleet-hdr,#uwdetail .hbox,#uwdetail .dinf,#uwdetail .rc,#uwdetail .ri,#uwdetail .disc-blk,#uwdetail .tbl-wrap,#uwdetail #det-1,#uwdetail #det-2,
+#recommend .zd-card,#recommend .segment,#recommend .age-block,#recommend .rec-warnbar
+{border:0!important;box-shadow:var(--shadow)!important}
+/* tinted / nested panels: no stroke, fill only */
+.qsum,.agebar,.totdisc,.total-box,.stat-list,.rm-file,.rmhist,.appr-det,.ud-gp,.ov-prog,
+#recommend .rec-action-box,
+#uwdetail .vsp,#uwdetail .met,#uwdetail .fchip,#uwdetail .dvtb,#uwdetail .dvc,#uwdetail .ctbl,#uwdetail .ao-grp,#uwdetail .ao-slider-box,
+#ag-addon .ao-grp,#ag-addon .ao-slider-box,
+#recommend .zd-input-block,#recommend .custom-disc-block,#recommend .zd-summary-card,#recommend .disc-chip
+{border:0!important}
+/* states that used a coloured outline */
+.role:hover{box-shadow:var(--shadow-hover)!important}
+#uwdetail .ri.sel{background:var(--soft2)!important}
+#uwdetail .ri:hover{box-shadow:var(--shadow-hover)!important}
+.fms-toast{box-shadow:var(--shadow-hover)!important}   /* floats above the page, so one step higher than resting cards */
+/* card-like tiles that were still outlined: selectable option tiles, file chips, document previews and upload thumbnails.
+   Their selected state is carried by the tint + the radio / tick, not by an outline. */
+.itbtn,.evalbtn,.choice,.nq-chip,#uwdetail .ro,#uwdetail .a4{border:0!important;box-shadow:var(--shadow)!important}
+.itbtn.on,.evalbtn.on,.choice.on{background:var(--soft)!important}
+#uwdetail .ro{background:#fff}
+.ud-box.busy,.ud-box.bad{border:0!important}
+/* safety net: any card-like block that carries an inline 1px outline (style="border:1px solid …") is normalised too */
+div[style*="border:1px solid"],section[style*="border:1px solid"]{border:0!important;box-shadow:var(--shadow)!important}
+/* NESTED CARDS — a card that sits inside another card gets the lighter --shadow-nested (75% opacity, 75% tighter), at any depth.
+   Parents keep the full --shadow. Page-level cards (landing, dashboard, underwriter header) are unaffected. */
+#app :is(.flowcard,.card,.newqcard,.dsec,.seg,.acc,.scard,.aoc,.subacc,.ownacc,.fcard,.idvbox,.rmcard,.ud-seg,.zd-card,.segment,.hbox,.disc-blk,.tbl-wrap,.et-wrap,.caltbl,.calside,.hist-card,.nq-card,#det-1,#det-2)
+:is(.card,.newqcard,.dsec,.seg,.acc,.scard,.aoc,.subacc,.ownacc,.sbox,.fcard,.idvbox,.rmcard,.ud-seg,.zd-card,.segment,.age-block,.hbox,.dinf,.rc,.ri,.disc-blk,.tbl-wrap,.et-wrap,.caltbl,.calside,.hist-card,.nq-card,.nq-chip,.stat-file,.rm-metric,.rec-warnbar,.itbtn,.evalbtn,.choice,.a4,#det-1,#det-2)
+{box-shadow:var(--shadow-nested)!important}
+#uwdetail .card #det-1,#uwdetail .card #det-2{box-shadow:var(--shadow-nested)!important}
+#uwdetail .ri:hover{box-shadow:var(--shadow)!important}
+
+
+/* =====================================================================================================================
+   LEFT NAVIGATION — end-to-end rail (same items and same collapse logic for Agent, Underwriter and Relationship Manager).
+   A full-height panel flush with the left edge, directly under the header; no card shape, no radius, no margin around it.
+   Items: rest = grey; hover = neutral tint; pressed = deeper tint; selected = brand tint + brand text + accent bar on the left edge.
+   Collapsed (icon-only, 68px) keeps the hover labels; the toggle sits at the bottom of the rail.
+   ===================================================================================================================== */
+.body{padding:0;gap:0}
+.main{padding:20px 24px 20px}
+/* when the active screen has a sticky action bar, the page ends exactly at the bar (no padding underneath) so the bar and the rail share the bottom edge */
+.main:has(.screen.on :is(.flowfoot,.premfoot,.rec-foot,.pol-foot,.sfoot,.rmfoot)){padding-bottom:0}
+.sidebar{width:174px;position:sticky;top:62px;height:calc(100vh - 62px);height:calc(100dvh - 62px);align-self:flex-start;display:flex;background:#fff;box-shadow:2px 0 12px rgba(84,104,138,.08)}
+#app .sidebar .navcard{flex:1;width:100%;background:transparent;border-radius:0;box-shadow:none!important;padding:16px 8px;gap:4px}
+#app.nav-min .sidebar .navcard{padding:16px 12px}   /* collapsed rail keeps its 68px icon column */
+#app .navcard button{width:100%;height:44px;padding:0 10px;border-radius:10px;gap:0;font-size:12px;font-weight:500;color:var(--muted2);background:transparent;box-shadow:none}
+#app .navcard button .ic{width:20px;height:20px}
+#app .navcard .nl{margin-left:10px}
+#app .navcard button:hover{background:#F5F5F5;color:var(--ink2)}
+#app .navcard button:active{background:#EEEEEE}
+/* selected (as in the reference): icon + label in the brand colour, bold, no fill; a short rounded bar sits on the rail's right edge */
+#app .navcard button.on{background:transparent;color:var(--brand);font-weight:700;box-shadow:none}
+#app .navcard button.on:hover{background:#F5F5F5;color:var(--brand)}
+#app .navcard button.on:active{background:#EEEEEE}
+#app .sidebar .navcard{position:relative}
+.nav-ind{position:absolute;right:0;top:0;width:3px;height:20px;border-radius:3px 0 0 3px;background:var(--brand);opacity:0;pointer-events:none;transition:top .2s ease,opacity .15s ease}
+@media(prefers-reduced-motion:reduce){.nav-ind{transition:none}}
+#app .navcard .collapse{margin-top:auto;color:var(--muted2)}
+#app .navcard .collapse:hover{color:var(--ink2)}
+@media(max-width:1000px){
+  .body{flex-direction:column}
+  .main{padding:16px}
+  .sidebar{width:100%;height:auto;position:static;top:auto;box-shadow:0 2px 12px rgba(84,104,138,.08)}
+  #app .sidebar .navcard{flex-direction:row;flex-wrap:wrap;padding:8px 12px}
+  #app .navcard button{width:auto;padding:0 16px}
+  .nav-ind{display:none}
+  #app .navcard button.on{background:var(--soft)}
+}
+
+/* Plan page — "Choose Insurance Type" option cards: white surface, no stroke, the same card shadow as everywhere else.
+   Selected = brand-coloured icon + filled tick (already styled) and the full shadow instead of the nested one; hover lifts. */
+/* States use the platform's own orange tints: Orange-500 = --brand #E3530F (primary), Orange-100 = --soft #FFF2ED (the tint already used for
+   icon tiles and selected states), Orange-50 = --soft2 #FFF7F1.
+   rest = white; hover = Orange-50 + lift + brand icon / ring (reads as "you could pick this one"); selected = Orange-100. */
+#app .itbtn{background:#fff!important;transition:background .15s ease,box-shadow .15s ease,transform .15s ease}
+#app .itbtn:hover{background:var(--soft2)!important;box-shadow:var(--shadow-hover)!important;transform:translateY(-1px)}
+#app .itbtn:not(.on):hover .l .msym{color:var(--brand)}
+#app .itbtn:not(.on):hover .rr{border-color:var(--brand)}
+#app .itbtn.on,#app .itbtn.on:hover{background:var(--soft)!important;box-shadow:var(--shadow)!important;transform:none}
+@media(prefers-reduced-motion:reduce){#app .itbtn{transition:none}#app .itbtn:hover{transform:none}}
+#app .itbtn:focus-visible{outline:2px solid rgba(236,102,37,.45);outline-offset:2px}
+
+/* =====================================================================================================================
+   BUTTON SYSTEM — one set of tokens for every CTA on the platform (Agent, Underwriter, Relationship Manager).
+   Applies to buttons that trigger an action. Not covered (not CTAs): radio-style option tiles, filter / date triggers, tabs,
+   pagination, icon-only buttons, close (x) buttons, menus and chips.
+   Shared:  12px / 700, radius full pill (999px = a clean semicircle at each end), padding 10px 12px, 8px gap to an optional 16px leading or trailing icon.
+   Primary   Orange-500 fill, white text.            hover Orange-600 · pressed Orange-700 · disabled grey.
+   Secondary Orange-100 fill, Orange-500 text.       hover Orange-200 · pressed Orange-300 · disabled light grey.
+   Tertiary  no fill, Orange-500 text, no left pad.  hover Orange-600 + underline · pressed Orange-700 · disabled grey text.
+   All types: orange focus ring for keyboard users.
+   ===================================================================================================================== */
+:root{--btn-fs:12px;--btn-fw:700;--btn-r:999px;--btn-px:12px;--btn-py:10px;--btn-gap:8px;
+  --o100:#FFF2ED;--o200:#FFE4D6;--o300:#FFD6C2;--o500:#E3530F;--o600:#CF4A0D;--o700:#B0420A}
+/* shared structure */
+#app :is(.btn.primary,.uploadbtn,.btn-sub,.rm-submit,.btn-accept-rec,.bookbtn,.btn-update,
+         .btn.ghost,.btn.ud-ol,.rm-close,.btn-close,.btn-reject-rec,.btn-ol,.ao-cta-edit,.ao-cta-cancel,.ao-cta-update,.viewbtn,.ud-guide,
+         .btn.link,.samplebtn,.lbtn,.seg-action-link,.viewlink,#details .qempty .btn.link){
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--btn-gap);box-sizing:border-box;
+  height:auto!important;min-height:0!important;padding:var(--btn-py) var(--btn-px)!important;
+  font-family:inherit;font-size:var(--btn-fs)!important;font-weight:var(--btn-fw)!important;line-height:16px!important;
+  border:0!important;border-radius:var(--btn-r)!important;box-shadow:none!important;white-space:nowrap;text-decoration:none;cursor:pointer;
+  transition:background .15s ease,color .15s ease}
+#app :is(.btn.primary,.uploadbtn,.btn-sub,.rm-submit,.btn-accept-rec,.bookbtn,.btn-update,
+         .btn.ghost,.btn.ud-ol,.rm-close,.btn-close,.btn-reject-rec,.btn-ol,.ao-cta-edit,.ao-cta-cancel,.ao-cta-update,.viewbtn,.ud-guide,
+         .btn.link,.samplebtn,.lbtn,.seg-action-link,.viewlink,#details .qempty .btn.link) :is(svg,.msym,.ms){width:16px!important;height:16px!important;font-size:16px!important;flex:none}
+/* PRIMARY */
+#app :is(.btn.primary,.uploadbtn,.btn-sub,.rm-submit,.btn-accept-rec,.bookbtn,.btn-update){background:var(--o500)!important;color:#fff!important}
+#app :is(.btn.primary,.uploadbtn,.btn-sub,.rm-submit,.btn-accept-rec,.bookbtn,.btn-update):hover{background:var(--o600)!important}
+#app :is(.btn.primary,.uploadbtn,.btn-sub,.rm-submit,.btn-accept-rec,.bookbtn,.btn-update):active{background:var(--o700)!important}
+#app :is(.btn.primary,.uploadbtn,.btn-sub,.rm-submit,.btn-accept-rec,.bookbtn,.btn-update):disabled{background:#E0E0E0!important;color:#9E9E9E!important;cursor:not-allowed}
+/* SECONDARY */
+#app :is(.btn.ghost,.btn.ud-ol,.rm-close,.btn-close,.btn-reject-rec,.btn-ol,.ao-cta-edit,.ao-cta-cancel,.ao-cta-update,.viewbtn,.ud-guide){background:var(--o100)!important;color:var(--o500)!important}
+#app :is(.btn.ghost,.btn.ud-ol,.rm-close,.btn-close,.btn-reject-rec,.btn-ol,.ao-cta-edit,.ao-cta-cancel,.ao-cta-update,.viewbtn,.ud-guide):hover{background:var(--o200)!important}
+#app :is(.btn.ghost,.btn.ud-ol,.rm-close,.btn-close,.btn-reject-rec,.btn-ol,.ao-cta-edit,.ao-cta-cancel,.ao-cta-update,.viewbtn,.ud-guide):active{background:var(--o300)!important}
+#app :is(.btn.ghost,.btn.ud-ol,.rm-close,.btn-close,.btn-reject-rec,.btn-ol,.ao-cta-edit,.ao-cta-cancel,.ao-cta-update,.viewbtn,.ud-guide):disabled{background:#F5F5F5!important;color:#BDBDBD!important;cursor:not-allowed}
+/* TERTIARY — no left padding so the label lines up with the content above it */
+#app :is(.btn.link,.samplebtn,.lbtn,.seg-action-link,.viewlink,#details .qempty .btn.link){background:transparent!important;color:var(--o500)!important;padding-left:0!important}
+#app :is(.btn.link,.samplebtn,.lbtn,.seg-action-link,.viewlink,#details .qempty .btn.link):hover{color:var(--o600)!important;text-decoration:underline}
+#app :is(.btn.link,.samplebtn,.lbtn,.seg-action-link,.viewlink,#details .qempty .btn.link):active{color:var(--o700)!important}
+#app :is(.btn.link,.samplebtn,.lbtn,.seg-action-link,.viewlink,#details .qempty .btn.link):disabled{color:#BDBDBD!important;text-decoration:none;cursor:not-allowed;opacity:1!important}
+/* the underwriter Submit carries an older fixed-colour rule with an ID, so its hover / pressed states are restated at the same weight */
+#app #uwdetail .btn-sub.on:hover{background:var(--o600)!important}
+#app #uwdetail .btn-sub.on:active{background:var(--o700)!important}
+/* keyboard focus, all types */
+#app :is(.btn.primary,.uploadbtn,.btn-sub,.rm-submit,.btn-accept-rec,.bookbtn,.btn-update,
+         .btn.ghost,.btn.ud-ol,.rm-close,.btn-close,.btn-reject-rec,.btn-ol,.ao-cta-edit,.ao-cta-cancel,.ao-cta-update,.viewbtn,.ud-guide,
+         .btn.link,.samplebtn,.lbtn,.seg-action-link,.viewlink,#details .qempty .btn.link):focus-visible{outline:2px solid rgba(236,102,37,.45)!important;outline-offset:2px}
+
+/* =====================================================================================================================
+   STICKY ACTION BARS (CTAs, prices, stats) — the left edge lines up with the left edge of the main card (it does NOT touch the
+   navigation rail); the right edge runs out to the end of the screen. Content keeps its original 24px inset on the left; on the
+   right the extra 24px of bar is compensated so buttons stay where they were.
+   ===================================================================================================================== */
+.flowcard{overflow:visible}
+#upload .flowcard{border-radius:20px 20px 0 0!important}
+.flowfoot,.premfoot,.rec-foot,.pol-foot,.sfoot,.rmfoot{margin-left:0!important;margin-right:-24px!important;padding-left:24px!important;padding-right:48px!important}
+@media(max-width:1000px){
+  .flowfoot,.premfoot,.rec-foot,.pol-foot,.sfoot,.rmfoot{margin-left:0!important;margin-right:-16px!important;padding-left:24px!important;padding-right:32px!important}
+}
+/* bars are PURELY bottom-sticky: they never slide away or lift while scrolling, and the underwriter bar is always visible */
+body.cta-away .flowfoot,body.cta-away .premfoot,body.cta-away .rec-foot,body.cta-away .pol-foot,
+body.cta-away #details .flowfoot,body.cta-away #upload .flowfoot,body.cta-away #recommend .flowfoot,body.cta-away #plan .premfoot,
+body.cta-away #policy .pol-foot,body.cta-away #upload-docs .flowfoot{bottom:0!important}
+body.cta-away .sfoot,body.cta-away .rmfoot,.sfoot.hidden-foot{transform:none!important;opacity:1!important;pointer-events:auto!important}
+/* plan / recommendation price bar: 20% shorter (vertical padding 20px -> 12px) */
+.premfoot,.rec-foot{padding-top:12px!important;padding-bottom:12px!important}
+
+/* LANDING PAGE — the "Enter workspace" call-to-actions use the same button system (Agent = primary, the others = tertiary) */
+#landing .role .go{font-size:12px;font-weight:700;gap:8px;line-height:16px;border-radius:var(--btn-r);transition:background .15s ease,color .15s ease}
+#landing .role.agent .go{background:var(--o500);color:#fff;padding:10px 12px}
+#landing .role.agent:hover .go{background:var(--o600)}
+#landing .role:not(.agent) .go{background:transparent;color:var(--o500);padding:10px 12px 10px 0}
+#landing .role:not(.agent):hover .go{color:var(--o600);text-decoration:underline}
+#landing .role .go .msym{font-size:16px}
 </style>
 </head>
 <body>
@@ -2112,15 +2312,18 @@ body.cta-away #upload-docs .flowfoot{bottom:-160px}
   <header class="header">
     <div class="logo illogo" onclick="backToLanding()" title="ICICI Lombard"><svg class="il-svg" viewBox="0 0 171 30" role="img" aria-label="ICICI Lombard"><use href="#il-logo"/></svg></div>
     <div class="r">
-      <button class="bell"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#757575" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></button>
+      <button class="bell swbtn" type="button" data-tip="Switch Workspace" aria-label="Switch Workspace" onclick="backToLanding()"><span class="msym" aria-hidden="true">switch_account</span></button><button class="bell"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#757575" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="dot"></span></button>
       <div class="user"><div class="av av-in" aria-label="Kumar Varun" title="Kumar Varun">KV</div></div>
     </div>
   </header>
   <div class="ov-mask" id="ov-mask" aria-live="polite">
     <div class="ov-card">
-      <div class="ov-dots"><span class="ov-d1"></span><span class="ov-d2"></span><span class="ov-d3"></span></div>
-      <div class="ov-title" id="ov-title">Analysing vehicle details</div>
-      <div class="ov-sub" id="ov-sub">Please refrain from refreshing or closing this page while the details are being verified.</div>
+      <div class="ov-title" id="ov-title" role="status" aria-live="polite">Fetching your vehicle details</div>
+      <div class="ov-sub" id="ov-sub">This only takes a moment. Please don’t refresh or close this page.</div>
+      <div class="ov-prog">
+        <div class="ov-meta"><span class="ov-stepno" id="ov-stepno" aria-live="polite"><span class="tk" id="ov-tk">Reading file</span></span><span class="ov-pc" aria-hidden="true"><b id="ov-pct">0%</b></span></div>
+        <div class="ov-bar" aria-hidden="true"><i id="ov-fill"></i></div>
+      </div>
     </div>
   </div>
 
@@ -3403,7 +3606,7 @@ body.cta-away #upload-docs .flowfoot{bottom:-160px}
             </div>
             <div class="hrem"><div class="l">Underwriter Name &amp; Remark</div>1. Mrs. Anjum Chopra : Fleet is approved</div>
           </div></div></div>
-          <div class="rmcard"><div class="rmcard-bd"><div class="rm-head" style="margin-bottom:4px"><div class="ch-l" style="display:flex;align-items:center;gap:14px"><span class="sec-ic"><span class="msym">payments</span></span><div class="ch-tx"><h2 style="margin:0;font-size:18px">Enter Commission Values for Vehicle Segments</h2><p style="margin:4px 0 0;font-size:12px;color:#616161">Please enter commission values for each vehicle segment, with pre-filled discounts already provided in the table.</p></div></div></div><div class="rm-err" id="rm-err" hidden><span><span class="msym" style="font-size:18px;vertical-align:-3px">warning</span> Discount exceeds limit. Reduce commission to proceed.</span><span class="x" onclick="document.getElementById('rm-err').hidden=true"><span class="msym">close</span></span></div><div class="et-wrap"><table class="et rmct"><colgroup><col style="width:6%"><col style="width:30%"><col style="width:16%"><col style="width:15%"><col style="width:13%"><col style="width:20%"></colgroup><thead><tr><th>S.No.</th><th>Segment</th><th>Number of vehicle</th><th>Status</th><th>Discount (%)</th><th>Commission (%)</th></tr></thead><tbody><tr><td>1</td><td>SCV&lt;=2.5T- private</td><td>50</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>2</td><td>GCV&gt;20&lt;=40T truck-Private</td><td>60</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>3</td><td>PCV CC&gt;18 &amp; &lt;36_School Bus- Private</td><td>40</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>4</td><td>SCV&lt;=2.5T- private</td><td>30</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td></tr><tr><td>5</td><td>GCV&gt;20&lt;=40T truck-Private</td><td>20</td><td><span class="opill red">Rejected</span></td><td>15</td><td><input class="rm-comm" data-rej="1" disabled placeholder="Enter Commission"></td></tr></tbody></table></div></div></div>
+          <div class="rmcard"><div class="rmcard-bd"><div class="rm-head" style="margin-bottom:4px"><div class="ch-l" style="display:flex;align-items:center;gap:14px"><span class="sec-ic"><span class="msym">payments</span></span><div class="ch-tx"><h2 style="margin:0;font-size:18px">Enter Commission Values for Vehicle Segments</h2><p style="margin:4px 0 0;font-size:12px;color:#616161">Please enter commission values for each vehicle segment, with pre-filled discounts already provided in the table.</p></div></div></div><div class="rm-err" id="rm-err" hidden><span><span class="msym" style="font-size:18px;vertical-align:-3px">warning</span> Discount exceeds limit. Reduce commission to proceed.</span><span class="x" onclick="document.getElementById('rm-err').hidden=true"><span class="msym">close</span></span></div><div class="et-wrap"><table class="et rmct"><colgroup><col style="width:6%"><col style="width:26%"><col style="width:12%"><col style="width:13%"><col style="width:11%"><col style="width:16%"><col style="width:16%"></colgroup><thead><tr><th>S.No.</th><th>Segment</th><th>Number of vehicle</th><th>Status</th><th>Discount (%)</th><th>Commission (%)</th><th>Commission (&#8377;)</th></tr></thead><tbody><tr><td>1</td><td>SCV&lt;=2.5T- private</td><td>50</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td><td class="rm-amt empty">&mdash;</td></tr><tr><td>2</td><td>GCV&gt;20&lt;=40T truck-Private</td><td>60</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td><td class="rm-amt empty">&mdash;</td></tr><tr><td>3</td><td>PCV CC&gt;18 &amp; &lt;36_School Bus- Private</td><td>40</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td><td class="rm-amt empty">&mdash;</td></tr><tr><td>4</td><td>SCV&lt;=2.5T- private</td><td>30</td><td><span class="opill green">Approved</span></td><td>15</td><td><input class="rm-comm" type="number" data-disc="15" oninput="rmValidate()" placeholder="Enter Commission"></td><td class="rm-amt empty">&mdash;</td></tr><tr><td>5</td><td>GCV&gt;20&lt;=40T truck-Private</td><td>20</td><td><span class="opill red">Rejected</span></td><td>15</td><td><input class="rm-comm" data-rej="1" disabled placeholder="Enter Commission"></td><td class="rm-amt empty">&mdash;</td></tr></tbody><tfoot id="rm-tfoot"><tr class="rm-tot"><td></td><td>Total <span class="mut">&middot; approved vehicles</span></td><td id="rm-t-veh">0</td><td></td><td class="mut" id="rm-t-disc">avg. 0%</td><td class="live empty" id="rm-t-pct">&mdash;</td><td class="live empty" id="rm-t-amt">&mdash;</td></tr></tfoot></table></div></div></div>
         </div>
         <div class="rmfoot"><div class="stats"><div class="stat"><div class="k">Final Annual Premium<span class="info-tip"><button type="button" class="info-tip-btn" aria-label="How this is calculated" aria-expanded="false" aria-describedby="tip-rm-prem"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button><span class="info-tip-bubble" role="tooltip" id="tip-rm-prem">Premium for the approved vehicles after the fleet discount. Rejected segments are not included.</span></span></div><div class="v pricev"><span class="mono" id="rm-prem">&#8377;0</span><s class="was mono" id="rm-gross" title="Premium before discount">&#8377;0</s><span class="save-chip" id="rm-save-chip"><span class="msym">sell</span>Saved <span class="mono" id="rm-sav">&#8377;0</span></span></div></div></div><div class="rm-btns"><button class="rm-close" onclick="go(rmBackTarget())">Close</button><button class="rm-submit" id="rm-foot-submit" disabled onclick="rmSubmit()">Submit</button></div></div>
       </section>
@@ -3411,7 +3614,6 @@ body.cta-away #upload-docs .flowfoot{bottom:-160px}
   </div>
 </div>
 
-<div class="homebar" id="homebar"><button class="homebtn" type="button" onclick="backToLanding()"><span class="msym" aria-hidden="true">arrow_back</span>Return to Home</button><span class="homever">Version V1.2 For Demo</span></div>
 
 <script>
 const strat=[[1,'Apex Shield Insurance','FMS1001',100,50,20,40],[2,'BlueStar Risk Partners','FMS1002',200,100,60,60],[3,'Crestline Assurance Co.','FMS1003',300,150,100,67],[4,'Vantage Protect Agency','FMS1004',400,200,140,70],[5,'Meridian Cover Group','FMS1005',500,250,180,72],[6,'Pinnacle Trust Insurers','FMS1006',600,300,220,73],[7,'Safehold Advisory Pvt. Ltd','FMS1007',700,350,260,74],[8,'Nexus Guard Insurance','FMS1008',800,400,300,75],[9,'Clearpath Risk Solutions','FMS1009',900,450,340,76],[10,'Harborview Assurance Ltd','FMS1010',1000,500,380,76]];
@@ -3679,9 +3881,9 @@ function nqAdd(files){
 function nqFetch(){
   var up=nqFiles.some(function(f){return f.status==='up';}),ok=nqFiles.some(function(f){return f.status==='ok';});
   if(up||!ok)return;
-  analyse(['Analysing vehicle details','Fetching details from VAHAN','Fetching details from IIB'],'Please refrain from refreshing or closing this page while the details are being verified.',function(){
+  analyse(['Reading file','Fetching VAHAN details','Fetching insurance details','Preparing table'],'This only takes a moment. Please don’t refresh or close this page.',function(){
     if(document.getElementById('upload').classList.contains('on')){go('details');window.scrollTo(0,0);}
-  },4000);
+  },4000,'Fetching your vehicle details');
 }
 function itype(el){el.parentNode.querySelectorAll('.itbtn').forEach(c=>{c.classList.remove('on');c.querySelector('.rr').innerHTML='';});el.classList.add('on');el.querySelector('.rr').innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9" stroke="#fff" stroke-width="2" fill="none"/></svg>';
   /* Fleet Discount applies to Comprehensive and Mixed Coverage only */
@@ -5120,20 +5322,34 @@ function setRMMode(mode){
    Rejected segments are left out. Premium and saving are rounded to the nearest Rs 25, as on the Plan page. */
 var RM_SEG={scv:{od:12000,tp:4500},gcv:{od:24000,tp:8000},pcv:{od:28000,tp:9000}};
 function rmFigures(){
-  var gross=0,sav=0,comm=0,veh=0,wv=0,wd=0;
+  var gross=0,sav=0,comm=0,veh=0,wv=0,wd=0,typed=0,rows=[];
   [].forEach.call(document.querySelectorAll('#rmdetail tbody tr'),function(tr){
-    var c=tr.querySelector('.rm-comm');if(!c||c.dataset.rej)return;
+    var c=tr.querySelector('.rm-comm');if(!c||c.dataset.rej){rows.push(null);return;}
     var name=tr.children[1].textContent.trim(),k=/^SCV/i.test(name)?'scv':(/^GCV/i.test(name)?'gcv':'pcv'),sg=RM_SEG[k];
-    var n=parseInt(tr.children[2].textContent,10)||0,d=Number(c.dataset.disc)||0,pct=Number(c.value)||0;
-    var g=Math.round(n*(sg.od+sg.tp)/25)*25,sv=Math.round(n*sg.od*0.5*d/100/25)*25;
-    gross+=g;sav+=sv;comm+=(g-sv)*pct/100;veh+=n;wv+=n*pct;wd+=n*d;
+    var n=parseInt(tr.children[2].textContent,10)||0,d=Number(c.dataset.disc)||0,pct=Number(c.value)||0,has=c.value.trim()!=='';
+    var g=Math.round(n*(sg.od+sg.tp)/25)*25,sv=Math.round(n*sg.od*0.5*d/100/25)*25,amt=Math.round((g-sv)*pct/100);
+    gross+=g;sav+=sv;veh+=n;wv+=n*pct;wd+=n*d;
+    if(has){typed++;comm+=amt;}
+    rows.push({amt:has?amt:null});
   });
   var net=gross-sav;
-  return {gross:gross,sav:sav,net:net,comm:Math.round(comm),pct:veh?Math.round(wv/veh*100)/100:0,disc:veh?Math.round(wd/veh*100)/100:0};   /* pct = average commission rate across approved vehicles */
+  /* comm = sum of the per-segment amounts shown in the table; pct = average commission rate across approved vehicles */
+  return {gross:gross,sav:sav,net:net,comm:comm,veh:veh,typed:typed,rows:rows,pct:veh?Math.round(wv/veh*100)/100:0,disc:veh?Math.round(wd/veh*100)/100:0};
 }
 function rmCalc(){
   if(!document.getElementById('rm-prem'))return;
-  priceWrite('rm',rmFigures());   /* Final Annual Premium + saving in the sticky bar */
+  var f=rmFigures();priceWrite('rm',f);                          /* sticky bar: Final Annual Premium + saving */
+  var inr=function(n){return '\u20b9'+Number(n).toLocaleString('en-IN');};
+  [].forEach.call(document.querySelectorAll('#rmdetail tbody tr'),function(tr,i){   /* per segment: commission in rupees */
+    var cell=tr.querySelector('.rm-amt'),r=f.rows[i];if(!cell)return;
+    var has=!!(r&&r.amt!==null);
+    cell.textContent=has?inr(r.amt):'\u2014';cell.classList.toggle('empty',!has);
+  });
+  var set=function(id,t,empty){var e=document.getElementById(id);if(!e)return;e.textContent=t;e.classList.toggle('empty',!!empty);};
+  var any=f.typed>0;
+  set('rm-t-veh',f.veh);set('rm-t-disc','avg. '+f.disc+'%');
+  set('rm-t-pct',any?f.pct+'%':'\u2014',!any);set('rm-t-amt',any?inr(f.comm):'\u2014',!any);
+  var tf=document.getElementById('rm-tfoot');if(tf)tf.hidden=(typeof rmMode!=='undefined'&&rmMode==='view');   /* no commission is entered on closed cases */
 }
 
 /* ===== RM: Submit -> "Evaluation Successful" popup with the fleet's key figures ===== */
@@ -5199,15 +5415,30 @@ function agZDInput(val){val=parseInt(val);if(isNaN(val)||val<0)val=0;if(val>100)
 
 
 /* ===== Analysing overlay driver ===== */
-function analyse(stages, sub, done, dur){
-  var mask=document.getElementById('ov-mask'), ttl=document.getElementById('ov-title'), sb=document.getElementById('ov-sub');
-  if(!mask){ if(done)done(); return; }
+/* stages: array of 'Label' strings. A ticker shows only the process currently running (it rolls up when the process changes),
+   with a live % and one continuous bar. dur is the TOTAL time the popup stays open (incl. a short hold at 100%),
+   then it closes and runs done(). title is optional. */
+var _anIv=null,_anTo=null;
+function analyse(stages, sub, done, dur, title){
+  var mask=document.getElementById('ov-mask'), ttl=document.getElementById('ov-title'), sb=document.getElementById('ov-sub'),
+      pct=document.getElementById('ov-pct'), fill=document.getElementById('ov-fill'), tk=document.getElementById('ov-tk');
+  if(!mask||!fill||!tk||!stages||!stages.length){ if(done)done(); return; }
+  if(_anIv){clearInterval(_anIv);_anIv=null;} if(_anTo){clearTimeout(_anTo);_anTo=null;}
+  var names=stages.map(function(s){return typeof s==='string'?s:s.t;}), n=names.length, last=0;
   if(sb && sub) sb.textContent=sub;
-  ttl.textContent=stages[0];
+  ttl.textContent=title||'Just a moment';
+  tk.textContent=names[0]; tk.classList.remove('in'); pct.textContent='0%'; fill.style.width='0%';
   mask.classList.add('on');
-  var total=dur||3000, per=total/stages.length, i=0;
-  var iv=setInterval(function(){ i++; if(i<stages.length) ttl.textContent=stages[i]; }, per);
-  setTimeout(function(){ clearInterval(iv); mask.classList.remove('on'); if(done)done(); }, total);
+  var total=dur||3000, hold=Math.min(400,total*0.1), run=Math.max(1,total-hold), t0=Date.now();
+  _anIv=setInterval(function(){
+    var p=Math.min(1,(Date.now()-t0)/run), k=Math.min(n-1,Math.floor(p*n+1e-9));
+    pct.textContent=Math.floor(p*100)+'%'; fill.style.width=(p*100)+'%';
+    if(k!==last){ last=k; tk.textContent=names[k]; tk.classList.remove('in'); void tk.offsetWidth; tk.classList.add('in'); }
+    if(p>=1){
+      clearInterval(_anIv);_anIv=null;
+      _anTo=setTimeout(function(){ _anTo=null; mask.classList.remove('on'); if(done)done(); }, hold);
+    }
+  },40);
 }
 
 
@@ -6027,12 +6258,8 @@ function discardAndProceed() {
 
 /* host loader (reuses the analysing overlay) */
 function recLoad(cb){
-  var mask=document.getElementById('ov-mask');
-  var t=document.getElementById('ov-title'), sb=document.getElementById('ov-sub');
-  if(t) t.textContent='Re-evaluating Eligibility';
-  if(sb) sb.textContent='Checking your updated fleet configuration and recalculating recommendations.';
-  mask.classList.add('on');
-  setTimeout(function(){ mask.classList.remove('on'); cb(); }, 1400);
+  /* same loader as every other pop-up: ticker + live % + 4s */
+  analyse(['Evaluating your fleet','Finding the best fit'],'This only takes a moment. Please don’t refresh or close this page.',cb,4000,'Reviewing your recommendations');
 }
 /* generic host modal */
 function rcModal(o){
@@ -6141,7 +6368,8 @@ function planApply(){
   var s=document.querySelector('#plan .stats');if(s){s.classList.remove('fresh');void s.offsetWidth;s.classList.add('fresh');}
 }
 function planGetQuote(){
-  analyse(['Analysing fleet','Generating quotes'],'Please refrain from refreshing or closing this page while your quote is being generated.',function(){openInterception();},4000);
+  /* two processes, each holds the ticker for half of the run: the fleet is evaluated, then vehicle quotes are generated */
+  analyse(['Evaluating your fleet','Generating vehicle quotes'],'This only takes a moment. Please don’t refresh or close this page.',function(){openInterception();},4000,'Getting your quotes ready');
 }
 function planCta(){if(planBusy)return;planGetQuote();}
 (function planInit(){
@@ -6202,6 +6430,22 @@ function relPick(v){if(!relCur)return;relCur.querySelector('.val').textContent=v
     else if(e.key==='Tab'){relClose();}
   });
   window.addEventListener('scroll',relPos,true);window.addEventListener('resize',relPos);
+})();
+</script>
+<script>
+/* Navigation selection bar: one decorative bar slides to whichever item is selected (any role, expanded or collapsed) */
+(function(){
+  var nav=document.getElementById('nav'); if(!nav) return;
+  var ind=document.createElement('i'); ind.className='nav-ind'; ind.setAttribute('aria-hidden','true'); nav.appendChild(ind);
+  function pos(){
+    var b=nav.querySelector('button.on:not(.collapse)');
+    if(!b||b.offsetParent===null){ ind.style.opacity='0'; return; }
+    ind.style.opacity='1'; ind.style.top=(b.offsetTop+(b.offsetHeight-20)/2)+'px';
+  }
+  new MutationObserver(function(m){ if(m.every(function(x){return x.target===ind;})) return; pos(); })
+    .observe(nav,{attributes:true,subtree:true,attributeFilter:['class','style']});
+  if(window.ResizeObserver) new ResizeObserver(pos).observe(nav);   /* also fires when the app is first shown */
+  window.addEventListener('resize',pos); window.addEventListener('load',pos); pos();
 })();
 </script>
 </body>
